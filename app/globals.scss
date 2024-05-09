@@ -1,7 +1,4 @@
 @use "@carbon/react";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 /* carbon */
 @media (min-width: 42rem) {
@@ -14,37 +11,4 @@
 .cds--content {
   margin-top: 3rem;
   background: var(--cds-background);
-}
-
-/* tailwind */
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-body {
-  @apply grid justify-center;
-}
-
-section {
-  @apply flex flex-wrap justify-center w-full;
-}
-
-.app {
-  @apply grid grid-rows-[56px,1fr,56px] min-h-dvh w-dvw max-w-[968px];
 }
