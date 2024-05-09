@@ -1,7 +1,0 @@
-.header {
-  @apply w-full backdrop-blur sticky top-0 z-10 px-2;
-}
-
-.nav {
-  @apply flex justify-between items-center h-full;
-}
