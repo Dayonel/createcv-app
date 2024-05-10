@@ -17,27 +17,33 @@ export default function CV() {
   };
 
   return (
-    <form className={`${styles.form} grid grid-cols-2 auto-cols-min`}>
-      <div className="flex flex-col">
-        <input
-          type="text"
-          name="name"
-          className={`font-bold text-3xl outline-none border-0 ${styles.input} ${styles.highlight}`}
-          placeholder="John Doe"
-          onChange={handleChange}
-          value={form.name}
-        />
+    <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
+      <div className={styles.experience}></div>
+      <div className={styles.header}>
+        <div className="flex flex-col items-center md:items-start">
+          <input
+            type="text"
+            name="name"
+            className={`font-bold text-3xl outline-none text-center md:text-start ${styles.highlight}`}
+            placeholder="John Doe"
+            onChange={handleChange}
+            value={form.name}
+          />
 
-        <input
-          type="text"
-          onChange={handleChange}
-          className={`font-bold text-sm outline-none ${styles.highlight}`}
-          name="position"
-          placeholder="Full Stack Developer"
-          value={form.position}
-        />
+          <input
+            type="text"
+            onChange={handleChange}
+            className={`font-bold text-sm outline-none text-center md:text-start ${styles.highlight}`}
+            name="position"
+            placeholder="Full Stack Developer"
+            value={form.position}
+          />
+        </div>
+        <Download></Download>
       </div>
-      <Download></Download>
+      <div className={styles.education}>
+        <div className={styles.skills}></div>
+      </div>
     </form>
   );
 }
