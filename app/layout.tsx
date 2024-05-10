@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <div className="grid grid-rows-[56px,1fr,56px] min-h-dvh w-dvw max-w-[968px]">
+        <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-dvw max-w-[1024px] justify-items-center">
           <Header></Header>
           <main>{children}</main>
           <Footer></Footer>

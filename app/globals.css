@@ -28,10 +28,14 @@ body {
   justify-content: center;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
+main {
+  max-width: 944px;
 }
 
+.menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+}
