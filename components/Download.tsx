@@ -6,7 +6,12 @@ const download = () => {};
 
 export default function Download() {
   return (
-    <Button kind="tertiary" renderIcon={DocumentPdf} onClick={download}>
+    <Button
+      className="download place-self-end self-start"
+      kind="tertiary"
+      renderIcon={DocumentPdf}
+      onClick={download}
+    >
       Download
     </Button>
   );

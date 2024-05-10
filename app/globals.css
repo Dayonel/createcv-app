@@ -23,16 +23,6 @@
   }
 }
 
-body {
-  display: grid;
-  justify-content: center;
-}
-
-main {
-  width: 100%;
-  max-width: 944px;
-}
-
 .menu-item {
   display: flex;
   justify-content: center;

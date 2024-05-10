@@ -1,9 +1,18 @@
 .highlight {
   transition: outline 0.3s ease-in-out;
   outline-offset: -2px;
-  padding: 2px;
+  /* padding: 2px; */
 }
 
 .highlight:hover {
   outline: 2px solid var(--cds-focus, #0f62fe);
+}
+
+.input,
+.textarea {
+  /* padding: 1px 6px; */
+}
+
+.form input {
+  field-sizing: content;
 }

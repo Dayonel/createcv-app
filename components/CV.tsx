@@ -10,41 +10,33 @@ export default function CV() {
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    measureWidth(e.target);
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
 
-  const measureWidth = (input: HTMLInputElement) => {
-    input.style.width = '100px';
-    input.style.width = `${input.scrollWidth}px`;
-  };
-
   return (
-    <form className="flex flex-col">
-      <input
-        type="text"
-        onChange={handleChange}
-        className={`font-bold text-3xl outline-none ${styles.highlight}`}
-        style={{ minWidth: 131, width: 131 }}
-        id="name"
-        name="name"
-        placeholder="John doe"
-        value={form.name}
-      />
+    <form className={`${styles.form} grid grid-cols-2 auto-cols-min`}>
+      <div className="flex flex-col">
+        <input
+          type="text"
+          name="name"
+          className={`font-bold text-3xl outline-none border-0 ${styles.input} ${styles.highlight}`}
+          placeholder="John Doe"
+          onChange={handleChange}
+          value={form.name}
+        />
 
-      <input
-        type="text"
-        onChange={handleChange}
-        className={`font-bold text-sm w-fit outline-none ${styles.highlight}`}
-        style={{ minWidth: 133, width: 133 }}
-        name="position"
-        placeholder="Full Stack Developer"
-        value={form.position}
-        size={form.position.length}
-      />
+        <input
+          type="text"
+          onChange={handleChange}
+          className={`font-bold text-sm outline-none ${styles.highlight}`}
+          name="position"
+          placeholder="Full Stack Developer"
+          value={form.position}
+        />
+      </div>
       <Download></Download>
     </form>
   );
