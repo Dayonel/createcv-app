@@ -1,9 +1,9 @@
-import Download from '@/components/Download';
+import CV from '@/components/CV';
 
 export default function Home() {
   return (
     <section>
-      <Download></Download>
+      <CV></CV>
     </section>
   );
 }
