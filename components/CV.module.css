@@ -1,7 +1,6 @@
 .highlight {
   transition: outline 0.3s ease-in-out;
   outline-offset: -2px;
-  /* padding: 2px; */
 }
 
 .highlight:hover {
@@ -15,7 +14,6 @@
 
 .container input {
   background-color: var(--cds-background, #ffffff);
-  field-sizing: content;
 }
 
 /* Media query for screens smaller than 768px */
