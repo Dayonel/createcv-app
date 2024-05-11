@@ -8,13 +8,14 @@
   outline: 2px solid var(--cds-focus, #0f62fe);
 }
 
-.input,
-.textarea {
-  /* padding: 1px 6px; */
+.container input,
+.container textarea {
+  padding: 1px 6px;
 }
 
-.form input {
-  /* field-sizing: content; */
+.container input {
+  background-color: var(--cds-background, #ffffff);
+  field-sizing: content;
 }
 
 /* Media query for screens smaller than 768px */
