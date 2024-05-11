@@ -24,7 +24,7 @@ export default function CV() {
           <input
             type="text"
             name="name"
-            className={`font-bold text-3xl outline-none text-center md:text-start ${styles.highlight}`}
+            className={`max-w-xs md:max-w-lg font-bold text-3xl outline-none text-center md:text-start ${styles.highlight}`}
             placeholder="John Doe"
             onChange={handleChange}
             value={form.name}
@@ -33,7 +33,7 @@ export default function CV() {
           <input
             type="text"
             onChange={handleChange}
-            className={`font-bold text-sm outline-none text-center md:text-start ${styles.highlight}`}
+            className={`max-w-xs md:max-w-lg font-bold text-sm outline-none text-center md:text-start ${styles.highlight}`}
             name="position"
             placeholder="Full Stack Developer"
             value={form.position}
