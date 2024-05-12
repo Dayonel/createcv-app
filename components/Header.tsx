@@ -1,5 +1,7 @@
+'use client';
 import { DocumentPdf } from '@carbon/icons-react';
 import Login from './Login';
+import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
   return (
@@ -8,7 +10,10 @@ export default function Header() {
         <span className="menu-item">
           <DocumentPdf size={28}></DocumentPdf>
         </span>
-        <Login></Login>
+        <div className="flex items-center">
+          <ThemeToggle></ThemeToggle>
+          <Login></Login>
+        </div>
       </nav>
     </header>
   );

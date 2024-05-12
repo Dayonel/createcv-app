@@ -4,6 +4,7 @@ import './globals.scss';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import localFont from 'next/font/local';
+import ThemeProvider from '@/components/ThemeProvider';
 
 const roboto = localFont({
   src: [
@@ -36,11 +37,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`grid justify-center ${roboto.className}`}>
-        <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-dvw max-w-[1024px] justify-items-center">
-          <Header></Header>
-          <main className="w-full max-w-[984px] px-4">{children}</main>
-          <Footer></Footer>
-        </div>
+        <ThemeProvider>
+          <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-dvw max-w-[1024px] justify-items-center">
+            <Header></Header>
+            <main className="w-full max-w-[984px] px-4">{children}</main>
+            <Footer></Footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

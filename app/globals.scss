@@ -1,9 +1,13 @@
 @use "@carbon/react";
-@use "@carbon/themes/scss/themes" as *;
-@use "@carbon/themes";
+@use '@carbon/styles/scss/theme';
+@use '@carbon/styles/scss/themes';
 
 :root {
-  @include themes.theme($g10);
+  @include theme.theme(themes.$g10);
+}
+
+[data-carbon-theme="g90"] {
+  @include theme.theme(themes.$g90);
 }
 
 /* carbon */

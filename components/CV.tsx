@@ -3,6 +3,7 @@ import Download from './Download';
 import styles from './CV.module.css';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Link from './Link';
+import { Email } from '@carbon/icons-react';
 
 export default function CV() {
   const formEl = useRef<HTMLFormElement>(null!);
@@ -10,11 +11,13 @@ export default function CV() {
   const placeholders = {
     name: 'John Doe',
     position: 'Full Stack Developer',
+    link1: 'email@example.com',
   };
 
   const [form, setForm] = useState({
     name: placeholders.name,
     position: placeholders.position,
+    link1: placeholders.link1,
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +59,9 @@ export default function CV() {
           <input
             type="text"
             name="name"
-            className={`max-w-xs md:max-w-lg font-bold text-3xl outline-none text-center md:text-start ${styles.highlight}`}
+            className={
+              'max-w-xs md:max-w-lg font-bold text-3xl outline-none text-center md:text-start highlight'
+            }
             onChange={handleChange}
             placeholder={placeholders.name}
             value={form.name}
@@ -64,7 +69,9 @@ export default function CV() {
 
           <input
             type="text"
-            className={`max-w-xs md:max-w-lg font-bold text-sm outline-none text-center md:text-start ${styles.highlight}`}
+            className={
+              'max-w-xs md:max-w-lg font-bold text-sm outline-none text-center md:text-start highlight'
+            }
             name="position"
             onChange={handleChange}
             placeholder={placeholders.position}
@@ -73,7 +80,12 @@ export default function CV() {
         </div>
         <Download></Download>
         <div className={styles.links}>
-          <Link></Link>
+          <Link
+            props={{ value: form.link1, name: 'link1' }}
+            onChange={handleChange}
+          >
+            <Email></Email>
+          </Link>
         </div>
       </div>
       <div className={styles.education}>

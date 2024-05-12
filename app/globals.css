@@ -30,3 +30,12 @@
   width: 42px;
   height: 42px;
 }
+
+.highlight {
+  transition: outline 0.3s ease-in-out;
+  outline-offset: -2px;
+}
+
+.highlight:hover {
+  outline: 2px solid var(--cds-focus, #0f62fe);
+}
