@@ -1,14 +1,24 @@
 import type { Metadata } from 'next';
-import { Roboto } from 'next/font/google';
 import './globals.css';
 import './globals.scss';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import localFont from 'next/font/local';
 
-const roboto = Roboto({
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
+const roboto = localFont({
+  src: [
+    {
+      path: '../public/fonts/Roboto-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Roboto-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    { path: '../public/fonts/Roboto-Bold.ttf', weight: '700', style: 'normal' },
+  ],
   display: 'swap',
 });
 

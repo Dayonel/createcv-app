@@ -2,6 +2,7 @@
 import Download from './Download';
 import styles from './CV.module.css';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import Link from './Link';
 
 export default function CV() {
   const formEl = useRef<HTMLFormElement>(null!);
@@ -56,21 +57,24 @@ export default function CV() {
             type="text"
             name="name"
             className={`max-w-xs md:max-w-lg font-bold text-3xl outline-none text-center md:text-start ${styles.highlight}`}
-            placeholder={placeholders.name}
             onChange={handleChange}
+            placeholder={placeholders.name}
             value={form.name}
           />
 
           <input
             type="text"
-            onChange={handleChange}
             className={`max-w-xs md:max-w-lg font-bold text-sm outline-none text-center md:text-start ${styles.highlight}`}
             name="position"
+            onChange={handleChange}
             placeholder={placeholders.position}
             value={form.position}
           />
         </div>
         <Download></Download>
+        <div className={styles.links}>
+          <Link></Link>
+        </div>
       </div>
       <div className={styles.education}>
         <div className={styles.skills}></div>

@@ -1,0 +1,5 @@
+@use "@carbon/react/scss/components/link";
+
+.link svg {
+  color: link.$link-text-color;
+}
