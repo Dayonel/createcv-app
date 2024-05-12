@@ -3,7 +3,7 @@ import Download from './Download';
 import styles from './CV.module.css';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Link from './Link';
-import { Email } from '@carbon/icons-react';
+import { Email, LogoLinkedin, Phone } from '@carbon/icons-react';
 
 export default function CV() {
   const formEl = useRef<HTMLFormElement>(null!);
@@ -12,12 +12,16 @@ export default function CV() {
     name: 'John Doe',
     position: 'Full Stack Developer',
     link1: 'email@example.com',
+    link2: 'linkedin.com/in/nestor-plysyuk',
+    link3: '(+31) 666333999',
   };
 
   const [form, setForm] = useState({
     name: placeholders.name,
     position: placeholders.position,
     link1: placeholders.link1,
+    link2: placeholders.link2,
+    link3: placeholders.link3,
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +88,19 @@ export default function CV() {
             props={{ value: form.link1, name: 'link1' }}
             onChange={handleChange}
           >
-            <Email></Email>
+            <Email size={16}></Email>
+          </Link>
+          <Link
+            props={{ value: form.link2, name: 'link2' }}
+            onChange={handleChange}
+          >
+            <LogoLinkedin size={16}></LogoLinkedin>
+          </Link>
+          <Link
+            props={{ value: form.link3, name: 'link3' }}
+            onChange={handleChange}
+          >
+            <Phone size={16}></Phone>
           </Link>
         </div>
       </div>

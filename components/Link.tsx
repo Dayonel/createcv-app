@@ -5,7 +5,7 @@ export default function Link({ props, onChange, children }: any) {
   const placeholder = useRef(props.value);
 
   return (
-    <span className={`flex items-center ${styles.link}`}>
+    <span className={`pl-[6px] flex items-center h-[24px] ${styles.link}`}>
       {children}
       <input
         type="text"
