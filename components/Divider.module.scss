@@ -1,0 +1,16 @@
+@use "@carbon/themes/scss/tokens";
+
+
+.divider {
+  color: tokens.$link-primary;
+}
+
+.divider::after {
+  position: absolute;
+  content: "";
+  border: 1px solid tokens.$border-subtle-03;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0.75rem;
+}

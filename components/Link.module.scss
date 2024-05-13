@@ -1,7 +1,7 @@
-@use "@carbon/react/scss/components/link";
+@use "@carbon/themes/scss/tokens";
 
 .link svg {
-  color: link.$link-text-color;
+  color: tokens.$link-primary;
   min-width: 16px;
   min-height: 16px;
 }

@@ -13,6 +13,7 @@ import {
 } from '@carbon/icons-react';
 import TextArea from './TextArea';
 import Input from './Input';
+import Divider from './Divider';
 
 export default function CV() {
   const placeholders = {
@@ -47,7 +48,6 @@ export default function CV() {
 
   return (
     <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
-      <div className={styles.experience}></div>
       <div className={styles.header}>
         <div className="flex flex-col items-center md:items-start">
           <Input
@@ -87,6 +87,10 @@ export default function CV() {
           onChange={handleChange}
         ></TextArea>
       </div>
+      <div className={styles.experience}>
+        <Divider props="Experience"></Divider>
+      </div>
+
       <div className={styles.education}>
         <div className={styles.skills}></div>
       </div>

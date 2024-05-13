@@ -43,11 +43,11 @@
 
   .experience {
     display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
     gap: 0px 0px;
     grid-auto-flow: row;
-    grid-template-areas: ". .";
+    grid-template-areas: ".";
     grid-area: experience;
   }
 
@@ -55,7 +55,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr min-content;
-    gap: 4px 0px;
+    gap: 8px 0px;
     grid-auto-flow: row;
     grid-template-areas:
       ". ."

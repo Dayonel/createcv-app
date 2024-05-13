@@ -1,3 +1,4 @@
+import styles from './TextArea.module.css';
 import { ChangeEvent, useEffect, useRef } from 'react';
 
 export default function TextArea({ props, onChange }: any) {
@@ -26,12 +27,19 @@ export default function TextArea({ props, onChange }: any) {
     height.current = measureHeight(textArea.current);
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('resize', () => measureHeight(textArea.current));
+
+    return () =>
+      window.removeEventListener('resize', () =>
+        measureHeight(textArea.current)
+      );
+  }, []);
+
   return (
     <textarea
       ref={textArea}
-      className={
-        'max-w-xs md:max-w-lg text-xs outline-none highlight italic text-justify leading-5 overflow-hidden min-w-full resize-none'
-      }
+      className={`${styles.textarea} max-w-xs md:max-w-lg text-xs outline-none highlight italic text-justify overflow-hidden min-w-full resize-none max-h-[92px] md:max-h-[72px]`}
       name={key}
       onChange={onChangeHandler}
       placeholder={placeholder.current}
