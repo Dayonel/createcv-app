@@ -3,7 +3,8 @@
   padding: 1px 6px;
 }
 
-.container input {
+.container input,
+.container textarea {
   background-color: var(--cds-background, #ffffff);
 }
 
@@ -53,7 +54,7 @@
   .header {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: 1fr min-content;
     gap: 4px 0px;
     grid-auto-flow: row;
     grid-template-areas:
@@ -100,6 +101,7 @@
 
 .links {
   grid-template-columns: repeat(1, min-content);
+  grid-template-rows: repeat(auto-fit, minmax(0, 24px));
 }
 
 @media (min-width: 768px) {

@@ -2,4 +2,6 @@
 
 .link svg {
   color: link.$link-text-color;
+  min-width: 16px;
+  min-height: 16px;
 }

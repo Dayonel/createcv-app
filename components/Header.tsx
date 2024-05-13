@@ -8,7 +8,7 @@ export default function Header() {
     <header className="w-full backdrop-blur sticky top-0 z-10 p-2 max-w-[984px]">
       <nav className="flex justify-between items-center h-full">
         <span className="menu-item">
-          <DocumentPdf size={28}></DocumentPdf>
+          <DocumentPdf size={24}></DocumentPdf>
         </span>
         <div className="flex items-center">
           <ThemeToggle></ThemeToggle>

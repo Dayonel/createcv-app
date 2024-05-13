@@ -40,11 +40,11 @@ export default function ThemeToggle() {
     <span className="menu-item">
       {theme === 'g90' ? (
         <button onClick={() => setTheme('g10')}>
-          <Light size={28}></Light>
+          <Light size={24}></Light>
         </button>
       ) : (
         <button onClick={() => setTheme('g90')}>
-          <Asleep size={28}></Asleep>
+          <Asleep size={24}></Asleep>
         </button>
       )}
     </span>

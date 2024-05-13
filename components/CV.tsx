@@ -1,19 +1,32 @@
 'use client';
+
 import Download from './Download';
 import styles from './CV.module.css';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Link from './Link';
-import { Email, LogoLinkedin, Phone } from '@carbon/icons-react';
+import {
+  Email,
+  LocationFilled,
+  LogoGithub,
+  LogoLinkedin,
+  Phone,
+  Link as IconLink,
+} from '@carbon/icons-react';
+import TextArea from './TextArea';
+import Input from './Input';
 
 export default function CV() {
-  const formEl = useRef<HTMLFormElement>(null!);
-  const measures = useRef(new Map());
   const placeholders = {
     name: 'John Doe',
-    position: 'Full Stack Developer',
+    position: 'Frontend Developer',
     link1: 'email@example.com',
-    link2: 'linkedin.com/in/nestor-plysyuk',
+    link2: 'linkedin.com/in/example',
     link3: '(+31) 666333999',
+    link4: 'github.com/example',
+    link5: 'Amsterdam, Netherlands',
+    link6: 'createcv.app',
+    description:
+      'With over 6 years of experience, I bring extensive experience in frontend development. Proficient with React, Next.js and Tailwind CSS, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth.',
   };
 
   const [form, setForm] = useState({
@@ -22,65 +35,35 @@ export default function CV() {
     link1: placeholders.link1,
     link2: placeholders.link2,
     link3: placeholders.link3,
+    link4: placeholders.link4,
+    link5: placeholders.link5,
+    link6: placeholders.link6,
+    description: placeholders.description,
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    measureWidth(e.target);
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
 
-  const measureWidth = (input: HTMLInputElement) => {
-    input.style.width = '0px';
-    input.style.width = `${Math.max(
-      input.scrollWidth,
-      measures.current.has(input.name)
-        ? measures.current.get(input.name) ?? 0
-        : 0
-    )}px`;
-
-    return input.scrollWidth;
-  };
-
-  useEffect(() => {
-    const arr = [...formEl.current.querySelectorAll('input')];
-    for (const i of arr) {
-      const width = measureWidth(i);
-      measures.current.set(i.name, width);
-    }
-  }, []);
-
   return (
-    <form
-      ref={formEl}
-      className={`${styles.container} grid grid-cols-2 auto-cols-min`}
-    >
+    <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
       <div className={styles.experience}></div>
       <div className={styles.header}>
         <div className="flex flex-col items-center md:items-start">
-          <input
-            type="text"
-            name="name"
-            className={
-              'max-w-xs md:max-w-lg font-bold text-3xl outline-none text-center md:text-start highlight'
-            }
+          <Input
+            props={{ value: form.name, name: 'name' }}
             onChange={handleChange}
-            placeholder={placeholders.name}
-            value={form.name}
-          />
-
-          <input
-            type="text"
-            className={
-              'max-w-xs md:max-w-lg font-bold text-sm outline-none text-center md:text-start highlight'
-            }
-            name="position"
+          ></Input>
+          <Input
+            props={{ value: form.position, name: 'position' }}
+            className="max-w-xs md:max-w-lg font-bold text-sm outline-none text-center md:text-start highlight"
             onChange={handleChange}
-            placeholder={placeholders.position}
-            value={form.position}
-          />
+          ></Input>
         </div>
         <Download></Download>
         <div className={styles.links}>
@@ -88,21 +71,43 @@ export default function CV() {
             props={{ value: form.link1, name: 'link1' }}
             onChange={handleChange}
           >
-            <Email size={16}></Email>
+            <Email></Email>
           </Link>
           <Link
             props={{ value: form.link2, name: 'link2' }}
             onChange={handleChange}
           >
-            <LogoLinkedin size={16}></LogoLinkedin>
+            <LogoLinkedin></LogoLinkedin>
           </Link>
           <Link
             props={{ value: form.link3, name: 'link3' }}
             onChange={handleChange}
           >
-            <Phone size={16}></Phone>
+            <Phone></Phone>
+          </Link>
+          <Link
+            props={{ value: form.link4, name: 'link4' }}
+            onChange={handleChange}
+          >
+            <LogoGithub></LogoGithub>
+          </Link>
+          <Link
+            props={{ value: form.link5, name: 'link5' }}
+            onChange={handleChange}
+          >
+            <LocationFilled></LocationFilled>
+          </Link>
+          <Link
+            props={{ value: form.link6, name: 'link6' }}
+            onChange={handleChange}
+          >
+            <IconLink></IconLink>
           </Link>
         </div>
+        <TextArea
+          props={{ value: form.description, name: 'description' }}
+          onChange={handleChange}
+        ></TextArea>
       </div>
       <div className={styles.education}>
         <div className={styles.skills}></div>
