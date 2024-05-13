@@ -1,7 +1,12 @@
 import styles from './TextArea.module.css';
 import { ChangeEvent, useEffect, useRef } from 'react';
 
-export default function TextArea({ props, onChange }: any) {
+interface TextAreaProps {
+  props: string[];
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+export default function TextArea({ props, onChange }: TextAreaProps) {
   const [key, value] = props;
 
   const textArea = useRef<HTMLTextAreaElement>(null!);

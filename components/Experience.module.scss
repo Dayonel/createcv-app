@@ -1,0 +1,5 @@
+@use "@carbon/themes/scss/tokens";
+
+.experience svg {
+  color: tokens.$link-primary;
+}

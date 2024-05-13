@@ -1,6 +1,12 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
 
-export default function Input({ props, onChange, className }: any) {
+interface InputProps {
+  props: string[];
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  className: string;
+}
+
+export default function Input({ props, onChange, className }: InputProps) {
   const [key, value] = props;
 
   const input = useRef<HTMLInputElement>(null!);
