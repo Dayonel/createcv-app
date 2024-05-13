@@ -34,6 +34,7 @@ export default function TextArea({ props, onChange }: any) {
       onChange={onChangeHandler}
       placeholder={placeholder.current}
       value={props.value}
+      rows={5}
     />
   );
 }

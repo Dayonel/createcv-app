@@ -7,7 +7,7 @@ export default function Link({ props, onChange, children }: any) {
       {children}
       <Input
         props={props}
-        className="max-w-xs md:max-w-lg text-xs outline-none text-center md:text-start highlight"
+        className="max-w-xs md:max-w-lg text-xs outline-none highlight"
         onChange={onChange}
       ></Input>
     </span>
