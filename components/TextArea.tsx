@@ -1,9 +1,11 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
 
 export default function TextArea({ props, onChange }: any) {
+  const [key, value] = props;
+
   const textArea = useRef<HTMLTextAreaElement>(null!);
   const height = useRef<number>();
-  const placeholder = useRef<string>(props.value);
+  const placeholder = useRef<string>(value);
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     measureHeight(e.target);
@@ -30,10 +32,10 @@ export default function TextArea({ props, onChange }: any) {
       className={
         'max-w-xs md:max-w-lg text-xs outline-none highlight italic text-justify leading-5 overflow-hidden min-w-full resize-none'
       }
-      name={props.name}
+      name={key}
       onChange={onChangeHandler}
       placeholder={placeholder.current}
-      value={props.value}
+      value={value}
       rows={5}
     />
   );
