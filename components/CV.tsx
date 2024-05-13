@@ -1,5 +1,4 @@
 'use client';
-
 import Download from './Download';
 import styles from './CV.module.css';
 import { ChangeEvent, useState } from 'react';
@@ -29,17 +28,7 @@ export default function CV() {
       'With over 6 years of experience, I bring extensive experience in frontend development. Proficient with React, Next.js and Tailwind CSS, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth.',
   };
 
-  const [form, setForm] = useState({
-    name: placeholders.name,
-    position: placeholders.position,
-    link1: placeholders.link1,
-    link2: placeholders.link2,
-    link3: placeholders.link3,
-    link4: placeholders.link4,
-    link5: placeholders.link5,
-    link6: placeholders.link6,
-    description: placeholders.description,
-  });
+  const [form, setForm] = useState({ ...placeholders });
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -50,63 +39,51 @@ export default function CV() {
     });
   };
 
+  const getProps = (key: string) => {
+    for (const [k, v] of Object.entries(form)) {
+      if (k === key) return [k, v];
+    }
+  };
+
   return (
     <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
       <div className={styles.experience}></div>
       <div className={styles.header}>
         <div className="flex flex-col items-center md:items-start">
           <Input
-            props={{ value: form.name, name: 'name' }}
+            props={getProps('name')}
             className="max-w-xs md:max-w-lg font-bold text-3xl outline-none text-center md:text-start highlight"
             onChange={handleChange}
           ></Input>
           <Input
-            props={{ value: form.position, name: 'position' }}
+            props={getProps('position')}
             className="max-w-xs md:max-w-lg font-bold text-sm outline-none text-center md:text-start highlight"
             onChange={handleChange}
           ></Input>
         </div>
         <Download></Download>
         <div className={styles.links}>
-          <Link
-            props={{ value: form.link1, name: 'link1' }}
-            onChange={handleChange}
-          >
+          <Link props={getProps('link1')} onChange={handleChange}>
             <Email></Email>
           </Link>
-          <Link
-            props={{ value: form.link2, name: 'link2' }}
-            onChange={handleChange}
-          >
+          <Link props={getProps('link2')} onChange={handleChange}>
             <LogoLinkedin></LogoLinkedin>
           </Link>
-          <Link
-            props={{ value: form.link3, name: 'link3' }}
-            onChange={handleChange}
-          >
+          <Link props={getProps('link3')} onChange={handleChange}>
             <Phone></Phone>
           </Link>
-          <Link
-            props={{ value: form.link4, name: 'link4' }}
-            onChange={handleChange}
-          >
+          <Link props={getProps('link4')} onChange={handleChange}>
             <LogoGithub></LogoGithub>
           </Link>
-          <Link
-            props={{ value: form.link5, name: 'link5' }}
-            onChange={handleChange}
-          >
+          <Link props={getProps('link5')} onChange={handleChange}>
             <LocationFilled></LocationFilled>
           </Link>
-          <Link
-            props={{ value: form.link6, name: 'link6' }}
-            onChange={handleChange}
-          >
+          <Link props={getProps('link6')} onChange={handleChange}>
             <IconLink></IconLink>
           </Link>
         </div>
         <TextArea
-          props={{ value: form.description, name: 'description' }}
+          props={getProps('description')}
           onChange={handleChange}
         ></TextArea>
       </div>

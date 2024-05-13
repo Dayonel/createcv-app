@@ -1,9 +1,11 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
 
 export default function Input({ props, onChange, className }: any) {
+  const [key, value] = props;
+
   const input = useRef<HTMLInputElement>(null!);
   const width = useRef<number>();
-  const placeholder = useRef(props.value);
+  const placeholder = useRef(value);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     measureWidth(e.target);
@@ -29,10 +31,10 @@ export default function Input({ props, onChange, className }: any) {
       ref={input}
       type="text"
       className={className}
-      name={props.name}
+      name={key}
       onChange={onChangeHandler}
       placeholder={placeholder.current}
-      value={props.value}
+      value={value}
     />
   );
 }
