@@ -1,11 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { ChangeEvent, useEffect, useRef } from 'react';
 
 export default function Input({ props, onChange, className }: any) {
   const input = useRef<HTMLInputElement>(null!);
   const width = useRef<number>();
   const placeholder = useRef(props.value);
 
-  const measureWidth = (el: HTMLInputElement | HTMLTextAreaElement) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    measureWidth(e.target);
+    onChange(e);
+  };
+
+  const measureWidth = (el: HTMLInputElement) => {
     el.style.width = '0px';
     el.style.width = `${Math.max(
       el.scrollWidth,
@@ -23,12 +28,9 @@ export default function Input({ props, onChange, className }: any) {
     <input
       ref={input}
       type="text"
-      className={
-        className ||
-        'max-w-xs md:max-w-lg font-bold text-3xl outline-none text-center md:text-start highlight'
-      }
+      className={className}
       name={props.name}
-      onChange={onChange}
+      onChange={onChangeHandler}
       placeholder={placeholder.current}
       value={props.value}
     />

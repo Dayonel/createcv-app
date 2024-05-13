@@ -57,6 +57,7 @@ export default function CV() {
         <div className="flex flex-col items-center md:items-start">
           <Input
             props={{ value: form.name, name: 'name' }}
+            className="max-w-xs md:max-w-lg font-bold text-3xl outline-none text-center md:text-start highlight"
             onChange={handleChange}
           ></Input>
           <Input
