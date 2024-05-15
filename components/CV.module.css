@@ -59,11 +59,11 @@
     grid-auto-flow: row;
     grid-template-areas:
       ". ."
-      "links .";
+      "contact .";
     grid-area: header;
   }
 
-  .links {
+  .contact {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content;
@@ -71,7 +71,7 @@
     grid-auto-flow: row;
     align-items: start;
     grid-template-areas: ".";
-    grid-area: links;
+    grid-area: contact;
   }
 
   .education {
@@ -99,13 +99,13 @@
 
 /* end playground */
 
-.links {
+.contact {
   grid-template-columns: 1fr;
   grid-template-rows: repeat(auto-fit, minmax(0, 24px));
 }
 
 @media (min-width: 768px) {
-  .links {
+  .contact {
     grid-template-columns: repeat(2, minmax(190px, min-content));
   }
 }

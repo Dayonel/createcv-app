@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
 
 interface InputProps {
-  props: string[];
+  props: [string, string];
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className: string;
 }
