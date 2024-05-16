@@ -5,4 +5,4 @@ export type Experience = {
   date: string;
   topic: string;
   description: string;
-} & Record<string, unknown>;
+};

@@ -38,7 +38,7 @@ export default function Input({ props, onChange, className }: InputProps) {
       type="text"
       className={className}
       name={key}
-      onChange={onChangeHandler}
+      onInput={onChangeHandler}
       placeholder={placeholder.current}
       value={value}
     />

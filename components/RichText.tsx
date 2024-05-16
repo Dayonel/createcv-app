@@ -51,12 +51,13 @@ export default function RichText({ props, onChange }: RichTextProps) {
   useEffect(() => {
     if (!editor) return;
 
+    editor.off('update', onUpdate);
     editor.on('update', onUpdate);
 
     return () => {
       editor.off('update', onUpdate);
     };
-  }, [editor]);
+  }, [editor, onChange]); // another update is needed onChange
 
   if (!editor) {
     return (

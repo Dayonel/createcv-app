@@ -38,7 +38,7 @@ export default function CV() {
         text: 'createcv.app',
       },
     ],
-    description:
+    summary:
       'With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth.',
     experiences: [
       {
@@ -109,7 +109,7 @@ export default function CV() {
           })}
         </div>
         <TextArea
-          props={['description', form.description]}
+          props={['summary', form.summary]}
           onChange={handleChange}
         ></TextArea>
       </div>

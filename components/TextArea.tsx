@@ -41,7 +41,7 @@ export default function TextArea({ props, onChange }: TextAreaProps) {
       ref={textArea}
       className={`${styles.textarea} max-w-xs md:max-w-lg text-xs outline-none highlight italic text-justify overflow-hidden min-w-full resize-none max-h-[92px] md:max-h-[72px]`}
       name={key}
-      onChange={onChangeHandler}
+      onInput={onChangeHandler}
       placeholder="Write something..."
       value={value}
       rows={5}
