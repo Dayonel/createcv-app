@@ -47,13 +47,7 @@ export default function CV() {
         location: 'Netherlands',
         date: 'Feb 2021 - Present',
         topic: 'Technology',
-        descriptions: [
-          "Designed and implemented a real-time database using Firebase for Google's internal document management system.",
-          'Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data.',
-          'Led Google Maps data collection for self-driving cars.',
-          "Built & scaled data pipelines for Google Cloud's self-driving car project.",
-          "Improved Chrome's memory usage.",
-        ],
+        description: `[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Designed and implemented a real-time database using Firebase for Google's internal document management system."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Led Google Maps data collection for self-driving cars."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Built & scaled data pipelines for Google Cloud's self-driving car project."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Improved Chrome's memory usage."}]}]}]}]`,
       },
     ],
   };
@@ -123,7 +117,6 @@ export default function CV() {
         <Divider props="Experience"></Divider>
         {form.experiences.map((experience) => {
           const key = generateExperienceName();
-
           return (
             <Experience
               key={key}

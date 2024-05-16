@@ -1,8 +1,8 @@
 import Input from './Input';
 import { Experience as ExperienceType } from '../types/Experience';
-import { ChangeEvent } from 'react';
 import { Calendar } from '@carbon/icons-react';
 import styles from './Experience.module.scss';
+import RichText from './RichText';
 
 interface ExperienceProps {
   props: [string, ExperienceType];
@@ -17,7 +17,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
       <div className="flex flex-wrap-reverse justify-between">
         <Input
           props={[key + '_title', experience.title]}
-          className="max-w-xs md:max-w-lg font-bold outline-none highlight"
+          className="max-w-xs md:max-w-lg w-[144px] font-bold outline-none highlight"
           onChange={(e) => {
             experience.title = e.target.value;
             onChange();
@@ -38,7 +38,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
       <div className="flex flex-wrap-reverse justify-between">
         <Input
           props={[key + '_company', experience.company]}
-          className="text-sm max-w-xs md:max-w-lg outline-none highlight"
+          className="text-sm max-w-xs md:max-w-lg w-[56px] outline-none highlight"
           onChange={(e) => {
             experience.company = e.target.value;
             onChange();
@@ -53,13 +53,13 @@ export default function Experience({ props, onChange }: ExperienceProps) {
           }}
         ></Input>
       </div>
-      <ul className="flex flex-col gap-3 list-disc py-2 px-6">
-        {experience.descriptions.map((m, i) => (
-          <li key={i} className="text-xs">
-            {m}
-          </li>
-        ))}
-      </ul>
+      <RichText
+        props={experience.description}
+        onChange={(e) => {
+          experience.description = e;
+          onChange();
+        }}
+      ></RichText>
     </div>
   );
 }

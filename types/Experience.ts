@@ -4,5 +4,5 @@ export type Experience = {
   location: string;
   date: string;
   topic: string;
-  descriptions: string[];
+  description: string;
 } & Record<string, unknown>;

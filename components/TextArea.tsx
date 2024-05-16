@@ -10,8 +10,7 @@ export default function TextArea({ props, onChange }: TextAreaProps) {
   const [key, value] = props;
 
   const textArea = useRef<HTMLTextAreaElement>(null!);
-  const height = useRef<number>();
-  const placeholder = useRef<string>(value);
+  const height = useRef<number>(0);
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     measureHeight(e.target);
@@ -29,10 +28,6 @@ export default function TextArea({ props, onChange }: TextAreaProps) {
   };
 
   useEffect(() => {
-    height.current = measureHeight(textArea.current);
-  }, []);
-
-  useEffect(() => {
     window.addEventListener('resize', () => measureHeight(textArea.current));
 
     return () =>
@@ -47,7 +42,7 @@ export default function TextArea({ props, onChange }: TextAreaProps) {
       className={`${styles.textarea} max-w-xs md:max-w-lg text-xs outline-none highlight italic text-justify overflow-hidden min-w-full resize-none max-h-[92px] md:max-h-[72px]`}
       name={key}
       onChange={onChangeHandler}
-      placeholder={placeholder.current}
+      placeholder="Write something..."
       value={value}
       rows={5}
     />
