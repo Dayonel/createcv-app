@@ -36,11 +36,7 @@ export default function CV() {
       {
         icon: 'Link',
         text: 'createcv.app',
-      },
-      {
-        icon: 'Link',
-        text: 'createcv.app',
-      },
+      }
     ],
     summary: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth."}]}]}`,
     experiences: [
