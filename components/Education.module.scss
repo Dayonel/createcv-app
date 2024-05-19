@@ -1,0 +1,5 @@
+@use "@carbon/themes/scss/tokens";
+
+.education svg {
+  color: tokens.$link-primary;
+}

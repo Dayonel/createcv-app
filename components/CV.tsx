@@ -7,6 +7,7 @@ import Input from './Input';
 import Divider from './Divider';
 import Experience from './Experience';
 import RichText from './RichText';
+import Education from './Education';
 
 export default function CV() {
   const placeholders = {
@@ -49,6 +50,13 @@ export default function CV() {
         description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Designed and implemented a real-time database using Firebase for Google's internal document management system."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Led Google Maps data collection for self-driving cars."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Built & scaled data pipelines for Google Cloud's self-driving car project."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Improved Chrome's memory usage."}]}]}]}]}`,
       },
     ],
+    education: [
+      {
+        title: "Bachelor's degree from the University of Cambridge",
+        date: '2018',
+        description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Bachelor's degree from the University of Cambridge."}]}]}]}]}`,
+      },
+    ],
   };
 
   const [form, setForm] = useState({ ...placeholders });
@@ -78,6 +86,14 @@ export default function CV() {
     };
   };
   const generateExperienceName = experienceGenerator('experience_');
+
+  const educationGenerator = (prefix: string) => {
+    let i = 1;
+    return () => {
+      return prefix + i++;
+    };
+  };
+  const generateEducationName = educationGenerator('education_');
 
   return (
     <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
@@ -127,6 +143,17 @@ export default function CV() {
       </div>
 
       <div className={styles.education}>
+        <Divider props="Education"></Divider>
+        {form.education.map((education) => {
+          const key = generateEducationName();
+          return (
+            <Education
+              key={key}
+              props={[key, education]}
+              onChange={() => setForm({ ...form })}
+            ></Education>
+          );
+        })}
         <div className={styles.skills}></div>
       </div>
     </form>

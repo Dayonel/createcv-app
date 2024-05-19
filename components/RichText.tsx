@@ -76,6 +76,7 @@ export default function RichText({
 
   const onUpdate = ({ editor }: any) => {
     onChange(JSON.stringify(editor.getJSON()));
+    console.log(JSON.stringify(editor.getJSON()));
   };
 
   if (!editor) {

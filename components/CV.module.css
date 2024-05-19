@@ -76,24 +76,12 @@
 
   .education {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
     gap: 0px 0px;
     grid-auto-flow: row;
-    grid-template-areas:
-      ". ."
-      "skills skills";
+    grid-template-areas: ".";
     grid-area: education;
-  }
-
-  .skills {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas: ". .";
-    grid-area: skills;
   }
 }
 
