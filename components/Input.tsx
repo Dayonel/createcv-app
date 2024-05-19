@@ -4,13 +4,19 @@ interface InputProps {
   props: [string, string];
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className: string;
+  disableMinSize?: boolean;
 }
 
-export default function Input({ props, onChange, className }: InputProps) {
+export default function Input({
+  props,
+  onChange,
+  className,
+  disableMinSize,
+}: InputProps) {
   const [key, value] = props;
 
   const input = useRef<HTMLInputElement>(null!);
-  const width = useRef<number>();
+  const width = useRef<number>(20);
   const placeholder = useRef(value);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,8 +35,10 @@ export default function Input({ props, onChange, className }: InputProps) {
   };
 
   useEffect(() => {
-    width.current = measureWidth(input.current);
-  }, []);
+    if (!disableMinSize) {
+      width.current = measureWidth(input.current);
+    }
+  }, [disableMinSize]);
 
   return (
     <input

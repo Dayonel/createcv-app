@@ -4,6 +4,7 @@
   font-size: 12px;
   line-height: 1.25rem;
   min-height: 2rem;
+  max-height: 100%;
 }
 
 .richtext > div > div {
@@ -27,6 +28,10 @@
 ul,
 ol {
   padding: 0 1rem;
+}
+
+ol {
+  list-style: decimal;
 }
 
 ul {

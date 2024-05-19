@@ -3,10 +3,10 @@ import Download from './Download';
 import styles from './CV.module.css';
 import { ChangeEvent, useState } from 'react';
 import Contact from './Contact';
-import TextArea from './TextArea';
 import Input from './Input';
 import Divider from './Divider';
 import Experience from './Experience';
+import RichText from './RichText';
 
 export default function CV() {
   const placeholders = {
@@ -37,9 +37,12 @@ export default function CV() {
         icon: 'Link',
         text: 'createcv.app',
       },
+      {
+        icon: 'Link',
+        text: 'createcv.app',
+      },
     ],
-    summary:
-      'With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth.',
+    summary: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth."}]}]}`,
     experiences: [
       {
         title: 'Software Engineer',
@@ -47,7 +50,7 @@ export default function CV() {
         location: 'Netherlands',
         date: 'Feb 2021 - Present',
         topic: 'Technology',
-        description: `[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Designed and implemented a real-time database using Firebase for Google's internal document management system."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Led Google Maps data collection for self-driving cars."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Built & scaled data pipelines for Google Cloud's self-driving car project."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Improved Chrome's memory usage."}]}]}]}]`,
+        description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Designed and implemented a real-time database using Firebase for Google's internal document management system."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Led Google Maps data collection for self-driving cars."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Built & scaled data pipelines for Google Cloud's self-driving car project."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Improved Chrome's memory usage."}]}]}]}]}`,
       },
     ],
   };
@@ -108,10 +111,11 @@ export default function CV() {
             );
           })}
         </div>
-        <TextArea
-          props={['summary', form.summary]}
-          onChange={handleChange}
-        ></TextArea>
+        <RichText
+          props={form.summary}
+          onChange={(e) => setForm({ ...form, summary: e })}
+          className="italic"
+        ></RichText>
       </div>
       <div className={styles.experience}>
         <Divider props="Experience"></Divider>

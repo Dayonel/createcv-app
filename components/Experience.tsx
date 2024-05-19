@@ -32,6 +32,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
               experience.date = e.target.value;
               onChange();
             }}
+            disableMinSize
           ></Input>
         </div>
       </div>
@@ -51,6 +52,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
             experience.topic = e.target.value;
             onChange();
           }}
+          disableMinSize
         ></Input>
       </div>
       <RichText

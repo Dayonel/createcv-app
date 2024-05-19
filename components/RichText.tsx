@@ -1,51 +1,55 @@
 import './RichText.scss';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { Placeholder } from '@tiptap/extension-placeholder';
+import { generateHTML } from '@tiptap/html';
+import { useEffect, useMemo } from 'react';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
 import ListItem from '@tiptap/extension-list-item';
 import Paragraph from '@tiptap/extension-paragraph';
+import History from '@tiptap/extension-history';
 import Text from '@tiptap/extension-text';
 import Bold from '@tiptap/extension-bold';
-import { useEffect } from 'react';
+import OrderedList from '@tiptap/extension-ordered-list';
 
 interface RichTextProps {
   props: string;
   onChange: (e: string) => void;
+  className?: string;
 }
 
-export default function RichText({ props, onChange }: RichTextProps) {
-  const placeholder = `
-    <ul>
-      <li><p>Designed and implemented a real-time database using Firebase for Google's internal document management system.</p></li>
-      <li><p>Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data.</p></li>
-      <li><p>Led Google Maps data collection for self-driving cars.</p></li>
-      <li><p>Built & scaled data pipelines for Google Cloud's self-driving car project.</p></li>
-      <li><p>Improved Chrome's memory usage.</p></li>
-    </ul>
-  `;
+export default function RichText({
+  props,
+  onChange,
+  className,
+}: RichTextProps) {
+  var dependencies = [
+    Document,
+    Paragraph,
+    Text,
+    BulletList,
+    ListItem,
+    Bold,
+    History,
+    OrderedList,
+  ];
+  const placeholder = useMemo(() => {
+    return generateHTML(JSON.parse(props), dependencies);
+  }, [props]);
 
   const editor = useEditor({
     extensions: [
-      Document,
-      Paragraph,
-      Text,
-      BulletList,
-      ListItem,
-      Bold,
+      ...dependencies,
       Placeholder.configure({
         placeholder: 'Write something...',
       }),
     ],
     editorProps: {
       attributes: {
-        class: 'text-sm outline-none highlight',
+        class: `text-sm outline-none highlight ${className}`,
       },
     },
-    content: {
-      type: 'doc',
-      content: JSON.parse(props),
-    },
+    content: JSON.parse(props),
   });
 
   useEffect(() => {
@@ -59,19 +63,22 @@ export default function RichText({ props, onChange }: RichTextProps) {
     };
   }, [editor, onChange]); // another update is needed onChange
 
+  const onUpdate = ({ editor }: any) => {
+    onChange(JSON.stringify(editor.getJSON()));
+  };
+
   if (!editor) {
     return (
       <div className="richtext">
         <div>
-          <div dangerouslySetInnerHTML={{ __html: placeholder }}></div>
+          <div
+            dangerouslySetInnerHTML={{ __html: placeholder }}
+            className={`${className}`}
+          ></div>
         </div>
       </div>
     );
   }
-
-  const onUpdate = ({ editor }: any) => {
-    onChange(JSON.stringify(editor.getJSON().content));
-  };
 
   return (
     <div className="richtext">
