@@ -38,7 +38,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`grid justify-center ${roboto.className}`}>
         <ThemeProvider>
-          <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-dvw max-w-[1024px] justify-items-center">
+          <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full max-w-[1024px] justify-items-center">
             <Header></Header>
             <main className="w-full max-w-[984px] px-8 md:px-4">
               {children}
