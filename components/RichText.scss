@@ -1,10 +1,12 @@
+@use "@carbon/themes/scss/tokens";
+
 /* Basic editor styles */
 .richtext {
-  padding-top: 0.5rem;
   font-size: 12px;
   line-height: 1.25rem;
   min-height: 2rem;
   max-height: 100%;
+  position: relative;
 }
 
 .richtext > div > div {
@@ -15,6 +17,7 @@
   > * + * {
     margin-top: 0.75em;
   }
+  min-height: 36px;
 }
 
 /* Placeholder (at the top) */
@@ -48,4 +51,14 @@ ul ul {
 p,
 li {
   font-size: 12px;
+}
+
+blockquote {
+  padding-left: 1rem;
+  border-left: 2px solid tokens.$border-subtle-01;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid tokens.$border-subtle-01;
 }

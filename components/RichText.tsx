@@ -2,7 +2,7 @@ import './RichText.scss';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import { generateHTML } from '@tiptap/html';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import BulletList from '@tiptap/extension-bullet-list';
 import Document from '@tiptap/extension-document';
 import ListItem from '@tiptap/extension-list-item';
@@ -10,7 +10,12 @@ import Paragraph from '@tiptap/extension-paragraph';
 import History from '@tiptap/extension-history';
 import Text from '@tiptap/extension-text';
 import Bold from '@tiptap/extension-bold';
+import Italic from '@tiptap/extension-italic';
 import OrderedList from '@tiptap/extension-ordered-list';
+import Blockquote from '@tiptap/extension-blockquote';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
+import RichTextControls from './RichTextControls';
 
 interface RichTextProps {
   props: string;
@@ -23,6 +28,9 @@ export default function RichText({
   onChange,
   className,
 }: RichTextProps) {
+  const [controlsVisible, setControlsVisible] = useState(false);
+  const controlsRef = useOutsideClick(() => setControlsVisible(false));
+
   var dependencies = [
     Document,
     Paragraph,
@@ -30,8 +38,11 @@ export default function RichText({
     BulletList,
     ListItem,
     Bold,
+    Italic,
     History,
     OrderedList,
+    Blockquote,
+    HorizontalRule,
   ];
   const placeholder = useMemo(() => {
     return generateHTML(JSON.parse(props), dependencies);
@@ -46,7 +57,7 @@ export default function RichText({
     ],
     editorProps: {
       attributes: {
-        class: `text-sm outline-none highlight ${className}`,
+        class: 'text-sm outline-none highlight',
       },
     },
     content: JSON.parse(props),
@@ -81,7 +92,15 @@ export default function RichText({
   }
 
   return (
-    <div className="richtext">
+    <div
+      className="richtext"
+      ref={controlsRef}
+      onFocus={() => setControlsVisible(true)}
+      tabIndex={0}
+    >
+      <RichTextControls
+        props={{ editor, visible: controlsVisible }}
+      ></RichTextControls>
       <EditorContent editor={editor} />
     </div>
   );

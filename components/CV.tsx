@@ -36,9 +36,9 @@ export default function CV() {
       {
         icon: 'Link',
         text: 'createcv.app',
-      }
+      },
     ],
-    summary: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth."}]}]}`,
+    summary: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","marks":[{"type":"italic"}],"text":"With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth."}]}]}`,
     experiences: [
       {
         title: 'Software Engineer',
@@ -110,7 +110,6 @@ export default function CV() {
         <RichText
           props={form.summary}
           onChange={(e) => setForm({ ...form, summary: e })}
-          className="italic"
         ></RichText>
       </div>
       <div className={styles.experience}>

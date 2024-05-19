@@ -1,0 +1,8 @@
+@use "@carbon/themes/scss/tokens";
+
+.controls {
+  position: absolute;
+  z-index: 1;
+  transform: translateY(-100%);
+  background-color: tokens.$layer-hover-01;
+}

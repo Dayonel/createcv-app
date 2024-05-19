@@ -55,13 +55,16 @@ export default function Experience({ props, onChange }: ExperienceProps) {
           disableMinSize
         ></Input>
       </div>
-      <RichText
-        props={experience.description}
-        onChange={(e) => {
-          experience.description = e;
-          onChange();
-        }}
-      ></RichText>
+
+      <div className="pt-2">
+        <RichText
+          props={experience.description}
+          onChange={(e) => {
+            experience.description = e;
+            onChange();
+          }}
+        ></RichText>
+      </div>
     </div>
   );
 }
