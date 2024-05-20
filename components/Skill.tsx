@@ -15,7 +15,6 @@ export default function Skill({ props, onChange }: SkillProps) {
       props={[key, skill]}
       className={`max-w-xs md:max-w-lg font-bold outline-none highlight ${styles.skill}`}
       onChange={(e) => onChange(e)}
-      disableMinSize
       disableResize
     ></Input>
   );

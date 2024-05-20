@@ -14,7 +14,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
 
   return (
     <div className={`${styles.experience} flex flex-col gap-1`}>
-      <div className="flex flex-wrap justify-between gap-2">
+      <div className="flex flex-wrap justify-between items-center gap-2">
         <Input
           props={[key + '_title', experience.title]}
           className="max-w-xs md:max-w-lg w-[144px] font-bold outline-none highlight"
@@ -35,7 +35,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
           ></Input>
         </div>
       </div>
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between items-center">
         <Input
           props={[key + '_company', experience.company]}
           className="text-sm max-w-xs md:max-w-lg w-[56px] outline-none highlight"

@@ -1,7 +1,8 @@
 @use "@carbon/themes/scss/tokens";
 
 .container input,
-.container textarea {
+.container textarea,
+.container span[contenteditable="true"] {
   padding: 1px 6px;
 }
 
