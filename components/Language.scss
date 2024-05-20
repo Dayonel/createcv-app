@@ -10,6 +10,7 @@ input[type="range"] {
   background-repeat: no-repeat;
   cursor: pointer;
   width: 100%;
+  box-shadow: none;
 }
 
 input[type="range"]:focus {
@@ -22,6 +23,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 20px;
   height: 20px;
   background-color: transparent;
+  box-shadow: none;
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -30,4 +32,5 @@ input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
   background-color: transparent;
+  box-shadow: none;
 }
