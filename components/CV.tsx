@@ -211,13 +211,16 @@ export default function CV() {
           <div className="flex flex-col w-full gap-1">
             <Divider props="Skills"></Divider>
             <div className={styles.skills}>
-              {form.skills.map((skill) => {
+              {form.skills.map((skill, i) => {
                 const key = generateSkillName();
                 return (
                   <Skill
                     key={key}
                     props={[key, skill]}
-                    onChange={() => setForm({ ...form })}
+                    onChange={(e) => {
+                      form.skills[i] = e.target.value;
+                      setForm({ ...form });
+                    }}
                   ></Skill>
                 );
               })}

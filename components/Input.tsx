@@ -4,9 +4,17 @@ interface InputProps {
   props: [string, string];
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className: string;
+  disableMinSize?: boolean;
+  disableResize?: boolean;
 }
 
-export default function Input({ props, onChange, className }: InputProps) {
+export default function Input({
+  props,
+  onChange,
+  className,
+  disableMinSize,
+  disableResize,
+}: InputProps) {
   const [key, value] = props;
 
   const input = useRef<HTMLInputElement>(null!);
@@ -14,7 +22,9 @@ export default function Input({ props, onChange, className }: InputProps) {
   const placeholder = useRef(value);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    measureWidth(e.target);
+    if (!disableResize) {
+      measureWidth(e.target);
+    }
     onChange(e);
   };
 
@@ -27,6 +37,12 @@ export default function Input({ props, onChange, className }: InputProps) {
 
     return el.scrollWidth;
   };
+
+  useEffect(() => {
+    if (!disableMinSize) {
+      width.current = measureWidth(input.current);
+    }
+  }, [disableMinSize]);
 
   return (
     <input
