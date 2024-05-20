@@ -13,8 +13,8 @@ export default function Experience({ props, onChange }: ExperienceProps) {
   const [key, experience] = props;
 
   return (
-    <div className={`${styles.experience} flex flex-col`}>
-      <div className="flex flex-wrap-reverse justify-between">
+    <div className={`${styles.experience} flex flex-col gap-1`}>
+      <div className="flex flex-wrap justify-between gap-2">
         <Input
           props={[key + '_title', experience.title]}
           className="max-w-xs md:max-w-lg w-[144px] font-bold outline-none highlight"
@@ -23,7 +23,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
             onChange();
           }}
         ></Input>
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end px-[3px]">
           <Calendar></Calendar>
           <Input
             props={[key + '_date', experience.date]}
@@ -35,7 +35,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
           ></Input>
         </div>
       </div>
-      <div className="flex flex-wrap-reverse justify-between">
+      <div className="flex flex-wrap justify-between">
         <Input
           props={[key + '_company', experience.company]}
           className="text-sm max-w-xs md:max-w-lg w-[56px] outline-none highlight"
@@ -53,8 +53,7 @@ export default function Experience({ props, onChange }: ExperienceProps) {
           }}
         ></Input>
       </div>
-
-      <div className="pt-2">
+      <div className="pt-1">
         <RichText
           props={experience.description}
           onChange={(e) => {

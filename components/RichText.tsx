@@ -57,7 +57,7 @@ export default function RichText({
     ],
     editorProps: {
       attributes: {
-        class: 'text-sm outline-none highlight',
+        class: `text-sm outline-none highlight ${className}`,
       },
     },
     content: JSON.parse(props),

@@ -10,7 +10,7 @@ export default function Input({ props, onChange, className }: InputProps) {
   const [key, value] = props;
 
   const input = useRef<HTMLInputElement>(null!);
-  const width = useRef<number>(20);
+  const width = useRef<number>(22);
   const placeholder = useRef(value);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

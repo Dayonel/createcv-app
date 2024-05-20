@@ -1,6 +1,6 @@
 'use client';
 import Download from './Download';
-import styles from './CV.module.css';
+import styles from './CV.module.scss';
 import { ChangeEvent, useState } from 'react';
 import Contact from './Contact';
 import Input from './Input';
@@ -8,6 +8,8 @@ import Divider from './Divider';
 import Experience from './Experience';
 import RichText from './RichText';
 import Education from './Education';
+import Skill from './Skill';
+import Language from './Language';
 
 export default function CV() {
   const placeholders = {
@@ -57,6 +59,39 @@ export default function CV() {
         description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Bachelor's degree from the University of Cambridge."}]}]}]}]}`,
       },
     ],
+    skills: [
+      'React',
+      'Next.js',
+      'Tailwind CSS',
+      'Javascript',
+      'HTML5',
+      'CSS',
+      'Jest',
+      'Typescript',
+      'MongoDB',
+      'PostgreSQL',
+      'Docker',
+      'Git',
+      'CI/CD',
+      'GitHub Actions',
+    ],
+    languages: [
+      {
+        name: 'Spanish',
+        level: 'Native',
+        rating: 10,
+      },
+      {
+        name: 'English',
+        level: 'Fluent',
+        rating: 9,
+      },
+      {
+        name: 'Dutch',
+        level: 'A2',
+        rating: 2,
+      },
+    ],
   };
 
   const [form, setForm] = useState({ ...placeholders });
@@ -95,6 +130,22 @@ export default function CV() {
   };
   const generateEducationName = educationGenerator('education_');
 
+  const skillGenerator = (prefix: string) => {
+    let i = 1;
+    return () => {
+      return prefix + i++;
+    };
+  };
+  const generateSkillName = skillGenerator('skill_');
+
+  const languageGenerator = (prefix: string) => {
+    let i = 1;
+    return () => {
+      return prefix + i++;
+    };
+  };
+  const generateLanguageName = languageGenerator('language_');
+
   return (
     <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
       <div className={styles.header}>
@@ -126,35 +177,68 @@ export default function CV() {
         <RichText
           props={form.summary}
           onChange={(e) => setForm({ ...form, summary: e })}
+          className="text-justify"
         ></RichText>
       </div>
-      <div className={styles.experience}>
-        <Divider props="Experience"></Divider>
-        {form.experiences.map((experience) => {
-          const key = generateExperienceName();
-          return (
-            <Experience
-              key={key}
-              props={[key, experience]}
-              onChange={() => setForm({ ...form })}
-            ></Experience>
-          );
-        })}
-      </div>
-
-      <div className={styles.education}>
-        <Divider props="Education"></Divider>
-        {form.education.map((education) => {
-          const key = generateEducationName();
-          return (
-            <Education
-              key={key}
-              props={[key, education]}
-              onChange={() => setForm({ ...form })}
-            ></Education>
-          );
-        })}
-        <div className={styles.skills}></div>
+      <div className={styles.body}>
+        <div className={styles.experience}>
+          <Divider props="Experience"></Divider>
+          {form.experiences.map((experience) => {
+            const key = generateExperienceName();
+            return (
+              <Experience
+                key={key}
+                props={[key, experience]}
+                onChange={() => setForm({ ...form })}
+              ></Experience>
+            );
+          })}
+        </div>
+        <div className={styles.education}>
+          <Divider props="Education"></Divider>
+          {form.education.map((education) => {
+            const key = generateEducationName();
+            return (
+              <Education
+                key={key}
+                props={[key, education]}
+                onChange={() => setForm({ ...form })}
+              ></Education>
+            );
+          })}
+        </div>
+        <div className={styles.skills_languages}>
+          <div className="flex flex-col w-full gap-1">
+            <Divider props="Skills"></Divider>
+            <div className={styles.skills}>
+              {form.skills.map((skill) => {
+                const key = generateSkillName();
+                return (
+                  <Skill
+                    key={key}
+                    props={[key, skill]}
+                    onChange={() => setForm({ ...form })}
+                  ></Skill>
+                );
+              })}
+            </div>
+          </div>
+          <div className="flex flex-col w-full gap-1">
+            <Divider props="Languages"></Divider>
+            <div className="flex flex-col gap-4">
+              {form.languages.map((language) => {
+                const key = generateLanguageName();
+                return (
+                  <Language
+                    key={key}
+                    props={[key, language]}
+                    onChange={() => setForm({ ...form })}
+                  ></Language>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </form>
   );

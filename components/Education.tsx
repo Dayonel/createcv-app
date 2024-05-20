@@ -13,8 +13,8 @@ export default function Education({ props, onChange }: EducationProps) {
   const [key, education] = props;
 
   return (
-    <div className={`${styles.education} flex flex-col`}>
-      <div className="flex flex-wrap-reverse justify-between">
+    <div className={`${styles.education} flex flex-col gap-1`}>
+      <div className="flex flex-wrap justify-between gap-2">
         <Input
           props={[key + '_title', education.title]}
           className="max-w-xs md:max-w-lg w-[383px] font-bold outline-none highlight"
@@ -23,7 +23,7 @@ export default function Education({ props, onChange }: EducationProps) {
             onChange();
           }}
         ></Input>
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end px-[3px]">
           <Calendar></Calendar>
           <Input
             props={[key + '_date', education.date]}
@@ -35,7 +35,7 @@ export default function Education({ props, onChange }: EducationProps) {
           ></Input>
         </div>
       </div>
-      <div className="pt-2">
+      <div className="pt-1">
         <RichText
           props={education.description}
           onChange={(e) => {
