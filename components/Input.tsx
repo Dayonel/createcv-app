@@ -4,14 +4,14 @@ interface InputProps {
   props: [string, string];
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className: string;
-  disableResize?: boolean;
+  fixedSize?: boolean;
 }
 
 export default function Input({
   props,
   onChange,
   className,
-  disableResize,
+  fixedSize,
 }: InputProps) {
   const [key, value] = props;
 
@@ -20,7 +20,7 @@ export default function Input({
   const placeholder = useRef(value);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!disableResize) {
+    if (!fixedSize) {
       measureWidth(e.target);
     }
     onChange(e);
@@ -28,16 +28,16 @@ export default function Input({
 
   const measureWidth = (el: HTMLInputElement) => {
     el.style.width = '0px';
-    el.style.width = `${Math.min(el.scrollWidth, width.current || 0)}px`;
+    el.style.width = `${Math.max(el.scrollWidth, width.current || 0)}px`;
 
     return el.scrollWidth;
   };
 
   useEffect(() => {
-    if (!disableResize) {
+    if (!fixedSize) {
       width.current = measureWidth(input.current);
     }
-  }, [disableResize]);
+  }, [fixedSize]);
 
   return (
     <input

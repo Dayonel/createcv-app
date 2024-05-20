@@ -1,0 +1,33 @@
+@use "@carbon/themes/scss/tokens";
+
+input[type="range"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background: tokens.$layer-selected-02;
+  height: 0.5rem;
+  background-image: linear-gradient(tokens.$link-primary, tokens.$link-primary);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+}
+
+input[type="range"]::-moz-range-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+}

@@ -226,9 +226,9 @@ export default function CV() {
               })}
             </div>
           </div>
-          <div className="flex flex-col w-full gap-1">
+          <div className="flex flex-col w-full">
             <Divider props="Languages"></Divider>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               {form.languages.map((language) => {
                 const key = generateLanguageName();
                 return (

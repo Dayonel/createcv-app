@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@carbon/icons-react": "^11.40.0",
-    "@carbon/react": "^1.56.0",
+    "@carbon/react": "^1.57.0",
     "@tiptap/extension-blockquote": "^2.4.0",
     "@tiptap/extension-bold": "^2.4.0",
     "@tiptap/extension-bullet-list": "^2.4.0",
