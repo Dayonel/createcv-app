@@ -1,4 +1,4 @@
-import styles from './Link.module.scss';
+import styles from './Contact.module.scss';
 import Input from './Input';
 import { ChangeEvent } from 'react';
 import {
@@ -35,7 +35,7 @@ export default function Contact({ props, onChange }: ContactProps) {
   };
 
   return (
-    <span className={`pl-[6px] flex items-center h-[24px] ${styles.link}`}>
+    <span className={`pl-[6px] flex items-center h-[24px] ${styles.contact}`}>
       {<Component></Component>}
       <Input
         props={[key, contact.text]}

@@ -1,5 +1,7 @@
 @use "@carbon/themes/scss/tokens";
 
-.education svg {
+.contact svg {
   color: tokens.$link-primary;
+  min-width: 16px;
+  min-height: 16px;
 }

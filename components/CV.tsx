@@ -4,12 +4,9 @@ import styles from './CV.module.scss';
 import { ChangeEvent, useState } from 'react';
 import Contact from './Contact';
 import Input from './Input';
-import Divider from './Divider';
-import Experience from './Experience';
-import RichText from './RichText';
-import Education from './Education';
-import Skill from './Skill';
-import Language from './Language';
+import RichText from './RichText/RichText';
+import Single from './Section/Single';
+import Double from './Section/Double';
 
 export default function CV() {
   const placeholders = {
@@ -42,54 +39,75 @@ export default function CV() {
       },
     ],
     summary: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","marks":[{"type":"italic"}],"text":"With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth."}]}]}`,
-    experiences: [
+    sections: [
       {
-        title: 'Software Engineer',
-        company: 'Google',
-        location: 'Netherlands',
-        date: 'Feb 2021 - Present',
-        topic: 'Technology',
-        description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Designed and implemented a real-time database using Firebase for Google's internal document management system."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Led Google Maps data collection for self-driving cars."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Built & scaled data pipelines for Google Cloud's self-driving car project."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Improved Chrome's memory usage."}]}]}]}]}`,
-      },
-    ],
-    education: [
-      {
-        title: "Bachelor's degree from the University of Cambridge",
-        date: '2018',
-        description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Bachelor's degree from the University of Cambridge."}]}]}]}]}`,
-      },
-    ],
-    skills: [
-      'React',
-      'Next.js',
-      'Tailwind CSS',
-      'Javascript',
-      'HTML5',
-      'CSS',
-      'Jest',
-      'Typescript',
-      'MongoDB',
-      'PostgreSQL',
-      'Docker',
-      'Git',
-      'CI/CD',
-      'GitHub Actions',
-    ],
-    languages: [
-      {
-        name: 'Spanish',
-        level: 'Native',
-        rating: 10,
+        name: 'Experience',
+        type: 'Single',
+        content: [
+          {
+            title: 'Software Engineer',
+            subtitle: 'Google',
+            location: 'Netherlands',
+            date: 'Feb 2021 - Present',
+            topic: 'Technology',
+            description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Designed and implemented a real-time database using Firebase for Google's internal document management system."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Led Google Maps data collection for self-driving cars."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Built & scaled data pipelines for Google Cloud's self-driving car project."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Improved Chrome's memory usage."}]}]}]}]}`,
+          },
+        ],
       },
       {
-        name: 'English',
-        level: 'Fluent',
-        rating: 9,
+        name: 'Education',
+        type: 'Single',
+        content: [
+          {
+            title: "Bachelor's degree from the University of Cambridge",
+            date: '2018',
+            description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Bachelor's degree from the University of Cambridge."}]}]}]}]}`,
+          },
+        ],
       },
       {
-        name: 'Dutch',
-        level: 'A2',
-        rating: 2,
+        type: 'Double',
+        content: [
+          {
+            name: 'Skills',
+            skills: [
+              'React',
+              'Next.js',
+              'Tailwind CSS',
+              'Javascript',
+              'HTML5',
+              'CSS',
+              'Jest',
+              'Typescript',
+              'MongoDB',
+              'PostgreSQL',
+              'Docker',
+              'Git',
+              'CI/CD',
+              'GitHub Actions',
+            ],
+          },
+          {
+            name: 'Languages',
+            languages: [
+              {
+                name: 'Spanish',
+                level: 'Native',
+                rating: 10,
+              },
+              {
+                name: 'English',
+                level: 'Fluent',
+                rating: 9,
+              },
+              {
+                name: 'Dutch',
+                level: 'A2',
+                rating: 2,
+              },
+            ],
+          },
+        ],
       },
     ],
   };
@@ -114,37 +132,10 @@ export default function CV() {
   };
   const generateContactName = contactGenerator('contact_');
 
-  const experienceGenerator = (prefix: string) => {
-    let i = 1;
-    return () => {
-      return prefix + i++;
-    };
+  const sections = {
+    Single,
+    Double,
   };
-  const generateExperienceName = experienceGenerator('experience_');
-
-  const educationGenerator = (prefix: string) => {
-    let i = 1;
-    return () => {
-      return prefix + i++;
-    };
-  };
-  const generateEducationName = educationGenerator('education_');
-
-  const skillGenerator = (prefix: string) => {
-    let i = 1;
-    return () => {
-      return prefix + i++;
-    };
-  };
-  const generateSkillName = skillGenerator('skill_');
-
-  const languageGenerator = (prefix: string) => {
-    let i = 1;
-    return () => {
-      return prefix + i++;
-    };
-  };
-  const generateLanguageName = languageGenerator('language_');
 
   return (
     <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
@@ -180,68 +171,17 @@ export default function CV() {
           className="text-justify"
         ></RichText>
       </div>
-      <div className={styles.body}>
-        <div className={styles.experience}>
-          <Divider props="Experience"></Divider>
-          {form.experiences.map((experience) => {
-            const key = generateExperienceName();
-            return (
-              <Experience
-                key={key}
-                props={[key, experience]}
-                onChange={() => setForm({ ...form })}
-              ></Experience>
-            );
-          })}
-        </div>
-        <div className={styles.education}>
-          <Divider props="Education"></Divider>
-          {form.education.map((education) => {
-            const key = generateEducationName();
-            return (
-              <Education
-                key={key}
-                props={[key, education]}
-                onChange={() => setForm({ ...form })}
-              ></Education>
-            );
-          })}
-        </div>
-        <div className={styles.skills_languages}>
-          <div className="flex flex-col w-full gap-1">
-            <Divider props="Skills"></Divider>
-            <div className={styles.skills}>
-              {form.skills.map((skill, i) => {
-                const key = generateSkillName();
-                return (
-                  <Skill
-                    key={key}
-                    props={[key, skill]}
-                    onChange={(e) => {
-                      form.skills[i] = e.target.value;
-                      setForm({ ...form });
-                    }}
-                  ></Skill>
-                );
-              })}
-            </div>
-          </div>
-          <div className="flex flex-col w-full">
-            <Divider props="Languages"></Divider>
-            <div className="flex flex-col gap-3">
-              {form.languages.map((language) => {
-                const key = generateLanguageName();
-                return (
-                  <Language
-                    key={key}
-                    props={[key, language]}
-                    onChange={() => setForm({ ...form })}
-                  ></Language>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+      <div className={styles.sections}>
+        {form.sections.map((m, i) => {
+          const Component = sections[m.type as keyof typeof sections];
+          return (
+            <Component
+              key={i}
+              props={m}
+              onChange={() => setForm({ ...form })}
+            ></Component>
+          );
+        })}
       </div>
     </form>
   );

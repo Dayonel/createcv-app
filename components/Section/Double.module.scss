@@ -1,0 +1,16 @@
+.double {
+  display: grid;
+  gap: 24px 0px;
+}
+
+@media (min-width: 768px) {
+  .double {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 80px;
+    grid-auto-flow: row;
+    grid-template-areas: ". .";
+    grid-area: skills_languages;
+  }
+}

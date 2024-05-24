@@ -27,6 +27,8 @@ export default function Input({
   };
 
   const measureWidth = (el: HTMLInputElement) => {
+    if (!el) return;
+
     el.style.width = '0px';
     el.style.width = `${Math.max(el.scrollWidth, width.current || 0)}px`;
 
@@ -40,14 +42,18 @@ export default function Input({
   }, [fixedSize]);
 
   return (
-    <input
-      ref={input}
-      type="text"
-      className={`${className} min-w-[2.5ch]`}
-      name={key}
-      onInput={onChangeHandler}
-      placeholder={placeholder.current}
-      value={value}
-    />
+    <>
+      {value !== undefined && (
+        <input
+          ref={input}
+          type="text"
+          className={`${className} min-w-[2.5ch]`}
+          name={key}
+          onInput={onChangeHandler}
+          placeholder={placeholder.current}
+          value={value}
+        />
+      )}
+    </>
   );
 }

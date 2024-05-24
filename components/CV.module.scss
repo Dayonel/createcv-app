@@ -17,20 +17,16 @@
   gap: 16px 0px;
 }
 
-.body {
+.sections {
   display: grid;
-  gap: 24px 0px;
+  grid-template-columns: 1fr;
+  gap: 16px 0px;
 }
 
 .header {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.5rem;
-}
-
-.skills_languages {
-  display: grid;
-  gap: 24px 0px;
 }
 
 /* playground */
@@ -43,7 +39,7 @@
     grid-auto-flow: row;
     grid-template-areas:
       "header"
-      "body";
+      "sections";
   }
 
   .header {
@@ -68,35 +64,15 @@
     grid-area: contact;
   }
 
-  .body {
+  .sections {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content min-content;
+    grid-template-rows: 1fr;
+    grid-auto-rows: min-content;
     gap: 24px 0px;
     grid-auto-flow: row;
-    grid-template-areas:
-      "experience"
-      "education"
-      "skills_languages";
-    grid-area: body;
-  }
-
-  .experience {
-    grid-area: experience;
-  }
-
-  .education {
-    grid-area: education;
-  }
-
-  .skills_languages {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 0px 80px;
-    grid-auto-flow: row;
-    grid-template-areas: ". .";
-    grid-area: skills_languages;
+    grid-template-areas: ".";
+    grid-area: sections;
   }
 }
 
@@ -117,17 +93,5 @@
 @media (min-width: 768px) {
   .header {
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  }
-}
-
-.skills {
-  grid-gap: 0.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  display: grid;
-}
-
-@media (min-width: 595px) {
-  .skills {
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
   }
 }
