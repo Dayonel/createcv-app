@@ -18,7 +18,13 @@ export default function Double({ props, onChange }: DoubleProps) {
       <div className={styles.double}>
         <div className="flex flex-col w-full gap-1">
           {first.name && (
-            <Divider props={first.name} onChange={onChange}></Divider>
+            <Divider
+              props={first.name}
+              onChange={(e) => {
+                first.name = e.target.value;
+                onChange();
+              }}
+            ></Divider>
           )}
           {first.skills && (
             <Skills
@@ -29,7 +35,13 @@ export default function Double({ props, onChange }: DoubleProps) {
         </div>
         <div className="flex flex-col w-full">
           {second.name && (
-            <Divider props={second.name} onChange={onChange}></Divider>
+            <Divider
+              props={second.name}
+              onChange={(e) => {
+                second.name = e.target.value;
+                onChange();
+              }}
+            ></Divider>
           )}
           <div className="flex flex-col gap-3">
             {second.languages && (

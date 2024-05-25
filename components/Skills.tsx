@@ -17,7 +17,10 @@ export default function Skills({ props, onChange }: SkillsProps) {
             key={i}
             props={[key, m]}
             className={`max-w-xs md:max-w-lg font-bold outline-none highlight ${styles.skill}`}
-            onChange={onChange}
+            onChange={(e) => {
+              skills[i] = e.target.value;
+              onChange();
+            }}
             fixedSize
           ></Input>
         );
