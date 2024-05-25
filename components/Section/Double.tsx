@@ -17,7 +17,7 @@ export default function Double({ props, onChange }: DoubleProps) {
     <div>
       <div className={styles.double}>
         <div className="flex flex-col w-full gap-1">
-          {first.name && (
+          {first.name !== undefined && (
             <Divider
               props={first.name}
               onChange={(e) => {
@@ -34,7 +34,7 @@ export default function Double({ props, onChange }: DoubleProps) {
           )}
         </div>
         <div className="flex flex-col w-full">
-          {second.name && (
+          {second.name !== undefined && (
             <Divider
               props={second.name}
               onChange={(e) => {

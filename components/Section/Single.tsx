@@ -16,7 +16,7 @@ export default function Single({ props, onChange }: SingleProps) {
 
   return (
     <div>
-      {name && (
+      {name !== undefined && (
         <Divider
           props={name}
           onChange={(e) => {
@@ -30,7 +30,7 @@ export default function Single({ props, onChange }: SingleProps) {
         return (
           <div key={i} className={`${styles.single} flex flex-col gap-1`}>
             <div className="flex flex-wrap justify-between items-center gap-2">
-              {m.title && (
+              {m.title !== undefined && (
                 <Input
                   props={['_title', m.title]}
                   className="max-w-xs md:max-w-lg w-[144px] font-bold outline-none highlight"
@@ -42,7 +42,7 @@ export default function Single({ props, onChange }: SingleProps) {
               )}
 
               <div className="flex items-center justify-end">
-                {m.date && (
+                {m.date !== undefined && (
                   <>
                     <Calendar></Calendar>
                     <Input
@@ -58,7 +58,7 @@ export default function Single({ props, onChange }: SingleProps) {
               </div>
             </div>
             <div className="flex flex-wrap justify-between items-center">
-              {m.subtitle && (
+              {m.subtitle !== undefined && (
                 <Input
                   props={['_subtitle', m.subtitle]}
                   className="text-sm max-w-xs md:max-w-lg w-[56px] outline-none highlight"
@@ -69,7 +69,7 @@ export default function Single({ props, onChange }: SingleProps) {
                 ></Input>
               )}
 
-              {m.topic && (
+              {m.topic !== undefined && (
                 <Input
                   props={['_topic', m.topic]}
                   className="max-w-xs md:max-w-lg w-[73px] text-xs outline-none highlight"
@@ -80,7 +80,7 @@ export default function Single({ props, onChange }: SingleProps) {
                 ></Input>
               )}
             </div>
-            {m.description && (
+            {m.description !== undefined && (
               <div className="pt-1">
                 <RichText
                   props={m.description}
