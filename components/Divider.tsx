@@ -4,17 +4,20 @@ import RichText from './RichText/RichText';
 interface DividerProps {
   props: string;
   onChange: (e: string) => void;
+  className?: string;
 }
 
-export default function Divider({ props, onChange }: DividerProps) {
+export default function Divider({ props, onChange, className }: DividerProps) {
   return (
-    <div className={`relative pr-[6px] overflow-hidden w-full ${styles.divider}`}>
-      <RichText
-        props={props}
-        onChange={onChange}
-        className="max-w-xs md:max-w-lg text-sm uppercase font-bold inline-block"
-        input
-      ></RichText>
+    <div className="pr-[6px]">
+      <div className={`relative overflow-hidden w-full ${styles.divider}`}>
+        <RichText
+          props={props}
+          onChange={onChange}
+          className={`max-w-xs md:max-w-lg text-sm uppercase font-bold inline-block ${className}`}
+          input
+        ></RichText>
+      </div>
     </div>
   );
 }

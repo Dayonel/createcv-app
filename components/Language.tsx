@@ -1,6 +1,5 @@
 import './Language.scss';
 import { Language as LanguageType } from '@/types/Language';
-import Input from './Input';
 import RichText from './RichText/RichText';
 
 interface LanguageProps {
@@ -13,9 +12,9 @@ export default function Language({ props, onChange }: LanguageProps) {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between">
+      <div className="flex flex-wrap justify-between">
         <RichText
-          className="max-w-xs md:max-w-lg text-xs font-bold"
+          className="max-w-xs md:max-w-52 text-xs font-bold"
           props={language.name}
           onChange={(e) => {
             language.name = e;
@@ -24,7 +23,7 @@ export default function Language({ props, onChange }: LanguageProps) {
           input
         ></RichText>
         <RichText
-          className="max-w-xs md:max-w-lg text-xs"
+          className="max-w-xs md:max-w-52 text-xs"
           props={language.level}
           onChange={(e) => {
             language.level = e;

@@ -19,6 +19,7 @@ export default function Double({ props, onChange }: DoubleProps) {
         <div className="flex flex-col w-full gap-1">
           {first.name !== undefined && (
             <Divider
+              className="max-w-xs md:max-w-56"
               props={first.name}
               onChange={(e) => {
                 first.name = e;
@@ -36,6 +37,7 @@ export default function Double({ props, onChange }: DoubleProps) {
         <div className="flex flex-col w-full">
           {second.name !== undefined && (
             <Divider
+              className="max-w-xs md:max-w-56"
               props={second.name}
               onChange={(e) => {
                 second.name = e;

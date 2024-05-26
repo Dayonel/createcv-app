@@ -1,5 +1,4 @@
 import { Calendar } from '@carbon/icons-react';
-import Input from '../Input';
 import RichText from '../RichText/RichText';
 import styles from './Single.module.scss';
 import Divider from '../Divider';
@@ -42,7 +41,7 @@ export default function Single({ props, onChange }: SingleProps) {
                 ></RichText>
               )}
 
-              <div className="flex items-center justify-end">
+              <div className="flex flex-wrap items-center">
                 {m.date !== undefined && (
                   <>
                     <Calendar></Calendar>
