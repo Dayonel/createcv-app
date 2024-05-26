@@ -1,6 +1,4 @@
 import styles from './Contact.module.scss';
-import Input from './Input';
-import { ChangeEvent } from 'react';
 import {
   Email,
   LocationFilled,
@@ -10,9 +8,10 @@ import {
   Link,
 } from '@carbon/icons-react';
 import { Contact as ContactType } from '../types/Contact';
+import RichText from './RichText/RichText';
 
 interface ContactProps {
-  props: [string, ContactType];
+  props: ContactType;
   onChange: () => void;
 }
 
@@ -26,22 +25,20 @@ const contactIcons = {
 };
 
 export default function Contact({ props, onChange }: ContactProps) {
-  const [key, contact] = props;
-  const Component = contactIcons[contact.icon as keyof typeof contactIcons]; // Correct! JSX type can be a capitalized variable.
-
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    contact.text = e.target.value;
-    onChange();
-  };
+  const Component = contactIcons[props.icon as keyof typeof contactIcons]; // Correct! JSX type can be a capitalized variable.
 
   return (
-    <span className={`pl-[6px] flex items-center h-[24px] ${styles.contact}`}>
+    <span className={`pl-[6px] flex items-center ${styles.contact}`}>
       {<Component></Component>}
-      <Input
-        props={[key, contact.text]}
-        className="max-w-xs md:max-w-lg text-xs outline-none highlight"
-        onChange={onChangeHandler}
-      ></Input>
+      <RichText
+        className="max-w-52 md:max-w-52 text-xs"
+        props={props.text}
+        onChange={(e) => {
+          props.text = e;
+          onChange();
+        }}
+        input
+      ></RichText>
     </span>
   );
 }

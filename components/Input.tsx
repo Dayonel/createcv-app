@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
 
 interface InputProps {
-  props: [string, string];
+  props: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className: string;
   fixedSize?: boolean;
@@ -13,11 +13,9 @@ export default function Input({
   className,
   fixedSize,
 }: InputProps) {
-  const [key, value] = props;
-
   const input = useRef<HTMLInputElement>(null!);
   const width = useRef<number>();
-  const placeholder = useRef(value);
+  const placeholder = useRef(props);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (!fixedSize) {
@@ -43,15 +41,14 @@ export default function Input({
 
   return (
     <>
-      {value !== undefined && (
+      {props !== undefined && (
         <input
           ref={input}
           type="text"
           className={`${className} min-w-[2.5ch]`}
-          name={key}
           onInput={onChangeHandler}
           placeholder={placeholder.current}
-          value={value}
+          value={props}
         />
       )}
     </>

@@ -39,11 +39,11 @@ export default function ThemeToggle() {
   return (
     <span className="menu-item">
       {theme === 'g90' ? (
-        <button onClick={() => setTheme('g10')}>
+        <button aria-label="theme toggle" onClick={() => setTheme('g10')}>
           <Light size={24}></Light>
         </button>
       ) : (
-        <button onClick={() => setTheme('g90')}>
+        <button aria-label="theme toggle" onClick={() => setTheme('g90')}>
           <Asleep size={24}></Asleep>
         </button>
       )}

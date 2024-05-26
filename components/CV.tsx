@@ -15,27 +15,27 @@ export default function CV() {
     contacts: [
       {
         icon: 'Email',
-        text: 'email@example.com',
+        text: '{"type":"doc","content":[{"type":"text","text":"email@example.com"}]}',
       },
       {
         icon: 'LogoLinkedin',
-        text: 'linkedin.com/in/example',
+        text: '{"type":"doc","content":[{"type":"text","text":"linkedin.com/in/example"}]}',
       },
       {
         icon: 'Phone',
-        text: '(+31) 666333999',
+        text: '{"type":"doc","content":[{"type":"text","text":"(+31) 666333999"}]}',
       },
       {
         icon: 'LogoGithub',
-        text: 'github.com/example',
+        text: '{"type":"doc","content":[{"type":"text","text":"github.com/example"}]}',
       },
       {
         icon: 'LocationFilled',
-        text: 'Amsterdam, Netherlands',
+        text: '{"type":"doc","content":[{"type":"text","text":"Amsterdam, Netherlands"}]}',
       },
       {
         icon: 'Link',
-        text: 'createcv.app',
+        text: '{"type":"doc","content":[{"type":"text","text":"createcv.app"}]}',
       },
     ],
     summary: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","marks":[{"type":"italic"}],"text":"With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth."}]}]}`,
@@ -155,7 +155,7 @@ export default function CV() {
               return (
                 <Contact
                   key={i}
-                  props={['_contact', contact]}
+                  props={contact}
                   onChange={() => setForm({ ...form })}
                 ></Contact>
               );

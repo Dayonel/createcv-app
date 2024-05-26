@@ -29,7 +29,7 @@ export default function Double({ props, onChange }: DoubleProps) {
           )}
           {first.skills && (
             <Skills
-              props={['skills', first.skills]}
+              props={first.skills}
               onChange={onChange}
             ></Skills>
           )}

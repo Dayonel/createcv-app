@@ -79,14 +79,15 @@
 /* end playground */
 
 .contact {
+  display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(auto-fit, minmax(0, 24px));
-  height: fit-content;
+  grid-template-rows: minmax(24px, max-content);
+  grid-auto-rows: minmax(24px, max-content);
 }
 
 @media (min-width: 768px) {
   .contact {
-    grid-template-columns: repeat(2, minmax(190px, min-content));
+    grid-template-columns: repeat(2, minmax(208px, min-content));
   }
 }
 
