@@ -16,24 +16,27 @@ export default function Double({ props, onChange }: DoubleProps) {
   return (
     <div>
       <div className={styles.double}>
-        <div className="flex flex-col w-full gap-1">
-          {first.name !== undefined && (
-            <Divider
-              className="max-w-xs md:max-w-56"
-              props={first.name}
-              onChange={(e) => {
-                first.name = e;
-                onChange();
-              }}
-            ></Divider>
-          )}
-          {first.skills && (
-            <Skills
-              props={first.skills}
-              onChange={onChange}
-            ></Skills>
-          )}
-        </div>
+        {(first.name || (first.skills && first.skills.length > 0)) && (
+          <div className="flex flex-col w-full gap-1">
+            {first.name !== undefined && (
+              <Divider
+                className="max-w-xs md:max-w-56"
+                props={first.name}
+                onChange={(e) => {
+                  first.name = e;
+                  onChange();
+                }}
+                onRemove={() => {
+                  delete first.name;
+                  onChange();
+                }}
+              ></Divider>
+            )}
+            {first.skills && (
+              <Skills props={first.skills} onChange={onChange}></Skills>
+            )}
+          </div>
+        )}
         <div className="flex flex-col w-full">
           {second.name !== undefined && (
             <Divider
@@ -41,6 +44,10 @@ export default function Double({ props, onChange }: DoubleProps) {
               props={second.name}
               onChange={(e) => {
                 second.name = e;
+                onChange();
+              }}
+              onRemove={() => {
+                delete second.name;
                 onChange();
               }}
             ></Divider>

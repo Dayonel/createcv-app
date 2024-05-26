@@ -19,6 +19,10 @@ export default function Skills({ props, onChange }: SkillsProps) {
               props[i] = e.target.value;
               onChange();
             }}
+            onRemove={() => {
+              props.splice(i, 1);
+              onChange();
+            }}
             fixedSize
           ></Input>
         );

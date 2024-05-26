@@ -22,6 +22,10 @@ export default function Single({ props, onChange }: SingleProps) {
             props.name = e;
             onChange();
           }}
+          onRemove={() => {
+            delete props.name;
+            onChange();
+          }}
         ></Divider>
       )}
 
@@ -38,6 +42,10 @@ export default function Single({ props, onChange }: SingleProps) {
                     onChange();
                   }}
                   input
+                  onRemove={() => {
+                    delete m.title;
+                    onChange();
+                  }}
                 ></RichText>
               )}
 
@@ -50,6 +58,10 @@ export default function Single({ props, onChange }: SingleProps) {
                       props={m.date}
                       onChange={(e) => {
                         m.date = e;
+                        onChange();
+                      }}
+                      onRemove={() => {
+                        delete m.date;
                         onChange();
                       }}
                       input
@@ -67,6 +79,10 @@ export default function Single({ props, onChange }: SingleProps) {
                     m.subtitle = e;
                     onChange();
                   }}
+                  onRemove={() => {
+                    delete m.subtitle;
+                    onChange();
+                  }}
                   input
                 ></RichText>
               )}
@@ -79,6 +95,10 @@ export default function Single({ props, onChange }: SingleProps) {
                     m.topic = e;
                     onChange();
                   }}
+                  onRemove={() => {
+                    delete m.topic;
+                    onChange();
+                  }}
                   input
                 ></RichText>
               )}
@@ -89,6 +109,10 @@ export default function Single({ props, onChange }: SingleProps) {
                   props={m.description}
                   onChange={(e) => {
                     m.description = e;
+                    onChange();
+                  }}
+                  onRemove={() => {
+                    delete m.description;
                     onChange();
                   }}
                 ></RichText>

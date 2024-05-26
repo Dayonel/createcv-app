@@ -1,5 +1,5 @@
 export type Language = {
-  name: string;
-  level: string;
-  rating: number;
+  name?: string;
+  level?: string;
+  rating?: number;
 };

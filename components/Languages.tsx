@@ -16,6 +16,13 @@ export default function Languages({ props, onChange }: LanguagesProps) {
             key={i}
             props={m}
             onChange={onChange}
+            onRemove={() => {
+              if (!m.name && !m.level) {
+                props.splice(i, 1)
+              }
+
+              onChange();
+            }}
           ></Language>
         );
       })}

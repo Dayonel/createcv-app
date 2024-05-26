@@ -13,6 +13,7 @@ import RichText from './RichText/RichText';
 interface ContactProps {
   props: ContactType;
   onChange: () => void;
+  onRemove: () => void;
 }
 
 const contactIcons = {
@@ -24,7 +25,7 @@ const contactIcons = {
   Link,
 };
 
-export default function Contact({ props, onChange }: ContactProps) {
+export default function Contact({ props, onChange, onRemove }: ContactProps) {
   const Component = contactIcons[props.icon as keyof typeof contactIcons]; // Correct! JSX type can be a capitalized variable.
 
   return (
@@ -37,6 +38,7 @@ export default function Contact({ props, onChange }: ContactProps) {
           props.text = e;
           onChange();
         }}
+        onRemove={onRemove}
         input
       ></RichText>
     </span>
