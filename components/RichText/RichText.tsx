@@ -16,24 +16,35 @@ import Blockquote from '@tiptap/extension-blockquote';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import RichTextControls from './RichTextControls';
-
 interface RichTextProps {
   props: string;
   onChange: (e: string) => void;
   className?: string;
+  input?: boolean;
 }
 
 export default function RichText({
   props,
   onChange,
   className,
+  input,
 }: RichTextProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
+  const placeholderText = useMemo(
+    () => JSON.parse(props).content[0].content[0].text,
+    []
+  );
+  const ref = useRef<HTMLDivElement>(null);
+  const minWidth = useRef<number>();
 
   var dependencies = [
     Document,
-    Paragraph,
+    Paragraph.configure({
+      HTMLAttributes: {
+        class: `${className}`,
+      },
+    }),
     Text,
     BulletList,
     ListItem,
@@ -44,30 +55,47 @@ export default function RichText({
     Blockquote,
     HorizontalRule,
   ];
+
   const placeholder = useMemo(() => {
-    return generateHTML(JSON.parse(props), dependencies);
+    const html = generateHTML(JSON.parse(props), dependencies);
+    return !input
+      ? html
+      : html.replace(/<p([^>]*?)>/g, (_, attributes) => {
+          return `<p ${attributes} class="${className}">`; // apply args css styling for inputs
+        });
   }, [props]);
 
   const editor = useEditor({
     extensions: [
       ...dependencies,
       Placeholder.configure({
-        placeholder: 'Write something...',
+        placeholder: input ? placeholderText : 'Write something...',
       }),
     ],
     editorProps: {
       attributes: {
-        class: `text-sm outline-none highlight ${className}`,
+        class: `min-w-[2ch] text-sm outline-none highlight ${className} ${
+          input ? 'input' : ''
+        }`,
       },
     },
     content: JSON.parse(props),
   });
 
   useEffect(() => {
+    minWidth.current = ref.current?.scrollWidth;
+  }, [editor]);
+
+  useEffect(() => {
     if (!editor) return;
 
     editor.off('update', onUpdate);
     editor.on('update', onUpdate);
+
+    if (input) {
+      editor.view.dom.style.minWidth =
+        editor.getText().length > 0 ? '2ch' : `${minWidth.current}px`;
+    }
 
     return () => {
       editor.off('update', onUpdate);
@@ -81,7 +109,7 @@ export default function RichText({
 
   if (!editor) {
     return (
-      <div className="richtext">
+      <div className={`richtext ${input ? 'input' : ''}`}>
         <div>
           <div
             dangerouslySetInnerHTML={{ __html: placeholder }}
@@ -94,15 +122,17 @@ export default function RichText({
 
   return (
     <div
-      className="richtext"
+      className={`richtext ${input ? 'input' : ''}`}
       ref={controlsRef}
       onFocus={() => setControlsVisible(true)}
       tabIndex={0}
     >
-      <RichTextControls
-        props={{ editor, visible: controlsVisible }}
-      ></RichTextControls>
-      <EditorContent editor={editor} />
+      {!input && (
+        <RichTextControls
+          props={{ editor, visible: controlsVisible }}
+        ></RichTextControls>
+      )}
+      <EditorContent ref={ref} editor={editor} />
     </div>
   );
 }

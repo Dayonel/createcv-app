@@ -21,7 +21,7 @@ export default function Double({ props, onChange }: DoubleProps) {
             <Divider
               props={first.name}
               onChange={(e) => {
-                first.name = e.target.value;
+                first.name = e;
                 onChange();
               }}
             ></Divider>
@@ -38,7 +38,7 @@ export default function Double({ props, onChange }: DoubleProps) {
             <Divider
               props={second.name}
               onChange={(e) => {
-                second.name = e.target.value;
+                second.name = e;
                 onChange();
               }}
             ></Divider>

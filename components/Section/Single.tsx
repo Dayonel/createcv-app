@@ -20,7 +20,7 @@ export default function Single({ props, onChange }: SingleProps) {
         <Divider
           props={name}
           onChange={(e) => {
-            props.name = e.target.value;
+            props.name = e;
             onChange();
           }}
         ></Divider>
@@ -31,53 +31,57 @@ export default function Single({ props, onChange }: SingleProps) {
           <div key={i} className={`${styles.single} flex flex-col gap-1`}>
             <div className="flex flex-wrap justify-between items-center gap-2">
               {m.title !== undefined && (
-                <Input
-                  props={['_title', m.title]}
-                  className="max-w-xs md:max-w-lg w-[144px] font-bold outline-none highlight"
+                <RichText
+                  className="max-w-xs md:max-w-lg font-bold text-base"
+                  props={m.title}
                   onChange={(e) => {
-                    m.title = e.target.value;
+                    m.title = e;
                     onChange();
                   }}
-                ></Input>
+                  input
+                ></RichText>
               )}
 
               <div className="flex items-center justify-end">
                 {m.date !== undefined && (
                   <>
                     <Calendar></Calendar>
-                    <Input
-                      props={['_date', m.date]}
-                      className="max-w-xs md:max-w-lg w-[115px] font-bold text-xs outline-none highlight"
+                    <RichText
+                      className="max-w-xs md:max-w-lg font-bold text-xs"
+                      props={m.date}
                       onChange={(e) => {
-                        m.date = e.target.value;
+                        m.date = e;
                         onChange();
                       }}
-                    ></Input>
+                      input
+                    ></RichText>
                   </>
                 )}
               </div>
             </div>
             <div className="flex flex-wrap justify-between items-center">
               {m.subtitle !== undefined && (
-                <Input
-                  props={['_subtitle', m.subtitle]}
-                  className="text-sm max-w-xs md:max-w-lg w-[56px] outline-none highlight"
+                <RichText
+                  className="max-w-xs md:max-w-lg font-bold text-sm"
+                  props={m.subtitle}
                   onChange={(e) => {
-                    m.subtitle = e.target.value;
+                    m.subtitle = e;
                     onChange();
                   }}
-                ></Input>
+                  input
+                ></RichText>
               )}
 
               {m.topic !== undefined && (
-                <Input
-                  props={['_topic', m.topic]}
-                  className="max-w-xs md:max-w-lg w-[73px] text-xs outline-none highlight"
+                <RichText
+                  className="max-w-xs md:max-w-lg text-xs"
+                  props={m.topic}
                   onChange={(e) => {
-                    m.topic = e.target.value;
+                    m.topic = e;
                     onChange();
                   }}
-                ></Input>
+                  input
+                ></RichText>
               )}
             </div>
             {m.description !== undefined && (

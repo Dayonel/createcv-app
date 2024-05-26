@@ -41,26 +41,26 @@ export default function CV() {
     summary: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","marks":[{"type":"italic"}],"text":"With over 6 years of experience, I bring extensive experience in full-stack development. Proficient across backend, frontend, dev ops and testing domains, I am dedicated to following best practices in my work and maintain enthusiasm for learning and growth."}]}]}`,
     sections: [
       {
-        name: 'Experience',
+        name: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Experience"}]}]}',
         type: 'Single',
         content: [
           {
-            title: 'Software Engineer',
-            subtitle: 'Google',
-            location: 'Netherlands',
-            date: 'Feb 2021 - Present',
-            topic: 'Technology',
+            title:
+              '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Software Engineer"}]}]}',
+            subtitle: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Google"}]}]}',
+            date: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Feb 2021 - Present"}]}]}',
+            topic: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Technology"}]}]}',
             description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Designed and implemented a real-time database using Firebase for Google's internal document management system."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Led Google Maps data collection for self-driving cars."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Built & scaled data pipelines for Google Cloud's self-driving car project."}]}]},{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Improved Chrome's memory usage."}]}]}]}]}`,
           },
         ],
       },
       {
-        name: 'Education',
+        name: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Education"}]}]}',
         type: 'Single',
         content: [
           {
-            title: "Bachelor's degree from the University of Cambridge",
-            date: '2018',
+            title: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Bachelor's degree from the University of Cambridge"}]}]}`,
+            date: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"2018"}]}]}',
             description: `{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Bachelor's degree from the University of Cambridge."}]}]}]}]}`,
           },
         ],
@@ -69,7 +69,7 @@ export default function CV() {
         type: 'Double',
         content: [
           {
-            name: 'Skills',
+            name: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Skills"}]}]}',
             skills: [
               'React',
               'Next.js',
@@ -88,21 +88,21 @@ export default function CV() {
             ],
           },
           {
-            name: 'Languages',
+            name: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Languages"}]}]}',
             languages: [
               {
-                name: 'Spanish',
-                level: 'Native',
+                name: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Spanish"}]}]}',
+                level: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Native"}]}]}',
                 rating: 10,
               },
               {
-                name: 'English',
-                level: 'Fluent',
+                name: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"English"}]}]}',
+                level: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Fluent"}]}]}',
                 rating: 9,
               },
               {
-                name: 'Dutch',
-                level: 'A2',
+                name: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Dutch"}]}]}',
+                level: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"A2"}]}]}',
                 rating: 2,
               },
             ],
