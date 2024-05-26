@@ -22,8 +22,6 @@
 .input {
   min-height: inherit;
   width: fit-content;
-  display: inline-block;
-  line-height: inherit;
 }
 
 .input div {
@@ -31,7 +29,7 @@
 }
 
 /* Placeholder (at the top) */
-.tiptap .is-editor-empty:first-child::before {
+.is-editor-empty::before {
   color: #9ca3af;
   content: attr(data-placeholder);
   pointer-events: none;

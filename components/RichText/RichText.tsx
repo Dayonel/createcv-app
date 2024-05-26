@@ -16,6 +16,7 @@ import Blockquote from '@tiptap/extension-blockquote';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import RichTextControls from './RichTextControls';
+
 interface RichTextProps {
   props: string;
   onChange: (e: string) => void;
@@ -31,30 +32,36 @@ export default function RichText({
 }: RichTextProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
-  const placeholderText = useMemo(
-    () => JSON.parse(props).content[0].content[0].text,
-    []
-  );
+  const placeholderText = useMemo(() => JSON.parse(props).content[0].text, []);
   const ref = useRef<HTMLDivElement>(null);
   const minWidth = useRef<number>();
 
-  var dependencies = [
-    Document,
-    Paragraph.configure({
-      HTMLAttributes: {
-        class: `${className}`,
-      },
-    }),
-    Text,
-    BulletList,
-    ListItem,
-    Bold,
-    Italic,
-    History,
-    OrderedList,
-    Blockquote,
-    HorizontalRule,
-  ];
+  const oneLine = Document.extend({
+    content: 'text*',
+  });
+
+  var dependencies = input
+    ? [
+        oneLine,
+        Text
+      ]
+    : [
+        Document,
+        Paragraph.configure({
+          HTMLAttributes: {
+            class: `${className}`,
+          },
+        }),
+        Text,
+        BulletList,
+        ListItem,
+        Bold,
+        Italic,
+        History,
+        OrderedList,
+        Blockquote,
+        HorizontalRule,
+      ];
 
   const placeholder = useMemo(() => {
     const html = generateHTML(JSON.parse(props), dependencies);
@@ -70,13 +77,13 @@ export default function RichText({
       ...dependencies,
       Placeholder.configure({
         placeholder: input ? placeholderText : 'Write something...',
+        emptyEditorClass: 'is-editor-empty',
+        considerAnyAsEmpty: true,
       }),
     ],
     editorProps: {
       attributes: {
-        class: `min-w-[2ch] text-sm outline-none highlight ${className} ${
-          input ? 'input' : ''
-        }`,
+        class: `outline-none highlight ${className} ${input ? 'input' : ''}`,
       },
     },
     content: JSON.parse(props),
@@ -84,6 +91,9 @@ export default function RichText({
 
   useEffect(() => {
     minWidth.current = ref.current?.scrollWidth;
+    if (editor) {
+      editor.view.dom.dataset.placeholder = placeholderText;
+    }
   }, [editor]);
 
   useEffect(() => {
@@ -93,8 +103,15 @@ export default function RichText({
     editor.on('update', onUpdate);
 
     if (input) {
+      const length = editor.getText().length;
       editor.view.dom.style.minWidth =
-        editor.getText().length > 0 ? '2ch' : `${minWidth.current}px`;
+        length > 0 ? '0px' : `${minWidth.current}px`;
+
+      if (length == 0) {
+        editor.view.dom.classList.add('is-editor-empty');
+      } else {
+        editor.view.dom.classList.remove('is-editor-empty');
+      }
     }
 
     return () => {
@@ -109,7 +126,7 @@ export default function RichText({
 
   if (!editor) {
     return (
-      <div className={`richtext ${input ? 'input' : ''}`}>
+      <div className={`richtext ${className} ${input ? 'input' : ''}`}>
         <div>
           <div
             dangerouslySetInnerHTML={{ __html: placeholder }}
@@ -122,7 +139,7 @@ export default function RichText({
 
   return (
     <div
-      className={`richtext ${input ? 'input' : ''}`}
+      className={`richtext ${className} ${input ? 'input' : ''}`}
       ref={controlsRef}
       onFocus={() => setControlsVisible(true)}
       tabIndex={0}

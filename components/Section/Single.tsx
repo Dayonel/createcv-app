@@ -47,7 +47,7 @@ export default function Single({ props, onChange }: SingleProps) {
                   <>
                     <Calendar></Calendar>
                     <RichText
-                      className="max-w-xs md:max-w-lg font-bold text-xs"
+                      className="font-bold text-xs max-w-xs"
                       props={m.date}
                       onChange={(e) => {
                         m.date = e;
@@ -74,7 +74,7 @@ export default function Single({ props, onChange }: SingleProps) {
 
               {m.topic !== undefined && (
                 <RichText
-                  className="max-w-xs md:max-w-lg text-xs"
+                  className="text-xs max-w-xs"
                   props={m.topic}
                   onChange={(e) => {
                     m.topic = e;

@@ -12,7 +12,7 @@ export default function Divider({ props, onChange }: DividerProps) {
       <RichText
         props={props}
         onChange={onChange}
-        className="max-w-xs md:max-w-lg text-sm uppercase font-bold"
+        className="max-w-xs md:max-w-lg text-sm uppercase font-bold inline-block"
         input
       ></RichText>
     </div>
