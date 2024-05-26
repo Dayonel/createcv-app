@@ -2,20 +2,19 @@ import Language from './Language';
 import { Language as LanguageType } from '@/types/Language';
 
 interface LanguagesProps {
-  props: [string, LanguageType[]];
+  props: LanguageType[];
   onChange: () => void;
 }
 
 export default function Languages({ props, onChange }: LanguagesProps) {
-  const [key, languages] = props;
-
   return (
     <div className="flex flex-col gap-3">
-      {languages.map((m, i) => {
+      {props.map((m, i) => {
         return (
           <Language
+            id={`language_${i + 1}`}
             key={i}
-            props={['language', m]}
+            props={m}
             onChange={onChange}
           ></Language>
         );

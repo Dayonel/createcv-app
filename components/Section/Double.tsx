@@ -48,7 +48,7 @@ export default function Double({ props, onChange }: DoubleProps) {
           <div className="flex flex-col gap-3">
             {second.languages && (
               <Languages
-                props={['languages', second.languages]}
+                props={second.languages}
                 onChange={onChange}
               ></Languages>
             )}

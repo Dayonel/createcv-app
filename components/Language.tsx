@@ -3,30 +3,30 @@ import { Language as LanguageType } from '@/types/Language';
 import RichText from './RichText/RichText';
 
 interface LanguageProps {
-  props: [string, LanguageType];
+  props: LanguageType;
   onChange: () => void;
+  id?: string;
 }
 
-export default function Language({ props, onChange }: LanguageProps) {
-  const [key, language] = props;
-
+export default function Language({ props, onChange, id }: LanguageProps) {
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap justify-between">
         <RichText
+          id={id}
           className="max-w-xs md:max-w-52 text-xs font-bold"
-          props={language.name}
+          props={props.name}
           onChange={(e) => {
-            language.name = e;
+            props.name = e;
             onChange();
           }}
           input
         ></RichText>
         <RichText
           className="max-w-xs md:max-w-52 text-xs"
-          props={language.level}
+          props={props.level}
           onChange={(e) => {
-            language.level = e;
+            props.level = e;
             onChange();
           }}
           input
@@ -34,16 +34,17 @@ export default function Language({ props, onChange }: LanguageProps) {
       </div>
       <div className="px-[6px]">
         <input
+          aria-labelledby={id}
           type="range"
           step={1}
           min={0}
           max={10}
-          value={language.rating}
+          value={props.rating}
           onChange={(e) => {
-            language.rating = +e.target.value;
+            props.rating = +e.target.value;
             onChange();
           }}
-          style={{ backgroundSize: `${Math.min(language.rating * 10, 100)}%` }}
+          style={{ backgroundSize: `${Math.min(props.rating * 10, 100)}%` }}
         ></input>
       </div>
     </div>

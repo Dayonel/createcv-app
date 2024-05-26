@@ -22,6 +22,7 @@ interface RichTextProps {
   onChange: (e: string) => void;
   className?: string;
   input?: boolean;
+  id?: string;
 }
 
 export default function RichText({
@@ -29,6 +30,7 @@ export default function RichText({
   onChange,
   className,
   input,
+  id,
 }: RichTextProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
@@ -41,10 +43,7 @@ export default function RichText({
   });
 
   var dependencies = input
-    ? [
-        oneLine,
-        Text
-      ]
+    ? [oneLine, Text]
     : [
         Document,
         Paragraph.configure({
@@ -84,6 +83,7 @@ export default function RichText({
     editorProps: {
       attributes: {
         class: `outline-none highlight ${className} ${input ? 'input' : ''}`,
+        id: id || '',
       },
     },
     content: JSON.parse(props),
