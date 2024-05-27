@@ -47,7 +47,7 @@ export default function Language({ props, onChange, onRemove, id }: LanguageProp
               ></RichText>
             )}
           </div>
-          {props.rating && (
+          {props.rating != undefined && (
             <div className="px-[6px]">
               <input
                 aria-labelledby={id}
