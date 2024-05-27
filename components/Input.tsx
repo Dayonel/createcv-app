@@ -8,6 +8,7 @@ interface InputProps {
   className: string;
   fixedSize?: boolean;
   onRemove: () => void;
+  name?: string;
 }
 
 export default function Input({
@@ -16,6 +17,7 @@ export default function Input({
   className,
   fixedSize,
   onRemove,
+  name,
 }: InputProps) {
   const input = useRef<HTMLInputElement>(null!);
   const width = useRef<number>();
@@ -56,6 +58,7 @@ export default function Input({
           <input
             ref={input}
             type="text"
+            name={name}
             className={`${className} min-w-[2.5ch]`}
             onInput={onChangeHandler}
             placeholder={placeholder.current}

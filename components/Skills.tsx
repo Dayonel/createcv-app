@@ -15,6 +15,7 @@ export default function Skills({ props, onChange, onRemove }: SkillsProps) {
         return (
           <Input
             key={m.key}
+            name={m.key}
             props={m.name}
             className={`max-w-xs md:max-w-lg font-bold outline-none highlight ${styles.skill}`}
             onChange={(e) => {
