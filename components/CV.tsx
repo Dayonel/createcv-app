@@ -65,7 +65,10 @@ export default function CV() {
                   props={contact}
                   onChange={() => setForm({ ...form })}
                   onRemove={() => {
-                    delete form.contacts![i];
+                    form.contacts!.splice(i, 1);
+                    if (form.contacts?.length == 0) {
+                      delete form.contacts;
+                    }
                     setForm({ ...form });
                   }}
                 ></Contact>
@@ -93,6 +96,22 @@ export default function CV() {
                 key={i}
                 props={m}
                 onChange={() => setForm({ ...form })}
+                onRemove={() => {
+                  m.content?.forEach((f, i) => {
+                    if (
+                      Object.keys(f).filter((f) => f !== 'type').length == 0
+                    ) {
+                      m.content?.splice(i, 1);
+                    }
+                  });
+                  if (m.content?.length == 0) {
+                    delete m.content;
+                  }
+                  if (Object.keys(m).filter((f) => f !== 'type').length == 0) {
+                    form.sections?.splice(i, 1);
+                  }
+                  setForm({ ...form });
+                }}
               ></Component>
             );
           })}

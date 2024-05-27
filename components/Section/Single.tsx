@@ -7,9 +7,10 @@ import { Single as SingleType } from '@/types/Single';
 interface SingleProps {
   props: SingleType;
   onChange: () => void;
+  onRemove: () => void;
 }
 
-export default function Single({ props, onChange }: SingleProps) {
+export default function Single({ props, onChange, onRemove }: SingleProps) {
   const { name } = props;
   const content = props.content || [];
 
@@ -24,7 +25,7 @@ export default function Single({ props, onChange }: SingleProps) {
           }}
           onRemove={() => {
             delete props.name;
-            onChange();
+            onRemove();
           }}
         ></Divider>
       )}
@@ -44,7 +45,7 @@ export default function Single({ props, onChange }: SingleProps) {
                   input
                   onRemove={() => {
                     delete m.title;
-                    onChange();
+                    onRemove();
                   }}
                 ></RichText>
               )}
@@ -62,7 +63,7 @@ export default function Single({ props, onChange }: SingleProps) {
                       }}
                       onRemove={() => {
                         delete m.date;
-                        onChange();
+                        onRemove();
                       }}
                       input
                     ></RichText>
@@ -81,7 +82,7 @@ export default function Single({ props, onChange }: SingleProps) {
                   }}
                   onRemove={() => {
                     delete m.subtitle;
-                    onChange();
+                    onRemove();
                   }}
                   input
                 ></RichText>
@@ -97,7 +98,7 @@ export default function Single({ props, onChange }: SingleProps) {
                   }}
                   onRemove={() => {
                     delete m.topic;
-                    onChange();
+                    onRemove();
                   }}
                   input
                 ></RichText>
@@ -113,7 +114,7 @@ export default function Single({ props, onChange }: SingleProps) {
                   }}
                   onRemove={() => {
                     delete m.description;
-                    onChange();
+                    onRemove();
                   }}
                 ></RichText>
               </div>

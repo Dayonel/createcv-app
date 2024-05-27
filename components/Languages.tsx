@@ -4,9 +4,14 @@ import { Language as LanguageType } from '@/types/Language';
 interface LanguagesProps {
   props: LanguageType[];
   onChange: () => void;
+  onRemove: () => void;
 }
 
-export default function Languages({ props, onChange }: LanguagesProps) {
+export default function Languages({
+  props,
+  onChange,
+  onRemove,
+}: LanguagesProps) {
   return (
     <div className="flex flex-col gap-3">
       {props.map((m, i) => {
@@ -17,11 +22,10 @@ export default function Languages({ props, onChange }: LanguagesProps) {
             props={m}
             onChange={onChange}
             onRemove={() => {
-              if (!m.name && !m.level) {
-                props.splice(i, 1)
+              if (Object.keys(m).filter((f) => f !== 'rating').length == 0) {
+                props.splice(i, 1);
               }
-
-              onChange();
+              onRemove();
             }}
           ></Language>
         );

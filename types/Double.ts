@@ -7,6 +7,7 @@ export type Double = {
 
 export type DoubleContent = {
   name?: string;
+  type?: string;
   skills?: string[];
   languages?: Language[];
 };

@@ -4,9 +4,10 @@ import styles from './Skills.module.scss';
 interface SkillsProps {
   props: string[];
   onChange: () => void;
+  onRemove: () => void;
 }
 
-export default function Skills({ props, onChange }: SkillsProps) {
+export default function Skills({ props, onChange, onRemove }: SkillsProps) {
   return (
     <div className={styles.skills}>
       {props.map((m, i) => {
@@ -21,7 +22,7 @@ export default function Skills({ props, onChange }: SkillsProps) {
             }}
             onRemove={() => {
               props.splice(i, 1);
-              onChange();
+              onRemove();
             }}
             fixedSize
           ></Input>

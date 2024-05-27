@@ -7,60 +7,86 @@ import { Double as DoubleType } from '@/types/Double';
 interface DoubleProps {
   props: DoubleType;
   onChange: () => void;
+  onRemove: () => void;
 }
 
-export default function Double({ props, onChange }: DoubleProps) {
+export default function Double({ props, onChange, onRemove }: DoubleProps) {
   const { content } = props;
-  const [first, second] = content || [];
 
   return (
     <div>
       <div className={styles.double}>
-        {(first.name || (first.skills && first.skills.length > 0)) && (
-          <div className="flex flex-col w-full gap-1">
-            {first.name !== undefined && (
-              <Divider
-                className="max-w-xs md:max-w-56"
-                props={first.name}
-                onChange={(e) => {
-                  first.name = e;
-                  onChange();
-                }}
-                onRemove={() => {
-                  delete first.name;
-                  onChange();
-                }}
-              ></Divider>
-            )}
-            {first.skills && (
-              <Skills props={first.skills} onChange={onChange}></Skills>
-            )}
-          </div>
-        )}
-        <div className="flex flex-col w-full">
-          {second.name !== undefined && (
-            <Divider
-              className="max-w-xs md:max-w-56"
-              props={second.name}
-              onChange={(e) => {
-                second.name = e;
-                onChange();
-              }}
-              onRemove={() => {
-                delete second.name;
-                onChange();
-              }}
-            ></Divider>
-          )}
-          <div className="flex flex-col gap-3">
-            {second.languages && (
-              <Languages
-                props={second.languages}
-                onChange={onChange}
-              ></Languages>
-            )}
-          </div>
-        </div>
+        <>
+          {content?.map((m, i) => {
+            return (
+              <div key={i}>
+                {m.type === 'Skills' ? (
+                  <div className="flex flex-col w-full gap-1">
+                    {m.name !== undefined && (
+                      <Divider
+                        className="max-w-xs md:max-w-56"
+                        props={m.name}
+                        onChange={(e) => {
+                          m.name = e;
+                          onChange();
+                        }}
+                        onRemove={() => {
+                          delete m.name;
+                          onRemove();
+                        }}
+                      ></Divider>
+                    )}
+                    {m.skills && (
+                      <Skills
+                        props={m.skills}
+                        onChange={onChange}
+                        onRemove={() => {
+                          if (m.skills?.length == 0) {
+                            delete m.skills;
+                          }
+                          onRemove();
+                        }}
+                      ></Skills>
+                    )}
+                  </div>
+                ) : (
+                  m.type === 'Languages' && (
+                    <div className="flex flex-col w-full">
+                      {m.name !== undefined && (
+                        <Divider
+                          className="max-w-xs md:max-w-56"
+                          props={m.name}
+                          onChange={(e) => {
+                            m.name = e;
+                            onChange();
+                          }}
+                          onRemove={() => {
+                            delete m.name;
+                            onRemove();
+                          }}
+                        ></Divider>
+                      )}
+                      <div className="flex flex-col gap-3">
+                        {m.languages && (
+                          <Languages
+                            props={m.languages}
+                            onChange={onChange}
+                            onRemove={() => {
+                              if (m.languages?.length == 0) {
+                                delete m.languages;
+                              }
+                              onRemove();
+                            }}
+                          ></Languages>
+                        )}
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            );
+          })}
+        </>
       </div>
     </div>
   );

@@ -58,6 +58,7 @@
       "content": [
         {
           "name": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Skills\"}]}",
+          "type": "Skills",
           "skills": [
             "React",
             "Next.js",
@@ -77,6 +78,7 @@
         },
         {
           "name": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Languages\"}]}",
+          "type": "Languages",
           "languages": [
             {
               "name": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Spanish\"}]}",
