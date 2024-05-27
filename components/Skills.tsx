@@ -1,8 +1,9 @@
+import { Skill } from '@/types/Skill';
 import Input from './Input';
 import styles from './Skills.module.scss';
 
 interface SkillsProps {
-  props: string[];
+  props: Skill[];
   onChange: () => void;
   onRemove: () => void;
 }
@@ -13,11 +14,11 @@ export default function Skills({ props, onChange, onRemove }: SkillsProps) {
       {props.map((m, i) => {
         return (
           <Input
-            key={i}
-            props={m}
+            key={m.key}
+            props={m.name}
             className={`max-w-xs md:max-w-lg font-bold outline-none highlight ${styles.skill}`}
             onChange={(e) => {
-              props[i] = e.target.value;
+              props[i].name = e.target.value;
               onChange();
             }}
             onRemove={() => {

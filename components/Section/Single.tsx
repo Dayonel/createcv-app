@@ -30,9 +30,9 @@ export default function Single({ props, onChange, onRemove }: SingleProps) {
         ></Divider>
       )}
 
-      {content.map((m, i) => {
+      {content.map((m) => {
         return (
-          <div key={i} className={`${styles.single} flex flex-col gap-1`}>
+          <div key={m.key} className={`${styles.single} flex flex-col gap-1`}>
             <div className="flex flex-wrap justify-between items-center gap-2">
               {m.title !== undefined && (
                 <RichText

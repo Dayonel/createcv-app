@@ -17,9 +17,9 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
     <div>
       <div className={styles.double}>
         <>
-          {content?.map((m, i) => {
+          {content?.map((m) => {
             return (
-              <div key={i}>
+              <div key={m.key}>
                 {m.type === 'Skills' ? (
                   <div className="flex flex-col w-full gap-1">
                     {m.name !== undefined && (

@@ -60,20 +60,48 @@
           "name": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Skills\"}]}",
           "type": "Skills",
           "skills": [
-            "React",
-            "Next.js",
-            "Tailwind CSS",
-            "Javascript",
-            "HTML5",
-            "CSS",
-            "Jest",
-            "Typescript",
-            "MongoDB",
-            "PostgreSQL",
-            "Docker",
-            "Git",
-            "CI/CD",
-            "GitHub Actions"
+            {
+              "name": "React"
+            },
+            {
+              "name": "Next.js"
+            },
+            {
+              "name": "Tailwind CSS"
+            },
+            {
+              "name": "Javascript"
+            },
+            {
+              "name": "HTML5"
+            },
+            {
+              "name": "CSS"
+            },
+            {
+              "name": "Jest"
+            },
+            {
+              "name": "Typescript"
+            },
+            {
+              "name": "MongoDB"
+            },
+            {
+              "name": "PostgreSQL"
+            },
+            {
+              "name": "Docker"
+            },
+            {
+              "name": "Git"
+            },
+            {
+              "name": "CI/CD"
+            },
+            {
+              "name": "GitHub Actions"
+            }
           ]
         },
         {

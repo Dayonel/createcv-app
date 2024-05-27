@@ -18,7 +18,7 @@ export default function Languages({
         return (
           <Language
             id={`language_${i + 1}`}
-            key={i}
+            key={m.key}
             props={m}
             onChange={onChange}
             onRemove={() => {
