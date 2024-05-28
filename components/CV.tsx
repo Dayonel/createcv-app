@@ -16,7 +16,6 @@ export default function CV() {
   const parsed = JSON.parse(json);
   const data = useUUID(parsed); // traverse
   useHiddenKey(data, 'key');
-  useHiddenKey(data, 'type');
   const [form, setForm] = useState<Form>(data);
 
   useEffect(() => {
@@ -104,14 +103,16 @@ export default function CV() {
                 onChange={() => setForm({ ...form })}
                 onRemove={() => {
                   m.content?.forEach((f, i) => {
-                    if (Object.keys(f).length == 0) {
+                    if (
+                      Object.keys(f).filter((f) => f !== 'type').length == 0
+                    ) {
                       m.content?.splice(i, 1);
                     }
                   });
                   if (m.content?.length == 0) {
                     delete m.content;
                   }
-                  if (Object.keys(m).length == 0) {
+                  if (Object.keys(m).filter((f) => f !== 'type').length == 0) {
                     form.sections?.splice(i, 1);
                   }
                   setForm({ ...form });
