@@ -1,5 +1,5 @@
 'use client';
-import Download from './Download';
+import Actions from './Actions';
 import styles from './CV.module.scss';
 import { useEffect, useState } from 'react';
 import Contact from './Contact';
@@ -60,7 +60,7 @@ export default function CV() {
             ></RichText>
           )}
         </div>
-        <Download></Download>
+        <Actions></Actions>
         <div className={styles.contact}>
           {form.contacts &&
             form.contacts.map((contact, i) => {
