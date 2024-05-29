@@ -144,7 +144,6 @@ export default function RichText({
       className={`richtext ${className} ${input ? 'input' : ''}`}
       ref={controlsRef}
       onFocus={() => setControlsVisible(true)}
-      tabIndex={0}
     >
       {!input && (
         <RichTextControls
@@ -152,7 +151,12 @@ export default function RichText({
         ></RichTextControls>
       )}
       <EditorContent ref={ref} editor={editor} />
-      {controlsVisible && <Remove onClick={onRemove}></Remove>}
+      {controlsVisible && (
+        <Remove
+          onClick={onRemove}
+          onBlur={() => setControlsVisible(false)}
+        ></Remove>
+      )}
     </div>
   );
 }

@@ -4,9 +4,10 @@ import styles from './Remove.module.scss';
 
 interface RemoveProps {
   onClick: () => void;
+  onBlur: () => void;
 }
 
-export default function Remove({ onClick }: RemoveProps) {
+export default function Remove({ onClick, onBlur }: RemoveProps) {
   return (
     <div className={`${styles.remove} normal-case`}>
       <IconButton
@@ -15,6 +16,7 @@ export default function Remove({ onClick }: RemoveProps) {
         size="sm"
         align="bottom"
         onClick={onClick}
+        onBlur={onBlur}
       >
         <TrashCan></TrashCan>
       </IconButton>

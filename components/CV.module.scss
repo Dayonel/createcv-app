@@ -83,6 +83,7 @@
   grid-template-columns: 1fr;
   grid-template-rows: minmax(24px, max-content);
   grid-auto-rows: minmax(24px, max-content);
+  width: fit-content;
 }
 
 @media (min-width: 768px) {
@@ -95,4 +96,8 @@
   .header {
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   }
+}
+
+.sections {
+  grid-template-rows: minmax(24px, min-content);
 }

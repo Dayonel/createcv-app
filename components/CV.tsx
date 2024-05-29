@@ -84,7 +84,7 @@ export default function CV() {
           <RichText
             props={form.summary}
             onChange={(e) => setForm({ ...form, summary: e })}
-            className="text-justify"
+            className="text-justify h-fit"
             onRemove={() => {
               delete form.summary;
               setForm({ ...form });

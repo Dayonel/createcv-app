@@ -64,7 +64,12 @@ export default function Input({
             placeholder={placeholder.current}
             value={props}
           />
-          {controlsVisible && <Remove onClick={onRemove}></Remove>}
+          {controlsVisible && (
+            <Remove
+              onClick={onRemove}
+              onBlur={() => setControlsVisible(false)}
+            ></Remove>
+          )}
         </div>
       )}
     </>
