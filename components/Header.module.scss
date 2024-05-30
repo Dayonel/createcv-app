@@ -1,4 +1,7 @@
+@use "@carbon/themes/scss/tokens";
+
 .header {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid tokens.$background-hover;
 }

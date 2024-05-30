@@ -6,10 +6,8 @@ import styles from './Header.module.scss';
 
 export default function Header() {
   return (
-    <header
-      className={`${styles.header} w-full sticky top-0 z-10 p-2 max-w-[984px]`}
-    >
-      <nav className="flex justify-between items-center h-full">
+    <header className={`${styles.header} sticky top-0 z-10 p-2 flex justify-center w-full`}>
+      <nav className="flex justify-between items-center h-full w-full max-w-[984px]">
         <span className="menu-item">
           <DocumentPdf size={24}></DocumentPdf>
         </span>

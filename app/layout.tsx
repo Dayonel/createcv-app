@@ -36,11 +36,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`grid justify-center ${roboto.className}`}>
+      <body className={`${roboto.className}`}>
         <ThemeProvider>
-          <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full max-w-[1024px] justify-items-center">
+          <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
             <Header></Header>
-            <main className="w-full max-w-[984px] px-8 md:px-4">
+            <main className="w-full max-w-[984px] px-8 md:px-4 py-4">
               {children}
             </main>
             <Footer></Footer>
