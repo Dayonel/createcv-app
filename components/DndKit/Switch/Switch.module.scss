@@ -2,9 +2,9 @@
 
 $switch-border-radius: 50px;
 $switch-track-length: 50px;
-$switch-track-height: 32px;
+$switch-track-height: 24px;
 $switch-track-border: 2px;
-$switch-thumb-diameter: 28px;
+$switch-thumb-diameter: 20px;
 $switch-thumb-offset-left: 1px;
 $switch-thumb-offset-right: $switch-track-length - $switch-thumb-diameter -
   $switch-thumb-offset-left - $switch-track-border;
@@ -132,10 +132,10 @@ $switch-thumb-offset-right: $switch-track-length - $switch-thumb-diameter -
 }
 
 .Label {
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
   align-items: center;
-  color: tokens.$text-secondary;
+  color: tokens.$text-primary;
   gap: 0.75rem;
   font-size: 14px;
 }

@@ -18,7 +18,7 @@ import styles from './Switch.module.scss';
 import { useState } from 'react';
 import { Track } from './Track';
 import { Thumb } from './Thumb';
-import { State } from '../DndKit/Switch/constants';
+import { State } from './constants';
 
 export interface Props {
   accessibilityLabel?: string;
