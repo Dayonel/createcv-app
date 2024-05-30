@@ -30,7 +30,7 @@ export default function CV() {
   return (
     <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
       <div className={styles.header}>
-        <div className="flex flex-col items-center md:items-start">
+        <div className="flex flex-col items-center md:items-start mt-3">
           {form.title && (
             <RichText
               className="max-w-xs md:max-w-lg font-bold text-3xl text-center md:text-start"
