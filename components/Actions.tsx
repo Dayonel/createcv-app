@@ -1,6 +1,6 @@
 'use client';
 import { Download } from '@carbon/icons-react';
-import { ClickableTile, SelectableTile } from '@carbon/react';
+import { Button, ClickableTile, SelectableTile } from '@carbon/react';
 import { Switch } from './DndKit/Switch';
 import { useState } from 'react';
 import styles from './Actions.module.scss';
@@ -11,20 +11,23 @@ export default function Actions() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className="row-start-1 md:col-start-2 flex items-center justify-end gap-5 w-full px-2">
+    <div className="row-start-1 md:col-start-2 flex items-center justify-center md:justify-end gap-5 w-full">
       <Switch
         label="Add sections"
         checked={checked}
         onChange={setChecked}
       ></Switch>
-      <ClickableTile
-        className={`${styles.tile}`}
-        renderIcon={Download}
-        hasRoundedCorners
+      <button
+        className={`${styles.tile} cds--link cds--tile cds--tile--clickable`}
         style={{ minBlockSize: 'auto' }}
+        onClick={download}
+        type="button"
       >
-        Download
-      </ClickableTile>
+        <div className="flex gap-4">
+          <span>Download</span>
+          <Download></Download>
+        </div>
+      </button>
     </div>
   );
 }
