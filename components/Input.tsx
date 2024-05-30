@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useOutsideClick } from '../hooks/useOutsideClick';
-import Remove from './Remove';
+import { Remove } from './DndKit/components/Item/components/Remove';
 
 interface InputProps {
   props: string;

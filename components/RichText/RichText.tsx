@@ -16,7 +16,7 @@ import Blockquote from '@tiptap/extension-blockquote';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import RichTextControls from './RichTextControls';
-import Remove from '../Remove';
+import { Remove } from '../DndKit/components/Item/components/Remove';
 
 interface RichTextProps {
   props: string;
