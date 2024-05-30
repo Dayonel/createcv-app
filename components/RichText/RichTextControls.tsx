@@ -27,7 +27,7 @@ export default function RichTextControls({ props }: RichTextControlsProps) {
             onClick={() => editor.chain().focus().toggleBold().run()}
             kind="ghost"
             size="sm"
-            align="top"
+            align="bottom"
             isSelected={editor.isActive('bold')}
           >
             <TextBold></TextBold>
@@ -37,7 +37,7 @@ export default function RichTextControls({ props }: RichTextControlsProps) {
             onClick={() => editor.chain().focus().toggleItalic().run()}
             kind="ghost"
             size="sm"
-            align="top"
+            align="bottom"
             isSelected={editor.isActive('italic')}
           >
             <TextItalic></TextItalic>
@@ -47,7 +47,7 @@ export default function RichTextControls({ props }: RichTextControlsProps) {
             onClick={() => editor.chain().focus().setParagraph().run()}
             kind="ghost"
             size="sm"
-            align="top"
+            align="bottom"
           >
             <StringText></StringText>
           </IconButton>
@@ -56,7 +56,7 @@ export default function RichTextControls({ props }: RichTextControlsProps) {
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             kind="ghost"
             size="sm"
-            align="top"
+            align="bottom"
             isSelected={editor.isActive('bulletList')}
           >
             <ListBulleted></ListBulleted>
@@ -66,7 +66,7 @@ export default function RichTextControls({ props }: RichTextControlsProps) {
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             kind="ghost"
             size="sm"
-            align="top"
+            align="bottom"
             isSelected={editor.isActive('orderedList')}
           >
             <ListNumbered></ListNumbered>
@@ -76,7 +76,7 @@ export default function RichTextControls({ props }: RichTextControlsProps) {
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
             kind="ghost"
             size="sm"
-            align="top"
+            align="bottom"
             isSelected={editor.isActive('blockquote')}
           >
             <Quotes></Quotes>
@@ -86,7 +86,7 @@ export default function RichTextControls({ props }: RichTextControlsProps) {
             onClick={() => editor.chain().focus().setHorizontalRule().run()}
             kind="ghost"
             size="sm"
-            align="top"
+            align="bottom"
           >
             <Ruler></Ruler>
           </IconButton>
