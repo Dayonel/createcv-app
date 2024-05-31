@@ -1,5 +1,19 @@
 @use "@carbon/themes/scss/tokens";
 
+.actions {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  grid-row-start: 1;
+}
+
+@media (min-width: 768px) {
+  .actions {
+    grid-column-start: 2;
+  }
+}
+
 .tile {
   background-color: transparent;
   border: 1px dashed tokens.$border-subtle-01;

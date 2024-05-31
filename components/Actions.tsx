@@ -1,32 +1,18 @@
 'use client';
-import { Download, Edit, View } from '@carbon/icons-react';
-import {
-  Button,
-  ClickableTile,
-  ContentSwitcher,
-  IconSwitch,
-  SelectableTile,
-  Switch,
-} from '@carbon/react';
-// import { Switch } from './DndKit/Switch';
+import { Download } from '@carbon/icons-react';
+import { ContentSwitcher, Switch } from '@carbon/react';
 import { useState } from 'react';
 import styles from './Actions.module.scss';
 
 const download = () => {};
 
 export default function Actions() {
-  const [checked, setChecked] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   return (
-    <div className="row-start-1 md:col-start-2 flex flex-col-reverse md:flex-row items-center justify-between md:justify-end gap-5 w-full px-[6px]">
-      {/* <Switch
-        label="Add sections"
-        checked={checked}
-        onChange={setChecked}
-      ></Switch> */}
-
+    <div className={styles.actions}>
       <button
-        className={`${styles.tile} cds--tile cds--tile--clickable w-full`}
+        className={`${styles.tile} cds--tile cds--tile--clickable`}
         style={{ minBlockSize: 'auto' }}
         onClick={download}
         type="button"
@@ -36,18 +22,15 @@ export default function Actions() {
           <Download></Download>
         </div>
       </button>
-      <div className="w-full">
-        <ContentSwitcher onChange={() => {}} selectedIndex={0} size="lg">
-          <Switch>View</Switch>
-          <Switch>Edit</Switch>
-          {/* <IconSwitch>
-            <View></View>
-          </IconSwitch>
-          <IconSwitch>
-            <Edit></Edit>
-          </IconSwitch> */}
-        </ContentSwitcher>
-      </div>
+      <ContentSwitcher
+        style={{ blockSize: '50px' }}
+        onChange={(e) => setEdit(e.index == 1)}
+        selectedIndex={0}
+        size="lg"
+      >
+        <Switch>View</Switch>
+        <Switch>Edit</Switch>
+      </ContentSwitcher>
     </div>
   );
 }
