@@ -11,7 +11,7 @@ import { Handle, Remove } from './components';
 interface SortableItemProps {
   id: string;
   children: any;
-  onRemove: () => void;
+  onRemove: (id: string) => void;
 }
 
 export const SortableItem = memo(
@@ -36,7 +36,7 @@ export const SortableItem = memo(
           className="relative flex items-center"
         >
           {children}
-          <Remove className={styles.Remove} onClick={onRemove} />
+          <Remove className={styles.Remove} onClick={() => onRemove(id)} />
           <Handle {...listeners} />
         </div>
       );

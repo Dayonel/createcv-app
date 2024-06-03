@@ -10,7 +10,7 @@ import {
 import { Contact as ContactType } from '../types/Contact';
 import RichText from './RichText/RichText';
 
-interface ContactProps {
+export interface ContactProps {
   props: ContactType;
   onChange: () => void;
   onRemove: () => void;
@@ -38,7 +38,7 @@ export default function Contact({ props, onChange, onRemove }: ContactProps) {
           props.text = e;
           onChange();
         }}
-        onRemove={onRemove}
+        // onRemove={onRemove}
         input
       ></RichText>
     </span>
