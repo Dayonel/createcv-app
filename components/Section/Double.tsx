@@ -38,7 +38,7 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
                     )}
                     {m.skills && (
                       <Skills
-                        props={m.skills}
+                        skills={m.skills}
                         onChange={onChange}
                         onRemove={() => {
                           if (m.skills?.length == 0) {
@@ -69,7 +69,7 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
                       <div className="flex flex-col gap-3">
                         {m.languages && (
                           <Languages
-                            props={m.languages}
+                            languages={m.languages}
                             onChange={onChange}
                             onRemove={() => {
                               if (m.languages?.length == 0) {

@@ -16,6 +16,7 @@ import Blockquote from '@tiptap/extension-blockquote';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import RichTextControls from './RichTextControls';
+import { Remove } from '../DndKit/components';
 
 interface RichTextProps {
   props: string;
@@ -23,6 +24,9 @@ interface RichTextProps {
   className?: string;
   input?: boolean;
   id?: string;
+  onControlsVisible?: (e: boolean) => void;
+  onRemove?: () => void;
+  remove?: boolean;
 }
 
 export default function RichText({
@@ -31,6 +35,9 @@ export default function RichText({
   className,
   input,
   id,
+  onControlsVisible,
+  onRemove,
+  remove,
 }: RichTextProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
@@ -123,6 +130,12 @@ export default function RichText({
     onChange(JSON.stringify(editor.getJSON()));
   };
 
+  useEffect(() => {
+    if (onControlsVisible) {
+      onControlsVisible(controlsVisible);
+    }
+  }, [controlsVisible]);
+
   if (!editor) {
     return (
       <div className={`richtext ${className} ${input ? 'input' : ''}`}>
@@ -148,12 +161,12 @@ export default function RichText({
         ></RichTextControls>
       )}
       <EditorContent ref={ref} editor={editor} />
-      {/* {controlsVisible && (
+      {controlsVisible && remove && (
         <Remove
           onClick={onRemove}
           onBlur={() => setControlsVisible(false)}
         ></Remove>
-      )} */}
+      )}
     </div>
   );
 }

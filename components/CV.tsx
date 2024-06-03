@@ -20,7 +20,7 @@ export default function CV() {
   const [form, setForm] = useState<Form>(data);
 
   useEffect(() => {
-    //console.log(JSON.stringify(form));
+    // console.log(JSON.stringify(form));
   }, [form]);
 
   const sections = {
@@ -44,6 +44,7 @@ export default function CV() {
                 setForm({ ...form });
               }}
               input
+              remove
             ></RichText>
           )}
           {form.subtitle && (
@@ -58,6 +59,7 @@ export default function CV() {
                 setForm({ ...form });
               }}
               input
+              remove
             ></RichText>
           )}
         </div>
@@ -66,11 +68,11 @@ export default function CV() {
           {form.contacts && (
             <Sortable
               initialItems={form.contacts}
-              renderItem={({ props }: ContactProps) => (
+              renderItem={({ props, onControlsVisible }: ContactProps) => (
                 <Contact
                   props={props}
                   onChange={() => setForm({ ...form })}
-                  onRemove={() => {}}
+                  onControlsVisible={onControlsVisible}
                 ></Contact>
               )}
               onSort={(e) => {
@@ -87,6 +89,9 @@ export default function CV() {
                   contacts: form.contacts?.filter((f) => f.key !== id),
                 })
               }
+              wrapperStyle="pl-[6px]"
+              handle
+              remove
             ></Sortable>
           )}
         </div>
@@ -99,6 +104,7 @@ export default function CV() {
               delete form.summary;
               setForm({ ...form });
             }}
+            remove
           ></RichText>
         )}
       </div>

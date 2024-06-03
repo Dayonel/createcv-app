@@ -1,8 +1,8 @@
-import { Calendar } from '@carbon/icons-react';
-import RichText from '../RichText/RichText';
-import styles from './Single.module.scss';
 import Divider from '../Divider';
 import { Single as SingleType } from '@/types/Single';
+import { UniqueIdentifier } from '@dnd-kit/core';
+import Sortable from '../DndKit/Sortable';
+import SingleContent, { SingleContentProps } from './Content/SingleContent';
 
 interface SingleProps {
   props: SingleType;
@@ -30,98 +30,36 @@ export default function Single({ props, onChange, onRemove }: SingleProps) {
         ></Divider>
       )}
 
-      {content.map((m) => {
-        return (
-          <div key={m.key} className={`${styles.single} flex flex-col gap-1`}>
-            <div className="flex flex-wrap justify-between items-center gap-2">
-              {m.title !== undefined && (
-                <RichText
-                  className="max-w-xs md:max-w-lg font-bold text-base"
-                  props={m.title}
-                  onChange={(e) => {
-                    m.title = e;
-                    onChange();
-                  }}
-                  input
-                  onRemove={() => {
-                    delete m.title;
-                    onRemove();
-                  }}
-                ></RichText>
-              )}
-
-              <div className="flex flex-wrap items-center">
-                {m.date !== undefined && (
-                  <>
-                    <Calendar></Calendar>
-                    <RichText
-                      className="font-bold text-xs max-w-xs"
-                      props={m.date}
-                      onChange={(e) => {
-                        m.date = e;
-                        onChange();
-                      }}
-                      onRemove={() => {
-                        delete m.date;
-                        onRemove();
-                      }}
-                      input
-                    ></RichText>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-wrap justify-between items-center">
-              {m.subtitle !== undefined && (
-                <RichText
-                  className="max-w-xs md:max-w-lg font-bold text-sm"
-                  props={m.subtitle}
-                  onChange={(e) => {
-                    m.subtitle = e;
-                    onChange();
-                  }}
-                  onRemove={() => {
-                    delete m.subtitle;
-                    onRemove();
-                  }}
-                  input
-                ></RichText>
-              )}
-
-              {m.topic !== undefined && (
-                <RichText
-                  className="text-xs max-w-xs"
-                  props={m.topic}
-                  onChange={(e) => {
-                    m.topic = e;
-                    onChange();
-                  }}
-                  onRemove={() => {
-                    delete m.topic;
-                    onRemove();
-                  }}
-                  input
-                ></RichText>
-              )}
-            </div>
-            {m.description !== undefined && (
-              <div className="pt-1">
-                <RichText
-                  props={m.description}
-                  onChange={(e) => {
-                    m.description = e;
-                    onChange();
-                  }}
-                  onRemove={() => {
-                    delete m.description;
-                    onRemove();
-                  }}
-                ></RichText>
-              </div>
-            )}
-          </div>
-        );
-      })}
+      <div className="flex flex-col gap-6">
+        <Sortable
+          initialItems={content}
+          renderItem={({ props, onControlsVisible }: SingleContentProps) => (
+            <SingleContent
+              props={props}
+              onChange={onChange}
+              onRemove={onRemove}
+              onControlsVisible={onControlsVisible}
+            ></SingleContent>
+          )}
+          onSort={(items: UniqueIdentifier[]) => {
+            if (props.content) {
+              props.content.sort(
+                (a, b) => items.indexOf(a.key) - items.indexOf(b.key)
+              );
+              onChange();
+            }
+          }}
+          onRemove={(e: string) => {
+            if (props.content) {
+              const i = props.content.findIndex((f) => f.key === e);
+              props.content.splice(i, 1);
+              onRemove();
+            }
+          }}
+          handle
+          containerStyle="w-full"
+        ></Sortable>
+      </div>
     </div>
   );
 }

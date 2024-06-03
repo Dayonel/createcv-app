@@ -2,33 +2,42 @@ import './Language.scss';
 import { Language as LanguageType } from '@/types/Language';
 import RichText from './RichText/RichText';
 
-interface LanguageProps {
+export interface LanguageProps {
   props: LanguageType;
   onChange: () => void;
   onRemove: () => void;
-  id?: string;
+  id: string;
+  onControlsVisible: (e: boolean) => void;
 }
 
-export default function Language({ props, onChange, onRemove, id }: LanguageProps) {
+export default function Language({
+  props,
+  onChange,
+  onRemove,
+  id,
+  onControlsVisible,
+}: LanguageProps) {
   return (
     <>
-      {(props.name || props.level) && (
+      {(props.value || props.level) && (
         <div className="flex flex-col">
           <div className="flex flex-wrap justify-between">
-            {props.name && (
+            {props.value && (
               <RichText
                 id={id}
                 className="max-w-xs md:max-w-52 text-xs font-bold"
-                props={props.name}
+                props={props.value}
                 onChange={(e) => {
-                  props.name = e;
+                  props.value = e;
                   onChange();
                 }}
                 onRemove={() => {
-                  delete props.name;
+                  delete props.value;
                   onRemove();
                 }}
                 input
+                remove
+                onControlsVisible={onControlsVisible}
               ></RichText>
             )}
             {props.level && (
@@ -44,6 +53,8 @@ export default function Language({ props, onChange, onRemove, id }: LanguageProp
                   onRemove();
                 }}
                 input
+                remove
+                onControlsVisible={onControlsVisible}
               ></RichText>
             )}
           </div>

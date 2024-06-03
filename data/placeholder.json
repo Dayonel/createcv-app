@@ -39,6 +39,13 @@
           "date": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Feb 2021 - Present\"}]}",
           "topic": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Technology\"}]}",
           "description": "{\"type\":\"doc\",\"content\":[{\"type\":\"bulletList\",\"content\":[{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Designed and implemented a real-time database using Firebase for Google's internal document management system.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Optimized search algorithms within Google Chrome to prioritize eco-friendly vacation rentals based on user preferences and property data.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Led Google Maps data collection for self-driving cars.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Built & scaled data pipelines for Google Cloud's self-driving car project.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Improved Chrome's memory usage.\"}]}]}]}]}"
+        },
+        {
+          "title": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Frontend Developer\"}]}",
+          "subtitle": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Uber\"}]}",
+          "date": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Jan 2018 - Feb 2021\"}]}",
+          "topic": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Technology\"}]}",
+          "description": "{\"type\":\"doc\",\"content\":[{\"type\":\"bulletList\",\"content\":[{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Designed and built a responsive, high-performing web interface for Uber's driver portal using React.js, enabling seamless management of trips and earnings.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Optimized the Uber rider app's trip confirmation flow using A/B testing and front-end performance best practices, leading to a significant reduction in cart abandonment.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Developed interactive real-time trip tracking features within the Uber app, utilizing WebGL for a smooth and visually engaging user experience.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Collaborated with designers to translate complex user flows into an intuitive and user-friendly front-end experience for the Uber Eats platform.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Implemented accessibility best practices across Uber's web properties, ensuring a smooth user experience for riders and drivers with disabilities.\"}]}]},{\"type\":\"listItem\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Built reusable front-end components using a modern UI framework (e.g., Material-UI) to streamline development and maintain code consistency across the Uber app.\"}]}]}]}]}"
         }
       ]
     },
@@ -61,46 +68,46 @@
           "type": "Skills",
           "skills": [
             {
-              "name": "React"
+              "value": "React"
             },
             {
-              "name": "Next.js"
+              "value": "Next.js"
             },
             {
-              "name": "Tailwind CSS"
+              "value": "Tailwind CSS"
             },
             {
-              "name": "Javascript"
+              "value": "Javascript"
             },
             {
-              "name": "HTML5"
+              "value": "HTML5"
             },
             {
-              "name": "CSS"
+              "value": "CSS"
             },
             {
-              "name": "Jest"
+              "value": "Jest"
             },
             {
-              "name": "Typescript"
+              "value": "Typescript"
             },
             {
-              "name": "MongoDB"
+              "value": "MongoDB"
             },
             {
-              "name": "PostgreSQL"
+              "value": "PostgreSQL"
             },
             {
-              "name": "Docker"
+              "value": "Docker"
             },
             {
-              "name": "Git"
+              "value": "Git"
             },
             {
-              "name": "CI/CD"
+              "value": "CI/CD"
             },
             {
-              "name": "GitHub Actions"
+              "value": "GitHub Actions"
             }
           ]
         },
@@ -109,17 +116,17 @@
           "type": "Languages",
           "languages": [
             {
-              "name": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Spanish\"}]}",
+              "value": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Spanish\"}]}",
               "level": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Native\"}]}",
               "rating": 10
             },
             {
-              "name": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"English\"}]}",
+              "value": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"English\"}]}",
               "level": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Fluent\"}]}",
               "rating": 9
             },
             {
-              "name": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Dutch\"}]}",
+              "value": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Dutch\"}]}",
               "level": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"A2\"}]}",
               "rating": 2
             }

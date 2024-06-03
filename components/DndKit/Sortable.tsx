@@ -1,5 +1,4 @@
-'use client';
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -20,13 +19,16 @@ import {
 } from '@dnd-kit/sortable';
 import { SortableItem } from './SortableItem';
 import { Key } from '@/types/Key';
-import { ContactProps } from '../Contact';
 
 interface SortableProps {
   initialItems?: Key[];
   renderItem(args: any): React.ReactElement;
   onSort: (items: UniqueIdentifier[]) => void;
-  onRemove: (id: string) => void;
+  onRemove?: (id: string) => void;
+  wrapperStyle?: string;
+  containerStyle?: string;
+  handle?: boolean;
+  remove?: boolean;
 }
 
 export default function Sortable({
@@ -34,10 +36,20 @@ export default function Sortable({
   renderItem,
   onSort,
   onRemove,
+  wrapperStyle,
+  containerStyle,
+  handle,
+  remove,
 }: SortableProps) {
   const [items, setItems] = useState<UniqueIdentifier[]>(
     () => initialItems?.map((m) => m.key) || []
   );
+
+  useEffect(() => {
+    if (initialItems) {
+      setItems(initialItems.map((m) => m.key));
+    }
+  }, [initialItems?.length]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -61,6 +73,8 @@ export default function Sortable({
   };
 
   const handleRemove = (id: string) => {
+    if (!onRemove) return;
+
     setItems((items) => items.filter((item) => item !== id));
     onRemove(id);
   };
@@ -74,20 +88,27 @@ export default function Sortable({
       measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
     >
       <SortableContext items={items} strategy={rectSortingStrategy}>
-        {items.map((m, i) => {
-          return (
-            <SortableItem
-              key={m}
-              id={m.toString()}
-              onRemove={(id) => handleRemove(id)}
-            >
-              {initialItems &&
-                renderItem({
-                  props: initialItems[i],
-                } as ContactProps)}
-            </SortableItem>
-          );
-        })}
+        {initialItems &&
+          items.map((m) => {
+            return (
+              <SortableItem
+                key={m}
+                id={m.toString()}
+                onRemove={(id) => handleRemove(id)}
+                renderItem={({ onControlsVisible }) =>
+                  renderItem({
+                    props:
+                      initialItems[initialItems.findIndex((i) => i.key === m)],
+                    onControlsVisible,
+                  })
+                }
+                wrapperStyle={wrapperStyle}
+                containerStyle={containerStyle}
+                handle={handle}
+                remove={remove}
+              ></SortableItem>
+            );
+          })}
       </SortableContext>
     </DndContext>
   );

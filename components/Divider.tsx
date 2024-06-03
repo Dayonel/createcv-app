@@ -17,6 +17,7 @@ export default function Divider({ props, onChange, onRemove, className }: Divide
           onChange={onChange}
           className={`max-w-xs md:max-w-lg text-sm uppercase font-bold inline-block ${className}`}
           input
+          remove
           onRemove={onRemove}
         ></RichText>
       </div>

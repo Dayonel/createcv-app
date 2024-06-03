@@ -1,35 +1,38 @@
-import { Skill } from '@/types/Skill';
-import Input from './Input';
+import { Skill as SkillType } from '@/types/Skill';
+import Skill, { InputProps } from './Skill';
 import styles from './Skills.module.scss';
+import Sortable from './DndKit/Sortable';
 
 interface SkillsProps {
-  props: Skill[];
+  skills: SkillType[];
   onChange: () => void;
   onRemove: () => void;
 }
 
-export default function Skills({ props, onChange, onRemove }: SkillsProps) {
+export default function Skills({ skills, onChange, onRemove }: SkillsProps) {
   return (
     <div className={styles.skills}>
-      {props.map((m, i) => {
-        return (
-          <Input
-            key={m.key}
-            name={m.key}
-            props={m.name}
-            className={`max-w-xs md:max-w-lg font-bold outline-none highlight ${styles.skill}`}
-            onChange={(e) => {
-              props[i].name = e.target.value;
-              onChange();
-            }}
-            onRemove={() => {
-              props.splice(i, 1);
-              onRemove();
-            }}
-            fixedSize
-          ></Input>
-        );
-      })}
+      <Sortable
+        initialItems={skills}
+        renderItem={({ props, onControlsVisible }: InputProps) => (
+          <Skill
+            props={props}
+            onChange={onChange}
+            onControlsVisible={onControlsVisible}
+          ></Skill>
+        )}
+        onSort={(items) => {
+          skills.sort((a, b) => items.indexOf(a.key) - items.indexOf(b.key));
+          onChange();
+        }}
+        onRemove={(e) => {
+          const i = skills.findIndex((f) => f.key === e);
+          skills.splice(i, 1);
+          onRemove();
+        }}
+        handle
+        remove
+      ></Sortable>
     </div>
   );
 }
