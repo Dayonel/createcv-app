@@ -16,7 +16,6 @@ import Blockquote from '@tiptap/extension-blockquote';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import RichTextControls from './RichTextControls';
-import { Remove } from '../DndKit/components/Item/components/Remove';
 
 interface RichTextProps {
   props: string;
@@ -24,7 +23,6 @@ interface RichTextProps {
   className?: string;
   input?: boolean;
   id?: string;
-  onRemove: () => void;
 }
 
 export default function RichText({
@@ -33,7 +31,6 @@ export default function RichText({
   className,
   input,
   id,
-  onRemove,
 }: RichTextProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
@@ -151,12 +148,12 @@ export default function RichText({
         ></RichTextControls>
       )}
       <EditorContent ref={ref} editor={editor} />
-      {controlsVisible && (
+      {/* {controlsVisible && (
         <Remove
           onClick={onRemove}
           onBlur={() => setControlsVisible(false)}
         ></Remove>
-      )}
+      )} */}
     </div>
   );
 }

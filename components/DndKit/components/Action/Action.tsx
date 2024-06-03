@@ -27,6 +27,7 @@ export const Action = forwardRef<HTMLButtonElement, Props>(
             '--background': active?.background,
           } as CSSProperties
         }
+        type="button"
       />
     );
   }

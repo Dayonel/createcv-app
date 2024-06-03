@@ -10,6 +10,8 @@ import placeholder from '../data/placeholder.json';
 import { Form } from '@/types/Form';
 import { useUUID } from '@/hooks/useUUID';
 import { useHiddenKey } from '@/hooks/useHiddenKey';
+import Sortable from './DndKit/Sortable';
+import { SortableItem } from './DndKit/SortableItem';
 
 export default function CV() {
   const json = JSON.stringify(placeholder);
@@ -19,7 +21,7 @@ export default function CV() {
   const [form, setForm] = useState<Form>(data);
 
   useEffect(() => {
-    console.log(JSON.stringify(form));
+    // console.log(JSON.stringify(form));
   }, [form]);
 
   const sections = {
@@ -62,23 +64,41 @@ export default function CV() {
         </div>
         <Actions></Actions>
         <div className={styles.contact}>
-          {form.contacts &&
-            form.contacts.map((contact, i) => {
-              return (
-                <Contact
-                  key={contact.key}
-                  props={contact}
-                  onChange={() => setForm({ ...form })}
-                  onRemove={() => {
-                    form.contacts!.splice(i, 1);
-                    if (form.contacts?.length == 0) {
-                      delete form.contacts;
-                    }
-                    setForm({ ...form });
-                  }}
-                ></Contact>
-              );
-            })}
+          {form.contacts && (
+            <Sortable
+              initialItems={form.contacts.map((m) => m.key)}
+              onSort={(e) => {
+                setForm({
+                  ...form,
+                  contacts: form.contacts!.sort(
+                    (a, b) => e.indexOf(a.key) - e.indexOf(b.key)
+                  ),
+                });
+              }}
+            >
+              {form.contacts.map((contact, i) => {
+                return (
+                  <SortableItem
+                    key={contact.key}
+                    id={contact.key}
+                    onRemove={() => {
+                      form.contacts!.splice(i, 1);
+                      if (form.contacts?.length == 0) {
+                        delete form.contacts;
+                      }
+                      setForm({ ...form });
+                    }}
+                  >
+                    <Contact
+                      key={contact.key}
+                      props={contact}
+                      onChange={() => setForm({ ...form })}
+                    ></Contact>
+                  </SortableItem>
+                );
+              })}
+            </Sortable>
+          )}
         </div>
         {form.summary && (
           <RichText

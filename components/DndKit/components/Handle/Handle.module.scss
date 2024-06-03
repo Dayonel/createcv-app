@@ -1,0 +1,7 @@
+.handle {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 50%;
+  transform: translate(calc(-100% + 6px), -50%);
+}
