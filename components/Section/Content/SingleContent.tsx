@@ -4,7 +4,7 @@ import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useEffect, useState } from 'react';
-import { Placeholder } from '@/components/Placeholder';
+import { Add } from '@/components/Add';
 
 export interface SingleContentProps {
   props: SingleContentType;
@@ -54,10 +54,10 @@ export default function SingleContent({
               ></RichText>
             )}
             {props.title === undefined && (
-              <Placeholder
+              <Add
                 wrapperStyle="top-4 -translate-y-full -translate-x-full"
                 edit={edit}
-              ></Placeholder>
+              ></Add>
             )}
             {props.date !== undefined && (
               <div className="flex flex-wrap items-center">
@@ -79,10 +79,10 @@ export default function SingleContent({
               </div>
             )}
             {props.date === undefined && (
-              <Placeholder
+              <Add
                 wrapperStyle="top-4 right-0 -translate-y-full translate-x-full"
                 edit={edit}
-              ></Placeholder>
+              ></Add>
             )}
           </div>
           <div className="flex flex-wrap justify-between items-center">
@@ -103,10 +103,10 @@ export default function SingleContent({
               ></RichText>
             )}
             {props.subtitle === undefined && (
-              <Placeholder
+              <Add
                 wrapperStyle="top-12 -translate-y-full -translate-x-full"
                 edit={edit}
-              ></Placeholder>
+              ></Add>
             )}
 
             {props.topic !== undefined && (
@@ -126,10 +126,10 @@ export default function SingleContent({
               ></RichText>
             )}
             {props.topic === undefined && (
-              <Placeholder
+              <Add
                 wrapperStyle="top-12 right-0 -translate-y-full translate-x-full"
                 edit={edit}
-              ></Placeholder>
+              ></Add>
             )}
           </div>
 
@@ -149,9 +149,7 @@ export default function SingleContent({
               ></RichText>
             </div>
           )}
-          {props.description === undefined && (
-            <Placeholder edit={edit}></Placeholder>
-          )}
+          {props.description === undefined && <Add edit={edit}></Add>}
         </>
       )}
     </div>

@@ -1,14 +1,14 @@
 import { animated, useSpring, easings } from '@react-spring/web';
-import styles from './Placeholder.module.scss';
+import styles from './Add.module.scss';
 import { forwardRef, useEffect, useState } from 'react';
 import { IconButton } from '@carbon/react';
-import { Add } from '@carbon/icons-react';
+import { Add as AddIcon } from '@carbon/icons-react';
 
 interface PlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   edit: boolean;
   wrapperStyle?: string;
 }
-export const Placeholder = forwardRef<HTMLDivElement, PlaceholderProps>(
+export const Add = forwardRef<HTMLDivElement, PlaceholderProps>(
   ({ edit, wrapperStyle }, ref) => {
     const [show, setShow] = useState(() => edit);
     const style = useSpring({
@@ -34,7 +34,7 @@ export const Placeholder = forwardRef<HTMLDivElement, PlaceholderProps>(
           <animated.div
             ref={ref}
             className={`${
-              wrapperStyle || styles.placeholder
+              wrapperStyle || styles.wrapper
             } absolute z-10 hover:z-20`}
             style={style}
           >
@@ -46,7 +46,7 @@ export const Placeholder = forwardRef<HTMLDivElement, PlaceholderProps>(
               size="sm"
               align="bottom"
             >
-              <Add></Add>
+              <AddIcon></AddIcon>
             </IconButton>
           </animated.div>
         )}

@@ -1,6 +1,5 @@
 import './RichText.scss';
 import { useEditor, EditorContent } from '@tiptap/react';
-import { Placeholder } from '@tiptap/extension-placeholder';
 import { generateHTML } from '@tiptap/html';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -17,6 +16,7 @@ import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import RichTextControls from './RichTextControls';
 import { Remove } from '../DndKit/components';
+import Placeholder from '@tiptap/extension-placeholder';
 
 interface RichTextProps {
   props: string;

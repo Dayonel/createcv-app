@@ -2,7 +2,7 @@ import { Skill as SkillType } from '@/types/Skill';
 import Skill, { InputProps } from './Skill';
 import styles from './Skills.module.scss';
 import Sortable from './DndKit/Sortable';
-import { Placeholder } from './Placeholder';
+import { Add } from './Add';
 
 interface SkillsProps {
   skills: SkillType[];
@@ -40,7 +40,7 @@ export default function Skills({
         handle
         remove
       ></Sortable>
-      <Placeholder edit={edit}></Placeholder>
+      <Add edit={edit}></Add>
     </div>
   );
 }

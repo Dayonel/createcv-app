@@ -11,7 +11,7 @@ import { Form } from '@/types/Form';
 import { useUUID } from '@/hooks/useUUID';
 import { useHiddenKey } from '@/hooks/useHiddenKey';
 import Sortable from './DndKit/Sortable';
-import { Placeholder } from './Placeholder';
+import { Add } from './Add';
 
 export default function CV() {
   const json = JSON.stringify(placeholder);
@@ -50,7 +50,7 @@ export default function CV() {
                 remove
               ></RichText>
             )}
-            {!form.title && <Placeholder edit={edit}></Placeholder>}
+            {!form.title && <Add edit={edit}></Add>}
           </div>
           <div className={`relative`}>
             {form.subtitle && (
@@ -68,7 +68,12 @@ export default function CV() {
                 remove
               ></RichText>
             )}
-            {!form.subtitle && <Placeholder wrapperStyle="-bottom-4 translate-y-full -translate-x-full" edit={edit}></Placeholder>}
+            {!form.subtitle && (
+              <Add
+                wrapperStyle="-bottom-4 translate-y-full -translate-x-full"
+                edit={edit}
+              ></Add>
+            )}
           </div>
         </div>
         <Actions onEdit={setEdit}></Actions>
@@ -102,7 +107,7 @@ export default function CV() {
               remove
             ></Sortable>
           )}
-          <Placeholder edit={edit}></Placeholder>
+          <Add edit={edit}></Add>
         </div>
         <div className="relative">
           {form.summary && (
@@ -117,7 +122,11 @@ export default function CV() {
               remove
             ></RichText>
           )}
-          {!form.summary && <Placeholder edit={edit}></Placeholder>}
+          {!form.summary && (
+            <div className="">
+              <Add edit={edit}></Add>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.sections}>
@@ -150,10 +159,10 @@ export default function CV() {
             );
           })}
       </div>
-      <Placeholder
+      <Add
         wrapperStyle="-bottom-4 translate-y-full -translate-x-full"
         edit={edit}
-      ></Placeholder>
+      ></Add>
     </form>
   );
 }
