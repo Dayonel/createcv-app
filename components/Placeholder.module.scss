@@ -1,0 +1,11 @@
+@use "@carbon/themes/scss/tokens";
+
+.placeholder {
+  cursor: pointer;
+  position: relative;
+  border: 1px dashed tokens.$border-subtle-01;
+
+  &:hover {
+    border: 1px dashed tokens.$border-subtle-02;
+  }
+}

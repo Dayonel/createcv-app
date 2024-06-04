@@ -6,11 +6,12 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { useState } from 'react';
 import { Handle, Remove } from './components';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface SortableItemProps {
   id: string;
   renderItem(args: any): React.ReactElement;
-  onRemove: (id: string) => void;
+  onRemove?: (id: string) => void;
   wrapperStyle?: string;
   containerStyle?: string;
   handle?: boolean;
@@ -27,6 +28,7 @@ export const SortableItem = ({
   remove,
 }: SortableItemProps) => {
   const [controlsVisible, setControlsVisible] = useState(false);
+  const controlsRef = useOutsideClick(() => setControlsVisible(false));
   const animateLayoutChanges: AnimateLayoutChanges = (args) =>
     defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
@@ -37,7 +39,7 @@ export const SortableItem = ({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: id, animateLayoutChanges: animateLayoutChanges });
+  } = useSortable({ id, animateLayoutChanges });
 
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -54,13 +56,20 @@ export const SortableItem = ({
       }`}
       tabIndex={-1}
     >
-      <div className={`${containerStyle || ''} relative grid`}>
-        {renderItem({
-          onControlsVisible: (e: boolean) => setControlsVisible(e),
-        })}
+      <div
+        onFocus={() => setControlsVisible(true)}
+        ref={controlsRef}
+        className={`${containerStyle || ''} relative grid`}
+      >
+        {renderItem({})}
         {controlsVisible && (
           <>
-            {remove && <Remove onClick={() => onRemove(id)} />}
+            {remove && (
+              <Remove
+                onClick={() => onRemove && onRemove(id)}
+                onBlur={() => setControlsVisible(false)}
+              />
+            )}
             {handle && <Handle {...listeners} tabIndex={-1} />}
           </>
         )}

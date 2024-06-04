@@ -95,11 +95,10 @@ export default function Sortable({
                 key={m}
                 id={m.toString()}
                 onRemove={(id) => handleRemove(id)}
-                renderItem={({ onControlsVisible }) =>
+                renderItem={() =>
                   renderItem({
                     props:
                       initialItems[initialItems.findIndex((i) => i.key === m)],
-                    onControlsVisible,
                   })
                 }
                 wrapperStyle={wrapperStyle}

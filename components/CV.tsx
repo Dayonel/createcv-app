@@ -12,6 +12,7 @@ import { useUUID } from '@/hooks/useUUID';
 import { useHiddenKey } from '@/hooks/useHiddenKey';
 import Sortable from './DndKit/Sortable';
 import { Add } from './Add';
+import { Placeholder } from './Placeholder';
 
 export default function CV() {
   const json = JSON.stringify(placeholder);
@@ -96,12 +97,12 @@ export default function CV() {
                   ),
                 });
               }}
-              onRemove={(id) =>
+              onRemove={(id) => {
                 setForm({
                   ...form,
                   contacts: form.contacts?.filter((f) => f.key !== id),
-                })
-              }
+                });
+              }}
               wrapperStyle="pl-[6px]"
               handle
               remove
@@ -123,9 +124,10 @@ export default function CV() {
             ></RichText>
           )}
           {!form.summary && (
-            <div className="">
-              <Add edit={edit}></Add>
-            </div>
+            <Placeholder
+              edit={edit}
+              className="h-[74px] mx-[6px]"
+            ></Placeholder>
           )}
         </div>
       </div>

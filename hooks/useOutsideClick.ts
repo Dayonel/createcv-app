@@ -6,11 +6,11 @@ export const useOutsideClick = (callback: () => void) => {
   useEffect(() => {
     let initialClickInside = false;
 
-    const handlePointerDown = (e: any) => {
+    const handlePointerDown = (e: PointerEvent) => {
       initialClickInside = ref.current && ref.current.contains(e.target);
     };
 
-    const handlePointerUp = (e: any) => {
+    const handlePointerUp = (e: PointerEvent) => {
       if (
         ref.current &&
         !ref.current.contains(e.target) &&

@@ -2,15 +2,12 @@ import RichText from '@/components/RichText/RichText';
 import styles from './SingleContent.module.scss';
 import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
-import { useEffect, useState } from 'react';
 import { Add } from '@/components/Add';
 
 export interface SingleContentProps {
   props: SingleContentType;
   onChange: () => void;
   onRemove: () => void;
-  onControlsVisible: (e: boolean) => void;
   edit: boolean;
 }
 
@@ -18,22 +15,10 @@ export default function SingleContent({
   props,
   onChange,
   onRemove,
-  onControlsVisible,
   edit,
 }: SingleContentProps) {
-  const [controlsVisible, setControlsVisible] = useState(false);
-  const controlsRef = useOutsideClick(() => setControlsVisible(false));
-
-  useEffect(() => {
-    onControlsVisible(controlsVisible);
-  }, [controlsVisible]);
-
   return (
-    <div
-      ref={controlsRef}
-      className={`relative ${styles.single} flex flex-col gap-1`}
-      onFocus={() => setControlsVisible(true)}
-    >
+    <div className={`relative ${styles.single} flex flex-col gap-1`}>
       {props && (
         <>
           <div className="flex flex-wrap justify-between items-center gap-2">
