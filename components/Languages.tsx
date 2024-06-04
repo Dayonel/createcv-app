@@ -1,21 +1,24 @@
 import Sortable from './DndKit/Sortable';
 import Language, { LanguageProps } from './Language';
 import { Language as LanguageType } from '@/types/Language';
+import { Placeholder } from './Placeholder';
 
 interface LanguagesProps {
   languages: LanguageType[];
   onChange: () => void;
   onRemove: () => void;
+  edit: boolean;
 }
 
 export default function Languages({
   languages,
   onChange,
   onRemove,
+  edit,
 }: LanguagesProps) {
   // TODO: Fix this component
   return (
-    <div className="flex flex-col gap-3">
+    <div className="relative flex flex-col gap-3">
       <Sortable
         initialItems={languages}
         renderItem={({ props, onControlsVisible }: LanguageProps) => {
@@ -47,6 +50,7 @@ export default function Languages({
         containerStyle="w-full"
         handle
       ></Sortable>
+      <Placeholder edit={edit}></Placeholder>
     </div>
   );
 }

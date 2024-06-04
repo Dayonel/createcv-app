@@ -1,13 +1,11 @@
-.placeholder {
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.5);
-  background-color: transparent;
-  border-style: dashed;
-  border-color: rgba(0, 0, 0, 0.08);
+@use "@carbon/themes/scss/tokens";
 
-  &:hover {
-    border-color: rgba(0, 0, 0, 0.15);
-  }
+.placeholder {
+  left: 0;
+  top: 50%;
+  transform: translate(-100%, -50%);
+}
+
+.add svg {
+  fill: tokens.$text-secondary !important;
 }

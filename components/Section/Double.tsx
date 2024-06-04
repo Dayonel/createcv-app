@@ -8,9 +8,15 @@ interface DoubleProps {
   props: DoubleType;
   onChange: () => void;
   onRemove: () => void;
+  edit: boolean;
 }
 
-export default function Double({ props, onChange, onRemove }: DoubleProps) {
+export default function Double({
+  props,
+  onChange,
+  onRemove,
+  edit,
+}: DoubleProps) {
   const { content } = props;
 
   return (
@@ -46,6 +52,7 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
                           }
                           onRemove();
                         }}
+                        edit={edit}
                       ></Skills>
                     )}
                   </div>
@@ -77,6 +84,7 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
                               }
                               onRemove();
                             }}
+                            edit={edit}
                           ></Languages>
                         )}
                       </div>

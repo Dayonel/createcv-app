@@ -14,12 +14,15 @@
 .container {
   grid-template-columns: 1fr;
   gap: 16px 0px;
+  position: relative;
 }
 
 .sections {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px 0px;
+  grid-template-rows: minmax(24px, min-content);
+  position: relative;
 }
 
 .header {
@@ -83,6 +86,7 @@
   grid-template-rows: minmax(24px, max-content);
   grid-auto-rows: minmax(24px, max-content);
   width: fit-content;
+  position: relative;
 }
 
 @media (min-width: 768px) {
@@ -95,8 +99,4 @@
   .header {
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   }
-}
-
-.sections {
-  grid-template-rows: minmax(24px, min-content);
 }

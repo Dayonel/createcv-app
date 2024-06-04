@@ -4,12 +4,14 @@ import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useEffect, useState } from 'react';
+import { Placeholder } from '@/components/Placeholder';
 
 export interface SingleContentProps {
   props: SingleContentType;
   onChange: () => void;
   onRemove: () => void;
   onControlsVisible: (e: boolean) => void;
+  edit: boolean;
 }
 
 export default function SingleContent({
@@ -17,6 +19,7 @@ export default function SingleContent({
   onChange,
   onRemove,
   onControlsVisible,
+  edit,
 }: SingleContentProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
@@ -26,13 +29,13 @@ export default function SingleContent({
   }, [controlsVisible]);
 
   return (
-    <>
+    <div
+      ref={controlsRef}
+      className={`relative ${styles.single} flex flex-col gap-1`}
+      onFocus={() => setControlsVisible(true)}
+    >
       {props && (
-        <div
-          ref={controlsRef}
-          className={`${styles.single} flex flex-col gap-1`}
-          onFocus={() => setControlsVisible(true)}
-        >
+        <>
           <div className="flex flex-wrap justify-between items-center gap-2">
             {props.title !== undefined && (
               <RichText
@@ -50,28 +53,37 @@ export default function SingleContent({
                 }}
               ></RichText>
             )}
-
-            <div className="flex flex-wrap items-center">
-              {props.date !== undefined && (
-                <>
-                  <Calendar></Calendar>
-                  <RichText
-                    className="font-bold text-xs max-w-xs"
-                    props={props.date}
-                    onChange={(e) => {
-                      props.date = e;
-                      onChange();
-                    }}
-                    onRemove={() => {
-                      delete props.date;
-                      onRemove();
-                    }}
-                    input
-                    remove
-                  ></RichText>
-                </>
-              )}
-            </div>
+            {props.title === undefined && (
+              <Placeholder
+                wrapperStyle="top-4 -translate-y-full -translate-x-full"
+                edit={edit}
+              ></Placeholder>
+            )}
+            {props.date !== undefined && (
+              <div className="flex flex-wrap items-center">
+                <Calendar></Calendar>
+                <RichText
+                  className="font-bold text-xs max-w-xs"
+                  props={props.date}
+                  onChange={(e) => {
+                    props.date = e;
+                    onChange();
+                  }}
+                  onRemove={() => {
+                    delete props.date;
+                    onRemove();
+                  }}
+                  input
+                  remove
+                ></RichText>
+              </div>
+            )}
+            {props.date === undefined && (
+              <Placeholder
+                wrapperStyle="top-4 right-0 -translate-y-full translate-x-full"
+                edit={edit}
+              ></Placeholder>
+            )}
           </div>
           <div className="flex flex-wrap justify-between items-center">
             {props.subtitle !== undefined && (
@@ -90,6 +102,12 @@ export default function SingleContent({
                 remove
               ></RichText>
             )}
+            {props.subtitle === undefined && (
+              <Placeholder
+                wrapperStyle="top-12 -translate-y-full -translate-x-full"
+                edit={edit}
+              ></Placeholder>
+            )}
 
             {props.topic !== undefined && (
               <RichText
@@ -107,7 +125,14 @@ export default function SingleContent({
                 remove
               ></RichText>
             )}
+            {props.topic === undefined && (
+              <Placeholder
+                wrapperStyle="top-12 right-0 -translate-y-full translate-x-full"
+                edit={edit}
+              ></Placeholder>
+            )}
           </div>
+
           {props.description !== undefined && (
             <div className="pt-1">
               <RichText
@@ -124,8 +149,11 @@ export default function SingleContent({
               ></RichText>
             </div>
           )}
-        </div>
+          {props.description === undefined && (
+            <Placeholder edit={edit}></Placeholder>
+          )}
+        </>
       )}
-    </>
+    </div>
   );
 }

@@ -1,13 +1,21 @@
-'use client';
 import { Download } from '@carbon/icons-react';
 import { ContentSwitcher, Switch } from '@carbon/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Actions.module.scss';
 
-const download = () => {};
+export interface ActionsProps {
+  onEdit: (e: boolean) => void;
+}
 
-export default function Actions() {
+export default function Actions({ onEdit }: ActionsProps) {
   const [edit, setEdit] = useState(false);
+  const download = () => {};
+
+  useEffect(() => {
+    if (onEdit) {
+      onEdit(edit);
+    }
+  }, [edit]);
 
   return (
     <div className={styles.actions}>
