@@ -1,5 +1,5 @@
 'use client';
-import Actions from './Actions';
+import Actions from './Actions/Actions';
 import styles from './CV.module.scss';
 import { useEffect, useState } from 'react';
 import Contact, { ContactProps } from './Contact';
@@ -13,6 +13,7 @@ import { useHiddenKey } from '@/hooks/useHiddenKey';
 import Sortable from './DndKit/Sortable';
 import { Add } from './Add';
 import { Placeholder } from './Placeholder';
+import useColorStore from '@/store/useStore';
 
 export default function CV() {
   const json = JSON.stringify(placeholder);
@@ -21,10 +22,15 @@ export default function CV() {
   useHiddenKey(data, 'key');
   const [form, setForm] = useState<Form>(data);
   const [edit, setEdit] = useState(false);
+  const { color } = useColorStore();
 
   useEffect(() => {
     // console.log(JSON.stringify(form));
   }, [form]);
+
+  useEffect(() => {
+    setForm({ ...form, color });
+  }, [color]);
 
   const sections = {
     Single,

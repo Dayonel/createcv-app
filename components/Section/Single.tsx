@@ -41,12 +41,11 @@ export default function Single({
       <div className={`relative flex flex-col gap-6`}>
         <Sortable
           initialItems={content}
-          renderItem={({ props, onControlsVisible }: SingleContentProps) => (
+          renderItem={({ props }: SingleContentProps) => (
             <SingleContent
               props={props}
               onChange={onChange}
               onRemove={onRemove}
-              onControlsVisible={onControlsVisible}
               edit={edit}
             ></SingleContent>
           )}

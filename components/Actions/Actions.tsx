@@ -2,6 +2,7 @@ import { Download, Edit, TextColor, TextFont } from '@carbon/icons-react';
 import { useEffect, useState } from 'react';
 import styles from './Actions.module.scss';
 import { IconButton } from '@carbon/react';
+import ColorPicker from './ColorPicker';
 
 export interface ActionsProps {
   onEdit: (e: boolean) => void;
@@ -24,9 +25,7 @@ export default function Actions({ onEdit }: ActionsProps) {
       <IconButton label="Font" kind="ghost" align="bottom">
         <TextFont size={24}></TextFont>
       </IconButton>
-      <IconButton label="Color" kind="ghost" align="bottom">
-        <TextColor size={24}></TextColor>
-      </IconButton>
+      <ColorPicker></ColorPicker>
       <IconButton
         label="Edit"
         kind="ghost"

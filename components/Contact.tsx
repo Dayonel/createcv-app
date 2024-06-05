@@ -1,4 +1,3 @@
-import styles from './Contact.module.scss';
 import {
   Email,
   LocationFilled,
@@ -9,6 +8,7 @@ import {
 } from '@carbon/icons-react';
 import { Contact as ContactType } from '../types/Contact';
 import RichText from './RichText/RichText';
+import useColorStore from '@/store/useStore';
 
 export interface ContactProps {
   props: ContactType;
@@ -31,10 +31,11 @@ export default function Contact({
   onControlsVisible,
 }: ContactProps) {
   const Component = contactIcons[props.icon as keyof typeof contactIcons]; // Correct! JSX type can be a capitalized variable.
+  const { color } = useColorStore();
 
   return (
-    <span className={`flex items-center ${styles.contact}`}>
-      {<Component></Component>}
+    <span className={`flex items-center`}>
+      {<Component fill={color}></Component>}
       <RichText
         className="max-w-52 md:max-w-52 text-xs"
         props={props.text}

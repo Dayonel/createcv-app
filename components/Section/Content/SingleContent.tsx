@@ -1,8 +1,8 @@
 import RichText from '@/components/RichText/RichText';
-import styles from './SingleContent.module.scss';
 import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import { Add } from '@/components/Add';
+import useColorStore from '@/store/useStore';
 
 export interface SingleContentProps {
   props: SingleContentType;
@@ -17,8 +17,10 @@ export default function SingleContent({
   onRemove,
   edit,
 }: SingleContentProps) {
+  const { color } = useColorStore();
+
   return (
-    <div className={`relative ${styles.single} flex flex-col gap-1`}>
+    <div className={`relative flex flex-col gap-1`}>
       {props && (
         <>
           <div className="flex flex-wrap justify-between items-center gap-2">
@@ -46,7 +48,7 @@ export default function SingleContent({
             )}
             {props.date !== undefined && (
               <div className="flex flex-wrap items-center">
-                <Calendar></Calendar>
+                <Calendar fill={color}></Calendar>
                 <RichText
                   className="font-bold text-xs max-w-xs"
                   props={props.date}

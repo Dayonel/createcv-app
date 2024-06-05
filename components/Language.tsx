@@ -1,6 +1,7 @@
 import './Language.scss';
 import { Language as LanguageType } from '@/types/Language';
 import RichText from './RichText/RichText';
+import useColorStore from '@/store/useStore';
 
 export interface LanguageProps {
   props: LanguageType;
@@ -17,6 +18,8 @@ export default function Language({
   id,
   onControlsVisible,
 }: LanguageProps) {
+  const { color } = useColorStore();
+
   return (
     <>
       {(props.value || props.level) && (
@@ -73,6 +76,7 @@ export default function Language({
                 }}
                 style={{
                   backgroundSize: `${Math.min(props.rating * 10, 100)}%`,
+                  backgroundImage: `linear-gradient(${color}, ${color})`,
                 }}
               ></input>
             </div>

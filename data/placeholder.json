@@ -1,4 +1,5 @@
 {
+  "color": "#0f62fe",
   "title": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"John Doe\"}]}",
   "subtitle": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Full Stack Developer\"}]}",
   "contacts": [

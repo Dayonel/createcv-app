@@ -5,7 +5,6 @@ input[type="range"] {
   -webkit-appearance: none;
   background: tokens.$layer-selected-02;
   height: 0.5rem;
-  background-image: linear-gradient(tokens.$link-primary, tokens.$link-primary);
   background-size: 50% 100%;
   background-repeat: no-repeat;
   cursor: pointer;
