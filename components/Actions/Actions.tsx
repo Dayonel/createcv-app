@@ -22,7 +22,7 @@ export default function Actions({ onEdit }: ActionsProps) {
     <div
       className={`${styles.actions} flex flex-col md:flex-row items-center justify-end place-self-start md:place-self-end gap-2 row-start-1 row-span-2 md:row-span-1 col-start-2`}
     >
-      <IconButton label="Font" kind="ghost" align="bottom">
+      <IconButton disabled label="Font" kind="ghost" align="bottom">
         <TextFont size={24}></TextFont>
       </IconButton>
       <ColorPicker></ColorPicker>

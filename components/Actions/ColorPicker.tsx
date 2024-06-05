@@ -9,7 +9,7 @@ export default function ColorPicker() {
   const [show, setShow] = useState(false);
   const [theme, setTheme] = useState<string>();
   const ref = useOutsideClick(() => setShow(false));
-  const { color, setColor } = useColorStore();
+  const { color, setColor, overriden } = useColorStore();
 
   useLayoutEffect(() => {
     const observer = new MutationObserver((mutations) => {
@@ -28,6 +28,7 @@ export default function ColorPicker() {
   }, []);
 
   useEffect(() => {
+    if (overriden) return;
     setColor(theme === 'g10' ? '#0f62fe' : '#78a9ff');
   }, [theme]);
 
@@ -46,7 +47,7 @@ export default function ColorPicker() {
       <div className="absolute z-10 left-12 md:left-2/4 translate-y-3 -translate-x-full md:-translate-x-2/4">
         {show && (
           <>
-            <HexColorPicker color={color} onChange={setColor} />
+            <HexColorPicker color={color} onChange={(c) => setColor(c, true)} />
           </>
         )}
       </div>
