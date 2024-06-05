@@ -34,11 +34,11 @@ export default function CV() {
   return (
     <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
       <div className={styles.header}>
-        <div className="flex flex-col items-center md:items-start mt-3">
-          <div className="relative">
+        <div className={`flex flex-col items-start`}>
+          <div className={`relative`}>
             {form.title && (
               <RichText
-                className="max-w-xs md:max-w-lg font-bold text-3xl text-center md:text-start"
+                className="max-w-64 md:max-w-lg font-bold text-3xl"
                 props={form.title}
                 onChange={(e) => {
                   setForm({ ...form, title: e });
@@ -56,7 +56,7 @@ export default function CV() {
           <div className={`relative`}>
             {form.subtitle && (
               <RichText
-                className="max-w-xs md:max-w-lg font-bold text-sm text-center md:text-start"
+                className="max-w-64 md:max-w-lg font-bold text-sm"
                 props={form.subtitle}
                 onChange={(e) => {
                   setForm({ ...form, subtitle: e });
@@ -78,7 +78,7 @@ export default function CV() {
           </div>
         </div>
         <Actions onEdit={setEdit}></Actions>
-        <div className={styles.contact}>
+        <div className={`${styles.contact}`}>
           {form.contacts && (
             <Sortable
               initialItems={form.contacts}
@@ -110,7 +110,7 @@ export default function CV() {
           )}
           <Add edit={edit}></Add>
         </div>
-        <div className="relative">
+        <div className="col-span-2 md:col-span-1 relative">
           {form.summary && (
             <RichText
               props={form.summary}

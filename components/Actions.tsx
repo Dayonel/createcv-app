@@ -1,7 +1,7 @@
-import { Download } from '@carbon/icons-react';
-import { ContentSwitcher, Switch } from '@carbon/react';
+import { Download, Edit, TextColor, TextFont } from '@carbon/icons-react';
 import { useEffect, useState } from 'react';
 import styles from './Actions.module.scss';
+import { IconButton } from '@carbon/react';
 
 export interface ActionsProps {
   onEdit: (e: boolean) => void;
@@ -18,27 +18,32 @@ export default function Actions({ onEdit }: ActionsProps) {
   }, [edit]);
 
   return (
-    <div className={styles.actions}>
-      <button
-        className={`${styles.tile} cds--tile cds--tile--clickable`}
-        style={{ minBlockSize: 'auto' }}
-        onClick={download}
-        type="button"
+    <div
+      className={`${styles.actions} flex flex-col md:flex-row items-center justify-end place-self-start md:place-self-end gap-2 row-start-1 row-span-2 md:row-span-1 col-start-2`}
+    >
+      <IconButton label="Font" kind="ghost" align="bottom">
+        <TextFont size={24}></TextFont>
+      </IconButton>
+      <IconButton label="Color" kind="ghost" align="bottom">
+        <TextColor size={24}></TextColor>
+      </IconButton>
+      <IconButton
+        label="Edit"
+        kind="ghost"
+        align="bottom"
+        onClick={() => setEdit(!edit)}
+        isSelected={edit}
       >
-        <div className="flex justify-between gap-4">
-          <span>Download</span>
-          <Download></Download>
-        </div>
-      </button>
-      <ContentSwitcher
-        style={{ blockSize: '50px' }}
-        onChange={(e) => setEdit(e.index == 1)}
-        selectedIndex={0}
-        size="lg"
+        <Edit size={24}></Edit>
+      </IconButton>
+      <IconButton
+        label="Download"
+        kind="ghost"
+        align="bottom"
+        onClick={() => download()}
       >
-        <Switch>View</Switch>
-        <Switch>Edit</Switch>
-      </ContentSwitcher>
+        <Download size={24}></Download>
+      </IconButton>
     </div>
   );
 }
