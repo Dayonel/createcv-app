@@ -11,9 +11,10 @@ import { Form } from '@/types/Form';
 import { useUUID } from '@/hooks/useUUID';
 import { useHiddenKey } from '@/hooks/useHiddenKey';
 import Sortable from './DndKit/Sortable';
-import { Add } from './Add';
 import { Placeholder } from './Placeholder';
 import useColorStore from '@/store/useStore';
+import { getParagraphText, getText } from '@/utils/richTextUtils';
+import { v4 } from 'uuid';
 
 export default function CV() {
   const json = JSON.stringify(placeholder);
@@ -57,7 +58,14 @@ export default function CV() {
                 remove
               ></RichText>
             )}
-            {!form.title && <Add edit={edit}></Add>}
+            {!form.title && (
+              <Placeholder
+                edit={edit}
+                className="font-bold text-3xl"
+                placeholder={getText(placeholder.title)}
+                onClick={() => setForm({ ...form, title: placeholder.title })}
+              ></Placeholder>
+            )}
           </div>
           <div className={`relative`}>
             {form.subtitle && (
@@ -76,10 +84,14 @@ export default function CV() {
               ></RichText>
             )}
             {!form.subtitle && (
-              <Add
-                wrapperStyle="-bottom-4 translate-y-full -translate-x-full"
+              <Placeholder
                 edit={edit}
-              ></Add>
+                className="font-bold text-sm"
+                placeholder={getText(placeholder.subtitle)}
+                onClick={() =>
+                  setForm({ ...form, subtitle: placeholder.subtitle })
+                }
+              ></Placeholder>
             )}
           </div>
         </div>
@@ -106,7 +118,7 @@ export default function CV() {
               onRemove={(id) => {
                 setForm({
                   ...form,
-                  contacts: form.contacts?.filter((f) => f.key !== id),
+                  contacts: form.contacts.filter((f) => f.key !== id),
                 });
               }}
               wrapperStyle="pl-[6px]"
@@ -114,7 +126,15 @@ export default function CV() {
               remove
             ></Sortable>
           )}
-          <Add edit={edit}></Add>
+          <Placeholder
+            edit={edit}
+            className="text-xs w-fit ml-[6px]"
+            placeholder={getText(placeholder.contacts[0].text)}
+            onClick={() => {
+              form.contacts.push({ ...placeholder.contacts[0], key: v4() });
+              setForm({ ...form });
+            }}
+          ></Placeholder>
         </div>
         <div className="col-span-2 md:col-span-1 relative">
           {form.summary && (
@@ -132,7 +152,9 @@ export default function CV() {
           {!form.summary && (
             <Placeholder
               edit={edit}
-              className="h-[74px] mx-[6px]"
+              className="text-xs italic text-justify leading-normal"
+              placeholder={getParagraphText(placeholder.summary)}
+              onClick={() => setForm({ ...form, summary: placeholder.summary })}
             ></Placeholder>
           )}
         </div>
@@ -167,10 +189,6 @@ export default function CV() {
             );
           })}
       </div>
-      <Add
-        wrapperStyle="-bottom-4 translate-y-full -translate-x-full"
-        edit={edit}
-      ></Add>
     </form>
   );
 }

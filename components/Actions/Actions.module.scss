@@ -1,7 +1,13 @@
 @use "@carbon/themes/scss/tokens";
 
-.actions > button {
+.actions button {
   padding: 0;
   display: flex;
   align-items: center;
 }
+
+// .actions button.cds--btn--icon-only.cds--btn.cds--btn--ghost {
+//   display: flex;
+//   align-items: center;
+//   padding-block-start: 0;
+// }

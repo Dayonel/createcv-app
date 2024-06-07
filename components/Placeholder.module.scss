@@ -2,10 +2,31 @@
 
 .placeholder {
   cursor: pointer;
+  outline: 1px dashed tokens.$border-subtle-01;
+  outline-offset: -2px;
+  white-space: break-spaces;
+  padding: 1px 6px;
   position: relative;
-  border: 1px dashed tokens.$border-subtle-01;
+  height: fit-content;
 
   &:hover {
-    border: 1px dashed tokens.$border-subtle-02;
+    outline: 1px dashed tokens.$border-subtle-02;
   }
+}
+
+.placeholder::before {
+  color: tokens.$text-placeholder;
+  content: attr(data-placeholder);
+  pointer-events: none;
+}
+
+.wrapper {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-100%, -50%);
+}
+
+.add svg {
+  fill: tokens.$text-secondary !important;
 }

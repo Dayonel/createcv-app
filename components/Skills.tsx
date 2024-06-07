@@ -2,7 +2,10 @@ import { Skill as SkillType } from '@/types/Skill';
 import Skill, { InputProps } from './Skill';
 import styles from './Skills.module.scss';
 import Sortable from './DndKit/Sortable';
-import { Add } from './Add';
+import placeholder from '../data/placeholder.json';
+import { Placeholder } from './Placeholder';
+import { DoubleContent } from '@/types/Double';
+import { v4 } from 'uuid';
 
 interface SkillsProps {
   skills: SkillType[];
@@ -17,6 +20,12 @@ export default function Skills({
   onRemove,
   edit,
 }: SkillsProps) {
+  const placeholderSkill = (
+    placeholder.sections
+      .find((f) => f.type === 'Double')!
+      .content.find((c) => 'type' in c && c.type === 'Skills')! as DoubleContent
+  ).skills![0];
+
   return (
     <div className={styles.skills}>
       <Sortable
@@ -40,7 +49,16 @@ export default function Skills({
         handle
         remove
       ></Sortable>
-      <Add edit={edit}></Add>
+      <Placeholder
+        noButton
+        edit={edit}
+        className={`${styles.skill} !border-none !p-[0.75rem] !h-full`}
+        placeholder={placeholderSkill.value}
+        onClick={() => {
+          skills.push({ ...placeholderSkill, key: v4() });
+          onChange();
+        }}
+      ></Placeholder>
     </div>
   );
 }

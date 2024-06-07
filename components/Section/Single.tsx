@@ -4,7 +4,6 @@ import { Single as SingleType } from '@/types/Single';
 import { UniqueIdentifier } from '@dnd-kit/core';
 import Sortable from '../DndKit/Sortable';
 import SingleContent, { SingleContentProps } from './Content/SingleContent';
-import { Add } from '../Add';
 
 interface SingleProps {
   props: SingleType;
@@ -68,10 +67,6 @@ export default function Single({
           containerStyle="w-full"
         ></Sortable>
       </div>
-      <Add
-        wrapperStyle="bottom-0 translate-y-full -translate-x-full"
-        edit={edit}
-      ></Add>
     </div>
   );
 }

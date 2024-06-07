@@ -1,8 +1,10 @@
 import RichText from '@/components/RichText/RichText';
 import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
-import { Add } from '@/components/Add';
 import useColorStore from '@/store/useStore';
+import { Placeholder } from '@/components/Placeholder';
+import { getText } from '@/utils/richTextUtils';
+import placeholder from '../../../data/placeholder.json';
 
 export interface SingleContentProps {
   props: SingleContentType;
@@ -18,6 +20,10 @@ export default function SingleContent({
   edit,
 }: SingleContentProps) {
   const { color } = useColorStore();
+
+  const placeholderContent = placeholder.sections.find(
+    (f) => f.type === 'Single'
+  )!.content![0] as SingleContentType;
 
   return (
     <div className={`relative flex flex-col gap-1`}>
@@ -40,11 +46,16 @@ export default function SingleContent({
                 }}
               ></RichText>
             )}
-            {props.title === undefined && (
-              <Add
-                wrapperStyle="top-4 -translate-y-full -translate-x-full"
+            {!props.title && (
+              <Placeholder
                 edit={edit}
-              ></Add>
+                className=" text-base font-bold"
+                placeholder={getText(placeholderContent.title!)}
+                onClick={() => {
+                  props.title = placeholderContent.title;
+                  onChange();
+                }}
+              ></Placeholder>
             )}
             {props.date !== undefined && (
               <div className="flex flex-wrap items-center">
@@ -65,11 +76,16 @@ export default function SingleContent({
                 ></RichText>
               </div>
             )}
-            {props.date === undefined && (
-              <Add
-                wrapperStyle="top-4 right-0 -translate-y-full translate-x-full"
+            {!props.date && (
+              <Placeholder
                 edit={edit}
-              ></Add>
+                className="text-xs font-bold"
+                placeholder={getText(placeholderContent.date!)}
+                onClick={() => {
+                  props.date = placeholderContent.date;
+                  onChange();
+                }}
+              ></Placeholder>
             )}
           </div>
           <div className="flex flex-wrap justify-between items-center">
@@ -89,11 +105,16 @@ export default function SingleContent({
                 remove
               ></RichText>
             )}
-            {props.subtitle === undefined && (
-              <Add
-                wrapperStyle="top-12 -translate-y-full -translate-x-full"
+            {!props.subtitle && (
+              <Placeholder
                 edit={edit}
-              ></Add>
+                className="text-sm font-bold"
+                placeholder={getText(placeholderContent.subtitle!)}
+                onClick={() => {
+                  props.subtitle = placeholderContent.subtitle;
+                  onChange();
+                }}
+              ></Placeholder>
             )}
 
             {props.topic !== undefined && (
@@ -112,11 +133,16 @@ export default function SingleContent({
                 remove
               ></RichText>
             )}
-            {props.topic === undefined && (
-              <Add
-                wrapperStyle="top-12 right-0 -translate-y-full translate-x-full"
+            {!props.topic && (
+              <Placeholder
                 edit={edit}
-              ></Add>
+                className="text-xs"
+                placeholder={getText(placeholderContent.topic!)}
+                onClick={() => {
+                  props.topic = placeholderContent.topic;
+                  onChange();
+                }}
+              ></Placeholder>
             )}
           </div>
 
@@ -136,7 +162,17 @@ export default function SingleContent({
               ></RichText>
             </div>
           )}
-          {props.description === undefined && <Add edit={edit}></Add>}
+          {!props.description && (
+            <Placeholder
+              edit={edit}
+              className="text-xs font-bold"
+              placeholder={getText(placeholderContent.description!)}
+              onClick={() => {
+                props.description = placeholderContent.description;
+                onChange();
+              }}
+            ></Placeholder>
+          )}
         </>
       )}
     </div>

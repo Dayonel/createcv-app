@@ -6,7 +6,7 @@ export type Form = {
   color: string;
   title?: string;
   subtitle?: string;
-  contacts?: Contact[];
+  contacts: Contact[];
   summary?: string;
   sections?: Single[] | Double[];
 };

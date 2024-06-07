@@ -1,7 +1,6 @@
 import Sortable from './DndKit/Sortable';
 import Language, { LanguageProps } from './Language';
 import { Language as LanguageType } from '@/types/Language';
-import { Add } from './Add';
 
 interface LanguagesProps {
   languages: LanguageType[];
@@ -39,6 +38,7 @@ export default function Languages({
                   }
                   onRemove();
                 }}
+                edit={edit}
               ></Language>
             )
           );
@@ -50,7 +50,6 @@ export default function Languages({
         containerStyle="w-full"
         handle
       ></Sortable>
-      <Add edit={edit}></Add>
     </div>
   );
 }
