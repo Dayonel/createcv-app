@@ -7,12 +7,14 @@ export interface InputProps {
   props: SkillType;
   onChange: () => void;
   onControlsVisible: (e: boolean) => void;
+  empty?: boolean;
 }
 
 export default function Skill({
   props,
   onChange,
   onControlsVisible,
+  empty,
 }: InputProps) {
   const placeholder = useRef(props.value);
   const [controlsVisible, setControlsVisible] = useState(false);
@@ -22,6 +24,12 @@ export default function Skill({
       onControlsVisible(controlsVisible);
     }
   }, [controlsVisible]);
+
+  useEffect(() => {
+    if (empty) {
+      props.value = '';
+    }
+  }, []);
 
   return (
     <>

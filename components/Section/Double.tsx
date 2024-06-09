@@ -1,14 +1,18 @@
 import styles from './Double.module.scss';
 import Divider from '../Divider';
 import Skills from '../Skills';
-import Languages from '../Languages';
+import Languages from '../Language/Languages';
 import { Double as DoubleType } from '@/types/Double';
+import RichText from '../RichText/RichText';
+import { Placeholder } from '../Placeholder';
+import { getEmptyText } from '@/utils/richTextUtils';
 
 interface DoubleProps {
   props: DoubleType;
   onChange: () => void;
-  onRemove: () => void;
+  onRemove: (full: boolean) => void;
   edit: boolean;
+  last: boolean;
 }
 
 export default function Double({
@@ -17,7 +21,7 @@ export default function Double({
   onRemove,
   edit,
 }: DoubleProps) {
-  const { content } = props;
+  const content = props.content || [];
 
   return (
     <div>
@@ -29,64 +33,93 @@ export default function Double({
                 {m.type === 'Skills' ? (
                   <div className="flex flex-col w-full gap-1">
                     {m.name !== undefined && (
-                      <Divider
-                        className="max-w-xs md:max-w-56"
-                        props={m.name}
-                        onChange={(e) => {
-                          m.name = e;
-                          onChange();
-                        }}
-                        onRemove={() => {
-                          delete m.name;
-                          onRemove();
-                        }}
-                      ></Divider>
-                    )}
-                    {m.skills && (
-                      <Skills
-                        skills={m.skills}
-                        onChange={onChange}
-                        onRemove={() => {
-                          if (m.skills?.length == 0) {
-                            delete m.skills;
-                          }
-                          onRemove();
-                        }}
-                        edit={edit}
-                      ></Skills>
-                    )}
-                  </div>
-                ) : (
-                  m.type === 'Languages' && (
-                    <div className="flex flex-col w-full">
-                      {m.name !== undefined && (
-                        <Divider
-                          className="max-w-xs md:max-w-56"
+                      <Divider>
+                        <RichText
                           props={m.name}
+                          className={`max-w-xs md:max-w-96 text-sm uppercase font-bold inline-block`}
+                          input
+                          remove
+                          empty={m.empty}
                           onChange={(e) => {
                             m.name = e;
                             onChange();
                           }}
                           onRemove={() => {
                             delete m.name;
-                            onRemove();
+                            onRemove(false);
                           }}
-                        ></Divider>
+                        ></RichText>
+                      </Divider>
+                    )}
+                    {!m.name && (
+                      <Placeholder
+                        edit={edit}
+                        className={`text-sm font-bold inline-block`}
+                        childrenClassName="flex-row-reverse"
+                        placeholder="DIVIDER"
+                        onClick={() => {
+                          m.name = getEmptyText('DIVIDER');
+                          m.empty = true;
+                          onChange();
+                        }}
+                        add
+                      >
+                        <Divider dashed></Divider>
+                      </Placeholder>
+                    )}
+
+                    <Skills
+                      skills={m.skills || []}
+                      onChange={onChange}
+                      onRemove={() => onRemove(false)}
+                      edit={edit}
+                    ></Skills>
+                  </div>
+                ) : (
+                  m.type === 'Languages' && (
+                    <div className="flex flex-col w-full">
+                      {m.name !== undefined && (
+                        <Divider>
+                          <RichText
+                            props={m.name}
+                            className={`max-w-xs md:max-w-96 text-sm uppercase font-bold inline-block`}
+                            input
+                            remove
+                            empty={m.empty}
+                            onChange={(e) => {
+                              m.name = e;
+                              onChange();
+                            }}
+                            onRemove={() => {
+                              delete m.name;
+                              onRemove(false);
+                            }}
+                          ></RichText>
+                        </Divider>
+                      )}
+                      {!m.name && (
+                        <Placeholder
+                          edit={edit}
+                          className={`text-sm font-bold inline-block`}
+                          childrenClassName="flex-row-reverse"
+                          placeholder="DIVIDER"
+                          onClick={() => {
+                            m.name = getEmptyText('DIVIDER');
+                            m.empty = true;
+                            onChange();
+                          }}
+                          add
+                        >
+                          <Divider dashed></Divider>
+                        </Placeholder>
                       )}
                       <div className="flex flex-col gap-3">
-                        {m.languages && (
-                          <Languages
-                            languages={m.languages}
-                            onChange={onChange}
-                            onRemove={() => {
-                              if (m.languages?.length == 0) {
-                                delete m.languages;
-                              }
-                              onRemove();
-                            }}
-                            edit={edit}
-                          ></Languages>
-                        )}
+                        <Languages
+                          languages={m.languages || []}
+                          onChange={onChange}
+                          onRemove={() => onRemove(false)}
+                          edit={edit}
+                        ></Languages>
                       </div>
                     </div>
                   )

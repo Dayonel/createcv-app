@@ -4,8 +4,8 @@ $focused-outline-color: tokens.$focus;
 
 .Action {
   display: flex;
-  width: 10px;
-  padding: 5px 10px;
+  width: 12px;
+  padding: 6px 12px;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
@@ -37,7 +37,7 @@ $focused-outline-color: tokens.$focus;
   }
 
   &:active {
-    background-color: var(--background, rgba(0, 0, 0, 0.05));
+    background-color: tokens.$layer-hover-01;
 
     svg {
       fill: var(--fill, #788491);

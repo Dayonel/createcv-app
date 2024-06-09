@@ -13,20 +13,25 @@ import { useHiddenKey } from '@/hooks/useHiddenKey';
 import Sortable from './DndKit/Sortable';
 import { Placeholder } from './Placeholder';
 import useColorStore from '@/store/useStore';
-import { getParagraphText, getText } from '@/utils/richTextUtils';
+import {
+  getEmptyParagraph,
+  getEmptyText,
+  getText,
+} from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
 
 export default function CV() {
   const json = JSON.stringify(placeholder);
   const parsed = JSON.parse(json);
   const data = useUUID(parsed); // traverse
-  useHiddenKey(data, 'key');
   const [form, setForm] = useState<Form>(data);
   const [edit, setEdit] = useState(false);
   const { color } = useColorStore();
 
   useEffect(() => {
-    // console.log(JSON.stringify(form));
+    console.log(JSON.stringify(form.sections.length));
+    useHiddenKey(form, 'key');
+    useHiddenKey(form, 'empty');
   }, [form]);
 
   useEffect(() => {
@@ -36,6 +41,33 @@ export default function CV() {
   const sections = {
     Single,
     Double,
+  };
+
+  const addSection = (i: number) => {
+    form.sections.splice(i, 0, {
+      key: v4(),
+      name: getEmptyText('DIVIDER'),
+      type: 'Single',
+      content: [
+        {
+          key: v4(),
+          title: getEmptyText('Heading 2'),
+          subtitle: getEmptyText('Heading 3'),
+          date: getEmptyText(new Date().getFullYear().toString()),
+          topic: getEmptyText('Text'),
+          description: getEmptyParagraph(),
+          empty: true,
+        },
+      ],
+      empty: true,
+    });
+    setForm({ ...form });
+  };
+
+  const deleteSection = (key: string) => {
+    const i = form.sections.findIndex((f) => f.key === key);
+    form.sections.splice(i, 1);
+    setForm({ ...form });
   };
 
   return (
@@ -56,14 +88,22 @@ export default function CV() {
                 }}
                 input
                 remove
+                empty={form.empty}
               ></RichText>
             )}
             {!form.title && (
               <Placeholder
                 edit={edit}
                 className="font-bold text-3xl"
-                placeholder={getText(placeholder.title)}
-                onClick={() => setForm({ ...form, title: placeholder.title })}
+                placeholder="Heading 1"
+                onClick={() =>
+                  setForm({
+                    ...form,
+                    title: getEmptyText('Heading 1'),
+                    empty: true,
+                  })
+                }
+                add
               ></Placeholder>
             )}
           </div>
@@ -81,16 +121,22 @@ export default function CV() {
                 }}
                 input
                 remove
+                empty={form.empty}
               ></RichText>
             )}
             {!form.subtitle && (
               <Placeholder
                 edit={edit}
                 className="font-bold text-sm"
-                placeholder={getText(placeholder.subtitle)}
+                placeholder="Heading 3"
                 onClick={() =>
-                  setForm({ ...form, subtitle: placeholder.subtitle })
+                  setForm({
+                    ...form,
+                    subtitle: getEmptyText('Heading 3'),
+                    empty: true,
+                  })
                 }
+                add
               ></Placeholder>
             )}
           </div>
@@ -134,6 +180,7 @@ export default function CV() {
               form.contacts.push({ ...placeholder.contacts[0], key: v4() });
               setForm({ ...form });
             }}
+            add
           ></Placeholder>
         </div>
         <div className="col-span-2 md:col-span-1 relative">
@@ -147,44 +194,41 @@ export default function CV() {
                 setForm({ ...form });
               }}
               remove
+              italic
             ></RichText>
           )}
           {!form.summary && (
             <Placeholder
               edit={edit}
-              className="text-xs italic text-justify leading-normal"
-              placeholder={getParagraphText(placeholder.summary)}
-              onClick={() => setForm({ ...form, summary: placeholder.summary })}
+              className="text-xs text-justify leading-normal min-h-9 w-full"
+              placeholder="Write something..."
+              onClick={() => setForm({ ...form, summary: getEmptyParagraph() })}
+              add
             ></Placeholder>
           )}
         </div>
       </div>
       <div className={styles.sections}>
         {form.sections &&
-          form.sections.map((m, i) => {
-            const Component = sections[m.type as keyof typeof sections];
+          form.sections.map((s, i) => {
+            const Component = sections[s.type as keyof typeof sections];
             return (
               <Component
-                key={m.key}
-                props={m}
+                key={s.key}
+                props={s}
                 onChange={() => setForm({ ...form })}
-                onRemove={() => {
-                  m.content?.forEach((f, i) => {
-                    if (
-                      Object.keys(f).filter((f) => f !== 'type').length == 0
-                    ) {
-                      m.content?.splice(i, 1);
-                    }
-                  });
-                  if (m.content?.length == 0) {
-                    delete m.content;
-                  }
-                  if (Object.keys(m).filter((f) => f !== 'type').length == 0) {
+                onRemove={(full) => {
+                  if (full) {
                     form.sections?.splice(i, 1);
                   }
                   setForm({ ...form });
                 }}
                 edit={edit}
+                onAddSection={() => addSection(i + 1)}
+                onDeleteSection={(e) => deleteSection(e)}
+                last={
+                  form.sections.filter((z) => z.type === s.type).length === 1
+                }
               ></Component>
             );
           })}

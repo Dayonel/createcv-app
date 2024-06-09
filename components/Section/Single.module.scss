@@ -1,0 +1,14 @@
+@use "@carbon/themes/scss/tokens";
+
+.button button {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  min-block-size: 16px;
+  block-size: 16px;
+  inline-size: 16px;
+}
+
+.button svg {
+  fill: tokens.$text-placeholder;
+}

@@ -1,36 +1,23 @@
 import useColorStore from '@/store/useStore';
 import styles from './Divider.module.scss';
-import RichText from './RichText/RichText';
 
 interface DividerProps {
-  props: string;
-  onChange: (e: string) => void;
-  onRemove: () => void;
-  className?: string;
+  dashed?: boolean;
+  children?: any;
 }
 
-export default function Divider({
-  props,
-  onChange,
-  onRemove,
-  className,
-}: DividerProps) {
+export default function Divider({ dashed, children }: DividerProps) {
   const { color } = useColorStore();
 
   return (
-    <div className="pr-[6px]">
+    <div className={`pr-[6px] w-full`}>
       <div
-        className={`relative overflow-x-clip w-full ${styles.divider}`}
+        className={`relative overflow-x-clip ${styles.divider} ${
+          dashed ? 'after:border-dashed' : 'after:border-solid'
+        }`}
         style={{ color }}
       >
-        <RichText
-          props={props}
-          onChange={onChange}
-          className={`max-w-xs md:max-w-lg text-sm uppercase font-bold inline-block ${className}`}
-          input
-          remove
-          onRemove={onRemove}
-        ></RichText>
+        {children}
       </div>
     </div>
   );

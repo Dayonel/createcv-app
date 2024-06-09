@@ -1,11 +1,9 @@
 import './Language.scss';
 import { Language as LanguageType } from '@/types/Language';
-import RichText from './RichText/RichText';
+import RichText from '../RichText/RichText';
 import useColorStore from '@/store/useStore';
-import { Placeholder } from './Placeholder';
-import placeholder from '../data/placeholder.json';
-import { DoubleContent } from '@/types/Double';
-import { getText } from '@/utils/richTextUtils';
+import { Placeholder } from '../Placeholder';
+import { getEmptyText } from '@/utils/richTextUtils';
 
 export interface LanguageProps {
   props: LanguageType;
@@ -26,19 +24,11 @@ export default function Language({
 }: LanguageProps) {
   const { color } = useColorStore();
 
-  const placeholderLanguage = (
-    placeholder.sections
-      .find((f) => f.type === 'Double')!
-      .content.find(
-        (c) => 'type' in c && c.type === 'Languages'
-      )! as DoubleContent
-  ).languages![0];
-
   return (
     <>
-      {(props.value || props.level) && (
-        <div className="flex flex-col">
-          <div className="flex flex-wrap justify-between">
+      <div className="flex flex-col">
+        <div className="flex flex-wrap justify-between">
+          <div>
             {props.value && (
               <RichText
                 id={id}
@@ -55,20 +45,23 @@ export default function Language({
                 input
                 remove
                 onControlsVisible={onControlsVisible}
+                empty={props.empty}
               ></RichText>
             )}
             {!props.value && (
               <Placeholder
-                noButton
                 edit={edit}
                 className="text-xs font-bold"
-                placeholder={getText(placeholderLanguage.value!)}
+                placeholder="Language"
                 onClick={() => {
-                  props.value = placeholderLanguage.value;
+                  props.value = getEmptyText('Language');
+                  props.empty = true;
                   onChange();
                 }}
               ></Placeholder>
             )}
+          </div>
+          <div>
             {props.level && (
               <RichText
                 className="max-w-xs md:max-w-52 text-xs"
@@ -84,43 +77,44 @@ export default function Language({
                 input
                 remove
                 onControlsVisible={onControlsVisible}
+                empty={props.empty}
               ></RichText>
             )}
             {!props.level && (
               <Placeholder
-                noButton
                 edit={edit}
                 className="text-xs font-bold"
-                placeholder={getText(placeholderLanguage.level!)}
+                placeholder="Level"
                 onClick={() => {
-                  props.level = placeholderLanguage.level;
+                  props.level = getEmptyText('Level');
+                  props.empty = true;
                   onChange();
                 }}
               ></Placeholder>
             )}
           </div>
-          {props.rating != undefined && (
-            <div className="px-[6px]">
-              <input
-                aria-labelledby={id}
-                type="range"
-                step={1}
-                min={0}
-                max={10}
-                value={props.rating}
-                onChange={(e) => {
-                  props.rating = +e.target.value;
-                  onChange();
-                }}
-                style={{
-                  backgroundSize: `${Math.min(props.rating * 10, 100)}%`,
-                  backgroundImage: `linear-gradient(${color}, ${color})`,
-                }}
-              ></input>
-            </div>
-          )}
         </div>
-      )}
+        {props.rating != undefined && (
+          <div className="px-[6px]">
+            <input
+              aria-labelledby={id}
+              type="range"
+              step={1}
+              min={0}
+              max={10}
+              value={props.rating}
+              onChange={(e) => {
+                props.rating = +e.target.value;
+                onChange();
+              }}
+              style={{
+                backgroundSize: `${Math.min(props.rating * 10, 100)}%`,
+                backgroundImage: `linear-gradient(${color}, ${color})`,
+              }}
+            ></input>
+          </div>
+        )}
+      </div>
     </>
   );
 }

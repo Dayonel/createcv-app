@@ -5,8 +5,8 @@
   outline: 1px dashed tokens.$border-subtle-01;
   outline-offset: -2px;
   white-space: break-spaces;
+  font-variant-ligatures: none;
   padding: 1px 6px;
-  position: relative;
   height: fit-content;
 
   &:hover {
@@ -29,4 +29,10 @@
 
 .add svg {
   fill: tokens.$text-secondary !important;
+}
+
+.children {
+  display: flex;
+  align-items: center;
+  position: relative;
 }

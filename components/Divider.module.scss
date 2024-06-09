@@ -3,7 +3,8 @@
 .divider::after {
   position: absolute;
   content: "";
-  border: 1px solid tokens.$border-subtle-03;
+  border-width: 1px;
+  border-color: tokens.$border-subtle-03;
   width: 100%;
   top: 50%;
   transform: translateY(-100%);

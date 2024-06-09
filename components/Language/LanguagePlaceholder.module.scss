@@ -1,0 +1,25 @@
+@use "@carbon/themes/scss/tokens";
+
+.input {
+  background-image: linear-gradient(
+    tokens.$text-disabled,
+    tokens.$text-disabled
+  );
+  margin: 4px 0;
+}
+
+.placeholder {
+  color: tokens.$text-placeholder;
+  font-size: 12px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.wrapper {
+  outline: 1px dashed tokens.$border-subtle-01;
+
+  &:hover {
+    outline: 1px dashed tokens.$border-subtle-02;
+  }
+}

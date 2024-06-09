@@ -3,8 +3,7 @@ import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/useStore';
 import { Placeholder } from '@/components/Placeholder';
-import { getText } from '@/utils/richTextUtils';
-import placeholder from '../../../data/placeholder.json';
+import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 
 export interface SingleContentProps {
   props: SingleContentType;
@@ -21,133 +20,152 @@ export default function SingleContent({
 }: SingleContentProps) {
   const { color } = useColorStore();
 
-  const placeholderContent = placeholder.sections.find(
-    (f) => f.type === 'Single'
-  )!.content![0] as SingleContentType;
-
   return (
-    <div className={`relative flex flex-col gap-1`}>
+    <>
       {props && (
-        <>
+        <div className={`relative flex flex-col gap-1`}>
           <div className="flex flex-wrap justify-between items-center gap-2">
-            {props.title !== undefined && (
-              <RichText
-                className="max-w-xs md:max-w-lg font-bold text-base"
-                props={props.title}
-                onChange={(e) => {
-                  props.title = e;
-                  onChange();
-                }}
-                input
-                remove
-                onRemove={() => {
-                  delete props.title;
-                  onRemove();
-                }}
-              ></RichText>
-            )}
-            {!props.title && (
-              <Placeholder
-                edit={edit}
-                className=" text-base font-bold"
-                placeholder={getText(placeholderContent.title!)}
-                onClick={() => {
-                  props.title = placeholderContent.title;
-                  onChange();
-                }}
-              ></Placeholder>
-            )}
-            {props.date !== undefined && (
-              <div className="flex flex-wrap items-center">
-                <Calendar fill={color}></Calendar>
+            <div>
+              {props.title !== undefined && (
                 <RichText
-                  className="font-bold text-xs max-w-xs"
-                  props={props.date}
+                  className="max-w-xs md:max-w-lg font-bold text-base"
+                  props={props.title}
                   onChange={(e) => {
-                    props.date = e;
+                    props.title = e;
+                    onChange();
+                  }}
+                  input
+                  remove
+                  onRemove={() => {
+                    delete props.title;
+                    onRemove();
+                  }}
+                  empty={props.empty}
+                ></RichText>
+              )}
+              {!props.title && (
+                <Placeholder
+                  edit={edit}
+                  className=" text-base font-bold"
+                  placeholder="Heading 2"
+                  onClick={() => {
+                    props.title = getEmptyText('Heading 2');
+                    props.empty = true;
+                    onChange();
+                  }}
+                  add
+                ></Placeholder>
+              )}
+            </div>
+            <div>
+              {props.date !== undefined && (
+                <div className="flex flex-wrap items-center">
+                  <Calendar fill={color}></Calendar>
+                  <RichText
+                    className="font-bold text-xs max-w-xs"
+                    props={props.date}
+                    onChange={(e) => {
+                      props.date = e;
+                      onChange();
+                    }}
+                    onRemove={() => {
+                      delete props.date;
+                      onRemove();
+                    }}
+                    input
+                    remove
+                    empty={props.empty}
+                  ></RichText>
+                </div>
+              )}
+              {!props.date && (
+                <Placeholder
+                  edit={edit}
+                  className="text-xs font-bold"
+                  placeholder={new Date().getFullYear().toString()}
+                  onClick={() => {
+                    props.date = getEmptyText(
+                      new Date().getFullYear().toString()
+                    );
+                    props.empty = true;
+                    onChange();
+                  }}
+                  add
+                >
+                  <Calendar fill={color}></Calendar>
+                </Placeholder>
+              )}
+            </div>
+          </div>
+          <div className="flex flex-wrap justify-between items-center">
+            <div>
+              {props.subtitle !== undefined && (
+                <RichText
+                  className="max-w-xs md:max-w-lg font-bold text-sm"
+                  props={props.subtitle}
+                  onChange={(e) => {
+                    props.subtitle = e;
                     onChange();
                   }}
                   onRemove={() => {
-                    delete props.date;
+                    delete props.subtitle;
                     onRemove();
                   }}
                   input
                   remove
+                  empty={props.empty}
                 ></RichText>
-              </div>
-            )}
-            {!props.date && (
-              <Placeholder
-                edit={edit}
-                className="text-xs font-bold"
-                placeholder={getText(placeholderContent.date!)}
-                onClick={() => {
-                  props.date = placeholderContent.date;
-                  onChange();
-                }}
-              ></Placeholder>
-            )}
-          </div>
-          <div className="flex flex-wrap justify-between items-center">
-            {props.subtitle !== undefined && (
-              <RichText
-                className="max-w-xs md:max-w-lg font-bold text-sm"
-                props={props.subtitle}
-                onChange={(e) => {
-                  props.subtitle = e;
-                  onChange();
-                }}
-                onRemove={() => {
-                  delete props.subtitle;
-                  onRemove();
-                }}
-                input
-                remove
-              ></RichText>
-            )}
-            {!props.subtitle && (
-              <Placeholder
-                edit={edit}
-                className="text-sm font-bold"
-                placeholder={getText(placeholderContent.subtitle!)}
-                onClick={() => {
-                  props.subtitle = placeholderContent.subtitle;
-                  onChange();
-                }}
-              ></Placeholder>
-            )}
-
-            {props.topic !== undefined && (
-              <RichText
-                className="text-xs max-w-xs"
-                props={props.topic}
-                onChange={(e) => {
-                  props.topic = e;
-                  onChange();
-                }}
-                onRemove={() => {
-                  delete props.topic;
-                  onRemove();
-                }}
-                input
-                remove
-              ></RichText>
-            )}
-            {!props.topic && (
-              <Placeholder
-                edit={edit}
-                className="text-xs"
-                placeholder={getText(placeholderContent.topic!)}
-                onClick={() => {
-                  props.topic = placeholderContent.topic;
-                  onChange();
-                }}
-              ></Placeholder>
-            )}
+              )}
+              {!props.subtitle && (
+                <Placeholder
+                  edit={edit}
+                  className="text-sm font-bold"
+                  placeholder="Heading 3"
+                  onClick={() => {
+                    props.subtitle = getEmptyText('Heading 3');
+                    props.empty = true;
+                    onChange();
+                  }}
+                  add
+                ></Placeholder>
+              )}
+            </div>
+            <div>
+              {props.topic !== undefined && (
+                <RichText
+                  className="text-xs max-w-xs"
+                  props={props.topic}
+                  onChange={(e) => {
+                    props.topic = e;
+                    onChange();
+                  }}
+                  onRemove={() => {
+                    delete props.topic;
+                    onRemove();
+                  }}
+                  input
+                  remove
+                  empty={props.empty}
+                ></RichText>
+              )}
+              {!props.topic && (
+                <Placeholder
+                  edit={edit}
+                  className="text-xs"
+                  placeholder="Text"
+                  onClick={() => {
+                    props.topic = getEmptyText('Text');
+                    props.empty = true;
+                    onChange();
+                  }}
+                  add
+                ></Placeholder>
+              )}
+            </div>
           </div>
 
-          {props.description !== undefined && (
-            <div className="pt-1">
+          <div className="pt-1">
+            {props.description !== undefined && (
               <RichText
                 props={props.description}
                 onChange={(e) => {
@@ -160,21 +178,22 @@ export default function SingleContent({
                 }}
                 remove
               ></RichText>
-            </div>
-          )}
-          {!props.description && (
-            <Placeholder
-              edit={edit}
-              className="text-xs font-bold"
-              placeholder={getText(placeholderContent.description!)}
-              onClick={() => {
-                props.description = placeholderContent.description;
-                onChange();
-              }}
-            ></Placeholder>
-          )}
-        </>
+            )}
+            {!props.description && (
+              <Placeholder
+                edit={edit}
+                className="text-xs min-h-9 !py-[2px] w-full"
+                placeholder="Write something..."
+                onClick={() => {
+                  props.description = getEmptyParagraph();
+                  onChange();
+                }}
+                add
+              ></Placeholder>
+            )}
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 }

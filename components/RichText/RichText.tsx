@@ -27,6 +27,8 @@ interface RichTextProps {
   onControlsVisible?: (e: boolean) => void;
   onRemove?: () => void;
   remove?: boolean;
+  empty?: boolean;
+  italic?: boolean;
 }
 
 export default function RichText({
@@ -38,6 +40,8 @@ export default function RichText({
   onControlsVisible,
   onRemove,
   remove,
+  empty,
+  italic,
 }: RichTextProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
@@ -100,6 +104,13 @@ export default function RichText({
     minWidth.current = ref.current?.scrollWidth;
     if (editor) {
       editor.view.dom.dataset.placeholder = placeholderText;
+      if (empty) {
+        editor.commands.clearContent();
+      }
+
+      if (italic) {
+        editor.commands.setItalic();
+      }
     }
   }, [editor]);
 
@@ -151,7 +162,7 @@ export default function RichText({
 
   return (
     <div
-      className={`richtext ${className} ${input ? 'input' : ''}`}
+      className={`richtext ${className} ${input ? 'input' : ''} max-w-[326px] md:max-w-[952px]`}
       ref={controlsRef}
       onFocus={() => setControlsVisible(true)}
     >
