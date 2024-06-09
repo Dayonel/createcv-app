@@ -1,4 +1,4 @@
-import { Download, Edit, TextColor, TextFont } from '@carbon/icons-react';
+import { BookmarkAdd, Download, Edit } from '@carbon/icons-react';
 import { useEffect, useState } from 'react';
 import styles from './Actions.module.scss';
 import { IconButton } from '@carbon/react';
@@ -20,10 +20,10 @@ export default function Actions({ onEdit }: ActionsProps) {
 
   return (
     <div
-      className={`${styles.actions} flex flex-col md:flex-row items-center justify-end place-self-start md:place-self-end gap-2 h-full row-start-1 row-span-2 md:row-span-1 col-start-2`}
+      className={`${styles.actions} flex flex-col md:flex-row items-center justify-start md:justify-end place-self-start md:place-self-end gap-2 h-full row-start-1 row-span-2 md:row-span-1 col-start-2`}
     >
-      <IconButton disabled label="Font" kind="ghost" align="bottom">
-        <TextFont size={24}></TextFont>
+      <IconButton disabled label="New resume" kind="ghost" align="bottom">
+        <BookmarkAdd size={24}></BookmarkAdd>
       </IconButton>
       <ColorPicker></ColorPicker>
       <IconButton

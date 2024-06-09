@@ -4,6 +4,10 @@ import RichText from '../RichText/RichText';
 import useColorStore from '@/store/useStore';
 import { Placeholder } from '../Placeholder';
 import { getEmptyText } from '@/utils/richTextUtils';
+import { Transition } from '../Animations/Transition';
+import { Action } from '../DndKit/components';
+import { TrashCan } from '@carbon/icons-react';
+import { useEffect, useState } from 'react';
 
 export interface LanguageProps {
   props: LanguageType;
@@ -22,7 +26,21 @@ export default function Language({
   onControlsVisible,
   edit,
 }: LanguageProps) {
+  const [removeVisible, setRemoveVisible] = useState(false);
   const { color } = useColorStore();
+
+  const deleteSkill = () => {
+    delete props.value;
+    delete props.level;
+    delete props.rating;
+    onRemove();
+  };
+
+  useEffect(() => {
+    if (onControlsVisible) {
+      onControlsVisible(removeVisible);
+    }
+  }, [removeVisible]);
 
   return (
     <>
@@ -76,7 +94,7 @@ export default function Language({
                 }}
                 input
                 remove
-                onControlsVisible={onControlsVisible}
+                onControlsVisible={setRemoveVisible}
                 empty={props.empty}
               ></RichText>
             )}
@@ -112,6 +130,16 @@ export default function Language({
                 backgroundImage: `linear-gradient(${color}, ${color})`,
               }}
             ></input>
+            {!removeVisible && (
+              <Transition edit={edit}>
+                <Action
+                  className="absolute translate-x-[6px] bottom-0"
+                  onClick={() => deleteSkill()}
+                >
+                  <TrashCan></TrashCan>
+                </Action>
+              </Transition>
+            )}
           </div>
         )}
       </div>

@@ -1,6 +1,8 @@
-import { Key } from "./Key";
+import { Empty } from './Empty';
+import { Key } from './Key';
 
 export type Contact = {
   text: string;
   icon: string;
-} & Key;
+} & Key &
+  Empty;

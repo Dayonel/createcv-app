@@ -1,0 +1,9 @@
+@use "@carbon/themes/scss/tokens";
+
+.wrapper {
+  outline: 1px dashed tokens.$border-subtle-01;
+
+  &:hover {
+    outline: 1px dashed tokens.$border-subtle-02;
+  }
+}

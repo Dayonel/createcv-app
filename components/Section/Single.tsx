@@ -1,4 +1,3 @@
-import styles from './Single.module.scss';
 import Divider from '../Divider';
 import { Single as SingleType } from '@/types/Single';
 import { UniqueIdentifier } from '@dnd-kit/core';
@@ -9,7 +8,9 @@ import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import RichText from '../RichText/RichText';
 import { v4 } from 'uuid';
 import { Copy, TrashCan } from '@carbon/icons-react';
+import { add } from './add-svg';
 import { Transition } from '../Animations/Transition';
+import { Action } from '../DndKit/components';
 
 interface SingleProps {
   props: SingleType;
@@ -65,6 +66,13 @@ export default function Single({
     onChange();
   };
 
+  const deleteContent = () => {
+    const i = content.indexOf(props);
+    content.splice(i, 1);
+
+    onChange();
+  };
+
   return (
     <>
       {props && (
@@ -73,7 +81,7 @@ export default function Single({
             <div className="flex w-full">
               <Divider>
                 <div className="inline-block">
-                  <div className="flex gap-2">
+                  <div className="flex items-center">
                     <RichText
                       props={props.name}
                       className={`max-w-xs md:max-w-lg text-sm uppercase font-bold inline-block`}
@@ -90,30 +98,21 @@ export default function Single({
                       }}
                     ></RichText>
                     <Transition edit={edit}>
-                      <div className={styles.button}>
-                        <button
-                          type="button"
-                          title="Add section"
-                          onClick={() => onAddSection()}
-                        >
-                          <Copy></Copy>
-                        </button>
-                      </div>
+                      <Action onClick={() => addContent()}>{add}</Action>
+                    </Transition>
+                    <Transition edit={edit}>
+                      <Action onClick={() => onAddSection()}>
+                        <Copy></Copy>
+                      </Action>
                     </Transition>
                   </div>
                 </div>
               </Divider>
               {!last && (
                 <Transition edit={edit}>
-                  <div className={styles.button}>
-                    <button
-                      type="button"
-                      title="Delete section"
-                      onClick={() => onDeleteSection(props.key)}
-                    >
-                      <TrashCan></TrashCan>
-                    </button>
-                  </div>
+                  <Action onClick={() => onDeleteSection(props.key)}>
+                    <TrashCan></TrashCan>
+                  </Action>
                 </Transition>
               )}
             </div>
@@ -139,12 +138,23 @@ export default function Single({
             <Sortable
               initialItems={content}
               renderItem={({ props }: SingleContentProps) => (
-                <SingleContent
-                  props={props}
-                  onChange={onChange}
-                  onRemove={handleRemove}
-                  edit={edit}
-                ></SingleContent>
+                <>
+                  <SingleContent
+                    props={props}
+                    onChange={onChange}
+                    onRemove={handleRemove}
+                    edit={edit}
+                  ></SingleContent>
+                  {content.indexOf(props) > 0 && (
+                    <Transition edit={edit}>
+                      <div className="absolute top-0 right-0 -translate-y-full">
+                        <Action onClick={() => deleteContent()}>
+                          <TrashCan></TrashCan>
+                        </Action>
+                      </div>
+                    </Transition>
+                  )}
+                </>
               )}
               onSort={(items: UniqueIdentifier[]) => {
                 if (props.content) {
@@ -157,14 +167,6 @@ export default function Single({
               handle={content.length > 1}
               containerStyle="w-full"
             ></Sortable>
-            <Placeholder
-              edit={edit}
-              className={`text-xs flex items-center w-full min-h-9`}
-              childrenClassName={`-mt-4`}
-              placeholder="Content"
-              onClick={() => addContent()}
-              add
-            ></Placeholder>
           </div>
         </div>
       )}

@@ -1,10 +1,6 @@
 import Sortable from '../DndKit/Sortable';
 import Language, { LanguageProps } from './Language';
 import { Language as LanguageType } from '@/types/Language';
-import { LanguagePlaceholder } from './LanguagePlaceholder';
-import { Transition } from '../Animations/Transition';
-import { v4 } from 'uuid';
-import { getEmptyText } from '@/utils/richTextUtils';
 
 interface LanguagesProps {
   languages: LanguageType[];
@@ -20,18 +16,6 @@ export default function Languages({
   edit,
 }: LanguagesProps) {
   // TODO: Fix this component
-
-  const addLanguage = () => {
-    languages.push({
-      value: getEmptyText('Language'),
-      level: getEmptyText('Level'),
-      rating: 10,
-      key: v4(),
-      empty: true,
-    });
-    onChange();
-  };
-
   return (
     <div className="relative flex flex-col gap-3">
       <Sortable
@@ -66,11 +50,8 @@ export default function Languages({
           onChange();
         }}
         containerStyle="w-full"
-        handle
+        handle={languages.length > 1}
       ></Sortable>
-      <Transition edit={edit}>
-        <LanguagePlaceholder onClick={addLanguage}></LanguagePlaceholder>
-      </Transition>
     </div>
   );
 }

@@ -2,22 +2,14 @@ import { Skill as SkillType } from '@/types/Skill';
 import Skill, { InputProps } from './Skill';
 import styles from './Skills.module.scss';
 import Sortable from './DndKit/Sortable';
-import { Placeholder } from './Placeholder';
-import { v4 } from 'uuid';
 
 interface SkillsProps {
   skills: SkillType[];
   onChange: () => void;
   onRemove: () => void;
-  edit: boolean;
 }
 
-export default function Skills({
-  skills,
-  onChange,
-  onRemove,
-  edit,
-}: SkillsProps) {
+export default function Skills({ skills, onChange, onRemove }: SkillsProps) {
   return (
     <div className={styles.skills}>
       <Sortable
@@ -39,18 +31,9 @@ export default function Skills({
           skills.splice(i, 1);
           onRemove();
         }}
-        handle
+        handle={skills.length > 1}
         remove
       ></Sortable>
-      <Placeholder
-        edit={edit}
-        className={`${styles.skill} !border-none !p-[0.75rem] !h-full w-full`}
-        placeholder="Skill"
-        onClick={() => {
-          skills.push({ value: 'Skill', key: v4(), empty: true });
-          onChange();
-        }}
-      ></Placeholder>
     </div>
   );
 }

@@ -23,7 +23,7 @@ export default function SingleContent({
   return (
     <>
       {props && (
-        <div className={`relative flex flex-col gap-1 overflow-x-hidden`}>
+        <div className={`relative flex flex-col gap-1`}>
           <div className="flex flex-wrap justify-between items-center gap-2">
             <div>
               {props.title !== undefined && (
@@ -53,7 +53,6 @@ export default function SingleContent({
                     props.empty = true;
                     onChange();
                   }}
-                  add
                 ></Placeholder>
               )}
             </div>
@@ -126,7 +125,6 @@ export default function SingleContent({
                     props.empty = true;
                     onChange();
                   }}
-                  add
                 ></Placeholder>
               )}
             </div>

@@ -1,0 +1,32 @@
+@use "@carbon/themes/scss/tokens";
+
+.menu {
+  .cds--btn {
+    width: 100%;
+    color: tokens.$text-placeholder;
+
+    &:hover {
+      color: tokens.$text-placeholder;
+    }
+  }
+}
+
+.cds--menu {
+  padding: 0;
+  gap: 0;
+  inline-size: fit-content !important;
+  position: absolute !important;
+}
+
+.cds--menu-item__label {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.cds--menu-item:hover svg {
+  color: #9ca3af;
+}
+
+.cds--menu-item svg {
+  color: #9ca3af;
+}

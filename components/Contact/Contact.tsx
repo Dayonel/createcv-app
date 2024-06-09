@@ -4,10 +4,10 @@ import {
   LogoGithub,
   LogoLinkedin,
   Phone,
-  Link,
+  Wikis,
 } from '@carbon/icons-react';
-import { Contact as ContactType } from '../types/Contact';
-import RichText from './RichText/RichText';
+import { Contact as ContactType } from '../../types/Contact';
+import RichText from '../RichText/RichText';
 import useColorStore from '@/store/useStore';
 
 export interface ContactProps {
@@ -22,7 +22,7 @@ const contactIcons = {
   LogoGithub,
   LogoLinkedin,
   Phone,
-  Link,
+  Wikis,
 };
 
 export default function Contact({
@@ -45,6 +45,7 @@ export default function Contact({
         }}
         onControlsVisible={onControlsVisible}
         input
+        empty={props.empty}
       ></RichText>
     </span>
   );

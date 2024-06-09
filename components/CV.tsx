@@ -2,7 +2,7 @@
 import Actions from './Actions/Actions';
 import styles from './CV.module.scss';
 import { useEffect, useState } from 'react';
-import Contact, { ContactProps } from './Contact';
+import Contact, { ContactProps } from './Contact/Contact';
 import RichText from './RichText/RichText';
 import Single from './Section/Single';
 import Double from './Section/Double';
@@ -13,12 +13,10 @@ import { useHiddenKey } from '@/hooks/useHiddenKey';
 import Sortable from './DndKit/Sortable';
 import { Placeholder } from './Placeholder';
 import useColorStore from '@/store/useStore';
-import {
-  getEmptyParagraph,
-  getEmptyText,
-  getText,
-} from '@/utils/richTextUtils';
+import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
+import { ContactPlaceholder } from './Contact/ContactPlaceholder';
+import { Transition } from './Animations/Transition';
 
 export default function CV() {
   const json = JSON.stringify(placeholder);
@@ -142,47 +140,48 @@ export default function CV() {
           </div>
         </div>
         <Actions onEdit={setEdit}></Actions>
-        <div className={`${styles.contact}`}>
-          {form.contacts && (
-            <Sortable
-              initialItems={form.contacts}
-              renderItem={({ props, onControlsVisible }: ContactProps) => (
-                <Contact
-                  props={props}
-                  onChange={() => setForm({ ...form })}
-                  onControlsVisible={onControlsVisible}
-                ></Contact>
-              )}
-              onSort={(e) => {
-                setForm({
-                  ...form,
-                  contacts: form.contacts!.sort(
-                    (a, b) => e.indexOf(a.key) - e.indexOf(b.key)
-                  ),
-                });
+        <div className="flex flex-col gap-1">
+          <div className={`${styles.contact}`}>
+            {form.contacts && (
+              <Sortable
+                initialItems={form.contacts}
+                renderItem={({ props, onControlsVisible }: ContactProps) => (
+                  <Contact
+                    props={props}
+                    onChange={() => setForm({ ...form })}
+                    onControlsVisible={onControlsVisible}
+                  ></Contact>
+                )}
+                onSort={(e) => {
+                  setForm({
+                    ...form,
+                    contacts: form.contacts!.sort(
+                      (a, b) => e.indexOf(a.key) - e.indexOf(b.key)
+                    ),
+                  });
+                }}
+                onRemove={(id) => {
+                  setForm({
+                    ...form,
+                    contacts: form.contacts.filter((f) => f.key !== id),
+                  });
+                }}
+                wrapperStyle="pl-[6px]"
+                handle
+                remove
+              ></Sortable>
+            )}
+          </div>
+          <Transition className="block w-fit" edit={edit}>
+            <ContactPlaceholder
+              onAdd={(e) => {
+                form.contacts.push({ ...e, key: v4(), empty: true });
+                setForm({ ...form });
               }}
-              onRemove={(id) => {
-                setForm({
-                  ...form,
-                  contacts: form.contacts.filter((f) => f.key !== id),
-                });
-              }}
-              wrapperStyle="pl-[6px]"
-              handle
-              remove
-            ></Sortable>
-          )}
-          <Placeholder
-            edit={edit}
-            className="text-xs w-fit ml-[6px]"
-            placeholder={getText(placeholder.contacts[0].text)}
-            onClick={() => {
-              form.contacts.push({ ...placeholder.contacts[0], key: v4() });
-              setForm({ ...form });
-            }}
-            add
-          ></Placeholder>
+            ></ContactPlaceholder>
+          </Transition>
         </div>
+
         <div className="col-span-2 md:col-span-1 relative">
           {form.summary && (
             <RichText
