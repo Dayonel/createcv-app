@@ -29,7 +29,7 @@ export default function CV() {
   const { color } = useColorStore();
 
   useEffect(() => {
-    console.log(JSON.stringify(form.sections.length));
+    // console.log(JSON.stringify(form));
     useHiddenKey(form, 'key');
     useHiddenKey(form, 'empty');
   }, [form]);

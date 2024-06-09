@@ -162,7 +162,7 @@ export default function RichText({
 
   return (
     <div
-      className={`richtext ${className} ${input ? 'input' : ''} max-w-[326px] md:max-w-[952px]`}
+      className={`richtext ${className} ${input ? 'input' : ''}`}
       ref={controlsRef}
       onFocus={() => setControlsVisible(true)}
     >
