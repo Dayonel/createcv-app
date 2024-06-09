@@ -2,7 +2,7 @@ import RichText from '@/components/RichText/RichText';
 import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/useStore';
-import { Placeholder } from '@/components/Placeholder';
+import Placeholder from '@/components/Placeholder';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 
 export interface SingleContentProps {

@@ -2,10 +2,10 @@ import './Language.scss';
 import { Language as LanguageType } from '@/types/Language';
 import RichText from '../RichText/RichText';
 import useColorStore from '@/store/useStore';
-import { Placeholder } from '../Placeholder';
+import Placeholder from '../Placeholder';
 import { getEmptyText } from '@/utils/richTextUtils';
-import { Transition } from '../Animations/Transition';
-import { Action } from '../DndKit/components';
+import Transition from '../Animations/Transition';
+import Action from '../DndKit/components/Action/Action';
 import { TrashCan } from '@carbon/icons-react';
 import { useEffect, useState } from 'react';
 

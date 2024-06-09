@@ -3,7 +3,7 @@ import styles from './Placeholder.module.scss';
 import classNames from 'classnames';
 import { IconButton } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
-import { Transition } from './Animations/Transition';
+import Transition from './Animations/Transition';
 
 interface PlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder: string;
@@ -12,8 +12,11 @@ interface PlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: any;
   childrenClassName?: string;
 }
-export const Placeholder = forwardRef<HTMLDivElement, PlaceholderProps>(
-  ({ className, childrenClassName, edit, add, children, ...props }, ref) => {
+export default forwardRef<HTMLDivElement, PlaceholderProps>(
+  function Placeholder(
+    { className, childrenClassName, edit, add, children, ...props },
+    ref
+  ) {
     return (
       <Transition edit={edit} className="w-full">
         <div className={classNames(styles.children, childrenClassName)}>

@@ -4,10 +4,10 @@ import Skills from '../Skills';
 import Languages from '../Language/Languages';
 import { Double as DoubleType } from '@/types/Double';
 import RichText from '../RichText/RichText';
-import { Placeholder } from '../Placeholder';
+import Placeholder from '../Placeholder';
 import { getEmptyText } from '@/utils/richTextUtils';
-import { Transition } from '../Animations/Transition';
-import { Action } from '../DndKit/components';
+import Transition from '../Animations/Transition';
+import Action from '../DndKit/components/Action/Action';
 import { add } from './add-svg';
 import { v4 } from 'uuid';
 

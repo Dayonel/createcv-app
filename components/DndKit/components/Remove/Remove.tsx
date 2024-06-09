@@ -1,5 +1,6 @@
 import React from 'react';
-import { Action, ActionProps } from '../Action';
+import Action from '../Action/Action';
+import { ActionProps } from '../Action/Action';
 import styles from './Remove.module.scss';
 
 export function Remove(props: ActionProps) {

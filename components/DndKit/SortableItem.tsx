@@ -5,7 +5,8 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useState } from 'react';
-import { Handle, Remove } from './components';
+import Handle from './components/Handle/Handle';
+import { Remove } from './components/Remove/Remove';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface SortableItemProps {

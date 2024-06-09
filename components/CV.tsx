@@ -11,25 +11,25 @@ import { Form } from '@/types/Form';
 import { useUUID } from '@/hooks/useUUID';
 import { useHiddenKey } from '@/hooks/useHiddenKey';
 import Sortable from './DndKit/Sortable';
-import { Placeholder } from './Placeholder';
+import Placeholder from './Placeholder';
 import useColorStore from '@/store/useStore';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
-import { ContactPlaceholder } from './Contact/ContactPlaceholder';
-import { Transition } from './Animations/Transition';
+import ContactPlaceholder from './Contact/ContactPlaceholder';
+import Transition from './Animations/Transition';
 
 export default function CV() {
   const json = JSON.stringify(placeholder);
   const parsed = JSON.parse(json);
   const data = useUUID(parsed); // traverse
+  useHiddenKey(data, 'key');
+  useHiddenKey(data, 'empty');
   const [form, setForm] = useState<Form>(data);
   const [edit, setEdit] = useState(false);
   const { color } = useColorStore();
 
   useEffect(() => {
     // console.log(JSON.stringify(form));
-    useHiddenKey(form, 'key');
-    useHiddenKey(form, 'empty');
   }, [form]);
 
   useEffect(() => {

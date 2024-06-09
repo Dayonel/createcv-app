@@ -3,14 +3,14 @@ import { Single as SingleType } from '@/types/Single';
 import { UniqueIdentifier } from '@dnd-kit/core';
 import Sortable from '../DndKit/Sortable';
 import SingleContent, { SingleContentProps } from './Content/SingleContent';
-import { Placeholder } from '../Placeholder';
+import Placeholder from '../Placeholder';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import RichText from '../RichText/RichText';
 import { v4 } from 'uuid';
 import { Copy, TrashCan } from '@carbon/icons-react';
 import { add } from './add-svg';
-import { Transition } from '../Animations/Transition';
-import { Action } from '../DndKit/components';
+import Transition from '../Animations/Transition';
+import Action from '../DndKit/components/Action/Action';
 
 interface SingleProps {
   props: SingleType;
