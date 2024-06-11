@@ -6,9 +6,6 @@ import { Double as DoubleType } from '@/types/Double';
 import RichText from '../RichText/RichText';
 import Placeholder from '../Placeholder';
 import { getEmptyText } from '@/utils/richTextUtils';
-import Transition from '../Animations/Transition';
-import Action from '../DndKit/components/Action/Action';
-import { add } from './add-svg';
 import { v4 } from 'uuid';
 
 interface DoubleProps {
@@ -75,9 +72,6 @@ export default function Double({
                                 onRemove(false);
                               }}
                             ></RichText>
-                            <Transition edit={edit}>
-                              <Action onClick={() => addSkill()}>{add}</Action>
-                            </Transition>
                           </div>
                         </div>
                       </Divider>
@@ -87,13 +81,12 @@ export default function Double({
                         edit={edit}
                         className={`text-sm font-bold inline-block`}
                         childrenClassName="flex-row-reverse"
-                        placeholder="DIVIDER"
+                        placeholder="+ SECTION"
                         onClick={() => {
-                          m.name = getEmptyText('DIVIDER');
+                          m.name = getEmptyText('SECTION');
                           m.empty = true;
                           onChange();
                         }}
-                        add
                       >
                         <Divider dashed></Divider>
                       </Placeholder>
@@ -103,6 +96,7 @@ export default function Double({
                       skills={m.skills || []}
                       onChange={onChange}
                       onRemove={() => onRemove(false)}
+                      edit={edit}
                     ></Skills>
                   </div>
                 ) : (
@@ -127,11 +121,6 @@ export default function Double({
                                   onRemove(false);
                                 }}
                               ></RichText>
-                              <Transition edit={edit}>
-                                <Action onClick={() => addLanguage()}>
-                                  {add}
-                                </Action>
-                              </Transition>
                             </div>
                           </div>
                         </Divider>
@@ -141,18 +130,17 @@ export default function Double({
                           edit={edit}
                           className={`text-sm font-bold inline-block`}
                           childrenClassName="flex-row-reverse"
-                          placeholder="DIVIDER"
+                          placeholder="+ SECTION"
                           onClick={() => {
-                            m.name = getEmptyText('DIVIDER');
+                            m.name = getEmptyText('SECTION');
                             m.empty = true;
                             onChange();
                           }}
-                          add
                         >
                           <Divider dashed></Divider>
                         </Placeholder>
                       )}
-                      <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-3 pt-[1px]">
                         <Languages
                           languages={m.languages || []}
                           onChange={onChange}

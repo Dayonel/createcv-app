@@ -7,7 +7,6 @@ import RichText from './RichText/RichText';
 import Single from './Section/Single';
 import Double from './Section/Double';
 import placeholder from '../data/placeholder.json';
-import { Form } from '@/types/Form';
 import { useUUID } from '@/hooks/useUUID';
 import Sortable from './DndKit/Sortable';
 import Placeholder from './Placeholder';
@@ -16,23 +15,37 @@ import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
 import ContactPlaceholder from './Contact/ContactPlaceholder';
 import Transition from './Animations/Transition';
-import { hideKey } from '@/utils/formUtils';
+import { useUndo } from '@/hooks/useUndo';
+import { Form } from '@/types/Form';
 
 export default function CV() {
-  const json = JSON.stringify(placeholder);
-  const parsed = JSON.parse(json);
-  const data = useUUID(parsed); // traverse
-  const [form, setForm] = useState<Form>(data);
+  const data = useUUID(placeholder); // traverse
+  const { state, setState, undo, redo, canUndo, canRedo } = useUndo(
+    JSON.stringify(data)
+  );
+  const [form, setForm] = useState<Form>(JSON.parse(state));
   const [edit, setEdit] = useState(false);
   const { color } = useColorStore();
+  const [updateHistory, setUpdateHistory] = useState(false);
 
   useEffect(() => {
-    // console.log(JSON.stringify(form));
-    hideKey(form, 'key');
-    hideKey(form, 'empty');
+    console.log(JSON.stringify(form, replacer));
+    if (updateHistory) {
+      setState(JSON.stringify(form));
+    }
+    setUpdateHistory(true);
   }, [form]);
 
+  const replacer = (key: string, value: any) =>
+    key === 'key' || key === 'empty' ? undefined : value;
+
   useEffect(() => {
+    setUpdateHistory(false);
+    setForm(JSON.parse(state));
+  }, [state]);
+
+  useEffect(() => {
+    setUpdateHistory(false);
     setForm({ ...form, color });
   }, [color]);
 
@@ -44,7 +57,7 @@ export default function CV() {
   const addSection = (i: number) => {
     form.sections.splice(i, 0, {
       key: v4(),
-      name: getEmptyText('DIVIDER'),
+      name: getEmptyText('SECTION'),
       type: 'Single',
       content: [
         {
@@ -93,7 +106,7 @@ export default function CV() {
               <Placeholder
                 edit={edit}
                 className="font-bold text-3xl"
-                placeholder="Heading 1"
+                placeholder="+ Heading 1"
                 onClick={() =>
                   setForm({
                     ...form,
@@ -101,7 +114,6 @@ export default function CV() {
                     empty: true,
                   })
                 }
-                add
               ></Placeholder>
             )}
           </div>
@@ -126,7 +138,7 @@ export default function CV() {
               <Placeholder
                 edit={edit}
                 className="font-bold text-sm"
-                placeholder="Heading 3"
+                placeholder="+ Heading 3"
                 onClick={() =>
                   setForm({
                     ...form,
@@ -134,12 +146,17 @@ export default function CV() {
                     empty: true,
                   })
                 }
-                add
               ></Placeholder>
             )}
           </div>
         </div>
-        <Actions onEdit={setEdit}></Actions>
+        <Actions
+          canUndo={canUndo}
+          canRedo={canRedo}
+          onUndo={() => undo()}
+          onRedo={() => redo()}
+          onEdit={setEdit}
+        ></Actions>
         <div className="flex flex-col gap-1">
           <div className={`${styles.contact}`}>
             {form.contacts && (
@@ -171,15 +188,15 @@ export default function CV() {
                 remove
               ></Sortable>
             )}
+            <Transition className="block w-fit" edit={edit}>
+              <ContactPlaceholder
+                onAdd={(e) => {
+                  form.contacts.push({ ...e, key: v4(), empty: true });
+                  setForm({ ...form });
+                }}
+              ></ContactPlaceholder>
+            </Transition>
           </div>
-          <Transition className="block w-fit" edit={edit}>
-            <ContactPlaceholder
-              onAdd={(e) => {
-                form.contacts.push({ ...e, key: v4(), empty: true });
-                setForm({ ...form });
-              }}
-            ></ContactPlaceholder>
-          </Transition>
         </div>
 
         <div className="col-span-2 md:col-span-1 relative">
@@ -199,10 +216,9 @@ export default function CV() {
           {!form.summary && (
             <Placeholder
               edit={edit}
-              className="text-xs text-justify leading-normal min-h-9 w-full"
-              placeholder="Write something..."
+              className="text-xs text-justify leading-normal min-h-[74px] !pl-4 w-full"
+              placeholder="+ Write something..."
               onClick={() => setForm({ ...form, summary: getEmptyParagraph() })}
-              add
             ></Placeholder>
           )}
         </div>

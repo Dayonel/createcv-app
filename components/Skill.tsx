@@ -4,7 +4,7 @@ import styles from './Skill.module.scss';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 export interface InputProps {
-  props: SkillType;
+  props?: SkillType;
   onChange: () => void;
   onControlsVisible: (e: boolean) => void;
   empty?: boolean;
@@ -16,7 +16,7 @@ export default function Skill({
   onControlsVisible,
   empty,
 }: InputProps) {
-  const placeholder = useRef(props.value);
+  const placeholder = useRef(props?.value);
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Skill({
   }, [controlsVisible]);
 
   useEffect(() => {
-    if (empty) {
+    if (empty && props) {
       props.value = '';
     }
   }, []);

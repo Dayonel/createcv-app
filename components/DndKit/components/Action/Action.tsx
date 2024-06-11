@@ -9,6 +9,7 @@ export interface ActionProps extends React.HTMLAttributes<HTMLButtonElement> {
     background: string;
   };
   cursor?: CSSProperties['cursor'];
+  reverseRemove?: boolean;
 }
 
 export default forwardRef<HTMLButtonElement, ActionProps>(function Action(

@@ -21,7 +21,11 @@ interface ContactPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
 export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
   function ContactPlaceholder({ onAdd, ...props }, ref) {
     return (
-      <div {...props} ref={ref} className={`${styles.wrapper} w-full mx-[6px]`}>
+      <div
+        {...props}
+        ref={ref}
+        className={`${styles.wrapper} w-full mt-2 mx-[2px]`}
+      >
         <div className="menu w-full">
           <MenuButton
             className="w-full"

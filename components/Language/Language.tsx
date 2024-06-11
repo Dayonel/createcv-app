@@ -4,15 +4,13 @@ import RichText from '../RichText/RichText';
 import useColorStore from '@/store/useStore';
 import Placeholder from '../Placeholder';
 import { getEmptyText } from '@/utils/richTextUtils';
-import Transition from '../Animations/Transition';
-import Action from '../DndKit/components/Action/Action';
-import { TrashCan } from '@carbon/icons-react';
-import { useEffect, useState } from 'react';
+import DeletePlaceholder from '../DeletePlaceholder';
 
 export interface LanguageProps {
   props: LanguageType;
   onChange: () => void;
   onRemove: () => void;
+  onDelete: () => void;
   id: string;
   onControlsVisible: (e: boolean) => void;
   edit: boolean;
@@ -22,25 +20,12 @@ export default function Language({
   props,
   onChange,
   onRemove,
+  onDelete,
   id,
   onControlsVisible,
   edit,
 }: LanguageProps) {
-  const [removeVisible, setRemoveVisible] = useState(false);
   const { color } = useColorStore();
-
-  const deleteSkill = () => {
-    delete props.value;
-    delete props.level;
-    delete props.rating;
-    onRemove();
-  };
-
-  useEffect(() => {
-    if (onControlsVisible) {
-      onControlsVisible(removeVisible);
-    }
-  }, [removeVisible]);
 
   return (
     <>
@@ -70,7 +55,7 @@ export default function Language({
               <Placeholder
                 edit={edit}
                 className="text-xs font-bold"
-                placeholder="Language"
+                placeholder="+ Language"
                 onClick={() => {
                   props.value = getEmptyText('Language');
                   props.empty = true;
@@ -94,15 +79,16 @@ export default function Language({
                 }}
                 input
                 remove
-                onControlsVisible={setRemoveVisible}
+                onControlsVisible={onControlsVisible}
                 empty={props.empty}
+                reverseRemove
               ></RichText>
             )}
             {!props.level && (
               <Placeholder
                 edit={edit}
                 className="text-xs font-bold"
-                placeholder="Level"
+                placeholder="+ Level"
                 onClick={() => {
                   props.level = getEmptyText('Level');
                   props.empty = true;
@@ -130,18 +116,12 @@ export default function Language({
                 backgroundImage: `linear-gradient(${color}, ${color})`,
               }}
             ></input>
-            {!removeVisible && (
-              <Transition edit={edit}>
-                <Action
-                  className="absolute translate-x-[6px] bottom-0"
-                  onClick={() => deleteSkill()}
-                >
-                  <TrashCan></TrashCan>
-                </Action>
-              </Transition>
-            )}
           </div>
         )}
+        <DeletePlaceholder
+          edit={edit}
+          onClick={() => onDelete()}
+        ></DeletePlaceholder>
       </div>
     </>
   );

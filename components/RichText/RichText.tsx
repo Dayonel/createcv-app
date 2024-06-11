@@ -29,6 +29,7 @@ interface RichTextProps {
   remove?: boolean;
   empty?: boolean;
   italic?: boolean;
+  reverseRemove?: boolean;
 }
 
 export default function RichText({
@@ -42,6 +43,7 @@ export default function RichText({
   remove,
   empty,
   italic,
+  reverseRemove,
 }: RichTextProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
@@ -101,6 +103,12 @@ export default function RichText({
   });
 
   useEffect(() => {
+    if (editor && !editor.isFocused) {
+      editor.commands.setContent(JSON.parse(props)); // undo, redo
+    }
+  }, [editor, props]);
+
+  useEffect(() => {
     minWidth.current = ref.current?.scrollWidth;
     if (editor) {
       editor.view.dom.dataset.placeholder = placeholderText;
@@ -138,7 +146,9 @@ export default function RichText({
   }, [editor, onChange]); // another update is needed onChange
 
   const onUpdate = ({ editor }: any) => {
-    onChange(JSON.stringify(editor.getJSON()));
+    if (editor.isFocused) {
+      onChange(JSON.stringify(editor.getJSON()));
+    }
   };
 
   useEffect(() => {
@@ -176,6 +186,7 @@ export default function RichText({
         <Remove
           onClick={onRemove}
           onBlur={() => setControlsVisible(false)}
+          reverseRemove={reverseRemove}
         ></Remove>
       )}
     </div>

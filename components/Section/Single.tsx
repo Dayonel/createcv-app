@@ -7,10 +7,7 @@ import Placeholder from '../Placeholder';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import RichText from '../RichText/RichText';
 import { v4 } from 'uuid';
-import { Copy, TrashCan } from '@carbon/icons-react';
-import { add } from './add-svg';
-import Transition from '../Animations/Transition';
-import Action from '../DndKit/components/Action/Action';
+import DeletePlaceholder from '../DeletePlaceholder';
 
 interface SingleProps {
   props: SingleType;
@@ -37,7 +34,9 @@ export default function Single({
     if (
       !last &&
       !props.name &&
-      content.map((m) => Object.keys(m)).flat().length === 0
+      content
+        .map((m) => Object.keys(m).filter((f) => f !== 'key' && f !== 'empty'))
+        .flat().length === 0
     ) {
       const i = content.indexOf(props);
       content.splice(i, 1);
@@ -78,7 +77,7 @@ export default function Single({
       {props && (
         <div className="relative">
           {props.name !== undefined && (
-            <div className="flex w-full">
+            <div className="flex items-center w-full">
               <Divider>
                 <div className="inline-block">
                   <div className="flex items-center">
@@ -97,23 +96,14 @@ export default function Single({
                         handleRemove();
                       }}
                     ></RichText>
-                    <Transition edit={edit}>
-                      <Action onClick={() => addContent()}>{add}</Action>
-                    </Transition>
-                    <Transition edit={edit}>
-                      <Action onClick={() => onAddSection()}>
-                        <Copy></Copy>
-                      </Action>
-                    </Transition>
                   </div>
                 </div>
               </Divider>
               {!last && (
-                <Transition edit={edit}>
-                  <Action onClick={() => onDeleteSection(props.key)}>
-                    <TrashCan></TrashCan>
-                  </Action>
-                </Transition>
+                <DeletePlaceholder
+                  edit={edit}
+                  onClick={() => onDeleteSection(props.key)}
+                ></DeletePlaceholder>
               )}
             </div>
           )}
@@ -122,19 +112,18 @@ export default function Single({
               edit={edit}
               className={`text-sm font-bold inline-block`}
               childrenClassName="flex-row-reverse"
-              placeholder="DIVIDER"
+              placeholder="+ SECTION"
               onClick={() => {
-                props.name = getEmptyText('DIVIDER');
+                props.name = getEmptyText('SECTION');
                 props.empty = true;
                 onChange();
               }}
-              add
             >
               <Divider dashed></Divider>
             </Placeholder>
           )}
 
-          <div className={`relative flex flex-col gap-5`}>
+          <div className={`relative flex flex-col gap-5 pt-[1px]`}>
             <Sortable
               initialItems={content}
               renderItem={({ props }: SingleContentProps) => (
@@ -146,13 +135,10 @@ export default function Single({
                     edit={edit}
                   ></SingleContent>
                   {content.indexOf(props) > 0 && (
-                    <Transition edit={edit}>
-                      <div className="absolute top-0 right-0 -translate-y-full">
-                        <Action onClick={() => deleteContent()}>
-                          <TrashCan></TrashCan>
-                        </Action>
-                      </div>
-                    </Transition>
+                    <DeletePlaceholder
+                      edit={edit}
+                      onClick={() => deleteContent()}
+                    ></DeletePlaceholder>
                   )}
                 </>
               )}
@@ -167,6 +153,13 @@ export default function Single({
               handle={content.length > 1}
               containerStyle="w-full"
             ></Sortable>
+            <Placeholder
+              edit={edit}
+              className={`text-xs flex items-center w-full min-h-24 !ml-2 !pl-4`}
+              childrenClassName={`-mt-4`}
+              placeholder="+ Content"
+              onClick={() => addContent()}
+            ></Placeholder>
           </div>
         </div>
       )}

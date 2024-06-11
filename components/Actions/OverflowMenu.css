@@ -1,0 +1,17 @@
+.overflow-menu {
+  width: 48px;
+  height: 48px;
+}
+
+.overflow-menu svg {
+  width: 24px;
+  height: 24px;
+}
+
+.cds--overflow-menu-options {
+  left: 198px !important;
+}
+
+.cds--overflow-menu-options::after {
+  display: none;
+}

@@ -2,15 +2,17 @@
 
 .placeholder {
   cursor: pointer;
-  outline: 1px dashed tokens.$border-subtle-01;
+  outline: 1px dashed tokens.$border-tile-02;
   outline-offset: -2px;
   white-space: break-spaces;
   font-variant-ligatures: none;
   padding: 1px 6px;
   height: fit-content;
+  display: flex;
+  align-items: center;
 
   &:hover {
-    outline: 1px dashed tokens.$border-subtle-02;
+    outline: 1px dashed tokens.$border-tile-03;
   }
 }
 
@@ -18,17 +20,7 @@
   color: tokens.$text-placeholder;
   content: attr(data-placeholder);
   pointer-events: none;
-}
-
-.wrapper {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translate(-100%, -50%);
-}
-
-.add svg {
-  fill: tokens.$text-secondary !important;
+  white-space: nowrap;
 }
 
 .children {
