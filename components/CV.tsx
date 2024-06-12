@@ -96,7 +96,7 @@ export default function CV() {
   };
 
   return (
-    <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
+    <form className={`${styles.container} grid grid-cols-2 auto-cols-min cv`}>
       <div className={styles.header}>
         <div className={`flex flex-col items-start`}>
           <div className={`relative`}>

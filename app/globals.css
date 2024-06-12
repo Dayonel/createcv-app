@@ -40,3 +40,15 @@
 .highlight:focus {
   outline: 2px solid var(--cds-focus, #0f62fe);
 }
+
+/* print settings */
+@page {
+  size: A4;
+  margin: 5mm 5mm 5mm 5mm;
+}
+
+@media print {
+  .cv {
+    zoom: 105%; /* looks better */
+  }
+}

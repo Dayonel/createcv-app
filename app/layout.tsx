@@ -31,6 +31,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   userScalable: false,
+  minimumScale: 1,
+  maximumScale: 1
 };
 
 export default function RootLayout({

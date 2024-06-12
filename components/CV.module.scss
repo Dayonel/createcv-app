@@ -92,12 +92,18 @@
 
 @media print, (min-width: 640px) {
   .contact {
-    grid-template-columns: repeat(2, minmax(208px, min-content));
+    grid-template-columns: repeat(2, minmax(190px, min-content));
   }
 }
 
-@media print, (min-width: 640px) {
+@media (min-width: 640px) {
   .header {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+@media print {
+  .header {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
