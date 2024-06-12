@@ -7,7 +7,7 @@ import RichText from './RichText/RichText';
 import Single from './Section/Single';
 import Double from './Section/Double';
 import placeholder from '../data/placeholder.json';
-import { useUUID } from '@/hooks/useUUID';
+import { traverseUUID } from '@/utils/traverseUUID';
 import Sortable from './DndKit/Sortable';
 import Placeholder from './Placeholder/Placeholder';
 import useColorStore from '@/store/useStore';
@@ -19,7 +19,7 @@ import { useUndo } from '@/hooks/useUndo';
 import { Form } from '@/types/Form';
 
 export default function CV() {
-  const data = useUUID(placeholder); // traverse
+  const data = traverseUUID(placeholder); // traverse
   const { state, setState, undo, redo, canUndo, canRedo } = useUndo(
     JSON.stringify(data)
   );
@@ -29,17 +29,10 @@ export default function CV() {
   const [updateHistory, setUpdateHistory] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  useMemo(() => {
-    if (typeof window !== 'object') return;
-
-    const userFrom = localStorage.getItem('form');
-    if (!userFrom) return;
-
-    setForm(useUUID(JSON.parse(userFrom)));
-    setMounted(true);
-  }, []);
-
+  // every update
   useEffect(() => {
+    if (!mounted) return;
+
     if (updateHistory) {
       setState(JSON.stringify(form));
     }
@@ -48,7 +41,7 @@ export default function CV() {
     localStorage.setItem('form', JSON.stringify(form, replacer));
 
     // console.log(JSON.stringify(form, replacer));
-  }, [form, mounted]);
+  }, [form]);
 
   const replacer = (key: string, value: any) =>
     key === 'key' || key === 'empty' ? undefined : value;
@@ -62,6 +55,18 @@ export default function CV() {
     setUpdateHistory(false);
     setForm({ ...form, color });
   }, [color]);
+
+  // saved form (local)
+  useEffect(() => {
+    try {
+      const userFrom = localStorage.getItem('form');
+      if (!userFrom) return;
+
+      setForm((prev) => (prev = traverseUUID(JSON.parse(userFrom))));
+    } finally {
+      setMounted(true);
+    }
+  }, []);
 
   const sections = {
     Single,
@@ -177,11 +182,15 @@ export default function CV() {
               <Sortable
                 initialItems={form.contacts}
                 renderItem={({ props, onControlsVisible }: ContactProps) => (
-                  <Contact
-                    props={props}
-                    onChange={() => setForm({ ...form })}
-                    onControlsVisible={onControlsVisible}
-                  ></Contact>
+                  <>
+                    {props && (
+                      <Contact
+                        props={props}
+                        onChange={() => setForm({ ...form })}
+                        onControlsVisible={onControlsVisible}
+                      ></Contact>
+                    )}
+                  </>
                 )}
                 onSort={(e) => {
                   setForm({
