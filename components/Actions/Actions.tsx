@@ -1,9 +1,15 @@
-import './OverflowMenu.css';
-import { Download, Edit, Redo, Undo } from '@carbon/icons-react';
+import {
+  Download,
+  Edit,
+  OverflowMenuVertical,
+  Redo,
+  Undo,
+} from '@carbon/icons-react';
 import { useEffect, useState } from 'react';
 import styles from './Actions.module.scss';
-import { IconButton, OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { IconButton, Menu, MenuItem } from '@carbon/react';
 import ColorPicker from './ColorPicker';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 export interface ActionsProps {
   onEdit: (e: boolean) => void;
@@ -22,6 +28,8 @@ export default function Actions({
 }: ActionsProps) {
   const [edit, setEdit] = useState(false);
   const download = () => {};
+  const [open, setOpen] = useState(false);
+  const ref = useOutsideClick(() => setOpen(false));
 
   useEffect(() => {
     if (onEdit) {
@@ -31,19 +39,45 @@ export default function Actions({
 
   return (
     <div
+      ref={ref}
       className={`${styles.actions} flex flex-col md:flex-row items-center justify-start md:justify-end place-self-start md:place-self-end gap-2 h-full row-start-1 row-span-2 md:row-span-1 col-start-2`}
     >
-      <div className="block md:hidden">
-        <OverflowMenu className="overflow-menu">
-          <OverflowMenuItem
-            itemText="Undo"
-            onClick={() => onUndo()}
-          ></OverflowMenuItem>
-          <OverflowMenuItem
-            itemText="Redo"
-            onClick={() => onRedo()}
-          ></OverflowMenuItem>
-        </OverflowMenu>
+      <div className="block md:hidden relative">
+        <IconButton
+          label="More..."
+          kind="ghost"
+          align="bottom"
+          onClick={() => setOpen(!open)}
+          isSelected={open}
+        >
+          <OverflowMenuVertical size={24}></OverflowMenuVertical>
+        </IconButton>
+        {open && (
+          <ul className={styles.menu}>
+            <li>
+              <IconButton
+                disabled={!canUndo}
+                label="Undo"
+                kind="ghost"
+                align="bottom"
+                onClick={() => onUndo()}
+              >
+                <Undo size={24}></Undo>
+              </IconButton>
+            </li>
+            <li>
+              <IconButton
+                disabled={!canRedo}
+                label="Redo"
+                kind="ghost"
+                align="bottom"
+                onClick={() => onRedo()}
+              >
+                <Redo size={24}></Redo>
+              </IconButton>
+            </li>
+          </ul>
+        )}
       </div>
       <div className="hidden md:block">
         <IconButton

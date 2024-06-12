@@ -26,7 +26,13 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
     return (
       <div {...props} ref={ref} className={`${styles.wrapper} w-full mt-2`}>
         <div className="menu">
-          <MenuButton label="" kind="ghost" menuAlignment="bottom" size="sm">
+          <MenuButton
+            label=""
+            kind="ghost"
+            menuAlignment="bottom"
+            size="sm"
+            className="contact-menu"
+          >
             <MenuItem
               label={getText(placeholder.contacts[0].text)}
               renderIcon={Email}
