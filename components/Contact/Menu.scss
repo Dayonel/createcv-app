@@ -4,12 +4,18 @@
   .cds--btn {
     color: tokens.$text-placeholder;
     padding: 0;
-    inline-size: 2rem;
+    inline-size: 3rem;
+    height: 3rem;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     &:hover {
       color: tokens.$text-placeholder;
+    }
+
+    svg {
+      margin: 0;
     }
 
     path {

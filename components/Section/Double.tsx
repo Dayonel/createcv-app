@@ -81,7 +81,7 @@ export default function Double({
                         edit={edit}
                         className={`text-sm font-bold inline-block`}
                         childrenClassName="flex-row-reverse"
-                        placeholder="+ SECTION"
+                        placeholder="SECTION"
                         onClick={() => {
                           m.name = getEmptyText('SECTION');
                           m.empty = true;
@@ -130,7 +130,7 @@ export default function Double({
                           edit={edit}
                           className={`text-sm font-bold inline-block`}
                           childrenClassName="flex-row-reverse"
-                          placeholder="+ SECTION"
+                          placeholder="SECTION"
                           onClick={() => {
                             m.name = getEmptyText('SECTION');
                             m.empty = true;

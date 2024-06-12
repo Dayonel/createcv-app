@@ -47,7 +47,7 @@ export default function SingleContent({
                 <Placeholder
                   edit={edit}
                   className=" text-base font-bold"
-                  placeholder="+ Heading 2"
+                  placeholder="Heading 2"
                   onClick={() => {
                     props.title = getEmptyText('Heading 2');
                     props.empty = true;
@@ -81,7 +81,7 @@ export default function SingleContent({
                 <Placeholder
                   edit={edit}
                   className="text-xs font-bold"
-                  placeholder={`+ Date`}
+                  placeholder={`Date`}
                   onClick={() => {
                     props.date = getEmptyText(
                       new Date().getFullYear().toString()
@@ -118,7 +118,7 @@ export default function SingleContent({
                 <Placeholder
                   edit={edit}
                   className="text-sm font-bold"
-                  placeholder="+ Heading 3"
+                  placeholder="Heading 3"
                   onClick={() => {
                     props.subtitle = getEmptyText('Heading 3');
                     props.empty = true;
@@ -149,7 +149,7 @@ export default function SingleContent({
                 <Placeholder
                   edit={edit}
                   className="text-xs"
-                  placeholder="+ Text"
+                  placeholder="Text"
                   onClick={() => {
                     props.topic = getEmptyText('Text');
                     props.empty = true;
@@ -179,7 +179,7 @@ export default function SingleContent({
               <Placeholder
                 edit={edit}
                 className="text-xs min-h-16 !py-[2px] w-full"
-                placeholder="+ Write something..."
+                placeholder="Write something..."
                 onClick={() => {
                   props.description = getEmptyParagraph();
                   onChange();

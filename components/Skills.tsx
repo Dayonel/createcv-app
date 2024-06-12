@@ -52,8 +52,8 @@ export default function Skills({
         edit={edit}
         onClick={() => addSkill()}
         label="+ Skill"
-        skeletonClassName="rounded !h-full"
-        buttonClassName='!rounded'
+        skeletonClassName="rounded !h-[37.19px]"
+        buttonClassName="!rounded"
       ></AddPlaceholder>
     </div>
   );

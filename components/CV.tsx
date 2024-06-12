@@ -107,7 +107,7 @@ export default function CV() {
               <Placeholder
                 edit={edit}
                 className="font-bold text-3xl"
-                placeholder="+ Heading 1"
+                placeholder="Heading 1"
                 onClick={() =>
                   setForm({
                     ...form,
@@ -139,7 +139,7 @@ export default function CV() {
               <Placeholder
                 edit={edit}
                 className="font-bold text-sm"
-                placeholder="+ Heading 3"
+                placeholder="Heading 3"
                 onClick={() =>
                   setForm({
                     ...form,
@@ -218,7 +218,7 @@ export default function CV() {
             <Placeholder
               edit={edit}
               className="text-xs text-justify leading-normal min-h-[74px] !pl-4 w-full"
-              placeholder="+ Write something..."
+              placeholder="Write something..."
               onClick={() => setForm({ ...form, summary: getEmptyParagraph() })}
             ></Placeholder>
           )}

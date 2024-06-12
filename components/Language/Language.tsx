@@ -58,7 +58,7 @@ export default function Language({
                 <Placeholder
                   edit={edit}
                   className="text-xs font-bold"
-                  placeholder="+ Language"
+                  placeholder="Language"
                   onClick={() => {
                     props.value = getEmptyText('Language');
                     props.empty = true;
@@ -91,7 +91,7 @@ export default function Language({
                 <Placeholder
                   edit={edit}
                   className="text-xs font-bold"
-                  placeholder="+ Level"
+                  placeholder="Level"
                   onClick={() => {
                     props.level = getEmptyText('Level');
                     props.empty = true;

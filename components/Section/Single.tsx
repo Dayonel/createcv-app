@@ -122,7 +122,7 @@ export default function Single({
               edit={edit}
               className={`text-sm font-bold inline-block`}
               childrenClassName="flex-row-reverse"
-              placeholder="+ SECTION"
+              placeholder="SECTION"
               onClick={() => {
                 props.name = getEmptyText('SECTION');
                 props.empty = true;
