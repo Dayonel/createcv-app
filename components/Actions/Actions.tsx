@@ -27,7 +27,7 @@ export default function Actions({
   onRedo,
 }: ActionsProps) {
   const [edit, setEdit] = useState(false);
-  const download = () => {};
+  const download = () => window.print();
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick(() => setOpen(false));
 
@@ -40,9 +40,9 @@ export default function Actions({
   return (
     <div
       ref={ref}
-      className={`${styles.actions} flex flex-col md:flex-row items-center justify-start md:justify-end place-self-start md:place-self-end gap-2 h-full row-start-1 row-span-2 md:row-span-1 col-start-2`}
+      className={`${styles.actions} print:opacity-0 flex flex-col sm:flex-row items-center justify-start sm:justify-end place-self-start sm:place-self-end gap-2 h-full row-start-1 row-span-2 sm:row-span-1 col-start-2`}
     >
-      <div className="block md:hidden relative">
+      <div className="block sm:hidden relative">
         <IconButton
           label="More..."
           kind="ghost"
@@ -79,7 +79,7 @@ export default function Actions({
           </ul>
         )}
       </div>
-      <div className="hidden md:block">
+      <div className="hidden sm:block">
         <IconButton
           disabled={!canUndo}
           label="Undo"

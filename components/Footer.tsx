@@ -1,3 +1,3 @@
 export default function Footer() {
-  return <footer className="flex justify-center items-center w-full p-4">Footer</footer>;
+  return <footer className="flex justify-center items-center w-full p-4 print:hidden">Footer</footer>;
 }

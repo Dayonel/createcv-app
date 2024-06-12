@@ -18,7 +18,7 @@
   position: relative;
 }
 
-@media (min-width: 595px) {
+@media print, (min-width: 595px) {
   .skills {
     grid-template-columns: repeat(4, minmax(100px, 1fr));
   }

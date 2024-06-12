@@ -86,7 +86,7 @@ export default function Single({
                   <div className="flex items-center">
                     <RichText
                       props={props.name}
-                      className={`max-w-xs md:max-w-lg text-sm uppercase font-bold inline-block`}
+                      className={`max-w-xs sm:max-w-lg text-sm uppercase font-bold inline-block`}
                       input
                       remove
                       empty={props.empty}

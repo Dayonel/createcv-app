@@ -11,7 +11,7 @@
 }
 
 /* carbon */
-@media (min-width: 42rem) {
+@media print, (min-width: 42rem) {
   .cds--grid--no-gutter {
     padding-left: 1rem;
     padding-right: 1rem;

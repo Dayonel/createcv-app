@@ -44,7 +44,7 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
             <Header></Header>
-            <main className="w-full max-w-[984px] px-8 md:px-4 py-6">
+            <main className="w-full max-w-[984px] px-8 sm:px-4 print:px-4 py-6">
               {children}
             </main>
             <Footer></Footer>

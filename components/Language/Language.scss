@@ -4,12 +4,15 @@ input[type="range"] {
   appearance: none;
   -webkit-appearance: none;
   background: tokens.$layer-selected-02;
+  background-color: tokens.$layer-selected-02;
   height: 0.5rem;
   background-size: 50% 100%;
   background-repeat: no-repeat;
   cursor: pointer;
   width: 100%;
   box-shadow: none;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 input[type="range"]:focus {

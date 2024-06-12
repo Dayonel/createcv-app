@@ -49,7 +49,7 @@ export default function Sortable({
     if (initialItems) {
       setItems(initialItems.map((m) => m.key));
     }
-  }, [initialItems?.length]);
+  }, [initialItems?.length, renderItem]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
