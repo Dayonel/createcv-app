@@ -2,8 +2,9 @@ import { Skill as SkillType } from '@/types/Skill';
 import Skill, { InputProps } from './Skill';
 import styles from './Skills.module.scss';
 import Sortable from './DndKit/Sortable';
-import Placeholder from './Placeholder';
+import Placeholder from './Placeholder/Placeholder';
 import { v4 } from 'uuid';
+import AddPlaceholder from './Placeholder/AddPlaceholder';
 
 interface SkillsProps {
   skills: SkillType[];
@@ -18,6 +19,11 @@ export default function Skills({
   onRemove,
   edit,
 }: SkillsProps) {
+  const addSkill = () => {
+    skills.push({ value: 'Skill', key: v4(), empty: true });
+    onChange();
+  };
+
   return (
     <div className={styles.skills}>
       <Sortable
@@ -42,15 +48,13 @@ export default function Skills({
         handle={skills.length > 1}
         remove
       ></Sortable>
-      <Placeholder
+      <AddPlaceholder
         edit={edit}
-        className={`${styles.skill} !font-normal !border-none !p-[0.85rem] !h-full w-full`}
-        placeholder="+ Skill"
-        onClick={() => {
-          skills.push({ value: 'Skill', key: v4(), empty: true });
-          onChange();
-        }}
-      ></Placeholder>
+        onClick={() => addSkill()}
+        label="+ Skill"
+        skeletonClassName="rounded !h-full"
+        buttonClassName='!rounded'
+      ></AddPlaceholder>
     </div>
   );
 }

@@ -23,7 +23,7 @@ $focused-outline-color: tokens.$focus;
       background-color: tokens.$layer-hover-02;
 
       svg {
-        fill: #6f7b88;
+        fill: var(--fill, #6f7b88);
       }
     }
   }
@@ -33,7 +33,7 @@ $focused-outline-color: tokens.$focus;
     margin: auto;
     height: 100%;
     overflow: visible;
-    fill: #919eab;
+    fill: var(--fill, #919eab);
   }
 
   &:active {

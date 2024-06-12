@@ -1,7 +1,7 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef } from 'react';
 import styles from './Placeholder.module.scss';
 import classNames from 'classnames';
-import Transition from './Animations/Transition';
+import Transition from '../Animations/Transition';
 
 interface PlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder: string;

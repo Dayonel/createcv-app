@@ -2,11 +2,18 @@
 
 .menu {
   .cds--btn {
-    width: 100%;
     color: tokens.$text-placeholder;
+    padding: 0;
+    inline-size: 2rem;
+    display: flex;
+    align-items: center;
 
     &:hover {
       color: tokens.$text-placeholder;
+    }
+
+    path {
+      fill: var(--cds-icon-primary, #161616) !important;
     }
   }
 }
@@ -20,13 +27,13 @@
 
 .cds--menu-item__label {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--cds-text-primary);
 }
 
 .cds--menu-item:hover svg {
-  color: #9ca3af;
+  fill: var(--fill);
 }
 
 .cds--menu-item svg {
-  color: #9ca3af;
+  color: var(--fill);
 }

@@ -2,7 +2,7 @@ import RichText from '@/components/RichText/RichText';
 import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/useStore';
-import Placeholder from '@/components/Placeholder';
+import Placeholder from '@/components/Placeholder/Placeholder';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 
 export interface SingleContentProps {
@@ -58,7 +58,7 @@ export default function SingleContent({
             </div>
             <div>
               {props.date !== undefined && (
-                <div className="flex flex-wrap items-center">
+                <div className="flex items-center pl-[6px]">
                   <Calendar fill={color}></Calendar>
                   <RichText
                     className="font-bold text-xs max-w-xs"

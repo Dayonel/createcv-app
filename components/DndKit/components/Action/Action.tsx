@@ -13,7 +13,7 @@ export interface ActionProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export default forwardRef<HTMLButtonElement, ActionProps>(function Action(
-  { active, className, cursor, style, ...props },
+  { active, className, reverseRemove, cursor, style, ...props },
   ref
 ) {
   return (

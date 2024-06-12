@@ -3,11 +3,14 @@ import { Single as SingleType } from '@/types/Single';
 import { UniqueIdentifier } from '@dnd-kit/core';
 import Sortable from '../DndKit/Sortable';
 import SingleContent, { SingleContentProps } from './Content/SingleContent';
-import Placeholder from '../Placeholder';
+import Placeholder from '../Placeholder/Placeholder';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import RichText from '../RichText/RichText';
 import { v4 } from 'uuid';
-import DeletePlaceholder from '../DeletePlaceholder';
+import AddPlaceholder from '../Placeholder/AddPlaceholder';
+import Transition from '../Animations/Transition';
+import Action from '../DndKit/components/Action/Action';
+import { TrashCan } from '@carbon/icons-react';
 
 interface SingleProps {
   props: SingleType;
@@ -100,10 +103,17 @@ export default function Single({
                 </div>
               </Divider>
               {!last && (
-                <DeletePlaceholder
-                  edit={edit}
-                  onClick={() => onDeleteSection(props.key)}
-                ></DeletePlaceholder>
+                <Transition edit={edit}>
+                  <Action
+                    active={{
+                      fill: 'rgba(255, 70, 70, 0.95)',
+                      background: 'rgba(255, 70, 70, 0.1)',
+                    }}
+                    onClick={() => onDeleteSection(props.key)}
+                  >
+                    <TrashCan></TrashCan>
+                  </Action>
+                </Transition>
               )}
             </div>
           )}
@@ -135,10 +145,20 @@ export default function Single({
                     edit={edit}
                   ></SingleContent>
                   {content.indexOf(props) > 0 && (
-                    <DeletePlaceholder
+                    <Transition
                       edit={edit}
-                      onClick={() => deleteContent()}
-                    ></DeletePlaceholder>
+                      className="absolute right-0 -translate-y-full"
+                    >
+                      <Action
+                        active={{
+                          fill: 'rgba(255, 70, 70, 0.95)',
+                          background: 'rgba(255, 70, 70, 0.1)',
+                        }}
+                        onClick={() => deleteContent()}
+                      >
+                        <TrashCan></TrashCan>
+                      </Action>
+                    </Transition>
                   )}
                 </>
               )}
@@ -153,13 +173,11 @@ export default function Single({
               handle={content.length > 1}
               containerStyle="w-full"
             ></Sortable>
-            <Placeholder
+            <AddPlaceholder
               edit={edit}
-              className={`text-xs flex items-center w-full min-h-24 !ml-2 !pl-4`}
-              childrenClassName={`-mt-4`}
-              placeholder="+ Content"
               onClick={() => addContent()}
-            ></Placeholder>
+              label="+ Content"
+            ></AddPlaceholder>
           </div>
         </div>
       )}

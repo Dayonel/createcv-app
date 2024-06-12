@@ -9,7 +9,7 @@ import Double from './Section/Double';
 import placeholder from '../data/placeholder.json';
 import { useUUID } from '@/hooks/useUUID';
 import Sortable from './DndKit/Sortable';
-import Placeholder from './Placeholder';
+import Placeholder from './Placeholder/Placeholder';
 import useColorStore from '@/store/useStore';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
@@ -29,11 +29,12 @@ export default function CV() {
   const [updateHistory, setUpdateHistory] = useState(false);
 
   useEffect(() => {
-    console.log(JSON.stringify(form, replacer));
     if (updateHistory) {
       setState(JSON.stringify(form));
-    }
-    setUpdateHistory(true);
+      }
+      setUpdateHistory(true);
+
+      // console.log(JSON.stringify(form, replacer));
   }, [form]);
 
   const replacer = (key: string, value: any) =>
