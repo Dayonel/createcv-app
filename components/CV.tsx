@@ -17,6 +17,7 @@ import ContactPlaceholder from './Contact/ContactPlaceholder';
 import Transition from './Animations/Transition';
 import { useUndo } from '@/hooks/useUndo';
 import { Form } from '@/types/Form';
+import AddPlaceholder from './Placeholder/AddPlaceholder';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
@@ -68,12 +69,8 @@ export default function CV() {
     }
   }, []);
 
-  const sections = {
-    Single,
-    Double,
-  };
-
-  const addSection = (i: number) => {
+  const addSection = () => {
+    const i = form.sections.filter((f) => f.type === 'Single').length;
     form.sections.splice(i, 0, {
       key: v4(),
       name: getEmptyText('SECTION'),
@@ -92,6 +89,11 @@ export default function CV() {
       empty: true,
     });
     setForm({ ...form });
+  };
+
+  const sections = {
+    Single,
+    Double,
   };
 
   const deleteSection = (key: string) => {
@@ -249,25 +251,34 @@ export default function CV() {
       <div className={styles.sections}>
         {form.sections &&
           form.sections.map((s, i) => {
+            const lastIndex =
+              form.sections.filter((f) => f.type === 'Single').length - 1;
             const Component = sections[s.type as keyof typeof sections];
             return (
-              <Component
-                key={s.key}
-                props={s}
-                onChange={() => setForm({ ...form })}
-                onRemove={(full) => {
-                  if (full) {
-                    form.sections?.splice(i, 1);
+              <div className="flex flex-col gap-4" key={s.key}>
+                <Component
+                  props={s}
+                  onChange={() => setForm({ ...form })}
+                  onRemove={(full) => {
+                    if (full) {
+                      form.sections?.splice(i, 1);
+                    }
+                    setForm({ ...form });
+                  }}
+                  edit={edit}
+                  onDeleteSection={(e) => deleteSection(e)}
+                  last={
+                    form.sections.filter((z) => z.type === s.type).length === 1
                   }
-                  setForm({ ...form });
-                }}
-                edit={edit}
-                onAddSection={() => addSection(i + 1)}
-                onDeleteSection={(e) => deleteSection(e)}
-                last={
-                  form.sections.filter((z) => z.type === s.type).length === 1
-                }
-              ></Component>
+                ></Component>
+                {i === lastIndex && (
+                  <AddPlaceholder
+                    edit={edit}
+                    onClick={() => addSection()}
+                    label="+ Section"
+                  ></AddPlaceholder>
+                )}
+              </div>
             );
           })}
       </div>
