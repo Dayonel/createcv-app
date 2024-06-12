@@ -1,7 +1,7 @@
 'use client';
 import Actions from './Actions/Actions';
 import styles from './CV.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Contact, { ContactProps } from './Contact/Contact';
 import RichText from './RichText/RichText';
 import Single from './Section/Single';
@@ -28,13 +28,23 @@ export default function CV() {
   const { color } = useColorStore();
   const [updateHistory, setUpdateHistory] = useState(false);
 
+  useMemo(() => {
+    const form = localStorage.getItem('form');
+    if (form) {
+      console.log('local storage', JSON.parse(form).title);
+      setForm(useUUID(JSON.parse(form)));
+    }
+  }, []);
+
   useEffect(() => {
     if (updateHistory) {
       setState(JSON.stringify(form));
-      }
-      setUpdateHistory(true);
+    }
+    setUpdateHistory(true);
 
-      // console.log(JSON.stringify(form, replacer));
+    localStorage.setItem('form', JSON.stringify(form, replacer));
+
+    // console.log(JSON.stringify(form, replacer));
   }, [form]);
 
   const replacer = (key: string, value: any) =>
@@ -189,15 +199,15 @@ export default function CV() {
                 remove
               ></Sortable>
             )}
-            <Transition className="block w-fit" edit={edit}>
-              <ContactPlaceholder
-                onAdd={(e) => {
-                  form.contacts.push({ ...e, key: v4(), empty: true });
-                  setForm({ ...form });
-                }}
-              ></ContactPlaceholder>
-            </Transition>
           </div>
+          <Transition className="block w-fit" edit={edit}>
+            <ContactPlaceholder
+              onAdd={(e) => {
+                form.contacts.push({ ...e, key: v4(), empty: true });
+                setForm({ ...form });
+              }}
+            ></ContactPlaceholder>
+          </Transition>
         </div>
 
         <div className="col-span-2 md:col-span-1 relative">

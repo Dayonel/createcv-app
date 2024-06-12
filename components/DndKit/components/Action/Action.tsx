@@ -6,7 +6,7 @@ import styles from './Action.module.scss';
 export interface ActionProps extends React.HTMLAttributes<HTMLButtonElement> {
   active?: {
     fill: string;
-    background: string;
+    background?: string;
   };
   cursor?: CSSProperties['cursor'];
   reverseRemove?: boolean;

@@ -177,6 +177,7 @@ export default function Single({
               edit={edit}
               onClick={() => addContent()}
               label="+ Content"
+              skeletonClassName="absolute -translate-y-2/4 z-20"
             ></AddPlaceholder>
           </div>
         </div>

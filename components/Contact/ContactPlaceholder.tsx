@@ -24,7 +24,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
     const { color } = useColorStore();
 
     return (
-      <div {...props} ref={ref} className={`${styles.wrapper} w-full mt-2`}>
+      <div {...props} ref={ref} className={`${styles.wrapper} w-full`}>
         <div className="menu">
           <MenuButton
             label=""
