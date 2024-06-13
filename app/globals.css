@@ -49,6 +49,6 @@
 /* must have for mobile */
 @media print {
   body {
-    width: 900px;
+    min-width: 950px;
   }
 }
