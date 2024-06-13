@@ -109,7 +109,7 @@ export default function CV() {
           <div className={`relative`}>
             {form.title && (
               <RichText
-                className="max-w-64 md:max-w-lg font-bold text-3xl"
+                className="max-w-64 print:max-w-lg md:max-w-lg font-bold text-3xl"
                 props={form.title}
                 onChange={(e) => {
                   setForm({ ...form, title: e });
@@ -141,7 +141,7 @@ export default function CV() {
           <div className={`relative`}>
             {form.subtitle && (
               <RichText
-                className="max-w-64 md:max-w-lg font-bold text-sm"
+                className="max-w-64 print:max-w-lg md:max-w-lg font-bold text-sm"
                 props={form.subtitle}
                 onChange={(e) => {
                   setForm({ ...form, subtitle: e });

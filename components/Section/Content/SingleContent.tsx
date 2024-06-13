@@ -28,7 +28,7 @@ export default function SingleContent({
             <div>
               {props.title !== undefined && (
                 <RichText
-                  className="max-w-xs md:max-w-lg font-bold text-base"
+                  className="max-w-xs print:max-w-lg md:max-w-lg font-bold text-base"
                   props={props.title}
                   onChange={(e) => {
                     props.title = e;
@@ -99,7 +99,7 @@ export default function SingleContent({
             <div>
               {props.subtitle !== undefined && (
                 <RichText
-                  className="max-w-xs md:max-w-lg font-bold text-sm"
+                  className="max-w-xs print:max-w-lg md:max-w-lg font-bold text-sm"
                   props={props.subtitle}
                   onChange={(e) => {
                     props.subtitle = e;

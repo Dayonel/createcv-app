@@ -40,7 +40,7 @@ export default function Actions({
   return (
     <div
       ref={ref}
-      className={`${styles.actions} print:opacity-0 flex flex-col md:flex-row items-center justify-start md:justify-end place-self-start md:place-self-end gap-2 h-full row-start-1 row-span-2 md:row-span-1 col-start-2`}
+      className={`${styles.actions} print:opacity-0 flex flex-col print:flex-row md:flex-row items-center justify-start print:justify-end md:justify-end place-self-start print:place-self-end md:place-self-end gap-2 h-full row-start-1 row-span-2 print:row-span-1 md:row-span-1 col-start-2`}
     >
       <div className="block md:hidden relative">
         <IconButton
