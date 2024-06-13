@@ -37,7 +37,7 @@ export default function Contact({
     <span className={`flex items-center`}>
       {<Component fill={color}></Component>}
       <RichText
-        className="max-w-52 sm:max-w-52 text-xs"
+        className="max-w-52 md:max-w-52 text-xs"
         props={props.text}
         onChange={(e) => {
           props.text = e;

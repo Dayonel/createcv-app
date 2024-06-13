@@ -38,7 +38,7 @@ export default function Language({
               {props.value && (
                 <RichText
                   id={id}
-                  className="max-w-xs sm:max-w-52 text-xs font-bold"
+                  className="max-w-xs md:max-w-52 text-xs font-bold"
                   props={props.value}
                   onChange={(e) => {
                     props.value = e;
@@ -70,7 +70,7 @@ export default function Language({
             <div>
               {props.level && (
                 <RichText
-                  className="max-w-xs sm:max-w-52 text-xs"
+                  className="max-w-xs md:max-w-52 text-xs"
                   props={props.level}
                   onChange={(e) => {
                     props.level = e;

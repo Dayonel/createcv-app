@@ -3,7 +3,7 @@
   gap: 24px 0px;
 }
 
-@media print, (min-width: 640px) {
+@media print, (min-width: 768px) {
   .double {
     display: grid;
     grid-template-columns: 1fr 1fr;

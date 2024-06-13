@@ -59,7 +59,7 @@ export default function Double({
                           <div className="flex items-center">
                             <RichText
                               props={m.name}
-                              className={`max-w-xs sm:max-w-96 text-sm uppercase font-bold inline-block`}
+                              className={`max-w-xs md:max-w-96 text-sm uppercase font-bold inline-block`}
                               input
                               remove
                               empty={m.empty}
@@ -108,7 +108,7 @@ export default function Double({
                             <div className="flex items-center">
                               <RichText
                                 props={m.name}
-                                className={`max-w-xs sm:max-w-96 text-sm uppercase font-bold inline-block`}
+                                className={`max-w-xs md:max-w-96 text-sm uppercase font-bold inline-block`}
                                 input
                                 remove
                                 empty={m.empty}

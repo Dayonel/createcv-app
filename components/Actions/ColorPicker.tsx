@@ -44,7 +44,7 @@ export default function ColorPicker() {
         <TextColor size={24}></TextColor>
       </IconButton>
 
-      <div className="absolute z-10 left-12 sm:left-2/4 translate-y-3 -translate-x-full sm:-translate-x-2/4">
+      <div className="absolute z-10 left-12 md:left-2/4 translate-y-3 -translate-x-full md:-translate-x-2/4">
         {show && (
           <>
             <HexColorPicker color={color} onChange={(c) => setColor(c, true)} />

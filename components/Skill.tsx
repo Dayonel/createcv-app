@@ -38,7 +38,7 @@ export default function Skill({
           ref={controlsRef}
           type="text"
           name={props.key}
-          className={`${styles.skill} max-w-xs sm:max-w-lg font-bold outline-none highlight min-w-[2.5ch]`}
+          className={`${styles.skill} max-w-xs md:max-w-lg font-bold outline-none highlight min-w-[2.5ch]`}
           onChange={(e) => {
             props.value = e.target.value;
             onChange();
