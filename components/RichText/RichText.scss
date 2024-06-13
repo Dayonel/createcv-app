@@ -1,5 +1,12 @@
 @use "@carbon/themes/scss/tokens";
 
+.ProseMirror {
+  font-variant-ligatures: unset !important;
+  -webkit-font-variant-ligatures: unset !important;
+  font-feature-settings: normal !important;
+  white-space: normal !important;
+}
+
 /* Basic editor styles */
 .richtext {
   font-size: 12px;

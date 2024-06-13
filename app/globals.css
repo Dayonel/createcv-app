@@ -46,9 +46,9 @@
   size: A4;
   margin: 5mm 5mm 5mm 5mm;
 }
-
+/* must have for mobile */
 @media print {
-  .cv {
-    zoom: 105%; /* looks better */
+  body {
+    width: 900px;
   }
 }
