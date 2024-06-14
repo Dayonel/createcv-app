@@ -17,7 +17,6 @@ import ContactPlaceholder from './Placeholder/ContactPlaceholder';
 import Transition from './Animations/Transition';
 import { useUndo } from '@/hooks/useUndo';
 import { Form } from '@/types/Form';
-import AddPlaceholder from './Placeholder/AddPlaceholder';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
@@ -29,18 +28,13 @@ export default function CV() {
   const { color } = useColorStore();
 
   const [updateHistory, setUpdateHistory] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   // every update
   useEffect(() => {
-    if (!mounted) return;
-
     if (updateHistory) {
       setState(JSON.stringify(form));
     }
     setUpdateHistory(true);
-
-    localStorage.setItem('form', JSON.stringify(form, replacer));
 
     // console.log(JSON.stringify(form, replacer));
   }, [form]);
@@ -57,18 +51,6 @@ export default function CV() {
     setUpdateHistory(false);
     setForm({ ...form, color });
   }, [color]);
-
-  // saved form (local)
-  useEffect(() => {
-    try {
-      const userFrom = localStorage.getItem('form');
-      if (!userFrom) return;
-
-      setForm(traverseUUID(JSON.parse(userFrom)));
-    } finally {
-      setMounted(true);
-    }
-  }, []);
 
   const sections = {
     Single,
@@ -270,9 +252,6 @@ export default function CV() {
                   onDeleteSection={(e) => deleteSection(e)}
                   last={
                     form.sections.filter((z) => z.type === s.type).length === 1
-                  }
-                  lastIndex={
-                    form.sections.filter((f) => f.type === s.type).length - 1
                   }
                   onAddSection={addSection}
                 ></Component>
