@@ -28,7 +28,7 @@ export default function CV() {
   );
   const [form, setForm] = useState<Form>(JSON.parse(state));
   const [edit, setEdit] = useState(false);
-  const { color } = useColorStore();
+  const { color, setColor } = useColorStore();
 
   const [updateHistory, setUpdateHistory] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -68,7 +68,9 @@ export default function CV() {
       const userFrom = localStorage.getItem('form');
       if (!userFrom) return;
 
-      setForm(traverseUUID(JSON.parse(userFrom)));
+      const parsed = JSON.parse(userFrom);
+      setForm({ ...traverseUUID(parsed) });
+      setColor(parsed.color, true);
     } finally {
       setMounted(true);
     }
