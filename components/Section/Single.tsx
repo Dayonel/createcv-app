@@ -7,10 +7,10 @@ import Placeholder from '../Placeholder/Placeholder';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import RichText from '../RichText/RichText';
 import { v4 } from 'uuid';
-import AddPlaceholder from '../Placeholder/AddPlaceholder';
 import Transition from '../Animations/Transition';
 import Action from '../DndKit/components/Action/Action';
 import { TrashCan } from '@carbon/icons-react';
+import ActionsPlaceholder from '../Placeholder/ActionsPlaceholder';
 
 interface SingleProps {
   props: SingleType;
@@ -80,44 +80,38 @@ export default function Single({
       {props && (
         <div className="relative">
           {props.name !== undefined && (
-            <div className="flex items-center w-full">
-              <Divider>
-                <div className="inline-block">
-                  <div className="flex items-center">
-                    <RichText
-                      props={props.name}
-                      className={`max-w-xs print:max-w-lg md:max-w-lg text-sm uppercase font-bold inline-block`}
-                      input
-                      remove
-                      empty={props.empty}
-                      onChange={(e) => {
-                        props.name = e;
-                        onChange();
-                      }}
-                      onRemove={() => {
-                        delete props.name;
-                        handleRemove();
-                      }}
-                    ></RichText>
+            <>
+              <div className="flex items-center w-full">
+                <Divider className={edit ? 'hidden' : 'block'}>
+                  <div className="inline-block">
+                    <div className="flex items-center">
+                      <RichText
+                        props={props.name}
+                        className={`max-w-48 print:max-w-lg md:max-w-lg text-sm uppercase font-bold inline-block`}
+                        input
+                        empty={props.empty}
+                        onChange={(e) => {
+                          props.name = e;
+                          onChange();
+                        }}
+                        onRemove={() => {
+                          delete props.name;
+                          handleRemove();
+                        }}
+                      ></RichText>
+                    </div>
                   </div>
-                </div>
-              </Divider>
-              {!last && (
-                <div className="print:hidden">
-                  <Transition edit={edit}>
-                    <Action
-                      active={{
-                        fill: 'rgba(255, 70, 70, 0.95)',
-                        background: 'rgba(255, 70, 70, 0.1)',
-                      }}
-                      onClick={() => onDeleteSection(props.key)}
-                    >
-                      <TrashCan></TrashCan>
-                    </Action>
-                  </Transition>
-                </div>
-              )}
-            </div>
+                </Divider>
+                <ActionsPlaceholder
+                  edit={edit}
+                  onAdd={() => addContent()}
+                  onDuplicate={() => onAddSection()}
+                  onDelete={() => onDeleteSection(props.key)}
+                  duplicate
+                  remove={!last}
+                ></ActionsPlaceholder>
+              </div>
+            </>
           )}
           {!props.name && (
             <Placeholder
@@ -146,11 +140,12 @@ export default function Single({
                     onRemove={handleRemove}
                     edit={edit}
                   ></SingleContent>
+
                   {content.indexOf(props) > 0 && (
                     <div className="print:hidden">
                       <Transition
                         edit={edit}
-                        className="absolute right-0 -translate-y-full"
+                        className="absolute top-0 right-1 translate-x-full"
                       >
                         <Action
                           active={{
@@ -177,20 +172,9 @@ export default function Single({
               handle={content.length > 1}
               containerStyle="w-full"
             ></Sortable>
-            <AddPlaceholder
-              edit={edit}
-              onClick={() => addContent()}
-              label="+ Content"
-              skeletonClassName="absolute -translate-y-2/4 z-20"
-            ></AddPlaceholder>
           </div>
         </div>
       )}
-      <AddPlaceholder
-        edit={edit}
-        onClick={() => onAddSection()}
-        label="+ Section"
-      ></AddPlaceholder>
     </>
   );
 }

@@ -5,7 +5,6 @@ import { Language as LanguageType } from '@/types/Language';
 import { getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
 import Placeholder from '../Placeholder/Placeholder';
-import AddPlaceholder from '../Placeholder/AddPlaceholder';
 
 interface LanguagesProps {
   languages: LanguageType[];
@@ -73,12 +72,6 @@ export default function Languages({
         containerStyle="w-full"
         handle={languages.length > 1}
       ></Sortable>
-      <AddPlaceholder
-        edit={edit}
-        onClick={() => addLanguage()}
-        label="+ Language"
-        className="px-[6px]"
-      ></AddPlaceholder>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import RichText from '../RichText/RichText';
 import Placeholder from '../Placeholder/Placeholder';
 import { getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
+import ActionsPlaceholder from '../Placeholder/ActionsPlaceholder';
 
 interface DoubleProps {
   props: DoubleType;
@@ -54,27 +55,33 @@ export default function Double({
                 {m.type === 'Skills' ? (
                   <div className="flex flex-col w-full gap-1">
                     {m.name !== undefined && (
-                      <Divider>
-                        <div className="inline-block">
-                          <div className="flex items-center">
-                            <RichText
-                              props={m.name}
-                              className={`max-w-xs print:max-w-96 md:max-w-96 text-sm uppercase font-bold inline-block`}
-                              input
-                              remove
-                              empty={m.empty}
-                              onChange={(e) => {
-                                m.name = e;
-                                onChange();
-                              }}
-                              onRemove={() => {
-                                delete m.name;
-                                onRemove(false);
-                              }}
-                            ></RichText>
+                      <>
+                        <Divider className={edit ? 'hidden' : 'block'}>
+                          <div className="inline-block">
+                            <div className="flex items-center">
+                              <RichText
+                                props={m.name}
+                                className={`max-w-xs print:max-w-96 md:max-w-96 text-sm uppercase font-bold inline-block`}
+                                input
+                                remove
+                                empty={m.empty}
+                                onChange={(e) => {
+                                  m.name = e;
+                                  onChange();
+                                }}
+                                onRemove={() => {
+                                  delete m.name;
+                                  onRemove(false);
+                                }}
+                              ></RichText>
+                            </div>
                           </div>
-                        </div>
-                      </Divider>
+                        </Divider>
+                        <ActionsPlaceholder
+                          edit={edit}
+                          onAdd={() => addSkill()}
+                        ></ActionsPlaceholder>
+                      </>
                     )}
                     {!m.name && (
                       <Placeholder
@@ -103,27 +110,33 @@ export default function Double({
                   m.type === 'Languages' && (
                     <div className="flex flex-col w-full">
                       {m.name !== undefined && (
-                        <Divider>
-                          <div className="inline-block">
-                            <div className="flex items-center">
-                              <RichText
-                                props={m.name}
-                                className={`max-w-xs print:max-w-96 md:max-w-96 text-sm uppercase font-bold inline-block`}
-                                input
-                                remove
-                                empty={m.empty}
-                                onChange={(e) => {
-                                  m.name = e;
-                                  onChange();
-                                }}
-                                onRemove={() => {
-                                  delete m.name;
-                                  onRemove(false);
-                                }}
-                              ></RichText>
+                        <>
+                          <Divider className={edit ? 'hidden' : 'block'}>
+                            <div className="inline-block">
+                              <div className="flex items-center">
+                                <RichText
+                                  props={m.name}
+                                  className={`max-w-xs print:max-w-96 md:max-w-96 text-sm uppercase font-bold inline-block`}
+                                  input
+                                  remove
+                                  empty={m.empty}
+                                  onChange={(e) => {
+                                    m.name = e;
+                                    onChange();
+                                  }}
+                                  onRemove={() => {
+                                    delete m.name;
+                                    onRemove(false);
+                                  }}
+                                ></RichText>
+                              </div>
                             </div>
-                          </div>
-                        </Divider>
+                          </Divider>
+                          <ActionsPlaceholder
+                            edit={edit}
+                            onAdd={() => addLanguage()}
+                          ></ActionsPlaceholder>
+                        </>
                       )}
                       {!m.name && (
                         <Placeholder

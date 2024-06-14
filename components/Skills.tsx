@@ -4,7 +4,6 @@ import styles from './Skills.module.scss';
 import Sortable from './DndKit/Sortable';
 import Placeholder from './Placeholder/Placeholder';
 import { v4 } from 'uuid';
-import AddPlaceholder from './Placeholder/AddPlaceholder';
 
 interface SkillsProps {
   skills: SkillType[];
@@ -48,13 +47,6 @@ export default function Skills({
         handle={skills.length > 1}
         remove
       ></Sortable>
-      <AddPlaceholder
-        edit={edit}
-        onClick={() => addSkill()}
-        label="+ Skill"
-        skeletonClassName="rounded !h-[37.19px]"
-        buttonClassName="!rounded"
-      ></AddPlaceholder>
     </div>
   );
 }

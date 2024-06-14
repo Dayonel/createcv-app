@@ -1,19 +1,27 @@
 import useColorStore from '@/store/colorStore';
 import styles from './Divider.module.scss';
-import { useContext } from 'react';
+import { forwardRef, useContext } from 'react';
 import { ColorContext } from './ColorProvider';
+import classnames from 'classnames';
 
-interface DividerProps {
+interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
   dashed?: boolean;
   children?: any;
 }
 
-export default function Divider({ dashed, children }: DividerProps) {
+export default forwardRef<HTMLDivElement, DividerProps>(function Divider(
+  { dashed, children, className, ...props },
+  ref
+) {
   const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
 
   return (
-    <div className={`pr-[6px] w-full`}>
+    <div
+      ref={ref}
+      className={classnames(`pr-[6px] w-full`, className)}
+      {...props}
+    >
       <div
         className={`relative overflow-x-clip ${styles.divider} ${
           dashed ? 'after:border-dashed' : 'after:border-solid'
@@ -24,4 +32,4 @@ export default function Divider({ dashed, children }: DividerProps) {
       </div>
     </div>
   );
-}
+});
