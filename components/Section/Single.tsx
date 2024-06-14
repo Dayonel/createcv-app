@@ -11,6 +11,7 @@ import Transition from '../Animations/Transition';
 import Action from '../DndKit/components/Action/Action';
 import { TrashCan } from '@carbon/icons-react';
 import ActionsPlaceholder from '../Placeholder/ActionsPlaceholder';
+import classNames from 'classnames';
 
 interface SingleProps {
   props: SingleType;
@@ -82,7 +83,12 @@ export default function Single({
           {props.name !== undefined && (
             <>
               <div className="flex items-center w-full">
-                <Divider className={edit ? 'hidden' : 'block'}>
+                <Divider
+                  className={classNames(
+                    edit ? 'hidden' : 'block',
+                    'print:block'
+                  )}
+                >
                   <div className="inline-block">
                     <div className="flex items-center">
                       <RichText

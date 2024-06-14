@@ -8,6 +8,7 @@ import Placeholder from '../Placeholder/Placeholder';
 import { getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
 import ActionsPlaceholder from '../Placeholder/ActionsPlaceholder';
+import classNames from 'classnames';
 
 interface DoubleProps {
   props: DoubleType;
@@ -56,7 +57,12 @@ export default function Double({
                   <div className="flex flex-col w-full gap-1">
                     {m.name !== undefined && (
                       <>
-                        <Divider className={edit ? 'hidden' : 'block'}>
+                        <Divider
+                          className={classNames(
+                            edit ? 'hidden' : 'block',
+                            'print:block'
+                          )}
+                        >
                           <div className="inline-block">
                             <div className="flex items-center">
                               <RichText
@@ -111,7 +117,12 @@ export default function Double({
                     <div className="flex flex-col w-full">
                       {m.name !== undefined && (
                         <>
-                          <Divider className={edit ? 'hidden' : 'block'}>
+                          <Divider
+                            className={classNames(
+                              edit ? 'hidden' : 'block',
+                              'print:block'
+                            )}
+                          >
                             <div className="inline-block">
                               <div className="flex items-center">
                                 <RichText

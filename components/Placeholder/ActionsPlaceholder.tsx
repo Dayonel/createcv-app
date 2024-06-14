@@ -22,7 +22,7 @@ export default function ActionsPlaceholder({
   return (
     <>
       {edit && (
-        <div className="flex items-cente justify-center w-full px-[6px] mb-2">
+        <div className="print:hidden flex items-cente justify-center w-full px-[6px] mb-2">
           <div className={styles.wrapper}></div>
           <div className="flex items-center justify-center">
             <Action onClick={() => onAdd()}>
