@@ -1,6 +1,6 @@
 import useColorStore from '@/store/colorStore';
 import styles from './Divider.module.scss';
-import { forwardRef, useContext } from 'react';
+import { forwardRef, useContext, useEffect, useState } from 'react';
 import { ColorContext } from './ColorProvider';
 import classnames from 'classnames';
 
@@ -13,8 +13,13 @@ export default forwardRef<HTMLDivElement, DividerProps>(function Divider(
   { dashed, children, className, ...props },
   ref
 ) {
+  const [mounted, setMounted] = useState(false);
   const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div
@@ -26,7 +31,7 @@ export default forwardRef<HTMLDivElement, DividerProps>(function Divider(
         className={`relative overflow-x-clip ${styles.divider} ${
           dashed ? 'after:border-dashed' : 'after:border-solid'
         }`}
-        style={{ color: serverColor || color }}
+        style={{ color: mounted ? color : serverColor }}
       >
         {children}
       </div>

@@ -7,7 +7,7 @@ import { getEmptyText } from '@/utils/richTextUtils';
 import Transition from '../Animations/Transition';
 import Action from '../DndKit/components/Action/Action';
 import { TrashCan } from '@carbon/icons-react';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ColorContext } from '../ColorProvider';
 
 export interface LanguageProps {
@@ -29,8 +29,13 @@ export default function Language({
   onControlsVisible,
   edit,
 }: LanguageProps) {
+  const [mounted, setMounted] = useState(false);
   const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
@@ -118,9 +123,9 @@ export default function Language({
               }}
               style={{
                 backgroundSize: `${Math.min(props.rating * 10, 100)}%`,
-                backgroundImage: `linear-gradient(${serverColor || color}, ${
-                  serverColor || color
-                })`,
+                backgroundImage: `linear-gradient(${
+                  mounted ? color : serverColor
+                }, ${mounted ? color : serverColor})`,
               }}
             ></input>
           </div>

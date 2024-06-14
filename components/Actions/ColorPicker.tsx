@@ -1,7 +1,8 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import useColorStore from '@/store/colorStore';
 import { TextColor } from '@carbon/icons-react';
-import { IconButton, useTheme } from '@carbon/react';
+import { IconButton } from '@carbon/react';
+import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 
@@ -14,7 +15,8 @@ export default function ColorPicker() {
   useEffect(() => {
     if (overriden) return;
 
-    setColor(theme === 'g10' ? '#0f62fe' : '#78a9ff');
+    setColor(theme && theme === 'g10' ? '#0f62fe' : '#78a9ff');
+    console.log(theme)
   }, [theme]);
 
   return (

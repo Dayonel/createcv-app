@@ -4,7 +4,7 @@ import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '@/components/Placeholder/Placeholder';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ColorContext } from '@/components/ColorProvider';
 
 export interface SingleContentProps {
@@ -20,8 +20,13 @@ export default function SingleContent({
   onRemove,
   edit,
 }: SingleContentProps) {
+  const [mounted, setMounted] = useState(false);
   const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
@@ -62,7 +67,7 @@ export default function SingleContent({
             <div>
               {props.date !== undefined && (
                 <div className="flex items-center pl-[6px]">
-                  <Calendar fill={serverColor || color}></Calendar>
+                  <Calendar fill={mounted ? color : serverColor}></Calendar>
                   <RichText
                     className="font-bold text-xs max-w-xs"
                     props={props.date}
@@ -93,7 +98,7 @@ export default function SingleContent({
                     onChange();
                   }}
                 >
-                  <Calendar fill={serverColor || color}></Calendar>
+                  <Calendar fill={mounted ? color : serverColor}></Calendar>
                 </Placeholder>
               )}
             </div>

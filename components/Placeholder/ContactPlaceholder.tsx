@@ -1,5 +1,5 @@
 import './Menu.scss';
-import { CSSProperties, forwardRef, useContext } from 'react';
+import { CSSProperties, forwardRef, useContext, useEffect, useState } from 'react';
 import styles from './ContactPlaceholder.module.scss';
 import {
   Email,
@@ -22,8 +22,13 @@ interface ContactPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
   function ContactPlaceholder({ onAdd, style, ...props }, ref) {
+    const [mounted, setMounted] = useState(false);
     const serverColor = useContext(ColorContext);
     const { color } = useColorStore(); 
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
 
     return (
       <div {...props} ref={ref} className={`${styles.wrapper} w-full`}>
@@ -39,37 +44,37 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
               label={getText(placeholder.contacts[0].text)}
               renderIcon={Email}
               onClick={() => onAdd(placeholder.contacts[0] as Contact)}
-              style={{ '--fill': serverColor || color } as CSSProperties}
+              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
             ></MenuItem>
             <MenuItem
               label={getText(placeholder.contacts[1].text)}
               renderIcon={LogoLinkedin}
               onClick={() => onAdd(placeholder.contacts[1] as Contact)}
-              style={{ '--fill': serverColor || color } as CSSProperties}
+              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
             ></MenuItem>
             <MenuItem
               label={getText(placeholder.contacts[2].text)}
               renderIcon={Phone}
               onClick={() => onAdd(placeholder.contacts[2] as Contact)}
-              style={{ '--fill': serverColor || color } as CSSProperties}
+              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
             ></MenuItem>
             <MenuItem
               label={getText(placeholder.contacts[3].text)}
               renderIcon={LogoGithub}
               onClick={() => onAdd(placeholder.contacts[3] as Contact)}
-              style={{ '--fill': serverColor || color } as CSSProperties}
+              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
             ></MenuItem>
             <MenuItem
               label={getText(placeholder.contacts[4].text)}
               renderIcon={LocationFilled}
               onClick={() => onAdd(placeholder.contacts[4] as Contact)}
-              style={{ '--fill': serverColor || color } as CSSProperties}
+              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
             ></MenuItem>
             <MenuItem
               label={getText(placeholder.contacts[5].text)}
               renderIcon={Wikis}
               onClick={() => onAdd(placeholder.contacts[5] as Contact)}
-              style={{ '--fill': serverColor || color } as CSSProperties}
+              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
             ></MenuItem>
           </MenuButton>
         </div>
