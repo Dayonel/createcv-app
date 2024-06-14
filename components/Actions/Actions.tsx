@@ -45,7 +45,6 @@ export default function Actions({
   const download = () => {
     setIsPrinting(true);
     prevTheme.current = theme;
-    console.log(prevTheme);
     setTheme('g10');
   };
 

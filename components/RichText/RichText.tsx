@@ -77,11 +77,9 @@ export default function RichText({
 
   const placeholder = useMemo(() => {
     const html = generateHTML(JSON.parse(props), dependencies);
-    return !input
-      ? html
-      : html.replace(/<p([^>]*?)>/g, (_, attributes) => {
-          return `<p ${attributes} class="${className}">`; // apply args css styling for inputs
-        });
+    return html.replace(/<p([^>]*?)>/g, (_, attributes) => {
+      return `<p ${attributes} class="${className}">`; // apply args css styling for inputs
+    });
   }, [props]);
 
   const editor = useEditor({
