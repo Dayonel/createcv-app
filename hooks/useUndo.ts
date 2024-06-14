@@ -29,7 +29,7 @@ export const useUndo = (json: string) => {
     setIndex(history.length); // Update index to point to new state
   };
 
-  const reset = () => {
+  const resetHistory = () => {
     setHistory([]);
     setIndex(0);
   };
@@ -41,6 +41,6 @@ export const useUndo = (json: string) => {
     redo,
     canUndo: index > 0,
     canRedo: index < history.length - 1,
-    reset,
+    resetHistory,
   };
 };

@@ -1,7 +1,7 @@
 'use client';
 import Actions from './Actions/Actions';
 import styles from './CV.module.scss';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Contact, { ContactProps } from './Contact/Contact';
 import RichText from './RichText/RichText';
 import Single from './Section/Single';
@@ -17,20 +17,20 @@ import ContactPlaceholder from './Placeholder/ContactPlaceholder';
 import Transition from './Animations/Transition';
 import { useUndo } from '@/hooks/useUndo';
 import { Form } from '@/types/Form';
-import { setCookie } from '@/actions/cookies';
+import { deleteCookie, setCookie } from '@/actions/cookies';
 import { FormContext } from './FormProvider';
 import { InlineLoading } from '@carbon/react';
+import { useTheme } from 'next-themes';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
-  const { state, setState, undo, redo, canUndo, canRedo, reset } = useUndo(
-    JSON.stringify(data)
-  );
+  const { state, setState, undo, redo, canUndo, canRedo, resetHistory } =
+    useUndo(JSON.stringify(data));
   const [form, setForm] = useState<Form>(JSON.parse(state));
   const [edit, setEdit] = useState(false);
   const { color, setColor } = useColorStore();
-
-  const [updateHistory, setUpdateHistory] = useState(false);
+  const { theme } = useTheme();
+  const updateHistory = useRef(false);
   const [mounted, setMounted] = useState(false);
   const savedForm = useContext(FormContext);
 
@@ -38,13 +38,16 @@ export default function CV() {
   useEffect(() => {
     if (!mounted) return;
 
-    if (updateHistory) {
+    if (updateHistory.current) {
       setState(JSON.stringify(form));
     }
-    setUpdateHistory(true);
+
+    updateHistory.current = true;
 
     localStorage.setItem('form', JSON.stringify(form, replacer));
-    setCookie('savedForm', 'yes');
+    if (canUndo) {
+      setCookie('savedForm', 'yes');
+    }
 
     // console.log(JSON.stringify(form, replacer));
   }, [form]);
@@ -53,12 +56,12 @@ export default function CV() {
     key === 'key' || key === 'empty' ? undefined : value;
 
   useEffect(() => {
-    setUpdateHistory(false);
+    updateHistory.current = false;
     setForm(JSON.parse(state));
   }, [state]);
 
   useEffect(() => {
-    setUpdateHistory(false);
+    updateHistory.current = false;
     setForm({ ...form, color });
   }, [color]);
 
@@ -70,13 +73,22 @@ export default function CV() {
 
       const parsed = JSON.parse(userFrom);
       setForm({ ...traverseUUID(parsed) });
-      setColor(parsed.color, true);
-      setState(JSON.stringify(parsed));
-      reset();
+      if (parsed.color !== '#0f62fe' && parsed.color !== '#78a9ff') {
+        setColor(parsed.color, true);
+      }
+      resetHistory();
     } finally {
       setMounted(true);
+      updateHistory.current = true;
     }
   }, []);
+
+  const resetForm = () => {
+    setForm({ ...traverseUUID(placeholder) });
+    setColor(theme === 'g10' ? '#0f62fe' : '#78a9ff', false);
+    updateHistory.current = false;
+    deleteCookie('savedForm');
+  };
 
   const sections = {
     Single,
@@ -192,6 +204,7 @@ export default function CV() {
               onUndo={() => undo()}
               onRedo={() => redo()}
               onEdit={setEdit}
+              onReset={() => resetForm()}
             ></Actions>
             <div className="flex flex-col gap-1">
               <div className={`${styles.contact}`}>
