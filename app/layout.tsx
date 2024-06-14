@@ -26,6 +26,8 @@ const roboto = localFont({
   display: 'swap',
 });
 
+export const runtime = 'edge';
+
 export const metadata: Metadata = {
   title: 'Create CV',
   description:
