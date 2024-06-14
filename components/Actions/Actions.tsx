@@ -5,11 +5,12 @@ import {
   Redo,
   Undo,
 } from '@carbon/icons-react';
-import { useEffect, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './Actions.module.scss';
-import { IconButton, Menu, MenuItem } from '@carbon/react';
+import { IconButton, InlineLoading } from '@carbon/react';
 import ColorPicker from './ColorPicker';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useTheme } from 'next-themes';
 
 export interface ActionsProps {
   onEdit: (e: boolean) => void;
@@ -27,9 +28,35 @@ export default function Actions({
   onRedo,
 }: ActionsProps) {
   const [edit, setEdit] = useState(false);
-  const download = () => window.print();
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick(() => setOpen(false));
+  const { theme, setTheme } = useTheme();
+  const prevTheme = useRef<string>();
+
+  // print
+  useEffect(() => {
+    window.addEventListener('afterprint', afterPrint);
+
+    return () => window.removeEventListener('afterprint', afterPrint);
+  }, []);
+  const afterPrint = () => setTheme(prevTheme.current!);
+
+  const [isPrinting, setIsPrinting] = useState(false);
+  const download = () => {
+    setIsPrinting(true);
+    prevTheme.current = theme;
+    console.log(prevTheme);
+    setTheme('g10');
+  };
+
+  const deferredPrinting = useDeferredValue(isPrinting);
+
+  useEffect(() => {
+    if (isPrinting === true) {
+      setIsPrinting(false);
+      window.print();
+    }
+  }, [deferredPrinting]);
 
   useEffect(() => {
     if (onEdit) {
@@ -114,8 +141,13 @@ export default function Actions({
         kind="ghost"
         align="bottom"
         onClick={() => download()}
+        disabled={isPrinting}
       >
-        <Download size={24}></Download>
+        {isPrinting ? (
+          <InlineLoading className="flex justify-center"></InlineLoading>
+        ) : (
+          <Download size={24}></Download>
+        )}
       </IconButton>
     </div>
   );
