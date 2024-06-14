@@ -19,11 +19,11 @@ import { useUndo } from '@/hooks/useUndo';
 import { Form } from '@/types/Form';
 import { setCookie } from '@/actions/cookies';
 import { FormContext } from './FormProvider';
-import { InlineLoading, Loading } from '@carbon/react';
+import { InlineLoading } from '@carbon/react';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
-  const { state, setState, undo, redo, canUndo, canRedo } = useUndo(
+  const { state, setState, undo, redo, canUndo, canRedo, reset } = useUndo(
     JSON.stringify(data)
   );
   const [form, setForm] = useState<Form>(JSON.parse(state));
@@ -71,6 +71,8 @@ export default function CV() {
       const parsed = JSON.parse(userFrom);
       setForm({ ...traverseUUID(parsed) });
       setColor(parsed.color, true);
+      setState(JSON.stringify(parsed));
+      reset();
     } finally {
       setMounted(true);
     }
