@@ -127,17 +127,19 @@ export default function Language({
             </div>
           )}
         </div>
-        <Transition edit={edit}>
-          <Action
-            active={{
-              fill: 'rgba(255, 70, 70, 0.95)',
-              background: 'rgba(255, 70, 70, 0.1)',
-            }}
-            onClick={() => onDelete()}
-          >
-            <TrashCan></TrashCan>
-          </Action>
-        </Transition>
+        <div className="print:hidden">
+          <Transition edit={edit}>
+            <Action
+              active={{
+                fill: 'rgba(255, 70, 70, 0.95)',
+                background: 'rgba(255, 70, 70, 0.1)',
+              }}
+              onClick={() => onDelete()}
+            >
+              <TrashCan></TrashCan>
+            </Action>
+          </Transition>
+        </div>
       </div>
     </>
   );

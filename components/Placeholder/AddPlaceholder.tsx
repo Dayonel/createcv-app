@@ -19,29 +19,31 @@ export default forwardRef<HTMLButtonElement, AddPlaceholderProps>(
     ref
   ) {
     return (
-      <Transition
-        edit={edit}
-        className={classNames('add-placeholder', className)}
-      >
-        <div
-          className={`${classNames(
-            styles.skeleton,
-            skeletonClassName
-          )} flex items-center w-full`}
+      <div className="print:hidden">
+        <Transition
+          edit={edit}
+          className={classNames('add-placeholder', className)}
         >
-          <IconButton
-            ref={ref}
-            {...props}
-            label={label}
-            size="sm"
-            kind="ghost"
-            align="bottom"
-            className={buttonClassName}
+          <div
+            className={`${classNames(
+              styles.skeleton,
+              skeletonClassName
+            )} flex items-center w-full print:hidden`}
           >
-            <Add></Add>
-          </IconButton>
-        </div>
-      </Transition>
+            <IconButton
+              ref={ref}
+              {...props}
+              label={label}
+              size="sm"
+              kind="ghost"
+              align="bottom"
+              className={buttonClassName}
+            >
+              <Add></Add>
+            </IconButton>
+          </div>
+        </Transition>
+      </div>
     );
   }
 );

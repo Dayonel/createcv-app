@@ -1,7 +1,7 @@
 'use client';
 import Actions from './Actions/Actions';
 import styles from './CV.module.scss';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Contact, { ContactProps } from './Contact/Contact';
 import RichText from './RichText/RichText';
 import Single from './Section/Single';
@@ -13,7 +13,7 @@ import Placeholder from './Placeholder/Placeholder';
 import useColorStore from '@/store/colorStore';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
-import ContactPlaceholder from './Contact/ContactPlaceholder';
+import ContactPlaceholder from './Placeholder/ContactPlaceholder';
 import Transition from './Animations/Transition';
 import { useUndo } from '@/hooks/useUndo';
 import { Form } from '@/types/Form';
@@ -215,14 +215,16 @@ export default function CV() {
               ></Sortable>
             )}
           </div>
-          <Transition className="block w-fit" edit={edit}>
-            <ContactPlaceholder
-              onAdd={(e) => {
-                form.contacts.push({ ...e, key: v4(), empty: true });
-                setForm({ ...form });
-              }}
-            ></ContactPlaceholder>
-          </Transition>
+          <div className="print:hidden">
+            <Transition className="block w-fit" edit={edit}>
+              <ContactPlaceholder
+                onAdd={(e) => {
+                  form.contacts.push({ ...e, key: v4(), empty: true });
+                  setForm({ ...form });
+                }}
+              ></ContactPlaceholder>
+            </Transition>
+          </div>
         </div>
 
         <div className="col-span-2 md:col-span-1 print:col-span-1 relative">

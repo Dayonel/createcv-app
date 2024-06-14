@@ -101,17 +101,19 @@ export default function Single({
                 </div>
               </Divider>
               {!last && (
-                <Transition edit={edit}>
-                  <Action
-                    active={{
-                      fill: 'rgba(255, 70, 70, 0.95)',
-                      background: 'rgba(255, 70, 70, 0.1)',
-                    }}
-                    onClick={() => onDeleteSection(props.key)}
-                  >
-                    <TrashCan></TrashCan>
-                  </Action>
-                </Transition>
+                <div className="print:hidden">
+                  <Transition edit={edit}>
+                    <Action
+                      active={{
+                        fill: 'rgba(255, 70, 70, 0.95)',
+                        background: 'rgba(255, 70, 70, 0.1)',
+                      }}
+                      onClick={() => onDeleteSection(props.key)}
+                    >
+                      <TrashCan></TrashCan>
+                    </Action>
+                  </Transition>
+                </div>
               )}
             </div>
           )}
@@ -143,20 +145,22 @@ export default function Single({
                     edit={edit}
                   ></SingleContent>
                   {content.indexOf(props) > 0 && (
-                    <Transition
-                      edit={edit}
-                      className="absolute right-0 -translate-y-full"
-                    >
-                      <Action
-                        active={{
-                          fill: 'rgba(255, 70, 70, 0.95)',
-                          background: 'rgba(255, 70, 70, 0.1)',
-                        }}
-                        onClick={() => deleteContent()}
+                    <div className="print:hidden">
+                      <Transition
+                        edit={edit}
+                        className="absolute right-0 -translate-y-full"
                       >
-                        <TrashCan></TrashCan>
-                      </Action>
-                    </Transition>
+                        <Action
+                          active={{
+                            fill: 'rgba(255, 70, 70, 0.95)',
+                            background: 'rgba(255, 70, 70, 0.1)',
+                          }}
+                          onClick={() => deleteContent()}
+                        >
+                          <TrashCan></TrashCan>
+                        </Action>
+                      </Transition>
+                    </div>
                   )}
                 </>
               )}

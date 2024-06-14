@@ -15,17 +15,19 @@ export default forwardRef<HTMLDivElement, PlaceholderProps>(
     ref
   ) {
     return (
-      <Transition edit={edit} className="w-full">
-        <div className={classNames(styles.children, childrenClassName)}>
-          {children}
-          <div
-            ref={ref}
-            {...props}
-            className={classNames(styles.placeholder, className)}
-            data-placeholder={props.placeholder}
-          ></div>
-        </div>
-      </Transition>
+      <div className="print:hidden">
+        <Transition edit={edit} className="w-full">
+          <div className={classNames(styles.children, childrenClassName)}>
+            {children}
+            <div
+              ref={ref}
+              {...props}
+              className={classNames(styles.placeholder, className)}
+              data-placeholder={props.placeholder}
+            ></div>
+          </div>
+        </Transition>
+      </div>
     );
   }
 );
