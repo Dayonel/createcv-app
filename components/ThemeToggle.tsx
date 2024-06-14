@@ -1,44 +1,27 @@
-'use client';
+import { setCookie } from '@/actions/cookies';
 import { Asleep, Light } from '@carbon/icons-react';
-import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import { useContext, useEffect, useState } from 'react';
+import { CookieThemeContext } from './CookieThemeProvider';
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState('');
+  const cookieTheme = useContext(CookieThemeContext);
+  const [serverTheme, setServerTheme] = useState<string | undefined>(
+    () => cookieTheme
+  );
+  const { theme, setTheme } = useTheme();
 
-  // system preference
   useEffect(() => {
-    // system preference
-    const userPreference = localStorage.getItem('theme');
-    if (!userPreference) {
-      console.log('system preference');
-      const dark =
-        window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (dark) {
-        setTheme('g90');
-      }
-    } else {
-      setTheme(userPreference);
+    if (theme) {
+      setCookie('theme', theme);
     }
-  }, []);
 
-  // update theme
-  useEffect(() => {
-    if (!theme) return;
-
-    document.documentElement.dataset.carbonTheme = theme;
-  }, [theme]);
-
-  // local storage
-  useEffect(() => {
-    if (!theme) return;
-
-    localStorage.setItem('theme', theme!);
+    setServerTheme(theme);
   }, [theme]);
 
   return (
     <span className="menu-item">
-      {theme === 'g90' ? (
+      {serverTheme === 'g90' ? (
         <button aria-label="theme toggle" onClick={() => setTheme('g10')}>
           <Light size={24}></Light>
         </button>

@@ -1,5 +1,7 @@
-import useColorStore from '@/store/useStore';
+import useColorStore from '@/store/colorStore';
 import styles from './Divider.module.scss';
+import { useContext } from 'react';
+import { ColorContext } from './ColorProvider';
 
 interface DividerProps {
   dashed?: boolean;
@@ -7,6 +9,7 @@ interface DividerProps {
 }
 
 export default function Divider({ dashed, children }: DividerProps) {
+  const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
 
   return (
@@ -15,7 +18,7 @@ export default function Divider({ dashed, children }: DividerProps) {
         className={`relative overflow-x-clip ${styles.divider} ${
           dashed ? 'after:border-dashed' : 'after:border-solid'
         }`}
-        style={{ color }}
+        style={{ color: serverColor || color }}
       >
         {children}
       </div>

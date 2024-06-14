@@ -10,7 +10,7 @@ import placeholder from '../data/placeholder.json';
 import { traverseUUID } from '@/utils/traverseUUID';
 import Sortable from './DndKit/Sortable';
 import Placeholder from './Placeholder/Placeholder';
-import useColorStore from '@/store/useStore';
+import useColorStore from '@/store/colorStore';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
 import ContactPlaceholder from './Contact/ContactPlaceholder';
@@ -27,6 +27,7 @@ export default function CV() {
   const [form, setForm] = useState<Form>(JSON.parse(state));
   const [edit, setEdit] = useState(false);
   const { color } = useColorStore();
+
   const [updateHistory, setUpdateHistory] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -63,7 +64,7 @@ export default function CV() {
       const userFrom = localStorage.getItem('form');
       if (!userFrom) return;
 
-      setForm((prev) => (prev = traverseUUID(JSON.parse(userFrom))));
+      setForm(traverseUUID(JSON.parse(userFrom)));
     } finally {
       setMounted(true);
     }

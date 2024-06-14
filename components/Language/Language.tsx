@@ -1,12 +1,14 @@
 import './Language.scss';
 import { Language as LanguageType } from '@/types/Language';
 import RichText from '../RichText/RichText';
-import useColorStore from '@/store/useStore';
+import useColorStore from '@/store/colorStore';
 import Placeholder from '../Placeholder/Placeholder';
 import { getEmptyText } from '@/utils/richTextUtils';
 import Transition from '../Animations/Transition';
 import Action from '../DndKit/components/Action/Action';
 import { TrashCan } from '@carbon/icons-react';
+import { useContext } from 'react';
+import { ColorContext } from '../ColorProvider';
 
 export interface LanguageProps {
   props: LanguageType;
@@ -27,6 +29,7 @@ export default function Language({
   onControlsVisible,
   edit,
 }: LanguageProps) {
+  const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
 
   return (
@@ -116,7 +119,9 @@ export default function Language({
                 }}
                 style={{
                   backgroundSize: `${Math.min(props.rating * 10, 100)}%`,
-                  backgroundImage: `linear-gradient(${color}, ${color})`,
+                  backgroundImage: `linear-gradient(${serverColor || color}, ${
+                    serverColor || color
+                  })`,
                 }}
               ></input>
             </div>

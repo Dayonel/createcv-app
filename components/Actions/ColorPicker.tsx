@@ -1,34 +1,19 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import useColorStore from '@/store/useStore';
+import useColorStore from '@/store/colorStore';
 import { TextColor } from '@carbon/icons-react';
-import { IconButton } from '@carbon/react';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { IconButton, useTheme } from '@carbon/react';
+import { useEffect, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 
 export default function ColorPicker() {
   const [show, setShow] = useState(false);
-  const [theme, setTheme] = useState<string>();
+  const { theme } = useTheme();
   const ref = useOutsideClick(() => setShow(false));
   const { color, setColor, overriden } = useColorStore();
 
-  useLayoutEffect(() => {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'data-carbon-theme') {
-          const theme =
-            (document.documentElement as HTMLElement).dataset.carbonTheme || '';
-          setTheme(theme);
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
-    return () => observer.disconnect();
-  }, []);
-
   useEffect(() => {
     if (overriden) return;
+
     setColor(theme === 'g10' ? '#0f62fe' : '#78a9ff');
   }, [theme]);
 

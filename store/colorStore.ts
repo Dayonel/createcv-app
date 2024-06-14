@@ -7,7 +7,7 @@ type ColorStore = {
 };
 
 const useColorStore = create<ColorStore>((set) => ({
-  color: '#0f62fe',
+  color: '',
   setColor: (color: string, overriden?: boolean) => set({ color, overriden }),
   overriden: false,
 }));

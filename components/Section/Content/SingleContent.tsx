@@ -1,9 +1,11 @@
 import RichText from '@/components/RichText/RichText';
 import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
-import useColorStore from '@/store/useStore';
+import useColorStore from '@/store/colorStore';
 import Placeholder from '@/components/Placeholder/Placeholder';
 import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
+import { useContext } from 'react';
+import { ColorContext } from '@/components/ColorProvider';
 
 export interface SingleContentProps {
   props: SingleContentType;
@@ -18,6 +20,7 @@ export default function SingleContent({
   onRemove,
   edit,
 }: SingleContentProps) {
+  const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
 
   return (
@@ -59,7 +62,7 @@ export default function SingleContent({
             <div>
               {props.date !== undefined && (
                 <div className="flex items-center pl-[6px]">
-                  <Calendar fill={color}></Calendar>
+                  <Calendar fill={serverColor || color}></Calendar>
                   <RichText
                     className="font-bold text-xs max-w-xs"
                     props={props.date}
@@ -90,7 +93,7 @@ export default function SingleContent({
                     onChange();
                   }}
                 >
-                  <Calendar fill={color}></Calendar>
+                  <Calendar fill={serverColor || color}></Calendar>
                 </Placeholder>
               )}
             </div>
