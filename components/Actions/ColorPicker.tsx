@@ -16,7 +16,6 @@ export default function ColorPicker() {
     if (overriden) return;
 
     setColor(theme && theme === 'g10' ? '#0f62fe' : '#78a9ff');
-    console.log(theme)
   }, [theme]);
 
   return (

@@ -8,12 +8,13 @@ export interface ActionProps extends React.HTMLAttributes<HTMLButtonElement> {
     fill: string;
     background?: string;
   };
+  fill?: string;
   cursor?: CSSProperties['cursor'];
   reverseRemove?: boolean;
 }
 
 export default forwardRef<HTMLButtonElement, ActionProps>(function Action(
-  { active, className, reverseRemove, cursor, style, ...props },
+  { active, className, reverseRemove, cursor, style, fill, ...props },
   ref
 ) {
   return (
@@ -26,7 +27,7 @@ export default forwardRef<HTMLButtonElement, ActionProps>(function Action(
         {
           ...style,
           cursor,
-          '--fill': active?.fill,
+          '--fill': fill || active?.fill,
           '--background': active?.background,
         } as CSSProperties
       }

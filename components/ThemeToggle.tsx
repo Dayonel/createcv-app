@@ -3,6 +3,7 @@ import { Asleep, Light } from '@carbon/icons-react';
 import { useTheme } from 'next-themes';
 import { useContext, useEffect, useState } from 'react';
 import { CookieThemeContext } from './CookieThemeProvider';
+import Action from './DndKit/components/Action/Action';
 
 export default function ThemeToggle() {
   const cookieTheme = useContext(CookieThemeContext);
@@ -22,13 +23,13 @@ export default function ThemeToggle() {
   return (
     <span className="menu-item">
       {serverTheme === 'g90' ? (
-        <button aria-label="theme toggle" onClick={() => setTheme('g10')}>
+        <Action fill="var(--cds-text-primary)" onClick={() => setTheme('g10')}>
           <Light size={24}></Light>
-        </button>
+        </Action>
       ) : (
-        <button aria-label="theme toggle" onClick={() => setTheme('g90')}>
+        <Action fill="var(--cds-text-primary)" onClick={() => setTheme('g90')}>
           <Asleep size={24}></Asleep>
-        </button>
+        </Action>
       )}
     </span>
   );

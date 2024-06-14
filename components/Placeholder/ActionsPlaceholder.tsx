@@ -25,7 +25,7 @@ export default function ActionsPlaceholder({
         <div className="print:hidden flex items-cente justify-center w-full px-[6px] mb-2">
           <div className={styles.wrapper}></div>
           <div className="flex items-center justify-center">
-            <Action onClick={() => onAdd()}>
+            <Action fill="var(--cds-text-primary)" onClick={() => onAdd()}>
               <div className="flex items-center gap-1">
                 <Add></Add>
                 <span className="text-xs">Add</span>
@@ -33,6 +33,7 @@ export default function ActionsPlaceholder({
             </Action>
             {duplicate && (
               <Action
+                fill="var(--cds-text-primary)"
                 onClick={() => {
                   if (onDuplicate) {
                     onDuplicate();

@@ -13,7 +13,7 @@ export default function Header() {
         <span className="menu-item">
           <DocumentPdf size={24}></DocumentPdf>
         </span>
-        <div className="flex items-center">
+        <div className="flex gap-1 items-center">
           <ThemeToggle></ThemeToggle>
           <Login></Login>
         </div>
