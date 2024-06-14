@@ -70,6 +70,17 @@ export default function CV() {
     }
   }, []);
 
+  const sections = {
+    Single,
+    Double,
+  };
+
+  const deleteSection = (key: string) => {
+    const i = form.sections.findIndex((f) => f.key === key);
+    form.sections.splice(i, 1);
+    setForm({ ...form });
+  };
+
   const addSection = () => {
     const i = form.sections.filter((f) => f.type === 'Single').length;
     form.sections.splice(i, 0, {
@@ -89,17 +100,6 @@ export default function CV() {
       ],
       empty: true,
     });
-    setForm({ ...form });
-  };
-
-  const sections = {
-    Single,
-    Double,
-  };
-
-  const deleteSection = (key: string) => {
-    const i = form.sections.findIndex((f) => f.key === key);
-    form.sections.splice(i, 1);
     setForm({ ...form });
   };
 
@@ -254,8 +254,6 @@ export default function CV() {
       <div className={styles.sections}>
         {form.sections &&
           form.sections.map((s, i) => {
-            const lastIndex =
-              form.sections.filter((f) => f.type === 'Single').length - 1;
             const Component = sections[s.type as keyof typeof sections];
             return (
               <div className="flex flex-col gap-4" key={s.key}>
@@ -273,14 +271,11 @@ export default function CV() {
                   last={
                     form.sections.filter((z) => z.type === s.type).length === 1
                   }
+                  lastIndex={
+                    form.sections.filter((f) => f.type === s.type).length - 1
+                  }
+                  onAddSection={addSection}
                 ></Component>
-                {i === lastIndex && (
-                  <AddPlaceholder
-                    edit={edit}
-                    onClick={() => addSection()}
-                    label="+ Section"
-                  ></AddPlaceholder>
-                )}
               </div>
             );
           })}

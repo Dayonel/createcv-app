@@ -16,6 +16,7 @@ interface SingleProps {
   props: SingleType;
   onChange: () => void;
   onRemove: (full: boolean) => void;
+  onAddSection: () => void;
   onDeleteSection: (e: string) => void;
   edit: boolean;
   last: boolean;
@@ -25,6 +26,7 @@ export default function Single({
   props,
   onChange,
   onRemove,
+  onAddSection,
   onDeleteSection,
   edit,
   last,
@@ -184,6 +186,11 @@ export default function Single({
           </div>
         </div>
       )}
+      <AddPlaceholder
+        edit={edit}
+        onClick={() => onAddSection()}
+        label="+ Section"
+      ></AddPlaceholder>
     </>
   );
 }
