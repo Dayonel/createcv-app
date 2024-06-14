@@ -8,6 +8,7 @@ import { cookies } from 'next/headers';
 import { ThemeProvider } from 'next-themes';
 import { CookieThemeProvider } from '@/components/CookieThemeProvider';
 import { ColorProvider } from '@/components/ColorProvider';
+import { FormProvider } from '@/components/FormProvider';
 
 const roboto = localFont({
   src: [
@@ -47,6 +48,7 @@ export default function RootLayout({
 }>) {
   const cookieStore = cookies();
   const cookieTheme = cookieStore.get('theme')?.value || 'g10';
+  const savedForm = cookieStore.get('savedForm')?.value;
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -60,13 +62,15 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
-                <Header></Header>
-                <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
-                  {children}
-                </main>
-                <Footer></Footer>
-              </div>
+              <FormProvider savedForm={savedForm}>
+                <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
+                  <Header></Header>
+                  <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
+                    {children}
+                  </main>
+                  <Footer></Footer>
+                </div>
+              </FormProvider>
             </ThemeProvider>
           </ColorProvider>
         </CookieThemeProvider>

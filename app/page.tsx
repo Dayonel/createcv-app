@@ -2,7 +2,7 @@ import CV from '@/components/CV';
 
 export default function Home() {
   return (
-    <section>
+    <section className='h-full'>
       <CV></CV>
     </section>
   );
