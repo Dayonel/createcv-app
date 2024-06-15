@@ -29,7 +29,7 @@ export default function CV() {
     useUndo(JSON.stringify(data));
   const [form, setForm] = useState<Form>(JSON.parse(state));
   const [edit, setEdit] = useState(false);
-  const { color, setColor } = useColorStore();
+  const { color, overriden, setColor } = useColorStore();
   const { theme } = useTheme();
   const updateHistory = useRef(false);
   const [mounted, setMounted] = useState(false);
@@ -65,6 +65,9 @@ export default function CV() {
 
   useEffect(() => {
     updateHistory.current = false;
+    if (overriden) {
+      setCookie('savedForm', 'yes');
+    }
     setForm({ ...form, color });
   }, [color]);
 
