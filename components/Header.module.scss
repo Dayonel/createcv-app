@@ -4,3 +4,7 @@
   background-color: tokens.$background;
   border-bottom: 1px solid tokens.$background-hover;
 }
+
+.logo {
+  color: var(--cds-text-primary);
+}
