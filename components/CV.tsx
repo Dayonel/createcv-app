@@ -21,6 +21,7 @@ import { FormContext } from './FormProvider';
 import { InlineLoading } from '@carbon/react';
 import { useTheme } from 'next-themes';
 import { Single as SingleType, SingleContent } from '@/types/Single';
+import ActionButtons from './Placeholder/ActionButtons';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
@@ -33,6 +34,8 @@ export default function CV() {
   const updateHistory = useRef(false);
   const [mounted, setMounted] = useState(false);
   const savedForm = useContext(FormContext);
+  const contacts = useRef<HTMLDivElement>(null);
+  const [contactsOpen, setContactsOpen] = useState(false);
 
   // every update
   useEffect(() => {
@@ -207,7 +210,7 @@ export default function CV() {
               onReset={() => resetForm()}
             ></Actions>
             <div className="flex flex-col gap-1">
-              <div className={`${styles.contact}`}>
+              <div ref={contacts} className={`${styles.contact}`}>
                 {form.contacts && (
                   <Sortable
                     initialItems={form.contacts}
@@ -240,20 +243,24 @@ export default function CV() {
                       });
                     }}
                     wrapperStyle="pl-[6px]"
-                    handle
+                    // handle
                     remove
                   ></Sortable>
                 )}
-              </div>
-              <div className="print:hidden">
-                <Transition className="block w-fit" edit={edit}>
-                  <ContactPlaceholder
-                    onAdd={(e) => {
-                      form.contacts.push({ ...e, key: v4() });
-                      setForm({ ...form });
-                    }}
-                  ></ContactPlaceholder>
-                </Transition>
+                <ActionButtons
+                  add
+                  element={contacts.current}
+                  onAdd={() => setContactsOpen(!contactsOpen)}
+                ></ActionButtons>
+                <ContactPlaceholder
+                  onAdd={(e) => {
+                    form.contacts.push({ ...e, key: v4() });
+                    setForm({ ...form });
+                    setContactsOpen(false);
+                  }}
+                  open={contactsOpen}
+                  onClose={() => setContactsOpen(false)}
+                ></ContactPlaceholder>
               </div>
             </div>
 

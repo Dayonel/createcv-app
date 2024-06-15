@@ -1,5 +1,11 @@
 import './Menu.scss';
-import { CSSProperties, forwardRef, useContext, useEffect, useState } from 'react';
+import {
+  CSSProperties,
+  forwardRef,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import styles from './ContactPlaceholder.module.scss';
 import {
   Email,
@@ -12,73 +18,124 @@ import {
 import placeholder from '../../data/placeholder.json';
 import { getText } from '@/utils/richTextUtils';
 import { Contact } from '@/types/Contact';
-import { MenuButton, MenuItem } from '@carbon/react';
 import useColorStore from '@/store/colorStore';
 import { ColorContext } from '../ColorProvider';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface ContactPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
+  open: boolean;
   onAdd: (e: Contact) => void;
+  onClose: () => void;
 }
 
 export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
-  function ContactPlaceholder({ onAdd, style, ...props }, ref) {
+  function ContactPlaceholder({ open, onAdd, style, onClose, ...props }, ref) {
     const [mounted, setMounted] = useState(false);
     const serverColor = useContext(ColorContext);
-    const { color } = useColorStore(); 
+    const { color } = useColorStore();
+    const wrapper = useOutsideClick(() => onClose());
 
     useEffect(() => {
       setMounted(true);
     }, []);
 
     return (
-      <div {...props} ref={ref} className={`${styles.wrapper} w-full`}>
-        <div className="menu">
-          <MenuButton
-            label=""
-            kind="ghost"
-            menuAlignment="bottom"
-            size="sm"
-            className="contact-menu"
+      <>
+        {open && (
+          <div
+            {...props}
+            ref={ref}
+            className={`print:hidden w-full absolute`}
           >
-            <MenuItem
-              label={getText(placeholder.contacts[0].text)}
-              renderIcon={Email}
-              onClick={() => onAdd(placeholder.contacts[0] as Contact)}
-              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
-            ></MenuItem>
-            <MenuItem
-              label={getText(placeholder.contacts[1].text)}
-              renderIcon={LogoLinkedin}
-              onClick={() => onAdd(placeholder.contacts[1] as Contact)}
-              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
-            ></MenuItem>
-            <MenuItem
-              label={getText(placeholder.contacts[2].text)}
-              renderIcon={Phone}
-              onClick={() => onAdd(placeholder.contacts[2] as Contact)}
-              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
-            ></MenuItem>
-            <MenuItem
-              label={getText(placeholder.contacts[3].text)}
-              renderIcon={LogoGithub}
-              onClick={() => onAdd(placeholder.contacts[3] as Contact)}
-              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
-            ></MenuItem>
-            <MenuItem
-              label={getText(placeholder.contacts[4].text)}
-              renderIcon={LocationFilled}
-              onClick={() => onAdd(placeholder.contacts[4] as Contact)}
-              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
-            ></MenuItem>
-            <MenuItem
-              label={getText(placeholder.contacts[5].text)}
-              renderIcon={Wikis}
-              onClick={() => onAdd(placeholder.contacts[5] as Contact)}
-              style={{ '--fill': mounted ? color : serverColor } as CSSProperties}
-            ></MenuItem>
-          </MenuButton>
-        </div>
-      </div>
+            <ul ref={wrapper} className={styles.menu}>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onAdd(placeholder.contacts[0] as Contact)}
+                  style={
+                    {
+                      '--fill': mounted ? color : serverColor,
+                    } as CSSProperties
+                  }
+                >
+                  <Email></Email>
+                  <span>{getText(placeholder.contacts[0].text)}</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onAdd(placeholder.contacts[1] as Contact)}
+                  style={
+                    {
+                      '--fill': mounted ? color : serverColor,
+                    } as CSSProperties
+                  }
+                >
+                  <LogoLinkedin></LogoLinkedin>
+                  <span>{getText(placeholder.contacts[1].text)}</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onAdd(placeholder.contacts[2] as Contact)}
+                  style={
+                    {
+                      '--fill': mounted ? color : serverColor,
+                    } as CSSProperties
+                  }
+                >
+                  <Phone></Phone>
+                  <span>{getText(placeholder.contacts[2].text)}</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onAdd(placeholder.contacts[3] as Contact)}
+                  style={
+                    {
+                      '--fill': mounted ? color : serverColor,
+                    } as CSSProperties
+                  }
+                >
+                  <LocationFilled></LocationFilled>
+                  <span>{getText(placeholder.contacts[3].text)}</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onAdd(placeholder.contacts[4] as Contact)}
+                  style={
+                    {
+                      '--fill': mounted ? color : serverColor,
+                    } as CSSProperties
+                  }
+                >
+                  <LogoGithub></LogoGithub>
+                  <span>{getText(placeholder.contacts[4].text)}</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onAdd(placeholder.contacts[5] as Contact)}
+                  style={
+                    {
+                      '--fill': mounted ? color : serverColor,
+                    } as CSSProperties
+                  }
+                >
+                  <Wikis></Wikis>
+                  <span>{getText(placeholder.contacts[5].text)}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
+      </>
     );
   }
 );

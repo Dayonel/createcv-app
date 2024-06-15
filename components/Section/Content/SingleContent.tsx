@@ -3,14 +3,17 @@ import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '@/components/Placeholder/Placeholder';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ColorContext } from '@/components/ColorProvider';
 import placeholder from '../../../data/placeholder.json';
+import ActionButtons from '@/components/Placeholder/ActionButtons';
 
 export interface SingleContentProps {
   props: SingleContentType;
   onChange: () => void;
   onRemove: () => void;
+  onAdd: () => void;
+  onDelete: (e: string) => void;
   edit: boolean;
 }
 
@@ -18,11 +21,14 @@ export default function SingleContent({
   props,
   onChange,
   onRemove,
+  onAdd,
   edit,
+  onDelete,
 }: SingleContentProps) {
   const [mounted, setMounted] = useState(false);
   const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
+  const ref = useRef<HTMLDivElement>(null);
 
   const placeholderContent = placeholder.sections.find(
     (f) => f.type === 'Single'
@@ -35,7 +41,7 @@ export default function SingleContent({
   return (
     <>
       {props && (
-        <div className={`relative flex flex-col gap-1`}>
+        <div ref={ref} className={`relative flex flex-col gap-1`}>
           <div className="flex flex-wrap justify-between items-center gap-2">
             <div>
               {props.title !== undefined && (
@@ -189,6 +195,13 @@ export default function SingleContent({
               ></Placeholder>
             )}
           </div>
+          <ActionButtons
+            add
+            element={ref.current}
+            onAdd={onAdd}
+            onRemove={() => onDelete(props.key)}
+            remove
+          ></ActionButtons>
         </div>
       )}
     </>

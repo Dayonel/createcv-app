@@ -9,10 +9,11 @@ import { v4 } from 'uuid';
 import Transition from '../Animations/Transition';
 import Action from '../DndKit/components/Action/Action';
 import { TrashCan } from '@carbon/icons-react';
-import ActionsPlaceholder from '../Placeholder/ActionsPlaceholder';
 import classNames from 'classnames';
 import placeholder from '../../data/placeholder.json';
 import { SingleContent as SingleContentType } from '@/types/Single';
+import ActionButtons from '../Placeholder/ActionButtons';
+import { useRef } from 'react';
 
 interface SingleProps {
   props: SingleType;
@@ -33,6 +34,7 @@ export default function Single({
   edit,
   last,
 }: SingleProps) {
+  const ref = useRef<HTMLDivElement>(null);
   const content = props.content || [];
 
   const handleRemove = () => {
@@ -68,8 +70,8 @@ export default function Single({
     onChange();
   };
 
-  const deleteContent = () => {
-    const i = content.indexOf(props);
+  const deleteContent = (key: string) => {
+    const i = content.findIndex((f) => f.key === key);
     content.splice(i, 1);
 
     onChange();
@@ -83,105 +85,84 @@ export default function Single({
   return (
     <>
       {props && (
-        <div className="relative">
-          {props.name !== undefined && (
-            <>
-              <div className="flex items-center w-full">
-                <Divider
-                  className={classNames(
-                    edit ? 'hidden' : 'block',
-                    'print:block'
-                  )}
-                >
-                  <div className="inline-block">
-                    <div className="flex items-center">
-                      <RichText
-                        props={props.name}
-                        className={`max-w-48 print:max-w-lg md:max-w-lg text-sm uppercase font-bold inline-block`}
-                        input
-                        onChange={(e) => {
-                          props.name = e;
-                          onChange();
-                        }}
-                        onRemove={() => {
-                          delete props.name;
-                          handleRemove();
-                        }}
-                      ></RichText>
-                    </div>
-                  </div>
-                </Divider>
-                <ActionsPlaceholder
-                  edit={edit}
-                  onAdd={() => addContent()}
-                  onDuplicate={() => onAddSection(props.key)}
-                  onDelete={() => onDeleteSection(props.key)}
-                  duplicate
-                  remove={!last}
-                ></ActionsPlaceholder>
-              </div>
-            </>
-          )}
-          {!props.name && (
-            <Placeholder
-              edit={edit}
-              className={`text-sm font-bold inline-block`}
-              childrenClassName="flex-row-reverse"
-              placeholder="SECTION"
-              onClick={() => {
-                props.name = placeholderSingle.name;
-                onChange();
-              }}
-            >
-              <Divider dashed></Divider>
-            </Placeholder>
-          )}
-
-          <div className={`relative flex flex-col gap-5 pt-[1px]`}>
-            <Sortable
-              initialItems={content}
-              renderItem={({ props }: SingleContentProps) => (
-                <>
-                  <SingleContent
-                    props={props}
-                    onChange={onChange}
-                    onRemove={handleRemove}
-                    edit={edit}
-                  ></SingleContent>
-
-                  {content.indexOf(props) > 0 && (
-                    <div className="print:hidden">
-                      <Transition
-                        edit={edit}
-                        className="absolute top-0 right-1 translate-x-full"
-                      >
-                        <Action
-                          active={{
-                            fill: 'rgba(255, 70, 70, 0.95)',
-                            background: 'rgba(255, 70, 70, 0.1)',
+        <>
+          <div ref={ref} className="relative">
+            {props.name !== undefined && (
+              <>
+                <div className="flex items-center w-full">
+                  <Divider>
+                    <div className="inline-block">
+                      <div className="flex items-center">
+                        <RichText
+                          props={props.name}
+                          className={`max-w-48 print:max-w-lg md:max-w-lg text-sm uppercase font-bold inline-block`}
+                          input
+                          onChange={(e) => {
+                            props.name = e;
+                            onChange();
                           }}
-                          onClick={() => deleteContent()}
-                        >
-                          <TrashCan></TrashCan>
-                        </Action>
-                      </Transition>
+                          onRemove={() => {
+                            delete props.name;
+                            handleRemove();
+                          }}
+                        ></RichText>
+                      </div>
                     </div>
-                  )}
-                </>
-              )}
-              onSort={(items: UniqueIdentifier[]) => {
-                if (props.content) {
-                  props.content.sort(
-                    (a, b) => items.indexOf(a.key) - items.indexOf(b.key)
-                  );
+                  </Divider>
+                </div>
+              </>
+            )}
+            {!props.name && (
+              <Placeholder
+                edit={edit}
+                className={`text-sm font-bold inline-block`}
+                childrenClassName="flex-row-reverse"
+                placeholder="SECTION"
+                onClick={() => {
+                  props.name = placeholderSingle.name;
                   onChange();
-                }
-              }}
-              handle={content.length > 1}
-              containerStyle="w-full"
-            ></Sortable>
+                }}
+              >
+                <Divider dashed></Divider>
+              </Placeholder>
+            )}
+
+            <div className={`relative flex flex-col gap-5 pt-[1px]`}>
+              <Sortable
+                initialItems={content}
+                renderItem={({ props }: SingleContentProps) => (
+                  <>
+                    <SingleContent
+                      props={props}
+                      onChange={onChange}
+                      onRemove={handleRemove}
+                      edit={edit}
+                      onAdd={() => addContent()}
+                      onDelete={(e) => deleteContent(e)}
+                    ></SingleContent>
+                  </>
+                )}
+                onSort={(items: UniqueIdentifier[]) => {
+                  if (props.content) {
+                    props.content.sort(
+                      (a, b) => items.indexOf(a.key) - items.indexOf(b.key)
+                    );
+                    onChange();
+                  }
+                }}
+                handle={content.length > 1}
+                containerStyle="w-full"
+              ></Sortable>
+            </div>
           </div>
-        </div>
+          <ActionButtons
+            add
+            remove={!last}
+            element={ref.current}
+            onAdd={() => onAddSection(props.key)}
+            onRemove={() => onDeleteSection(props.key)}
+          ></ActionButtons>
+        </>
       )}
     </>
   );

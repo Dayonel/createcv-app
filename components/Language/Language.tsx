@@ -5,11 +5,11 @@ import useColorStore from '@/store/colorStore';
 import Placeholder from '../Placeholder/Placeholder';
 import Transition from '../Animations/Transition';
 import Action from '../DndKit/components/Action/Action';
-import { TrashCan } from '@carbon/icons-react';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ColorContext } from '../ColorProvider';
 import placeholder from '../../data/placeholder.json';
 import { DoubleContent } from '@/types/Double';
+import ActionButtons from '../Placeholder/ActionButtons';
 
 export interface LanguageProps {
   props: LanguageType;
@@ -33,6 +33,7 @@ export default function Language({
   const [mounted, setMounted] = useState(false);
   const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -45,7 +46,7 @@ export default function Language({
 
   return (
     <>
-      <div className="flex flex-col w-full">
+      <div ref={ref} className="flex flex-col w-full">
         <div className="flex flex-wrap justify-between">
           <div>
             {props.value && (
@@ -133,22 +134,12 @@ export default function Language({
           </div>
         )}
       </div>
-      <div className="print:hidden">
-        <Transition
-          className="absolute right-1 translate-x-full -translate-y-full"
-          edit={edit}
-        >
-          <Action
-            active={{
-              fill: 'rgba(255, 70, 70, 0.95)',
-              background: 'rgba(255, 70, 70, 0.1)',
-            }}
-            onClick={() => onDelete()}
-          >
-            <TrashCan></TrashCan>
-          </Action>
-        </Transition>
-      </div>
+
+      <ActionButtons
+        element={ref.current}
+        onRemove={() => onDelete()}
+        remove
+      ></ActionButtons>
     </>
   );
 }

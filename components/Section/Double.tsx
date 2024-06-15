@@ -6,9 +6,10 @@ import { DoubleContent, Double as DoubleType } from '@/types/Double';
 import RichText from '../RichText/RichText';
 import Placeholder from '../Placeholder/Placeholder';
 import { v4 } from 'uuid';
-import ActionsPlaceholder from '../Placeholder/ActionsPlaceholder';
 import classNames from 'classnames';
 import placeholder from '../../data/placeholder.json';
+import ActionButtons from '../Placeholder/ActionButtons';
+import { useRef } from 'react';
 
 interface DoubleProps {
   props: DoubleType;
@@ -25,6 +26,8 @@ export default function Double({
   edit,
 }: DoubleProps) {
   const content = props.content || [];
+  const skills = useRef<HTMLDivElement>(null);
+  const languages = useRef<HTMLDivElement>(null);
 
   const placeholderDouble = placeholder.sections.find(
     (f) => f.type === 'Double'
@@ -59,15 +62,10 @@ export default function Double({
             return (
               <div key={m.key}>
                 {m.type === 'Skills' ? (
-                  <div className="flex flex-col w-full gap-1">
+                  <div ref={skills} className="flex flex-col w-full gap-1">
                     {m.name !== undefined && (
                       <>
-                        <Divider
-                          className={classNames(
-                            edit ? 'hidden' : 'block',
-                            'print:block'
-                          )}
-                        >
+                        <Divider>
                           <div className="inline-block">
                             <div className="flex items-center">
                               <RichText
@@ -87,10 +85,6 @@ export default function Double({
                             </div>
                           </div>
                         </Divider>
-                        <ActionsPlaceholder
-                          edit={edit}
-                          onAdd={() => addSkill()}
-                        ></ActionsPlaceholder>
                       </>
                     )}
                     {!m.name && (
@@ -114,18 +108,18 @@ export default function Double({
                       onRemove={() => onRemove(false)}
                       edit={edit}
                     ></Skills>
+                    <ActionButtons
+                      add
+                      element={skills.current}
+                      onAdd={() => addSkill()}
+                    ></ActionButtons>
                   </div>
                 ) : (
                   m.type === 'Languages' && (
-                    <div className="flex flex-col w-full">
+                    <div ref={languages} className="flex flex-col w-full">
                       {m.name !== undefined && (
                         <>
-                          <Divider
-                            className={classNames(
-                              edit ? 'hidden' : 'block',
-                              'print:block'
-                            )}
-                          >
+                          <Divider>
                             <div className="inline-block">
                               <div className="flex items-center">
                                 <RichText
@@ -145,10 +139,6 @@ export default function Double({
                               </div>
                             </div>
                           </Divider>
-                          <ActionsPlaceholder
-                            edit={edit}
-                            onAdd={() => addLanguage()}
-                          ></ActionsPlaceholder>
                         </>
                       )}
                       {!m.name && (
@@ -173,6 +163,11 @@ export default function Double({
                           edit={edit}
                         ></Languages>
                       </div>
+                      <ActionButtons
+                        add
+                        element={languages.current}
+                        onAdd={() => addLanguage()}
+                      ></ActionButtons>
                     </div>
                   )
                 )}
