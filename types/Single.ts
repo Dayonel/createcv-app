@@ -1,12 +1,10 @@
-import { Empty } from './Empty';
 import { Key } from './Key';
 
 export type Single = {
   name?: string;
   type: string;
   content?: SingleContent[];
-} & Key &
-  Empty;
+} & Key;
 
 export type SingleContent = {
   title?: string;
@@ -14,5 +12,4 @@ export type SingleContent = {
   date?: string;
   topic?: string;
   description?: string;
-} & Key &
-  Empty;
+} & Key;

@@ -1,10 +1,6 @@
-import Transition from '../Animations/Transition';
 import Sortable from '../DndKit/Sortable';
 import Language, { LanguageProps } from './Language';
 import { Language as LanguageType } from '@/types/Language';
-import { getEmptyText } from '@/utils/richTextUtils';
-import { v4 } from 'uuid';
-import Placeholder from '../Placeholder/Placeholder';
 
 interface LanguagesProps {
   languages: LanguageType[];
@@ -19,17 +15,6 @@ export default function Languages({
   onRemove,
   edit,
 }: LanguagesProps) {
-  const addLanguage = () => {
-    languages.push({
-      value: getEmptyText('Language'),
-      level: getEmptyText('Level'),
-      rating: 10,
-      key: v4(),
-      empty: true,
-    });
-    onChange();
-  };
-
   // TODO: Fix this component
   return (
     <div className="relative flex flex-col gap-3">
@@ -49,7 +34,7 @@ export default function Languages({
                   if (
                     language &&
                     Object.keys(language).filter(
-                      (f) => f !== 'rating' && f !== 'key' && f !== 'empty'
+                      (f) => f !== 'rating' && f !== 'key'
                     ).length === 0
                   ) {
                     languages.splice(i, 1);

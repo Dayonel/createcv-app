@@ -1,6 +1,5 @@
 import { Contact } from './Contact';
 import { Double } from './Double';
-import { Empty } from './Empty';
 import { Single } from './Single';
 
 export type Form = {
@@ -10,4 +9,4 @@ export type Form = {
   contacts: Contact[];
   summary?: string;
   sections: Single[] | Double[];
-} & Empty;
+};

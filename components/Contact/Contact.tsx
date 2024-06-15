@@ -53,7 +53,6 @@ export default function Contact({
         }}
         onControlsVisible={onControlsVisible}
         input
-        empty={props.empty}
       ></RichText>
     </span>
   );

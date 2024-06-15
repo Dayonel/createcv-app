@@ -2,13 +2,13 @@ import styles from './Double.module.scss';
 import Divider from '../Divider';
 import Skills from '../Skills';
 import Languages from '../Language/Languages';
-import { Double as DoubleType } from '@/types/Double';
+import { DoubleContent, Double as DoubleType } from '@/types/Double';
 import RichText from '../RichText/RichText';
 import Placeholder from '../Placeholder/Placeholder';
-import { getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
 import ActionsPlaceholder from '../Placeholder/ActionsPlaceholder';
 import classNames from 'classnames';
+import placeholder from '../../data/placeholder.json';
 
 interface DoubleProps {
   props: DoubleType;
@@ -26,22 +26,27 @@ export default function Double({
 }: DoubleProps) {
   const content = props.content || [];
 
+  const placeholderDouble = placeholder.sections.find(
+    (f) => f.type === 'Double'
+  )!;
+
+  const placeholderLanguage = (placeholderDouble.content![1] as DoubleContent)
+    .languages![0];
+
   const addSkill = () => {
     content[0].skills!.push({
       value: 'Skill',
       key: v4(),
-      empty: true,
     });
     onChange();
   };
 
   const addLanguage = () => {
     content[1].languages!.push({
-      value: getEmptyText('Language'),
-      level: getEmptyText('Level'),
+      value: placeholderLanguage.value,
+      level: placeholderLanguage.level,
       rating: 10,
       key: v4(),
-      empty: true,
     });
     onChange();
   };
@@ -70,7 +75,6 @@ export default function Double({
                                 className={`max-w-xs print:max-w-96 md:max-w-96 text-sm uppercase font-bold inline-block`}
                                 input
                                 remove
-                                empty={m.empty}
                                 onChange={(e) => {
                                   m.name = e;
                                   onChange();
@@ -96,8 +100,7 @@ export default function Double({
                         childrenClassName="flex-row-reverse"
                         placeholder="SECTION"
                         onClick={() => {
-                          m.name = getEmptyText('SECTION');
-                          m.empty = true;
+                          m.name = placeholderDouble.name;
                           onChange();
                         }}
                       >
@@ -130,7 +133,6 @@ export default function Double({
                                   className={`max-w-xs print:max-w-96 md:max-w-96 text-sm uppercase font-bold inline-block`}
                                   input
                                   remove
-                                  empty={m.empty}
                                   onChange={(e) => {
                                     m.name = e;
                                     onChange();
@@ -156,8 +158,7 @@ export default function Double({
                           childrenClassName="flex-row-reverse"
                           placeholder="SECTION"
                           onClick={() => {
-                            m.name = getEmptyText('SECTION');
-                            m.empty = true;
+                            m.name = placeholderDouble.name;
                             onChange();
                           }}
                         >

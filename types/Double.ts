@@ -1,4 +1,3 @@
-import { Empty } from './Empty';
 import { Key } from './Key';
 import { Language } from './Language';
 import { Skill } from './Skill';
@@ -13,5 +12,4 @@ export type DoubleContent = {
   type?: string;
   skills?: Skill[];
   languages?: Language[];
-} & Key &
-  Empty;
+} & Key;

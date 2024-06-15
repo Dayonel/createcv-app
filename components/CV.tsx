@@ -11,7 +11,6 @@ import { traverseUUID } from '@/utils/traverseUUID';
 import Sortable from './DndKit/Sortable';
 import Placeholder from './Placeholder/Placeholder';
 import useColorStore from '@/store/colorStore';
-import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import { v4 } from 'uuid';
 import ContactPlaceholder from './Placeholder/ContactPlaceholder';
 import Transition from './Animations/Transition';
@@ -21,6 +20,7 @@ import { deleteCookie, setCookie } from '@/actions/cookies';
 import { FormContext } from './FormProvider';
 import { InlineLoading } from '@carbon/react';
 import { useTheme } from 'next-themes';
+import { Single as SingleType, SingleContent } from '@/types/Single';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
@@ -53,7 +53,7 @@ export default function CV() {
   }, [form]);
 
   const replacer = (key: string, value: any) =>
-    key === 'key' || key === 'empty' ? undefined : value;
+    key === 'key' ? undefined : value;
 
   useEffect(() => {
     updateHistory.current = false;
@@ -101,24 +101,28 @@ export default function CV() {
     setForm({ ...form });
   };
 
-  const addSection = () => {
-    const i = form.sections.filter((f) => f.type === 'Single').length;
+  const placeholderSection = placeholder.sections.find(
+    (f) => f.type === 'Single'
+  )! as SingleType;
+
+  const placeholderContent = placeholderSection.content![0] as SingleContent;
+
+  const addSection = (key: string) => {
+    const i = form.sections.findIndex((f) => f.key === key) + 1;
     form.sections.splice(i, 0, {
       key: v4(),
-      name: getEmptyText('SECTION'),
+      name: placeholderSection.name,
       type: 'Single',
       content: [
         {
           key: v4(),
-          title: getEmptyText('Heading 2'),
-          subtitle: getEmptyText('Heading 3'),
-          date: getEmptyText(new Date().getFullYear().toString()),
-          topic: getEmptyText('Text'),
-          description: getEmptyParagraph(),
-          empty: true,
+          title: placeholderContent.title,
+          subtitle: placeholderContent.subtitle,
+          date: placeholderContent.date,
+          topic: placeholderContent.topic,
+          description: placeholderContent.description,
         },
       ],
-      empty: true,
     });
     setForm({ ...form });
   };
@@ -147,7 +151,6 @@ export default function CV() {
                     }}
                     input
                     remove
-                    empty={form.empty}
                   ></RichText>
                 )}
                 {!form.title && (
@@ -158,8 +161,7 @@ export default function CV() {
                     onClick={() =>
                       setForm({
                         ...form,
-                        title: getEmptyText('Heading 1'),
-                        empty: true,
+                        title: placeholder.title,
                       })
                     }
                   ></Placeholder>
@@ -179,7 +181,6 @@ export default function CV() {
                     }}
                     input
                     remove
-                    empty={form.empty}
                   ></RichText>
                 )}
                 {!form.subtitle && (
@@ -190,8 +191,7 @@ export default function CV() {
                     onClick={() =>
                       setForm({
                         ...form,
-                        subtitle: getEmptyText('Heading 3'),
-                        empty: true,
+                        subtitle: placeholder.subtitle,
                       })
                     }
                   ></Placeholder>
@@ -249,7 +249,7 @@ export default function CV() {
                 <Transition className="block w-fit" edit={edit}>
                   <ContactPlaceholder
                     onAdd={(e) => {
-                      form.contacts.push({ ...e, key: v4(), empty: true });
+                      form.contacts.push({ ...e, key: v4() });
                       setForm({ ...form });
                     }}
                   ></ContactPlaceholder>
@@ -277,7 +277,7 @@ export default function CV() {
                   className="text-xs text-justify leading-normal min-h-[74px] !pl-4 w-full"
                   placeholder="Write something..."
                   onClick={() =>
-                    setForm({ ...form, summary: getEmptyParagraph() })
+                    setForm({ ...form, summary: placeholder.summary })
                   }
                 ></Placeholder>
               )}
@@ -304,7 +304,7 @@ export default function CV() {
                         form.sections.filter((z) => z.type === s.type)
                           .length === 1
                       }
-                      onAddSection={addSection}
+                      onAddSection={(e) => addSection(e)}
                     ></Component>
                   </div>
                 );

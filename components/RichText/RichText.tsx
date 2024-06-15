@@ -27,7 +27,6 @@ interface RichTextProps {
   onControlsVisible?: (e: boolean) => void;
   onRemove?: () => void;
   remove?: boolean;
-  empty?: boolean;
   italic?: boolean;
   reverseRemove?: boolean;
 }
@@ -41,7 +40,6 @@ export default function RichText({
   onControlsVisible,
   onRemove,
   remove,
-  empty,
   italic,
   reverseRemove,
 }: RichTextProps) {
@@ -110,9 +108,6 @@ export default function RichText({
     minWidth.current = ref.current?.scrollWidth;
     if (editor) {
       editor.view.dom.dataset.placeholder = placeholderText;
-      if (empty) {
-        editor.commands.clearContent();
-      }
 
       if (italic) {
         editor.commands.setItalic();

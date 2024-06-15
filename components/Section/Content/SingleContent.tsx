@@ -3,9 +3,9 @@ import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '@/components/Placeholder/Placeholder';
-import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import { useContext, useEffect, useState } from 'react';
 import { ColorContext } from '@/components/ColorProvider';
+import placeholder from '../../../data/placeholder.json';
 
 export interface SingleContentProps {
   props: SingleContentType;
@@ -23,6 +23,10 @@ export default function SingleContent({
   const [mounted, setMounted] = useState(false);
   const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
+
+  const placeholderContent = placeholder.sections.find(
+    (f) => f.type === 'Single'
+  )!.content![0] as SingleContentType;
 
   useEffect(() => {
     setMounted(true);
@@ -48,7 +52,6 @@ export default function SingleContent({
                     delete props.title;
                     onRemove();
                   }}
-                  empty={props.empty}
                 ></RichText>
               )}
               {!props.title && (
@@ -57,8 +60,7 @@ export default function SingleContent({
                   className=" text-base font-bold"
                   placeholder="Heading 2"
                   onClick={() => {
-                    props.title = getEmptyText('Heading 2');
-                    props.empty = true;
+                    props.title = placeholderContent.title;
                     onChange();
                   }}
                 ></Placeholder>
@@ -81,7 +83,6 @@ export default function SingleContent({
                     }}
                     input
                     remove
-                    empty={props.empty}
                   ></RichText>
                 </div>
               )}
@@ -91,10 +92,7 @@ export default function SingleContent({
                   className="text-xs font-bold"
                   placeholder={`Date`}
                   onClick={() => {
-                    props.date = getEmptyText(
-                      new Date().getFullYear().toString()
-                    );
-                    props.empty = true;
+                    props.date = placeholderContent.date;
                     onChange();
                   }}
                 >
@@ -119,7 +117,6 @@ export default function SingleContent({
                   }}
                   input
                   remove
-                  empty={props.empty}
                 ></RichText>
               )}
               {!props.subtitle && (
@@ -128,8 +125,7 @@ export default function SingleContent({
                   className="text-sm font-bold"
                   placeholder="Heading 3"
                   onClick={() => {
-                    props.subtitle = getEmptyText('Heading 3');
-                    props.empty = true;
+                    props.subtitle = placeholderContent.subtitle;
                     onChange();
                   }}
                 ></Placeholder>
@@ -150,7 +146,6 @@ export default function SingleContent({
                   }}
                   input
                   remove
-                  empty={props.empty}
                 ></RichText>
               )}
               {!props.topic && (
@@ -159,8 +154,7 @@ export default function SingleContent({
                   className="text-xs"
                   placeholder="Text"
                   onClick={() => {
-                    props.topic = getEmptyText('Text');
-                    props.empty = true;
+                    props.topic = placeholderContent.topic;
                     onChange();
                   }}
                 ></Placeholder>
@@ -189,7 +183,7 @@ export default function SingleContent({
                 className="text-xs min-h-16 !py-[2px] w-full"
                 placeholder="Write something..."
                 onClick={() => {
-                  props.description = getEmptyParagraph();
+                  props.description = placeholderContent.description;
                   onChange();
                 }}
               ></Placeholder>

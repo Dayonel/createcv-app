@@ -4,7 +4,6 @@ import { UniqueIdentifier } from '@dnd-kit/core';
 import Sortable from '../DndKit/Sortable';
 import SingleContent, { SingleContentProps } from './Content/SingleContent';
 import Placeholder from '../Placeholder/Placeholder';
-import { getEmptyParagraph, getEmptyText } from '@/utils/richTextUtils';
 import RichText from '../RichText/RichText';
 import { v4 } from 'uuid';
 import Transition from '../Animations/Transition';
@@ -12,12 +11,14 @@ import Action from '../DndKit/components/Action/Action';
 import { TrashCan } from '@carbon/icons-react';
 import ActionsPlaceholder from '../Placeholder/ActionsPlaceholder';
 import classNames from 'classnames';
+import placeholder from '../../data/placeholder.json';
+import { SingleContent as SingleContentType } from '@/types/Single';
 
 interface SingleProps {
   props: SingleType;
   onChange: () => void;
   onRemove: (full: boolean) => void;
-  onAddSection: () => void;
+  onAddSection: (e: string) => void;
   onDeleteSection: (e: string) => void;
   edit: boolean;
   last: boolean;
@@ -38,9 +39,8 @@ export default function Single({
     if (
       !last &&
       !props.name &&
-      content
-        .map((m) => Object.keys(m).filter((f) => f !== 'key' && f !== 'empty'))
-        .flat().length === 0
+      content.map((m) => Object.keys(m).filter((f) => f !== 'key')).flat()
+        .length === 0
     ) {
       const i = content.indexOf(props);
       content.splice(i, 1);
@@ -57,13 +57,12 @@ export default function Single({
 
   const addContent = () => {
     content.push({
-      title: getEmptyText('Heading 2'),
-      subtitle: getEmptyText('Heading 3'),
-      date: getEmptyText(new Date().getFullYear().toString()),
-      topic: getEmptyText('Text'),
-      description: getEmptyParagraph(),
+      title: placeholderContent.title,
+      subtitle: placeholderContent.subtitle,
+      date: placeholderContent.date,
+      topic: placeholderContent.topic,
+      description: placeholderContent.description,
       key: v4(),
-      empty: true,
     });
 
     onChange();
@@ -75,6 +74,11 @@ export default function Single({
 
     onChange();
   };
+
+  const placeholderSingle = placeholder.sections.find(
+    (f) => f.type === 'Single'
+  )!;
+  const placeholderContent = placeholderSingle.content![0] as SingleContentType;
 
   return (
     <>
@@ -95,7 +99,6 @@ export default function Single({
                         props={props.name}
                         className={`max-w-48 print:max-w-lg md:max-w-lg text-sm uppercase font-bold inline-block`}
                         input
-                        empty={props.empty}
                         onChange={(e) => {
                           props.name = e;
                           onChange();
@@ -111,7 +114,7 @@ export default function Single({
                 <ActionsPlaceholder
                   edit={edit}
                   onAdd={() => addContent()}
-                  onDuplicate={() => onAddSection()}
+                  onDuplicate={() => onAddSection(props.key)}
                   onDelete={() => onDeleteSection(props.key)}
                   duplicate
                   remove={!last}
@@ -126,8 +129,7 @@ export default function Single({
               childrenClassName="flex-row-reverse"
               placeholder="SECTION"
               onClick={() => {
-                props.name = getEmptyText('SECTION');
-                props.empty = true;
+                props.name = placeholderSingle.name;
                 onChange();
               }}
             >

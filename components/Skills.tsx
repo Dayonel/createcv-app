@@ -2,7 +2,6 @@ import { Skill as SkillType } from '@/types/Skill';
 import Skill, { InputProps } from './Skill';
 import styles from './Skills.module.scss';
 import Sortable from './DndKit/Sortable';
-import Placeholder from './Placeholder/Placeholder';
 import { v4 } from 'uuid';
 
 interface SkillsProps {
@@ -19,7 +18,7 @@ export default function Skills({
   edit,
 }: SkillsProps) {
   const addSkill = () => {
-    skills.push({ value: 'Skill', key: v4(), empty: true });
+    skills.push({ value: 'Skill', key: v4() });
     onChange();
   };
 
@@ -32,7 +31,6 @@ export default function Skills({
             props={props}
             onChange={onChange}
             onControlsVisible={onControlsVisible}
-            empty={props?.empty}
           ></Skill>
         )}
         onSort={(items) => {

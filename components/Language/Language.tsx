@@ -3,12 +3,13 @@ import { Language as LanguageType } from '@/types/Language';
 import RichText from '../RichText/RichText';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '../Placeholder/Placeholder';
-import { getEmptyText } from '@/utils/richTextUtils';
 import Transition from '../Animations/Transition';
 import Action from '../DndKit/components/Action/Action';
 import { TrashCan } from '@carbon/icons-react';
 import { useContext, useEffect, useState } from 'react';
 import { ColorContext } from '../ColorProvider';
+import placeholder from '../../data/placeholder.json';
+import { DoubleContent } from '@/types/Double';
 
 export interface LanguageProps {
   props: LanguageType;
@@ -37,6 +38,11 @@ export default function Language({
     setMounted(true);
   }, []);
 
+  const placeholderContent = (
+    placeholder.sections.find((f) => f.type === 'Double')!
+      .content![1] as DoubleContent
+  ).languages![0];
+
   return (
     <>
       <div className="flex flex-col w-full">
@@ -58,7 +64,6 @@ export default function Language({
                 input
                 remove
                 onControlsVisible={onControlsVisible}
-                empty={props.empty}
               ></RichText>
             )}
             {!props.value && (
@@ -67,8 +72,7 @@ export default function Language({
                 className="text-xs font-bold"
                 placeholder="Language"
                 onClick={() => {
-                  props.value = getEmptyText('Language');
-                  props.empty = true;
+                  props.value = placeholderContent.value;
                   onChange();
                 }}
               ></Placeholder>
@@ -90,7 +94,6 @@ export default function Language({
                 input
                 remove
                 onControlsVisible={onControlsVisible}
-                empty={props.empty}
                 reverseRemove
               ></RichText>
             )}
@@ -100,8 +103,7 @@ export default function Language({
                 className="text-xs font-bold"
                 placeholder="Level"
                 onClick={() => {
-                  props.level = getEmptyText('Level');
-                  props.empty = true;
+                  props.level = placeholderContent.level;
                   onChange();
                 }}
               ></Placeholder>
