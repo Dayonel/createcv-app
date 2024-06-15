@@ -57,7 +57,7 @@ export default function RootLayout({
           <ColorProvider color={cookieTheme === 'g10' ? '#0f62fe' : '#78a9ff'}>
             <ThemeProvider
               attribute="data-carbon-theme"
-              defaultTheme="system"
+              defaultTheme="g10"
               themes={['g10', 'g90']}
               enableSystem
               disableTransitionOnChange
