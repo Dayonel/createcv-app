@@ -18,7 +18,7 @@ export default function ActionButtons({
 }: ActionButtonsProps) {
   return (
     <div className="relative group ease-in">
-      <div className="opacity-0 group-hover:opacity-100 transition-all duration-500">
+      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 md:duration-500">
         {add && (
           <Action
             className="absolute -translate-x-full"
