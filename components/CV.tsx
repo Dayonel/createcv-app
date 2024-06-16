@@ -34,7 +34,6 @@ export default function CV() {
   const updateHistory = useRef(false);
   const [mounted, setMounted] = useState(false);
   const savedForm = useContext(FormContext);
-  const contacts = useRef<HTMLDivElement>(null);
   const [contactsOpen, setContactsOpen] = useState(false);
 
   // every update
@@ -213,58 +212,58 @@ export default function CV() {
               onReset={() => resetForm()}
             ></Actions>
             <div className="flex flex-col gap-1">
-              <div ref={contacts} className={`${styles.contact}`}>
-                {form.contacts && (
-                  <Sortable
-                    initialItems={form.contacts}
-                    renderItem={({
-                      props,
-                      onControlsVisible,
-                    }: ContactProps) => (
-                      <>
-                        {props && (
-                          <Contact
-                            props={props}
-                            onChange={() => setForm({ ...form })}
-                            onControlsVisible={onControlsVisible}
-                          ></Contact>
-                        )}
-                      </>
-                    )}
-                    onSort={(e) => {
-                      setForm({
-                        ...form,
-                        contacts: form.contacts!.sort(
-                          (a, b) => e.indexOf(a.key) - e.indexOf(b.key)
-                        ),
-                      });
+              <ActionButtons
+                add
+                onAdd={() => setContactsOpen(!contactsOpen)}
+              >
+                <div className={`${styles.contact}`}>
+                  {form.contacts && (
+                    <Sortable
+                      initialItems={form.contacts}
+                      renderItem={({
+                        props,
+                        onControlsVisible,
+                      }: ContactProps) => (
+                        <>
+                          {props && (
+                            <Contact
+                              props={props}
+                              onChange={() => setForm({ ...form })}
+                              onControlsVisible={onControlsVisible}
+                            ></Contact>
+                          )}
+                        </>
+                      )}
+                      onSort={(e) => {
+                        setForm({
+                          ...form,
+                          contacts: form.contacts!.sort(
+                            (a, b) => e.indexOf(a.key) - e.indexOf(b.key)
+                          ),
+                        });
+                      }}
+                      onRemove={(id) => {
+                        setForm({
+                          ...form,
+                          contacts: form.contacts.filter((f) => f.key !== id),
+                        });
+                      }}
+                      wrapperStyle="pl-[6px]"
+                      // handle
+                      remove
+                    ></Sortable>
+                  )}
+                  <ContactPlaceholder
+                    onAdd={(e) => {
+                      form.contacts.push({ ...e, key: v4() });
+                      setForm({ ...form });
+                      setContactsOpen(false);
                     }}
-                    onRemove={(id) => {
-                      setForm({
-                        ...form,
-                        contacts: form.contacts.filter((f) => f.key !== id),
-                      });
-                    }}
-                    wrapperStyle="pl-[6px]"
-                    // handle
-                    remove
-                  ></Sortable>
-                )}
-                <ActionButtons
-                  add
-                  element={contacts.current}
-                  onAdd={() => setContactsOpen(!contactsOpen)}
-                ></ActionButtons>
-                <ContactPlaceholder
-                  onAdd={(e) => {
-                    form.contacts.push({ ...e, key: v4() });
-                    setForm({ ...form });
-                    setContactsOpen(false);
-                  }}
-                  open={contactsOpen}
-                  onClose={() => setContactsOpen(false)}
-                ></ContactPlaceholder>
-              </div>
+                    open={contactsOpen}
+                    onClose={() => setContactsOpen(false)}
+                  ></ContactPlaceholder>
+                </div>
+              </ActionButtons>
             </div>
 
             <div className="col-span-2 md:col-span-1 print:col-span-1 relative">

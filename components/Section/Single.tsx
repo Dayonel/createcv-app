@@ -6,14 +6,9 @@ import SingleContent, { SingleContentProps } from './Content/SingleContent';
 import Placeholder from '../Placeholder/Placeholder';
 import RichText from '../RichText/RichText';
 import { v4 } from 'uuid';
-import Transition from '../Animations/Transition';
-import Action from '../DndKit/components/Action/Action';
-import { TrashCan } from '@carbon/icons-react';
-import classNames from 'classnames';
 import placeholder from '../../data/placeholder.json';
 import { SingleContent as SingleContentType } from '@/types/Single';
 import ActionButtons from '../Placeholder/ActionButtons';
-import { useRef } from 'react';
 
 interface SingleProps {
   props: SingleType;
@@ -34,7 +29,6 @@ export default function Single({
   edit,
   last,
 }: SingleProps) {
-  const ref = useRef<HTMLDivElement>(null);
   const content = props.content || [];
 
   const handleRemove = () => {
@@ -86,46 +80,55 @@ export default function Single({
     <>
       {props && (
         <>
-          <div ref={ref} className="relative">
-            {props.name !== undefined && (
-              <>
-                <div className="flex items-center w-full">
-                  <Divider>
-                    <div className="inline-block">
-                      <div className="flex items-center">
-                        <RichText
-                          props={props.name}
-                          className={`max-w-48 print:max-w-lg md:max-w-lg text-sm uppercase font-bold inline-block`}
-                          input
-                          onChange={(e) => {
-                            props.name = e;
-                            onChange();
-                          }}
-                          onRemove={() => {
-                            delete props.name;
-                            handleRemove();
-                          }}
-                        ></RichText>
-                      </div>
+          <div>
+            <ActionButtons
+              add
+              remove={!last}
+              onAdd={() => onAddSection(props.key)}
+              onRemove={() => onDeleteSection(props.key)}
+            >
+              <div className="relative">
+                {props.name !== undefined && (
+                  <>
+                    <div className="flex items-center w-full">
+                      <Divider>
+                        <div className="inline-block">
+                          <div className="flex items-center">
+                            <RichText
+                              props={props.name}
+                              className={`max-w-48 print:max-w-lg md:max-w-lg text-sm uppercase font-bold inline-block`}
+                              input
+                              onChange={(e) => {
+                                props.name = e;
+                                onChange();
+                              }}
+                              onRemove={() => {
+                                delete props.name;
+                                handleRemove();
+                              }}
+                            ></RichText>
+                          </div>
+                        </div>
+                      </Divider>
                     </div>
-                  </Divider>
-                </div>
-              </>
-            )}
-            {!props.name && (
-              <Placeholder
-                edit={edit}
-                className={`text-sm font-bold inline-block`}
-                childrenClassName="flex-row-reverse"
-                placeholder="SECTION"
-                onClick={() => {
-                  props.name = placeholderSingle.name;
-                  onChange();
-                }}
-              >
-                <Divider dashed></Divider>
-              </Placeholder>
-            )}
+                  </>
+                )}
+                {!props.name && (
+                  <Placeholder
+                    edit={edit}
+                    className={`text-sm font-bold inline-block`}
+                    childrenClassName="flex-row-reverse"
+                    placeholder="SECTION"
+                    onClick={() => {
+                      props.name = placeholderSingle.name;
+                      onChange();
+                    }}
+                  >
+                    <Divider dashed></Divider>
+                  </Placeholder>
+                )}
+              </div>
+            </ActionButtons>
 
             <div className={`relative flex flex-col gap-5 pt-[1px]`}>
               <Sortable
@@ -155,13 +158,6 @@ export default function Single({
               ></Sortable>
             </div>
           </div>
-          <ActionButtons
-            add
-            remove={!last}
-            element={ref.current}
-            onAdd={() => onAddSection(props.key)}
-            onRemove={() => onDeleteSection(props.key)}
-          ></ActionButtons>
         </>
       )}
     </>

@@ -33,7 +33,6 @@ export default function Language({
   const [mounted, setMounted] = useState(false);
   const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
-  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -46,100 +45,96 @@ export default function Language({
 
   return (
     <>
-      <div ref={ref} className="flex flex-col w-full">
-        <div className="flex flex-wrap justify-between">
-          <div>
-            {props.value && (
-              <RichText
-                id={id}
-                className="max-w-xs print:max-w-52 md:max-w-52 text-xs font-bold"
-                props={props.value}
-                onChange={(e) => {
-                  props.value = e;
-                  onChange();
-                }}
-                onRemove={() => {
-                  delete props.value;
-                  onRemove();
-                }}
-                input
-                remove
-                onControlsVisible={onControlsVisible}
-              ></RichText>
-            )}
-            {!props.value && (
-              <Placeholder
-                edit={edit}
-                className="text-xs font-bold"
-                placeholder="Language"
-                onClick={() => {
-                  props.value = placeholderContent.value;
-                  onChange();
-                }}
-              ></Placeholder>
-            )}
+      <ActionButtons onRemove={() => onDelete()} remove>
+        <div className="flex flex-col w-full">
+          <div className="flex flex-wrap justify-between">
+            <div>
+              {props.value && (
+                <RichText
+                  id={id}
+                  className="max-w-xs print:max-w-52 md:max-w-52 text-xs font-bold"
+                  props={props.value}
+                  onChange={(e) => {
+                    props.value = e;
+                    onChange();
+                  }}
+                  onRemove={() => {
+                    delete props.value;
+                    onRemove();
+                  }}
+                  input
+                  remove
+                  onControlsVisible={onControlsVisible}
+                ></RichText>
+              )}
+              {!props.value && (
+                <Placeholder
+                  edit={edit}
+                  className="text-xs font-bold"
+                  placeholder="Language"
+                  onClick={() => {
+                    props.value = placeholderContent.value;
+                    onChange();
+                  }}
+                ></Placeholder>
+              )}
+            </div>
+            <div>
+              {props.level && (
+                <RichText
+                  className="max-w-xs print:max-w-52 md:max-w-52 text-xs"
+                  props={props.level}
+                  onChange={(e) => {
+                    props.level = e;
+                    onChange();
+                  }}
+                  onRemove={() => {
+                    delete props.level;
+                    onRemove();
+                  }}
+                  input
+                  remove
+                  onControlsVisible={onControlsVisible}
+                  reverseRemove
+                ></RichText>
+              )}
+              {!props.level && (
+                <Placeholder
+                  edit={edit}
+                  className="text-xs font-bold"
+                  placeholder="Level"
+                  onClick={() => {
+                    props.level = placeholderContent.level;
+                    onChange();
+                  }}
+                ></Placeholder>
+              )}
+            </div>
           </div>
-          <div>
-            {props.level && (
-              <RichText
-                className="max-w-xs print:max-w-52 md:max-w-52 text-xs"
-                props={props.level}
+          {props.rating != undefined && (
+            <div className="px-[6px]">
+              <input
+                aria-labelledby={id}
+                type="range"
+                step={1}
+                min={0}
+                max={10}
+                value={props.rating}
                 onChange={(e) => {
-                  props.level = e;
+                  props.rating = +e.target.value;
                   onChange();
                 }}
-                onRemove={() => {
-                  delete props.level;
-                  onRemove();
+                style={{
+                  backgroundSize: `${Math.min(props.rating * 10, 100)}%`,
+                  backgroundImage: `linear-gradient(${
+                    mounted ? color : serverColor
+                  }, ${mounted ? color : serverColor})`,
                 }}
-                input
-                remove
-                onControlsVisible={onControlsVisible}
-                reverseRemove
-              ></RichText>
-            )}
-            {!props.level && (
-              <Placeholder
-                edit={edit}
-                className="text-xs font-bold"
-                placeholder="Level"
-                onClick={() => {
-                  props.level = placeholderContent.level;
-                  onChange();
-                }}
-              ></Placeholder>
-            )}
-          </div>
+              ></input>
+            </div>
+          )}
         </div>
-        {props.rating != undefined && (
-          <div className="px-[6px]">
-            <input
-              aria-labelledby={id}
-              type="range"
-              step={1}
-              min={0}
-              max={10}
-              value={props.rating}
-              onChange={(e) => {
-                props.rating = +e.target.value;
-                onChange();
-              }}
-              style={{
-                backgroundSize: `${Math.min(props.rating * 10, 100)}%`,
-                backgroundImage: `linear-gradient(${
-                  mounted ? color : serverColor
-                }, ${mounted ? color : serverColor})`,
-              }}
-            ></input>
-          </div>
-        )}
-      </div>
-
-      <ActionButtons
-        element={ref.current}
-        onRemove={() => onDelete()}
-        remove
-      ></ActionButtons>
+      </ActionButtons>
     </>
   );
 }

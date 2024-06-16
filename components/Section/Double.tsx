@@ -6,10 +6,8 @@ import { DoubleContent, Double as DoubleType } from '@/types/Double';
 import RichText from '../RichText/RichText';
 import Placeholder from '../Placeholder/Placeholder';
 import { v4 } from 'uuid';
-import classNames from 'classnames';
 import placeholder from '../../data/placeholder.json';
 import ActionButtons from '../Placeholder/ActionButtons';
-import { useRef } from 'react';
 
 interface DoubleProps {
   props: DoubleType;
@@ -26,8 +24,6 @@ export default function Double({
   edit,
 }: DoubleProps) {
   const content = props.content || [];
-  const skills = useRef<HTMLDivElement>(null);
-  const languages = useRef<HTMLDivElement>(null);
 
   const placeholderDouble = placeholder.sections.find(
     (f) => f.type === 'Double'
@@ -62,61 +58,8 @@ export default function Double({
             return (
               <div key={m.key}>
                 {m.type === 'Skills' ? (
-                  <div ref={skills} className="flex flex-col w-full gap-1">
-                    {m.name !== undefined && (
-                      <>
-                        <Divider>
-                          <div className="inline-block">
-                            <div className="flex items-center">
-                              <RichText
-                                props={m.name}
-                                className={`max-w-xs print:max-w-96 md:max-w-96 text-sm uppercase font-bold inline-block`}
-                                input
-                                remove
-                                onChange={(e) => {
-                                  m.name = e;
-                                  onChange();
-                                }}
-                                onRemove={() => {
-                                  delete m.name;
-                                  onRemove(false);
-                                }}
-                              ></RichText>
-                            </div>
-                          </div>
-                        </Divider>
-                      </>
-                    )}
-                    {!m.name && (
-                      <Placeholder
-                        edit={edit}
-                        className={`text-sm font-bold inline-block`}
-                        childrenClassName="flex-row-reverse"
-                        placeholder="SECTION"
-                        onClick={() => {
-                          m.name = placeholderDouble.name;
-                          onChange();
-                        }}
-                      >
-                        <Divider dashed></Divider>
-                      </Placeholder>
-                    )}
-
-                    <Skills
-                      skills={m.skills || []}
-                      onChange={onChange}
-                      onRemove={() => onRemove(false)}
-                      edit={edit}
-                    ></Skills>
-                    <ActionButtons
-                      add
-                      element={skills.current}
-                      onAdd={() => addSkill()}
-                    ></ActionButtons>
-                  </div>
-                ) : (
-                  m.type === 'Languages' && (
-                    <div ref={languages} className="flex flex-col w-full">
+                  <ActionButtons add onAdd={() => addSkill()}>
+                    <div className="flex flex-col w-full gap-1">
                       {m.name !== undefined && (
                         <>
                           <Divider>
@@ -155,20 +98,67 @@ export default function Double({
                           <Divider dashed></Divider>
                         </Placeholder>
                       )}
-                      <div className="flex flex-col gap-3 pt-[1px]">
-                        <Languages
-                          languages={m.languages || []}
-                          onChange={onChange}
-                          onRemove={() => onRemove(false)}
-                          edit={edit}
-                        ></Languages>
-                      </div>
-                      <ActionButtons
-                        add
-                        element={languages.current}
-                        onAdd={() => addLanguage()}
-                      ></ActionButtons>
+
+                      <Skills
+                        skills={m.skills || []}
+                        onChange={onChange}
+                        onRemove={() => onRemove(false)}
+                        edit={edit}
+                      ></Skills>
                     </div>
+                  </ActionButtons>
+                ) : (
+                  m.type === 'Languages' && (
+                    <ActionButtons add onAdd={() => addLanguage()}>
+                      <div className="flex flex-col w-full">
+                        {m.name !== undefined && (
+                          <>
+                            <Divider>
+                              <div className="inline-block ">
+                                <div className="flex items-center">
+                                  <RichText
+                                    props={m.name}
+                                    className={`max-w-xs print:max-w-96 md:max-w-96 text-sm uppercase font-bold inline-block`}
+                                    input
+                                    remove
+                                    onChange={(e) => {
+                                      m.name = e;
+                                      onChange();
+                                    }}
+                                    onRemove={() => {
+                                      delete m.name;
+                                      onRemove(false);
+                                    }}
+                                  ></RichText>
+                                </div>
+                              </div>
+                            </Divider>
+                          </>
+                        )}
+                        {!m.name && (
+                          <Placeholder
+                            edit={edit}
+                            className={`text-sm font-bold inline-block`}
+                            childrenClassName="flex-row-reverse"
+                            placeholder="SECTION"
+                            onClick={() => {
+                              m.name = placeholderDouble.name;
+                              onChange();
+                            }}
+                          >
+                            <Divider dashed></Divider>
+                          </Placeholder>
+                        )}
+                        <div className="flex flex-col gap-3 pt-[1px]">
+                          <Languages
+                            languages={m.languages || []}
+                            onChange={onChange}
+                            onRemove={() => onRemove(false)}
+                            edit={edit}
+                          ></Languages>
+                        </div>
+                      </div>
+                    </ActionButtons>
                   )
                 )}
               </div>
