@@ -1,8 +1,14 @@
 import {
   Email,
   LocationFilled,
+  LogoDiscord,
+  LogoFacebook,
   LogoGithub,
+  LogoInstagram,
   LogoLinkedin,
+  LogoPinterest,
+  LogoX,
+  LogoYoutube,
   Phone,
   Wikis,
 } from '@carbon/icons-react';
@@ -25,6 +31,12 @@ const contactIcons = {
   LogoLinkedin,
   Phone,
   Wikis,
+  LogoX,
+  LogoInstagram,
+  LogoDiscord,
+  LogoFacebook,
+  LogoYoutube,
+  LogoPinterest
 };
 
 export default function Contact({
