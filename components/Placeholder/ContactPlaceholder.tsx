@@ -100,7 +100,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                     } as CSSProperties
                   }
                 >
-                  <LocationFilled></LocationFilled>
+                  <LogoGithub></LogoGithub>
                   <span>{getText(placeholder.contacts[3].text)}</span>
                 </button>
               </li>
@@ -114,7 +114,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                     } as CSSProperties
                   }
                 >
-                  <LogoGithub></LogoGithub>
+                  <LocationFilled></LocationFilled>
                   <span>{getText(placeholder.contacts[4].text)}</span>
                 </button>
               </li>
