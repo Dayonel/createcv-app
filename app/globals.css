@@ -35,7 +35,7 @@
 ::-webkit-scrollbar-thumb {
   border: none;
   border-radius: 8px;
-  background-color: var(--cds-layer-selected-01);;
+  background-color: var(--cds-layer-selected-01);
   background-clip: content-box;
 }
 
@@ -70,5 +70,11 @@
 @media print {
   body {
     min-width: 950px;
+  }
+
+  .highlight,
+  .highlight:hover,
+  .highlight:focus {
+    outline: none;
   }
 }
