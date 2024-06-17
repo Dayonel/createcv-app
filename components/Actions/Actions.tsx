@@ -6,6 +6,7 @@ import {
   Redo,
   Reset,
   Undo,
+  View,
 } from '@carbon/icons-react';
 import { useDeferredValue, useEffect, useRef, useState } from 'react';
 import styles from './Actions.module.scss';
@@ -157,13 +158,13 @@ export default function Actions({
         </div>
         <ColorPicker></ColorPicker>
         <IconButton
-          label="Edit"
+          label="Show hidden"
           kind="ghost"
           align="bottom"
           onClick={() => setEdit(!edit)}
           isSelected={edit}
         >
-          <Edit size={24}></Edit>
+          <View size={24}></View>
         </IconButton>
         <IconButton
           label="Download"
