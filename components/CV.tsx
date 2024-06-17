@@ -212,24 +212,17 @@ export default function CV() {
               onReset={() => resetForm()}
             ></Actions>
             <div className="flex flex-col gap-1">
-              <ActionButtons
-                add
-                onAdd={() => setContactsOpen(!contactsOpen)}
-              >
+              <ActionButtons add onAdd={() => setContactsOpen(!contactsOpen)}>
                 <div className={`${styles.contact}`}>
                   {form.contacts && (
                     <Sortable
                       initialItems={form.contacts}
-                      renderItem={({
-                        props,
-                        onControlsVisible,
-                      }: ContactProps) => (
+                      renderItem={({ props }: ContactProps) => (
                         <>
                           {props && (
                             <Contact
                               props={props}
                               onChange={() => setForm({ ...form })}
-                              onControlsVisible={onControlsVisible}
                             ></Contact>
                           )}
                         </>
@@ -249,7 +242,8 @@ export default function CV() {
                         });
                       }}
                       wrapperStyle="pl-[6px]"
-                      // handle
+                      handle
+                      exceptHandle={form.contacts[0].key}
                       remove
                     ></Sortable>
                   )}

@@ -28,6 +28,7 @@ interface SortableProps {
   wrapperStyle?: string;
   containerStyle?: string;
   handle?: boolean;
+  exceptHandle?: string;
   remove?: boolean;
 }
 
@@ -39,6 +40,7 @@ export default function Sortable({
   wrapperStyle,
   containerStyle,
   handle,
+  exceptHandle,
   remove,
 }: SortableProps) {
   const [items, setItems] = useState<UniqueIdentifier[]>(
@@ -103,7 +105,7 @@ export default function Sortable({
                 }
                 wrapperStyle={wrapperStyle}
                 containerStyle={containerStyle}
-                handle={handle}
+                handle={handle && (!exceptHandle || exceptHandle !== m)}
                 remove={remove}
               ></SortableItem>
             );

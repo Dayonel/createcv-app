@@ -86,6 +86,7 @@
   grid-template-columns: 1fr;
   grid-template-rows: minmax(24px, max-content);
   grid-auto-rows: minmax(24px, max-content);
+  grid-gap: 0px 12px;
   width: fit-content;
   position: relative;
 }

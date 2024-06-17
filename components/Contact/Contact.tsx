@@ -21,7 +21,6 @@ import { ColorContext } from '../ColorProvider';
 export interface ContactProps {
   props: ContactType;
   onChange: () => void;
-  onControlsVisible: (e: boolean) => void;
 }
 
 const contactIcons = {
@@ -36,14 +35,10 @@ const contactIcons = {
   LogoDiscord,
   LogoFacebook,
   LogoYoutube,
-  LogoPinterest
+  LogoPinterest,
 };
 
-export default function Contact({
-  props,
-  onChange,
-  onControlsVisible,
-}: ContactProps) {
+export default function Contact({ props, onChange }: ContactProps) {
   const Component = contactIcons[props.icon as keyof typeof contactIcons]; // Correct! JSX type can be a capitalized variable.
   const [mounted, setMounted] = useState(false);
   const { color } = useColorStore();
@@ -63,8 +58,8 @@ export default function Contact({
           props.text = e;
           onChange();
         }}
-        onControlsVisible={onControlsVisible}
         input
+        remove
       ></RichText>
     </span>
   );

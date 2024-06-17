@@ -3,8 +3,6 @@ import { Language as LanguageType } from '@/types/Language';
 import RichText from '../RichText/RichText';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '../Placeholder/Placeholder';
-import Transition from '../Animations/Transition';
-import Action from '../DndKit/components/Action/Action';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ColorContext } from '../ColorProvider';
 import placeholder from '../../data/placeholder.json';
@@ -17,7 +15,6 @@ export interface LanguageProps {
   onRemove: () => void;
   onDelete: () => void;
   id: string;
-  onControlsVisible: (e: boolean) => void;
   edit: boolean;
 }
 
@@ -27,7 +24,6 @@ export default function Language({
   onRemove,
   onDelete,
   id,
-  onControlsVisible,
   edit,
 }: LanguageProps) {
   const [mounted, setMounted] = useState(false);
@@ -64,7 +60,6 @@ export default function Language({
                   }}
                   input
                   remove
-                  onControlsVisible={onControlsVisible}
                 ></RichText>
               )}
               {!props.value && (
@@ -94,7 +89,6 @@ export default function Language({
                   }}
                   input
                   remove
-                  onControlsVisible={onControlsVisible}
                   reverseRemove
                 ></RichText>
               )}

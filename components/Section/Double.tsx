@@ -59,7 +59,7 @@ export default function Double({
               <div key={m.key}>
                 {m.type === 'Skills' ? (
                   <ActionButtons add onAdd={() => addSkill()}>
-                    <div className="flex flex-col w-full gap-1">
+                    <div className="flex flex-col w-full gap-1 group-item">
                       {m.name !== undefined && (
                         <>
                           <Divider>
@@ -103,7 +103,6 @@ export default function Double({
                         skills={m.skills || []}
                         onChange={onChange}
                         onRemove={() => onRemove(false)}
-                        edit={edit}
                       ></Skills>
                     </div>
                   </ActionButtons>
@@ -114,7 +113,7 @@ export default function Double({
                         {m.name !== undefined && (
                           <>
                             <Divider>
-                              <div className="inline-block ">
+                              <div className="inline-block">
                                 <div className="flex items-center">
                                   <RichText
                                     props={m.name}

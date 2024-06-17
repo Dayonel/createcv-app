@@ -4,10 +4,8 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { useState } from 'react';
 import Handle from './components/Handle/Handle';
 import { Remove } from './components/Remove/Remove';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface SortableItemProps {
   id: string;
@@ -28,8 +26,6 @@ export const SortableItem = ({
   handle,
   remove,
 }: SortableItemProps) => {
-  const [controlsVisible, setControlsVisible] = useState(false);
-  const controlsRef = useOutsideClick(() => setControlsVisible(false));
   const animateLayoutChanges: AnimateLayoutChanges = (args) =>
     defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
@@ -54,26 +50,18 @@ export const SortableItem = ({
       {...attributes}
       className={`${wrapperStyle || ''} flex items-center cursor-default ${
         isDragging ? 'z-10' : ''
-      }`}
+      } group`}
       tabIndex={-1}
     >
       <div
-        onFocus={() => setControlsVisible(true)}
-        ref={controlsRef}
-        className={`${containerStyle || ''} relative grid`}
+        className={`${containerStyle || ''} relative grid group/item ease-in`}
       >
         {renderItem({})}
-        {controlsVisible && (
-          <>
-            {remove && (
-              <Remove
-                onClick={() => onRemove && onRemove(id)}
-                onBlur={() => setControlsVisible(false)}
-              />
-            )}
-            {handle && <Handle {...listeners} tabIndex={-1} />}
-          </>
-        )}
+
+        <div className="opacity-0 group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500 z-20">
+          {remove && <Remove onClick={() => onRemove && onRemove(id)} />}
+          {handle && <Handle {...listeners} tabIndex={-1} />}
+        </div>
       </div>
     </div>
   );

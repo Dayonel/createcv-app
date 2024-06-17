@@ -86,6 +86,7 @@ export default function Single({
               remove={!last}
               onAdd={() => onAddSection(props.key)}
               onRemove={() => onDeleteSection(props.key)}
+              group
             >
               <div className="relative">
                 {props.name !== undefined && (
@@ -106,6 +107,7 @@ export default function Single({
                                 delete props.name;
                                 handleRemove();
                               }}
+                              remove
                             ></RichText>
                           </div>
                         </div>

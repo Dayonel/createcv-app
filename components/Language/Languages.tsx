@@ -20,7 +20,7 @@ export default function Languages({
     <div className="relative flex flex-col gap-3">
       <Sortable
         initialItems={languages}
-        renderItem={({ props, onControlsVisible }: LanguageProps) => {
+        renderItem={({ props }: LanguageProps) => {
           const language = languages.find((f) => f.key === props?.key);
           const i = languages.findIndex((f) => f.key === props?.key);
           return (
@@ -29,7 +29,6 @@ export default function Languages({
                 id={`language_${i + 1}`}
                 props={props}
                 onChange={onChange}
-                onControlsVisible={onControlsVisible}
                 onRemove={() => {
                   if (
                     language &&
