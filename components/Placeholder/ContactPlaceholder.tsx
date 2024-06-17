@@ -14,7 +14,7 @@ import {
   LogoLinkedin,
   LogoX,
   Phone,
-  Wikis,
+  Link,
   LogoInstagram,
   LogoDiscord,
   LogoFacebook,
@@ -130,7 +130,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                     } as CSSProperties
                   }
                 >
-                  <Wikis></Wikis>
+                  <Link></Link>
                   <span>{getText(placeholder.contacts[5].text)}</span>
                 </button>
               </li>

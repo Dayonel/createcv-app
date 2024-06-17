@@ -10,6 +10,7 @@ import {
   LogoX,
   LogoYoutube,
   Phone,
+  Link,
   Wikis,
 } from '@carbon/icons-react';
 import { Contact as ContactType } from '../../types/Contact';
@@ -29,13 +30,14 @@ const contactIcons = {
   LogoGithub,
   LogoLinkedin,
   Phone,
-  Wikis,
+  Link,
   LogoX,
   LogoInstagram,
   LogoDiscord,
   LogoFacebook,
   LogoYoutube,
   LogoPinterest,
+  Wikis,
 };
 
 export default function Contact({ props, onChange }: ContactProps) {
