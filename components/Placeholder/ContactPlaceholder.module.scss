@@ -9,6 +9,8 @@
   gap: 0;
   z-index: 20;
   border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
 
   li {
     display: grid;

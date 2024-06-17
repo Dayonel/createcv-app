@@ -7,6 +7,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --scrollbar-width: 8px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +22,25 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--cds-background);
+}
+
+::-webkit-scrollbar-thumb {
+  border: none;
+  border-radius: 8px;
+  background-color: var(--cds-layer-selected-01);;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--cds-layer-selected-hover-01);
 }
 
 .menu-item {
