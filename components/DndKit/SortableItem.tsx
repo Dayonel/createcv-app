@@ -6,6 +6,8 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import Handle from './components/Handle/Handle';
 import { Remove } from './components/Remove/Remove';
+import { useState } from 'react';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface SortableItemProps {
   id: string;
@@ -26,6 +28,8 @@ export const SortableItem = ({
   handle,
   remove,
 }: SortableItemProps) => {
+  const [visible, setVisible] = useState(false);
+  const ref = useOutsideClick(() => setVisible(false));
   const animateLayoutChanges: AnimateLayoutChanges = (args) =>
     defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
@@ -54,11 +58,18 @@ export const SortableItem = ({
       tabIndex={-1}
     >
       <div
+        ref={ref}
         className={`${containerStyle || ''} relative grid group/item ease-in`}
+        onClick={() => setVisible(true)}
+        onBlur={() => setVisible(false)}
       >
         {renderItem({})}
 
-        <div className="opacity-0 group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500 z-20">
+        <div
+          className={`${
+            visible ? 'opacity-100' : 'opacity-0'
+          } md:group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500 z-20`}
+        >
           {remove && <Remove onClick={() => onRemove && onRemove(id)} />}
           {handle && <Handle {...listeners} tabIndex={-1} />}
         </div>
