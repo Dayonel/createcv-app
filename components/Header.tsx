@@ -1,8 +1,8 @@
 'use client';
-import Login from './Login';
 import styles from './Header.module.scss';
 import { logo } from './logo';
 import Actions from './Actions/Actions';
+import Profile from './Auth/Profile';
 
 interface HeaderProps {
   onReset: () => void;
@@ -36,7 +36,7 @@ export default function Header({
             onUndo={onUndo}
             onRedo={onRedo}
           ></Actions>
-          <Login></Login>
+          <Profile></Profile>
         </div>
       </nav>
     </header>

@@ -71,7 +71,7 @@ export default function Actions({
       >
         <ColorPicker></ColorPicker>
         <Action
-          className="menu-item"
+          className="action"
           title="Show hidden"
           fill="var(--cds-text-primary)"
           onClick={() => onEdit()}
@@ -79,7 +79,7 @@ export default function Actions({
           <View size={20}></View>
         </Action>
         <Action
-          className="menu-item"
+          className="action"
           title="Download"
           fill={`${isPrinting ? 'transparent' : 'var(--cds-text-primary)'}`}
           onClick={() => download()}
@@ -90,9 +90,9 @@ export default function Actions({
             <Download size={20}></Download>
           )}
         </Action>
-        <div ref={ref} className="relative">
+        <div ref={ref}>
           <Action
-            className="menu-item"
+            className="action"
             title="More..."
             fill="var(--cds-text-primary)"
             onClick={() => setOpen(!open)}
@@ -100,7 +100,7 @@ export default function Actions({
             <OverflowMenuVertical size={20}></OverflowMenuVertical>
           </Action>
           {open && (
-            <ul className={styles.menu}>
+            <ul className="menu">
               <li>
                 <Action
                   title="Reset"

@@ -21,7 +21,7 @@ export default function ColorPicker() {
   return (
     <div ref={ref} className="relative">
       <Action
-        className="menu-item"
+        className="action"
         title="Color"
         fill="var(--cds-text-primary)"
         onClick={() => setShow(!show)}

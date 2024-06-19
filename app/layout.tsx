@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './globals.scss';
+import './Menu.scss';
 import Footer from '@/components/Footer';
 import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
@@ -9,6 +10,8 @@ import { CookieThemeProvider } from '@/components/CookieThemeProvider';
 import { ColorProvider } from '@/components/ColorProvider';
 import { FormProvider } from '@/components/FormProvider';
 import { MenuProvider } from '@/components/MenuProvider';
+import { SessionProvider } from 'next-auth/react';
+import { auth } from '@/auth';
 
 const roboto = localFont({
   src: [
@@ -41,7 +44,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -49,32 +52,37 @@ export default function RootLayout({
   const cookieStore = cookies();
   const cookieTheme = cookieStore.get('theme')?.value || 'g10';
   const savedForm = cookieStore.get('savedForm')?.value;
+  const session = await auth();
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${roboto.className}`}>
-        <CookieThemeProvider cookieTheme={cookieTheme}>
-          <ColorProvider color={cookieTheme === 'g10' ? '#0f62fe' : '#78a9ff'}>
-            <ThemeProvider
-              attribute="data-carbon-theme"
-              defaultTheme="g10"
-              themes={['g10', 'g90']}
-              enableSystem
-              disableTransitionOnChange
+        <SessionProvider session={session}>
+          <CookieThemeProvider cookieTheme={cookieTheme}>
+            <ColorProvider
+              color={cookieTheme === 'g10' ? '#0f62fe' : '#78a9ff'}
             >
-              <FormProvider savedForm={savedForm}>
-                <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
-                  <MenuProvider>
-                    <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
-                      {children}
-                    </main>
-                  </MenuProvider>
-                  <Footer></Footer>
-                </div>
-              </FormProvider>
-            </ThemeProvider>
-          </ColorProvider>
-        </CookieThemeProvider>
+              <ThemeProvider
+                attribute="data-carbon-theme"
+                defaultTheme="g10"
+                themes={['g10', 'g90']}
+                enableSystem
+                disableTransitionOnChange
+              >
+                <FormProvider savedForm={savedForm}>
+                  <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
+                    <MenuProvider>
+                      <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
+                        {children}
+                      </main>
+                    </MenuProvider>
+                    <Footer></Footer>
+                  </div>
+                </FormProvider>
+              </ThemeProvider>
+            </ColorProvider>
+          </CookieThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

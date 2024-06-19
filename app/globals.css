@@ -43,7 +43,7 @@
   background-color: var(--cds-layer-selected-hover-01);
 }
 
-.menu-item {
+.action {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +51,7 @@
   height: 2rem;
 }
 
-.menu-item button {
+.action button {
   padding: 0.5rem;
 }
 

@@ -71,7 +71,7 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
         className={classNames('block group pb-2 md:pb-0', className)}
       >
         {src !== null ? (
-          <div className="relative group/item">
+          <div className="relative w-fit group/item">
             <img className={styles.preview} alt="Preview" src={src} />
             <div className="absolute w-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500">
               <Remove

@@ -1,4 +1,3 @@
-import './Menu.scss';
 import {
   CSSProperties,
   forwardRef,
@@ -19,7 +18,7 @@ import {
   LogoDiscord,
   LogoFacebook,
   LogoYoutube,
-  LogoPinterest
+  LogoPinterest,
 } from '@carbon/icons-react';
 import placeholder from '../../data/placeholder.json';
 import { getText, getTextContent } from '@/utils/richTextUtils';
