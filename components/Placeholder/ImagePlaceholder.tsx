@@ -85,7 +85,7 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
             </div>
           </div>
         ) : (
-          <>
+          <div className="print:hidden">
             {loading ? (
               <InlineLoading
                 className={classNames(
@@ -107,7 +107,7 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
                 name=""
               />
             )}
-          </>
+          </div>
         )}
       </Transition>
     );

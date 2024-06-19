@@ -179,8 +179,8 @@ export default function CV() {
           <div className={`${styles.header}`}>
             <div
               className={`grid ${
-                (edit || image) && 'grid-rows-2'
-              } w-fit gap-x-4`}
+                (edit || image) && 'grid-rows-2 gap-x-4'
+              } w-fit print:${!image && 'gap-0'}`}
             >
               <ImagePlaceholder
                 image={image}
