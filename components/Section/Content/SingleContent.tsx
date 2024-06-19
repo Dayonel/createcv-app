@@ -14,7 +14,6 @@ export interface SingleContentProps {
   onRemove: () => void;
   onAdd: () => void;
   onDelete: (e: string) => void;
-  edit: boolean;
 }
 
 export default function SingleContent({
@@ -22,7 +21,6 @@ export default function SingleContent({
   onChange,
   onRemove,
   onAdd,
-  edit,
   onDelete,
 }: SingleContentProps) {
   const [mounted, setMounted] = useState(false);
@@ -67,7 +65,6 @@ export default function SingleContent({
                 )}
                 {!props.title && (
                   <Placeholder
-                    edit={edit}
                     className=" text-base font-bold"
                     placeholder="Heading 2"
                     onClick={() => {
@@ -100,7 +97,6 @@ export default function SingleContent({
                 )}
                 {!props.date && (
                   <Placeholder
-                    edit={edit}
                     className="text-xs font-bold"
                     placeholder={`Date`}
                     onClick={() => {
@@ -133,7 +129,6 @@ export default function SingleContent({
                 )}
                 {!props.subtitle && (
                   <Placeholder
-                    edit={edit}
                     className="text-sm font-bold"
                     placeholder="Heading 3"
                     onClick={() => {
@@ -162,7 +157,6 @@ export default function SingleContent({
                 )}
                 {!props.topic && (
                   <Placeholder
-                    edit={edit}
                     className="text-xs"
                     placeholder="Text"
                     onClick={() => {
@@ -191,7 +185,6 @@ export default function SingleContent({
               )}
               {!props.description && (
                 <Placeholder
-                  edit={edit}
                   className="text-xs min-h-16 !py-[2px] w-full"
                   placeholder="Write something..."
                   onClick={() => {

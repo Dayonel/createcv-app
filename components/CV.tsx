@@ -1,5 +1,4 @@
 'use client';
-import Actions from './Actions/Actions';
 import styles from './CV.module.scss';
 import { useContext, useEffect, useRef, useState } from 'react';
 import Contact, { ContactProps } from './Contact/Contact';
@@ -13,7 +12,6 @@ import Placeholder from './Placeholder/Placeholder';
 import useColorStore from '@/store/colorStore';
 import { v4 } from 'uuid';
 import ContactPlaceholder from './Placeholder/ContactPlaceholder';
-import Transition from './Animations/Transition';
 import { useUndo } from '@/hooks/useUndo';
 import { Form } from '@/types/Form';
 import { deleteCookie, setCookie } from '@/actions/cookies';
@@ -22,19 +20,23 @@ import { InlineLoading } from '@carbon/react';
 import { useTheme } from 'next-themes';
 import { Single as SingleType, SingleContent } from '@/types/Single';
 import ActionButtons from './Placeholder/ActionButtons';
+import ImagePlaceholder from './Placeholder/ImagePlaceholder';
+import { MenuContext } from './MenuProvider';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
-  const { state, setState, undo, redo, canUndo, canRedo, resetHistory } =
+  const { state, setState, resetHistory, triggerUndo, triggerRedo, canUndo } =
     useUndo(JSON.stringify(data));
   const [form, setForm] = useState<Form>(JSON.parse(state));
-  const [edit, setEdit] = useState(false);
   const { color, overriden, setColor } = useColorStore();
   const { theme } = useTheme();
   const updateHistory = useRef(false);
   const [mounted, setMounted] = useState(false);
   const savedForm = useContext(FormContext);
   const [contactsOpen, setContactsOpen] = useState(false);
+  const { reset, setReset, edit, undo, setUndo, redo, setRedo } =
+    useContext(MenuContext);
+  const [image, setImage] = useState<string | null>(null);
 
   // every update
   useEffect(() => {
@@ -50,8 +52,6 @@ export default function CV() {
     if (canUndo) {
       setCookie('savedForm', 'yes');
     }
-
-    // console.log(JSON.stringify(form, replacer));
   }, [form]);
 
   const replacer = (key: string, value: any) =>
@@ -74,12 +74,16 @@ export default function CV() {
   useEffect(() => {
     try {
       const userFrom = localStorage.getItem('form');
-      if (!userFrom) return;
-
-      const parsed = JSON.parse(userFrom);
-      setForm({ ...traverseUUID(parsed) });
-      if (parsed.color !== '#0f62fe' && parsed.color !== '#78a9ff') {
-        setColor(parsed.color, true);
+      if (userFrom) {
+        const parsed = JSON.parse(userFrom);
+        setForm({ ...traverseUUID(parsed) });
+        if (parsed.color !== '#0f62fe' && parsed.color !== '#78a9ff') {
+          setColor(parsed.color, true);
+        }
+      }
+      const image = localStorage.getItem('image');
+      if (image) {
+        setImage(image);
       }
       resetHistory();
     } finally {
@@ -88,8 +92,40 @@ export default function CV() {
     }
   }, []);
 
+  useEffect(() => {
+    if (reset) {
+      resetForm();
+      setReset(false);
+    }
+  }, [reset]);
+
+  useEffect(() => {
+    if (undo) {
+      triggerUndo();
+      setUndo(false);
+    }
+  }, [undo]);
+
+  useEffect(() => {
+    if (redo) {
+      triggerRedo();
+      setRedo(false);
+    }
+  }, [redo]);
+
+  useEffect(() => {
+    if (image) {
+      localStorage.setItem('image', image);
+      setCookie('savedForm', 'yes');
+    } else {
+      localStorage.removeItem('image');
+    }
+  }, [image]);
+
   const resetForm = () => {
     setForm({ ...traverseUUID(placeholder) });
+    setImage(null);
+    localStorage.removeItem('image');
     setColor(theme === 'g10' ? '#0f62fe' : '#78a9ff', false);
     updateHistory.current = false;
     deleteCookie('savedForm');
@@ -140,9 +176,23 @@ export default function CV() {
         <form
           className={`${styles.container} grid grid-cols-2 auto-cols-min cv`}
         >
-          <div className={styles.header}>
-            <div className={`flex flex-col items-start`}>
-              <div className={`relative`}>
+          <div className={`${styles.header}`}>
+            <div
+              className={`grid ${
+                (edit || image) && 'grid-rows-2'
+              } w-fit gap-x-4`}
+            >
+              <ImagePlaceholder
+                image={image}
+                onFile={(e) => setImage(e)}
+                className="row-span-2"
+              ></ImagePlaceholder>
+
+              <div
+                className={`relative self-end ${
+                  (edit || image) && 'md:col-start-2 print:col-start-2'
+                }`}
+              >
                 {form.title && (
                   <RichText
                     className="max-w-64 print:max-w-lg md:max-w-lg font-bold text-3xl"
@@ -160,7 +210,6 @@ export default function CV() {
                 )}
                 {!form.title && (
                   <Placeholder
-                    edit={edit}
                     className="font-bold text-3xl"
                     placeholder="Heading 1"
                     onClick={() =>
@@ -172,7 +221,9 @@ export default function CV() {
                   ></Placeholder>
                 )}
               </div>
-              <div className={`relative`}>
+              <div
+                className={`relative ${!edit && !image && 'md:col-start-1'}`}
+              >
                 {form.subtitle && (
                   <RichText
                     className="max-w-64 print:max-w-lg md:max-w-lg font-bold text-sm"
@@ -190,7 +241,6 @@ export default function CV() {
                 )}
                 {!form.subtitle && (
                   <Placeholder
-                    edit={edit}
                     className="font-bold text-sm"
                     placeholder="Heading 3"
                     onClick={() =>
@@ -203,15 +253,8 @@ export default function CV() {
                 )}
               </div>
             </div>
-            <Actions
-              canUndo={canUndo}
-              canRedo={canRedo}
-              onUndo={() => undo()}
-              onRedo={() => redo()}
-              onEdit={setEdit}
-              onReset={() => resetForm()}
-            ></Actions>
-            <div className="flex flex-col gap-1">
+            <div></div>
+            <div className={`flex flex-col gap-1`}>
               <ActionButtons add onAdd={() => setContactsOpen(!contactsOpen)}>
                 <div className={`${styles.contact}`}>
                   {form.contacts && (
@@ -276,7 +319,6 @@ export default function CV() {
               )}
               {!form.summary && (
                 <Placeholder
-                  edit={edit}
                   className="text-xs text-justify leading-normal min-h-[74px] !pl-4 w-full"
                   placeholder="Write something..."
                   onClick={() =>
@@ -301,7 +343,6 @@ export default function CV() {
                         }
                         setForm({ ...form });
                       }}
-                      edit={edit}
                       onDeleteSection={(e) => deleteSection(e)}
                       last={
                         form.sections.filter((z) => z.type === s.type)

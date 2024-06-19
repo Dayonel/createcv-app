@@ -1,34 +1,34 @@
 import { animated, easings, useSpring } from '@react-spring/web';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './Transition.module.scss';
 
 interface TransitionParams extends React.HTMLAttributes<HTMLDivElement> {
-  edit: boolean;
+  active: boolean;
   children: any;
 }
 
 export default forwardRef<HTMLDivElement, TransitionParams>(function Transition(
-  { edit, children, className },
+  { children, className, active, ...props },
   ref
 ) {
-  const [show, setShow] = useState(() => edit);
+  const [show, setShow] = useState(() => active);
   const style = useSpring({
-    opacity: edit ? 1 : 0,
+    opacity: active ? 1 : 0,
     config: {
       duration: 175,
       easing: easings.linear,
     },
-    onRest: () => setShow(edit),
+    onRest: () => setShow(active),
   });
 
   useEffect(() => {
-    if (!edit) {
+    if (!active) {
       style.opacity.start(); // play on close
     } else {
-      setShow(edit); // play on start immediately
+      setShow(active); // play on start immediately
     }
-  }, [edit]);
+  }, [active]);
 
   return (
     <>
@@ -36,6 +36,7 @@ export default forwardRef<HTMLDivElement, TransitionParams>(function Transition(
         <animated.div
           ref={ref}
           style={style}
+          {...props}
           className={classNames(styles.transition, className)}
         >
           {children}

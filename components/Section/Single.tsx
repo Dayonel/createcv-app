@@ -16,7 +16,6 @@ interface SingleProps {
   onRemove: (full: boolean) => void;
   onAddSection: (e: string) => void;
   onDeleteSection: (e: string) => void;
-  edit: boolean;
   last: boolean;
 }
 
@@ -26,7 +25,6 @@ export default function Single({
   onRemove,
   onAddSection,
   onDeleteSection,
-  edit,
   last,
 }: SingleProps) {
   const content = props.content || [];
@@ -117,7 +115,6 @@ export default function Single({
                 )}
                 {!props.name && (
                   <Placeholder
-                    edit={edit}
                     className={`text-sm font-bold inline-block`}
                     childrenClassName="flex-row-reverse"
                     placeholder="SECTION"
@@ -141,7 +138,6 @@ export default function Single({
                       props={props}
                       onChange={onChange}
                       onRemove={handleRemove}
-                      edit={edit}
                       onAdd={() => addContent()}
                       onDelete={(e) => deleteContent(e)}
                     ></SingleContent>

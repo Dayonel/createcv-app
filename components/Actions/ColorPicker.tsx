@@ -1,10 +1,10 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import useColorStore from '@/store/colorStore';
 import { TextColor } from '@carbon/icons-react';
-import { IconButton } from '@carbon/react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
+import Action from '../DndKit/components/Action/Action';
 
 export default function ColorPicker() {
   const [show, setShow] = useState(false);
@@ -20,17 +20,16 @@ export default function ColorPicker() {
 
   return (
     <div ref={ref} className="relative">
-      <IconButton
-        label="Color"
-        kind="ghost"
-        align="bottom"
-        isSelected={show}
+      <Action
+        className="menu-item"
+        title="Color"
+        fill="var(--cds-text-primary)"
         onClick={() => setShow(!show)}
       >
-        <TextColor size={24}></TextColor>
-      </IconButton>
+        <TextColor size={20}></TextColor>
+      </Action>
 
-      <div className="absolute z-10 left-12 md:left-2/4 translate-y-3 -translate-x-full md:-translate-x-2/4">
+      <div className="absolute z-10 left-1/2 translate-y-3 -translate-x-1/2">
         {show && (
           <>
             <HexColorPicker color={color} onChange={(c) => setColor(c, true)} />

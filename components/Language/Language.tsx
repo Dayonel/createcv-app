@@ -15,7 +15,6 @@ export interface LanguageProps {
   onRemove: () => void;
   onDelete: () => void;
   id: string;
-  edit: boolean;
 }
 
 export default function Language({
@@ -24,7 +23,6 @@ export default function Language({
   onRemove,
   onDelete,
   id,
-  edit,
 }: LanguageProps) {
   const [mounted, setMounted] = useState(false);
   const serverColor = useContext(ColorContext);
@@ -64,7 +62,6 @@ export default function Language({
               )}
               {!props.value && (
                 <Placeholder
-                  edit={edit}
                   className="text-xs font-bold"
                   placeholder="Language"
                   onClick={() => {
@@ -94,7 +91,6 @@ export default function Language({
               )}
               {!props.level && (
                 <Placeholder
-                  edit={edit}
                   className="text-xs font-bold"
                   placeholder="Level"
                   onClick={() => {

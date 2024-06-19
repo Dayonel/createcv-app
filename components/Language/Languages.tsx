@@ -6,14 +6,12 @@ interface LanguagesProps {
   languages: LanguageType[];
   onChange: () => void;
   onRemove: () => void;
-  edit: boolean;
 }
 
 export default function Languages({
   languages,
   onChange,
   onRemove,
-  edit,
 }: LanguagesProps) {
   // TODO: Fix this component
   return (
@@ -44,7 +42,6 @@ export default function Languages({
                   languages.splice(i, 1);
                   onRemove();
                 }}
-                edit={edit}
               ></Language>
             )
           );

@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './globals.scss';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
@@ -9,6 +8,7 @@ import { ThemeProvider } from 'next-themes';
 import { CookieThemeProvider } from '@/components/CookieThemeProvider';
 import { ColorProvider } from '@/components/ColorProvider';
 import { FormProvider } from '@/components/FormProvider';
+import { MenuProvider } from '@/components/MenuProvider';
 
 const roboto = localFont({
   src: [
@@ -64,10 +64,11 @@ export default function RootLayout({
             >
               <FormProvider savedForm={savedForm}>
                 <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
-                  <Header></Header>
-                  <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
-                    {children}
-                  </main>
+                  <MenuProvider>
+                    <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
+                      {children}
+                    </main>
+                  </MenuProvider>
                   <Footer></Footer>
                 </div>
               </FormProvider>

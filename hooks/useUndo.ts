@@ -5,14 +5,14 @@ export const useUndo = (json: string) => {
   const [history, setHistory] = useState<string[]>([json]);
   const [index, setIndex] = useState(0); // Current history index
 
-  const undo = () => {
+  const triggerUndo = () => {
     if (index > 0) {
       setIndex(index - 1);
       _setState(history[index - 1]);
     }
   };
 
-  const redo = () => {
+  const triggerRedo = () => {
     if (index < history.length - 1) {
       setIndex(index + 1);
       _setState(history[index + 1]);
@@ -37,8 +37,8 @@ export const useUndo = (json: string) => {
   return {
     state,
     setState,
-    undo,
-    redo,
+    triggerUndo,
+    triggerRedo,
     canUndo: index > 0,
     canRedo: index < history.length - 1,
     resetHistory,

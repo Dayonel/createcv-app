@@ -1,25 +1,40 @@
 @use "@carbon/themes/scss/tokens";
 
-.actions button {
-  padding: 0;
-  display: flex;
-  align-items: center;
+.actions {
+  background-color: tokens.$background;
+  padding: 0 0.5rem;
+  gap: 0.25rem;
+}
+
+.actions::after {
+  position: absolute;
+  content: "";
+  right: 0;
+  height: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right: 1px solid tokens.$border-subtle-01;
 }
 
 .menu {
   position: absolute;
-  transform: translate(-100%, 0);
-  top: 0;
-  padding: 0;
+  top: 38px;
+  background-color: tokens.$background;
   box-shadow: 0 2px 6px var(--cds-shadow, rgba(0, 0, 0, 0.3));
+  z-index: 30;
+  border-radius: 4px;
+  gap: 0;
+  width: fit-content;
+  min-width: 90px;
+  padding: 0.5rem;
 
   li {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     list-style: none;
-    width: 3rem;
-    height: 3rem;
+    border-radius: 4px;
+    width: 100%;
 
     &:hover {
       background-color: tokens.$background-hover;
@@ -27,6 +42,18 @@
 
     &:active {
       background-color: tokens.$background-active;
+    }
+
+    button {
+      width: 100%;
+      height: 100%;
+      justify-content: start;
+      padding: 0.25rem;
+      min-height: 30px;
+    }
+
+    span {
+      font-size: 13px;
     }
   }
 }

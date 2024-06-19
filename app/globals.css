@@ -47,8 +47,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 42px;
-  height: 42px;
+  width: 2rem;
+  height: 2rem;
+}
+
+.menu-item button {
+  padding: 0.5rem;
 }
 
 .highlight {

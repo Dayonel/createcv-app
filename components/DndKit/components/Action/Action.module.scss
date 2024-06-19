@@ -45,3 +45,9 @@ $focused-outline-color: tokens.$focus;
       0 0px 0px 2px $focused-outline-color;
   }
 }
+
+@media print {
+  .Action {
+    display: none !important;
+  }
+}

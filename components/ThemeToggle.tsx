@@ -21,16 +21,28 @@ export default function ThemeToggle() {
   }, [theme]);
 
   return (
-    <span className="menu-item">
+    <>
       {serverTheme === 'g90' ? (
-        <Action fill="var(--cds-text-primary)" onClick={() => setTheme('g10')}>
-          <Light size={24}></Light>
+        <Action
+          fill="var(--cds-text-primary)"
+          onClick={() => setTheme('g10')}
+        >
+          <div className="flex items-center gap-2">
+            <Light size={20}></Light>
+            <span>Light</span>
+          </div>
         </Action>
       ) : (
-        <Action fill="var(--cds-text-primary)" onClick={() => setTheme('g90')}>
-          <Asleep size={24}></Asleep>
+        <Action
+          fill="var(--cds-text-primary)"
+          onClick={() => setTheme('g90')}
+        >
+          <div className="flex items-center gap-2">
+            <Asleep size={20}></Asleep>
+            <span>Dark</span>
+          </div>
         </Action>
       )}
-    </span>
+    </>
   );
 }

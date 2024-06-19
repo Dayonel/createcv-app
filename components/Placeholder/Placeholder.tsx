@@ -1,22 +1,24 @@
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 import styles from './Placeholder.module.scss';
 import classNames from 'classnames';
 import Transition from '../Animations/Transition';
+import { MenuContext } from '../MenuProvider';
 
 interface PlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder: string;
-  edit: boolean;
   children?: any;
   childrenClassName?: string;
 }
 export default forwardRef<HTMLDivElement, PlaceholderProps>(
   function Placeholder(
-    { className, childrenClassName, edit, children, ...props },
+    { className, childrenClassName, children, ...props },
     ref
   ) {
+    const { edit } = useContext(MenuContext);
+
     return (
       <div className="print:hidden">
-        <Transition edit={edit} className="w-full">
+        <Transition active={edit} className="w-full">
           <div className={classNames(styles.children, childrenClassName)}>
             {children}
             <div

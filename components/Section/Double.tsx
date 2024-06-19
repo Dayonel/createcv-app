@@ -13,16 +13,10 @@ interface DoubleProps {
   props: DoubleType;
   onChange: () => void;
   onRemove: (full: boolean) => void;
-  edit: boolean;
   last: boolean;
 }
 
-export default function Double({
-  props,
-  onChange,
-  onRemove,
-  edit,
-}: DoubleProps) {
+export default function Double({ props, onChange, onRemove }: DoubleProps) {
   const content = props.content || [];
 
   const placeholderDouble = placeholder.sections.find(
@@ -86,7 +80,6 @@ export default function Double({
                       )}
                       {!m.name && (
                         <Placeholder
-                          edit={edit}
                           className={`text-sm font-bold inline-block`}
                           childrenClassName="flex-row-reverse"
                           placeholder="SECTION"
@@ -136,7 +129,6 @@ export default function Double({
                         )}
                         {!m.name && (
                           <Placeholder
-                            edit={edit}
                             className={`text-sm font-bold inline-block`}
                             childrenClassName="flex-row-reverse"
                             placeholder="SECTION"
@@ -153,7 +145,6 @@ export default function Double({
                             languages={m.languages || []}
                             onChange={onChange}
                             onRemove={() => onRemove(false)}
-                            edit={edit}
                           ></Languages>
                         </div>
                       </div>

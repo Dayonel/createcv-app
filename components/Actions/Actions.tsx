@@ -1,7 +1,6 @@
 import './Modal.scss';
 import {
   Download,
-  Edit,
   OverflowMenuVertical,
   Redo,
   Reset,
@@ -10,15 +9,15 @@ import {
 } from '@carbon/icons-react';
 import { useDeferredValue, useEffect, useRef, useState } from 'react';
 import styles from './Actions.module.scss';
-import { IconButton, InlineLoading, Modal } from '@carbon/react';
+import { InlineLoading, Modal } from '@carbon/react';
 import ColorPicker from './ColorPicker';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useTheme } from 'next-themes';
+import ThemeToggle from '../ThemeToggle';
+import Action from '../DndKit/components/Action/Action';
 
 export interface ActionsProps {
-  onEdit: (e: boolean) => void;
-  canUndo: boolean;
-  canRedo: boolean;
+  onEdit: () => void;
   onUndo: () => void;
   onRedo: () => void;
   onReset: () => void;
@@ -26,13 +25,10 @@ export interface ActionsProps {
 
 export default function Actions({
   onEdit,
-  canUndo,
   onUndo,
-  canRedo,
   onRedo,
   onReset,
 }: ActionsProps) {
-  const [edit, setEdit] = useState(false);
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick(() => setOpen(false));
   const { theme, setTheme } = useTheme();
@@ -68,117 +64,85 @@ export default function Actions({
     }
   }, [deferredPrinting]);
 
-  useEffect(() => {
-    if (onEdit) {
-      onEdit(edit);
-    }
-  }, [edit]);
-
   return (
-    <>
+    <div className="relative">
       <div
-        ref={ref}
-        className={`${styles.actions} print:opacity-0 flex flex-col print:flex-row md:flex-row items-center justify-start print:justify-end md:justify-end place-self-start print:place-self-end md:place-self-end gap-2 h-full row-start-1 row-span-2 print:row-span-1 md:row-span-1 col-start-2`}
+        className={`${styles.actions} print:opacity-0 flex justify-center z-30`}
       >
-        <div className="block md:hidden relative">
-          <IconButton
-            label="More..."
-            kind="ghost"
-            align="bottom"
-            onClick={() => setOpen(!open)}
-            isSelected={open}
-          >
-            <OverflowMenuVertical size={24}></OverflowMenuVertical>
-          </IconButton>
-          {open && (
-            <ul className={styles.menu}>
-              <li>
-                <IconButton
-                  label="Reset"
-                  kind="ghost"
-                  align="bottom"
-                  onClick={() => setOpenModal(true)}
-                >
-                  <Reset size={24}></Reset>
-                </IconButton>
-              </li>
-              <li>
-                <IconButton
-                  disabled={!canUndo}
-                  label="Undo"
-                  kind="ghost"
-                  align="bottom"
-                  onClick={() => onUndo()}
-                >
-                  <Undo size={24}></Undo>
-                </IconButton>
-              </li>
-              <li>
-                <IconButton
-                  disabled={!canRedo}
-                  label="Redo"
-                  kind="ghost"
-                  align="bottom"
-                  onClick={() => onRedo()}
-                >
-                  <Redo size={24}></Redo>
-                </IconButton>
-              </li>
-            </ul>
-          )}
-        </div>
-        <div className="hidden md:block">
-          <IconButton
-            label="Reset"
-            kind="ghost"
-            align="bottom"
-            onClick={() => setOpenModal(true)}
-          >
-            <Reset size={24}></Reset>
-          </IconButton>
-
-          <IconButton
-            disabled={!canUndo}
-            label="Undo"
-            kind="ghost"
-            align="bottom"
-            onClick={() => onUndo()}
-          >
-            <Undo size={24}></Undo>
-          </IconButton>
-          <IconButton
-            disabled={!canRedo}
-            label="Redo"
-            kind="ghost"
-            align="bottom"
-            onClick={() => onRedo()}
-          >
-            <Redo size={24}></Redo>
-          </IconButton>
-        </div>
         <ColorPicker></ColorPicker>
-        <IconButton
-          label="Show hidden"
-          kind="ghost"
-          align="bottom"
-          onClick={() => setEdit(!edit)}
-          isSelected={edit}
+        <Action
+          className="menu-item"
+          title="Show hidden"
+          fill="var(--cds-text-primary)"
+          onClick={() => onEdit()}
         >
-          <View size={24}></View>
-        </IconButton>
-        <IconButton
-          label="Download"
-          kind="ghost"
-          align="bottom"
+          <View size={20}></View>
+        </Action>
+        <Action
+          className="menu-item"
+          title="Download"
+          fill={`${isPrinting ? 'transparent' : 'var(--cds-text-primary)'}`}
           onClick={() => download()}
-          disabled={isPrinting}
         >
           {isPrinting ? (
             <InlineLoading className="flex justify-center"></InlineLoading>
           ) : (
-            <Download size={24}></Download>
+            <Download size={20}></Download>
           )}
-        </IconButton>
+        </Action>
+        <div ref={ref} className="relative">
+          <Action
+            className="menu-item"
+            title="More..."
+            fill="var(--cds-text-primary)"
+            onClick={() => setOpen(!open)}
+          >
+            <OverflowMenuVertical size={20}></OverflowMenuVertical>
+          </Action>
+          {open && (
+            <ul className={styles.menu}>
+              <li>
+                <Action
+                  title="Reset"
+                  fill="var(--cds-text-primary)"
+                  onClick={() => setOpenModal(true)}
+                >
+                  <div className="flex items-center gap-2">
+                    <Reset size={20}></Reset>
+                    <span>Reset</span>
+                  </div>
+                </Action>
+              </li>
+              <li>
+                <Action
+                  title="Undo"
+                  fill="var(--cds-text-primary)"
+                  onClick={() => onUndo()}
+                >
+                  <div className="flex items-center gap-2">
+                    <Undo size={20}></Undo>
+                    <span>Undo</span>
+                  </div>
+                </Action>
+              </li>
+              <li>
+                <Action
+                  title="Redo"
+                  fill="var(--cds-text-primary)"
+                  onClick={() => onRedo()}
+                >
+                  <div className="flex items-center gap-2">
+                    <Redo size={20}></Redo>
+                    <span>Redo</span>
+                  </div>
+                </Action>
+              </li>
+              <li>
+                <ThemeToggle></ThemeToggle>
+              </li>
+            </ul>
+          )}
+        </div>
       </div>
       {mounted && (
         <Modal
@@ -197,6 +161,6 @@ export default function Actions({
           All changes will be lost, are you sure?
         </Modal>
       )}
-    </>
+    </div>
   );
 }
