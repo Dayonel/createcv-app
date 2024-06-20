@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import styles from './SignIn.module.scss';
 import { google } from '../icons/google';
 import { Button, InlineLoading, Modal } from '@carbon/react';
-import { apple } from '../icons/apple';
+import { twitter } from '../icons/twitter';
 import { github } from '../icons/github';
 
 interface SignInProps {
@@ -40,6 +40,7 @@ export default function SignIn({ open, onClose }: SignInProps) {
           onRequestClose={onClose}
           size="xs"
           selectorPrimaryFocus=".flex"
+          tabIndex={-1}
         >
           <div className="flex flex-col gap-4">
             <div
@@ -72,7 +73,7 @@ export default function SignIn({ open, onClose }: SignInProps) {
                         </span>
                       </div>
                       {m.id === 'google' && google}
-                      {m.id === 'apple' && apple}
+                      {m.id === 'twitter' && twitter}
                       {m.id === 'github' && github}
                     </div>
                   </Button>
