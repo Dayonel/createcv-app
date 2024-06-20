@@ -3,12 +3,13 @@ import Action from '../DndKit/components/Action/Action';
 import { useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useSession } from 'next-auth/react';
-import SignIn from './SignIn';
 import { UserAvatar } from '@carbon/icons-react';
 import SignOut from './SignOut';
+import SignIn from './SignIn';
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
+  const [modal, setModal] = useState(false);
   const ref = useOutsideClick(() => setOpen(false));
   const { data: session } = useSession();
 
@@ -34,8 +35,16 @@ export default function Profile() {
           </>
         </>
       ) : (
-        <SignIn></SignIn>
+        <Action
+          onClick={() => setModal(true)}
+          className="menu-item"
+          fill="var(--cds-text-primary)"
+        >
+          <UserAvatar size={20}></UserAvatar>
+        </Action>
       )}
+
+      <SignIn open={modal} onClose={() => setModal(false)}></SignIn>
     </div>
   );
 }

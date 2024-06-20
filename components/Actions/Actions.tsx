@@ -1,4 +1,3 @@
-import './Modal.scss';
 import {
   Download,
   OverflowMenuVertical,
@@ -157,8 +156,9 @@ export default function Actions({
             setOpenModal(false);
           }}
           size="xs"
+          selectorPrimaryFocus=".flex"
         >
-          All changes will be lost, are you sure?
+          <span className="flex">All changes will be lost, are you sure?</span>
         </Modal>
       )}
     </div>
