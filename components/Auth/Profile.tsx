@@ -6,16 +6,15 @@ import { useSession } from 'next-auth/react';
 import SignIn from './SignIn';
 import { UserAvatar } from '@carbon/icons-react';
 import SignOut from './SignOut';
-import styles from './Profile.module.scss';
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick(() => setOpen(false));
-  const { status } = useSession();
+  const { data: session } = useSession();
 
   return (
     <div ref={ref}>
-      {status === 'authenticated' ? (
+      {session ? (
         <>
           <Action
             className="menu-item"
