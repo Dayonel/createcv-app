@@ -125,7 +125,9 @@ export default function CV() {
 
   const resetForm = () => {
     setForm({ ...traverseUUID(placeholder) });
+    setColor('var(--cds-link-primary)');
     setImage(null);
+    localStorage.removeItem('form');
     localStorage.removeItem('image');
     updateHistory.current = false;
     deleteCookie('savedForm');
