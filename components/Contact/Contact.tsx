@@ -16,8 +16,6 @@ import {
 import { Contact as ContactType } from '../../types/Contact';
 import RichText from '../RichText/RichText';
 import useColorStore from '@/store/colorStore';
-import { useContext, useEffect, useState } from 'react';
-import { ColorContext } from '../ColorProvider';
 
 export interface ContactProps {
   props: ContactType;
@@ -42,17 +40,11 @@ const contactIcons = {
 
 export default function Contact({ props, onChange }: ContactProps) {
   const Component = contactIcons[props.icon as keyof typeof contactIcons]; // Correct! JSX type can be a capitalized variable.
-  const [mounted, setMounted] = useState(false);
   const { color } = useColorStore();
-  const serverColor = useContext(ColorContext);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <span className={`flex items-center`}>
-      {<Component fill={mounted ? color : serverColor}></Component>}
+      {<Component fill={color}></Component>}
       <RichText
         className="max-w-52 text-xs"
         props={props.text}

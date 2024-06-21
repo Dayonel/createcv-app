@@ -17,11 +17,11 @@ import { Form } from '@/types/Form';
 import { deleteCookie, setCookie } from '@/actions/cookies';
 import { FormContext } from './FormProvider';
 import { InlineLoading } from '@carbon/react';
-import { useTheme } from 'next-themes';
 import { Single as SingleType, SingleContent } from '@/types/Single';
 import ActionButtons from './Placeholder/ActionButtons';
 import ImagePlaceholder from './Placeholder/ImagePlaceholder';
 import { MenuContext } from './MenuProvider';
+import { useTheme } from 'next-themes';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
@@ -29,7 +29,6 @@ export default function CV() {
     useUndo(JSON.stringify(data));
   const [form, setForm] = useState<Form>(JSON.parse(state));
   const { color, overriden, setColor } = useColorStore();
-  const { theme } = useTheme();
   const updateHistory = useRef(false);
   const [mounted, setMounted] = useState(false);
   const savedForm = useContext(FormContext);
@@ -37,6 +36,7 @@ export default function CV() {
   const { reset, setReset, edit, undo, setUndo, redo, setRedo } =
     useContext(MenuContext);
   const [image, setImage] = useState<string | null>(null);
+  const { setTheme } = useTheme();
 
   // every update
   useEffect(() => {
@@ -48,8 +48,8 @@ export default function CV() {
 
     updateHistory.current = true;
 
-    localStorage.setItem('form', JSON.stringify(form, replacer));
     if (canUndo) {
+      localStorage.setItem('form', JSON.stringify(form, replacer));
       setCookie('savedForm', 'yes');
     }
   }, [form]);
@@ -65,6 +65,7 @@ export default function CV() {
   useEffect(() => {
     updateHistory.current = false;
     if (overriden) {
+      localStorage.setItem('form', JSON.stringify(form, replacer));
       setCookie('savedForm', 'yes');
     }
     setForm({ ...form, color });
@@ -77,7 +78,7 @@ export default function CV() {
       if (userFrom) {
         const parsed = JSON.parse(userFrom);
         setForm({ ...traverseUUID(parsed) });
-        if (parsed.color !== '#0f62fe' && parsed.color !== '#78a9ff') {
+        if (parsed.color !== 'var(--cds-link-primary)') {
           setColor(parsed.color, true);
         }
       }
@@ -126,9 +127,11 @@ export default function CV() {
     setForm({ ...traverseUUID(placeholder) });
     setImage(null);
     localStorage.removeItem('image');
-    setColor(theme === 'g10' ? '#0f62fe' : '#78a9ff', false);
     updateHistory.current = false;
     deleteCookie('savedForm');
+    deleteCookie('theme');
+    localStorage.removeItem('theme');
+    setTheme('system');
   };
 
   const sections = {

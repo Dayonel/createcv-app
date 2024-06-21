@@ -1,10 +1,4 @@
-import {
-  CSSProperties,
-  forwardRef,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { CSSProperties, forwardRef } from 'react';
 import styles from './ContactPlaceholder.module.scss';
 import {
   Email,
@@ -24,7 +18,6 @@ import placeholder from '../../data/placeholder.json';
 import { getText, getTextContent } from '@/utils/richTextUtils';
 import { Contact } from '@/types/Contact';
 import useColorStore from '@/store/colorStore';
-import { ColorContext } from '../ColorProvider';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface ContactPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -35,14 +28,8 @@ interface ContactPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
   function ContactPlaceholder({ open, onAdd, style, onClose, ...props }, ref) {
-    const [mounted, setMounted] = useState(false);
-    const serverColor = useContext(ColorContext);
     const { color } = useColorStore();
     const wrapper = useOutsideClick(() => onClose());
-
-    useEffect(() => {
-      setMounted(true);
-    }, []);
 
     return (
       <>
@@ -55,7 +42,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   onClick={() => onAdd(placeholder.contacts[0] as Contact)}
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -69,7 +56,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   onClick={() => onAdd(placeholder.contacts[1] as Contact)}
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -83,7 +70,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   onClick={() => onAdd(placeholder.contacts[2] as Contact)}
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -97,7 +84,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   onClick={() => onAdd(placeholder.contacts[3] as Contact)}
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -111,7 +98,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   onClick={() => onAdd(placeholder.contacts[4] as Contact)}
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -125,7 +112,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   onClick={() => onAdd(placeholder.contacts[5] as Contact)}
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -144,7 +131,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   }
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -163,7 +150,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   }
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -182,7 +169,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   }
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -201,7 +188,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   }
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -220,7 +207,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   }
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >
@@ -239,7 +226,7 @@ export default forwardRef<HTMLDivElement, ContactPlaceholderProps>(
                   }
                   style={
                     {
-                      '--fill': mounted ? color : serverColor,
+                      '--fill': color,
                     } as CSSProperties
                   }
                 >

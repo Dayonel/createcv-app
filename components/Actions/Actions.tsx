@@ -30,7 +30,7 @@ export default function Actions({
 }: ActionsProps) {
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick(() => setOpen(false));
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const prevTheme = useRef<string>();
   const [openModal, setOpenModal] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -50,7 +50,7 @@ export default function Actions({
   const [isPrinting, setIsPrinting] = useState(false);
   const download = () => {
     setIsPrinting(true);
-    prevTheme.current = theme;
+    prevTheme.current = resolvedTheme;
     setTheme('g10');
   };
 

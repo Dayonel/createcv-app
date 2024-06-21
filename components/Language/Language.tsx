@@ -3,8 +3,6 @@ import { Language as LanguageType } from '@/types/Language';
 import RichText from '../RichText/RichText';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '../Placeholder/Placeholder';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { ColorContext } from '../ColorProvider';
 import placeholder from '../../data/placeholder.json';
 import { DoubleContent } from '@/types/Double';
 import ActionButtons from '../Placeholder/ActionButtons';
@@ -24,13 +22,7 @@ export default function Language({
   onDelete,
   id,
 }: LanguageProps) {
-  const [mounted, setMounted] = useState(false);
-  const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const placeholderContent = (
     placeholder.sections.find((f) => f.type === 'Double')!
@@ -116,9 +108,7 @@ export default function Language({
                 }}
                 style={{
                   backgroundSize: `${Math.min(props.rating * 10, 100)}%`,
-                  backgroundImage: `linear-gradient(${
-                    mounted ? color : serverColor
-                  }, ${mounted ? color : serverColor})`,
+                  backgroundImage: `linear-gradient(${color}, ${color})`,
                 }}
               ></input>
             </div>

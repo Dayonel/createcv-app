@@ -7,7 +7,6 @@ import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
 import { ThemeProvider } from 'next-themes';
 import { CookieThemeProvider } from '@/components/CookieThemeProvider';
-import { ColorProvider } from '@/components/ColorProvider';
 import { FormProvider } from '@/components/FormProvider';
 import { MenuProvider } from '@/components/MenuProvider';
 import { SessionProvider } from 'next-auth/react';
@@ -50,7 +49,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = cookies();
-  const cookieTheme = cookieStore.get('theme')?.value || 'g10';
+  const cookieTheme = cookieStore.get('theme')?.value;
   const savedForm = cookieStore.get('savedForm')?.value;
   const session = await auth();
 
@@ -59,28 +58,21 @@ export default async function RootLayout({
       <body className={`${roboto.className}`}>
         <SessionProvider session={session}>
           <CookieThemeProvider cookieTheme={cookieTheme}>
-            <ColorProvider
-              color={cookieTheme === 'g10' ? '#0f62fe' : '#78a9ff'}
+            <ThemeProvider
+              attribute="data-carbon-theme"
+              disableTransitionOnChange
             >
-              <ThemeProvider
-                attribute="data-carbon-theme"
-                defaultTheme="g10"
-                themes={['g10', 'g90']}
-                enableSystem
-                disableTransitionOnChange
-              >
-                <FormProvider savedForm={savedForm}>
-                  <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
-                    <MenuProvider>
-                      <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
-                        {children}
-                      </main>
-                    </MenuProvider>
-                    <Footer></Footer>
-                  </div>
-                </FormProvider>
-              </ThemeProvider>
-            </ColorProvider>
+              <FormProvider savedForm={savedForm}>
+                <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
+                  <MenuProvider>
+                    <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
+                      {children}
+                    </main>
+                  </MenuProvider>
+                  <Footer></Footer>
+                </div>
+              </FormProvider>
+            </ThemeProvider>
           </CookieThemeProvider>
         </SessionProvider>
       </body>

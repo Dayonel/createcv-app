@@ -1,22 +1,14 @@
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import useColorStore from '@/store/colorStore';
 import { TextColor } from '@carbon/icons-react';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import Action from '../DndKit/components/Action/Action';
 
 export default function ColorPicker() {
   const [show, setShow] = useState(false);
-  const { theme } = useTheme();
   const ref = useOutsideClick(() => setShow(false));
-  const { color, setColor, overriden } = useColorStore();
-
-  useEffect(() => {
-    if (overriden) return;
-
-    setColor(theme && theme === 'g10' ? '#0f62fe' : '#78a9ff');
-  }, [theme]);
+  const { color, setColor } = useColorStore();
 
   return (
     <div ref={ref} className="relative">

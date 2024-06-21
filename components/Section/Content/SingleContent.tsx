@@ -3,8 +3,6 @@ import { SingleContent as SingleContentType } from '@/types/Single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '@/components/Placeholder/Placeholder';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { ColorContext } from '@/components/ColorProvider';
 import placeholder from '../../../data/placeholder.json';
 import ActionButtons from '@/components/Placeholder/ActionButtons';
 
@@ -23,17 +21,11 @@ export default function SingleContent({
   onAdd,
   onDelete,
 }: SingleContentProps) {
-  const [mounted, setMounted] = useState(false);
-  const serverColor = useContext(ColorContext);
   const { color } = useColorStore();
 
   const placeholderContent = placeholder.sections.find(
     (f) => f.type === 'Single'
   )!.content![0] as SingleContentType;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <>
@@ -77,7 +69,7 @@ export default function SingleContent({
               <div>
                 {props.date !== undefined && (
                   <div className="flex items-center pl-[6px]">
-                    <Calendar fill={mounted ? color : serverColor}></Calendar>
+                    <Calendar fill={color}></Calendar>
                     <RichText
                       className="font-bold text-xs max-w-xs"
                       props={props.date}
@@ -104,7 +96,7 @@ export default function SingleContent({
                       onChange();
                     }}
                   >
-                    <Calendar fill={mounted ? color : serverColor}></Calendar>
+                    <Calendar fill={color}></Calendar>
                   </Placeholder>
                 )}
               </div>

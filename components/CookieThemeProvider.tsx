@@ -1,7 +1,7 @@
 'use client';
 import React, { createContext } from 'react';
 
-export const CookieThemeContext = createContext('g10');
+export const CookieThemeContext = createContext(undefined);
 
 export const CookieThemeProvider = ({ cookieTheme, children }: any) => {
   return (

@@ -2,30 +2,30 @@ import { setCookie } from '@/actions/cookies';
 import { Asleep, Light } from '@carbon/icons-react';
 import { useTheme } from 'next-themes';
 import { useContext, useEffect, useState } from 'react';
-import { CookieThemeContext } from './CookieThemeProvider';
 import Action from './DndKit/components/Action/Action';
+import { CookieThemeContext } from './CookieThemeProvider';
 
 export default function ThemeToggle() {
   const cookieTheme = useContext(CookieThemeContext);
   const [serverTheme, setServerTheme] = useState<string | undefined>(
     () => cookieTheme
   );
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
-    if (theme) {
-      setCookie('theme', theme);
+    if (resolvedTheme) {
+      setCookie('theme', resolvedTheme);
     }
 
-    setServerTheme(theme);
-  }, [theme]);
+    setServerTheme(resolvedTheme);
+  }, [resolvedTheme]);
 
   return (
     <>
-      {serverTheme === 'g90' ? (
+      {serverTheme === 'dark' ? (
         <Action
           fill="var(--cds-text-primary)"
-          onClick={() => setTheme('g10')}
+          onClick={() => setTheme('light')}
         >
           <div className="flex items-center gap-2">
             <Light size={20}></Light>
@@ -33,10 +33,7 @@ export default function ThemeToggle() {
           </div>
         </Action>
       ) : (
-        <Action
-          fill="var(--cds-text-primary)"
-          onClick={() => setTheme('g90')}
-        >
+        <Action fill="var(--cds-text-primary)" onClick={() => setTheme('dark')}>
           <div className="flex items-center gap-2">
             <Asleep size={20}></Asleep>
             <span>Dark</span>
