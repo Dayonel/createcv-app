@@ -74,6 +74,8 @@
 @media print {
   body {
     min-width: 950px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   .highlight,

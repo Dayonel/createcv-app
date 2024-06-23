@@ -8,6 +8,8 @@
   border: 2px solid tokens.$text-primary;
   font-size: 12px;
   font-weight: bold;
+  print-color-adjust: initial;
+  -webkit-print-color-adjust: initial;
 }
 
 @media print {

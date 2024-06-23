@@ -6,7 +6,7 @@ import {
   Undo,
   View,
 } from '@carbon/icons-react';
-import { useDeferredValue, useEffect, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './Actions.module.scss';
 import { InlineLoading, Modal } from '@carbon/react';
 import ColorPicker from './ColorPicker';
@@ -14,6 +14,8 @@ import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useTheme } from 'next-themes';
 import ThemeToggle from '../ThemeToggle';
 import Action from '../DndKit/components/Action/Action';
+import Watermark from '../Watermark';
+import { createPortal } from 'react-dom';
 
 export interface ActionsProps {
   onEdit: () => void;
@@ -34,18 +36,31 @@ export default function Actions({
   const prevTheme = useRef<string>();
   const [openModal, setOpenModal] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const _print = useMemo(() => typeof window === 'object' && window.print, []);
 
   useEffect(() => {
     setMounted(true);
+    if (sessionStorage.getItem('print')) {
+      setIsPrinting(true);
+    }
   }, []);
 
   // print
   useEffect(() => {
+    window.print = () => {
+      setIsPrinting(true);
+    };
+
     window.addEventListener('afterprint', afterPrint);
 
     return () => window.removeEventListener('afterprint', afterPrint);
   }, []);
-  const afterPrint = () => setTheme(prevTheme.current!);
+
+  const afterPrint = () => {
+    setTheme(prevTheme.current!);
+    setIsPrinting(false);
+    sessionStorage.removeItem('print');
+  };
 
   const [isPrinting, setIsPrinting] = useState(false);
   const download = () => {
@@ -57,9 +72,13 @@ export default function Actions({
   const deferredPrinting = useDeferredValue(isPrinting);
 
   useEffect(() => {
-    if (isPrinting === true) {
-      setIsPrinting(false);
-      window.print();
+    if (deferredPrinting && _print) {
+      if (!sessionStorage.getItem('print')) {
+        sessionStorage.setItem('print', 'true');
+        window.location.reload();
+      }
+
+      _print();
     }
   }, [deferredPrinting]);
 
@@ -161,6 +180,7 @@ export default function Actions({
           <span className="flex">All changes will be lost, are you sure?</span>
         </Modal>
       )}
+      {isPrinting && createPortal(<Watermark></Watermark>, document.body)}
     </div>
   );
 }
