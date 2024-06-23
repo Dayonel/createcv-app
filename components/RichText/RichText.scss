@@ -4,7 +4,6 @@
   font-variant-ligatures: unset !important;
   -webkit-font-variant-ligatures: unset !important;
   font-feature-settings: normal !important;
-  white-space: normal !important;
 }
 
 /* Basic editor styles */
@@ -67,6 +66,7 @@ ul ul {
 p,
 li {
   font-size: 12px;
+  white-space: pre-wrap;
 }
 
 blockquote {
