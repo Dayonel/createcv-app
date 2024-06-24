@@ -16,6 +16,7 @@ import ThemeToggle from '../ThemeToggle';
 import Action from '../DndKit/components/Action/Action';
 import Watermark from '../Watermark';
 import { createPortal } from 'react-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export interface ActionsProps {
   onEdit: () => void;
@@ -36,11 +37,14 @@ export default function Actions({
   const prevTheme = useRef<string>();
   const [openModal, setOpenModal] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const searchParams = useSearchParams();
   const _print = useMemo(() => typeof window === 'object' && window.print, []);
+  const router = useRouter();
+  const params = useRef<string | null>(searchParams.get('print'));
 
   useEffect(() => {
     setMounted(true);
-    if (sessionStorage.getItem('print')) {
+    if (params.current) {
       setIsPrinting(true);
     }
   }, []);
@@ -59,7 +63,8 @@ export default function Actions({
   const afterPrint = () => {
     setTheme(prevTheme.current!);
     setIsPrinting(false);
-    sessionStorage.removeItem('print');
+    params.current = null;
+    router.replace('/');
   };
 
   const [isPrinting, setIsPrinting] = useState(false);
@@ -72,14 +77,14 @@ export default function Actions({
   const deferredPrinting = useDeferredValue(isPrinting);
 
   useEffect(() => {
-    if (deferredPrinting && _print) {
-      if (!sessionStorage.getItem('print')) {
-        sessionStorage.setItem('print', 'true');
-        window.location.reload();
-      }
+    if (!deferredPrinting) return;
+    if (!_print) return;
 
-      _print();
+    if (!params.current) {
+      window.location.href = '?print=1';
     }
+
+    _print();
   }, [deferredPrinting]);
 
   return (
