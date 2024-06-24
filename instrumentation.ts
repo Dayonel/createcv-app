@@ -7,5 +7,7 @@ export interface Env {
 }
 
 export async function register() {
-  await up(process.env.DB);
+  if (process.env.NODE_ENV === 'development') {
+    await up(process.env.DB);
+  }
 }
