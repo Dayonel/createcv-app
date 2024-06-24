@@ -82,6 +82,7 @@ export default function Actions({
 
     if (!params.current) {
       window.location.href = '?print=1';
+      return;
     }
 
     _print();
@@ -185,7 +186,9 @@ export default function Actions({
           <span className="flex">All changes will be lost, are you sure?</span>
         </Modal>
       )}
-      {isPrinting && createPortal(<Watermark></Watermark>, document.body)}
+      {mounted &&
+        params.current &&
+        createPortal(<Watermark></Watermark>, document.body)}
     </div>
   );
 }
