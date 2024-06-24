@@ -26,11 +26,13 @@ export default function Profile() {
           </Action>
           <>
             {open && (
-              <ul className="menu">
-                <li>
-                  <SignOut></SignOut>
-                </li>
-              </ul>
+              <div className="absolute md:!static right-0">
+                <ul className="menu !sticky md:!absolute">
+                  <li>
+                    <SignOut></SignOut>
+                  </li>
+                </ul>
+              </div>
             )}
           </>
         </>
