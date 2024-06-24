@@ -26,7 +26,7 @@ export default function Profile() {
           </Action>
           <>
             {open && (
-              <div className="absolute md:!static right-0">
+              <div className="absolute md:!static right-2">
                 <ul className="menu !sticky md:!absolute">
                   <li>
                     <SignOut></SignOut>
