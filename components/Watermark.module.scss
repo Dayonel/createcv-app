@@ -1,5 +1,10 @@
+.watermark {
+  display: none;
+}
+
 @media print {
   .watermark {
+    display: block;
     position: absolute;
     top: 0;
     right: 0;

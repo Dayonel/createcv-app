@@ -22,6 +22,7 @@ import ActionButtons from './Placeholder/ActionButtons';
 import ImagePlaceholder from './Placeholder/ImagePlaceholder';
 import { MenuContext } from './MenuProvider';
 import { useTheme } from 'next-themes';
+import Watermark from './Watermark';
 
 export default function CV() {
   const data = traverseUUID(placeholder); // traverse
@@ -361,6 +362,7 @@ export default function CV() {
           </div>
         </form>
       )}
+      <Watermark></Watermark>
     </>
   );
 }

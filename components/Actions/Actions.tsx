@@ -14,8 +14,6 @@ import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useTheme } from 'next-themes';
 import ThemeToggle from '../ThemeToggle';
 import Action from '../DndKit/components/Action/Action';
-import Watermark from '../Watermark';
-import { createPortal } from 'react-dom';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export interface ActionsProps {
@@ -186,9 +184,6 @@ export default function Actions({
           <span className="flex">All changes will be lost, are you sure?</span>
         </Modal>
       )}
-      {mounted &&
-        params.current &&
-        createPortal(<Watermark></Watermark>, document.body)}
     </div>
   );
 }
