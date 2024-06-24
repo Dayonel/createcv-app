@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { UserAvatar } from '@carbon/icons-react';
 import SignOut from './SignOut';
 import SignIn from './SignIn';
+import Image from 'next/image';
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
@@ -22,7 +23,17 @@ export default function Profile() {
             fill="var(--cds-text-primary)"
             onClick={() => setOpen(!open)}
           >
-            <UserAvatar size={20}></UserAvatar>
+            {session.user?.image ? (
+              <Image
+                style={{ borderRadius: '50%' }}
+                src={session.user.image}
+                alt="Profile picture"
+                width={24}
+                height={24}
+              ></Image>
+            ) : (
+              <UserAvatar size={20}></UserAvatar>
+            )}
           </Action>
           <>
             {open && (
