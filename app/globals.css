@@ -67,13 +67,13 @@
 
 /* print settings */
 @page {
-  size: A4;
+  size: 850px 1080px;
   margin: 5mm 5mm 5mm 5mm;
 }
 /* must have for mobile */
 @media print {
   body {
-    min-width: 950px;
+    min-width: 850px;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
