@@ -1,20 +1,18 @@
 import {
-  Download,
   OverflowMenuVertical,
   Redo,
   Reset,
   Undo,
   View,
 } from '@carbon/icons-react';
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Actions.module.scss';
-import { InlineLoading, Modal } from '@carbon/react';
+import { Modal } from '@carbon/react';
 import ColorPicker from './ColorPicker';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import { useTheme } from 'next-themes';
 import ThemeToggle from '../ThemeToggle';
 import Action from '../DndKit/components/Action/Action';
-import { useRouter, useSearchParams } from 'next/navigation';
+import Print from '../Print';
 
 export interface ActionsProps {
   onEdit: () => void;
@@ -31,60 +29,12 @@ export default function Actions({
 }: ActionsProps) {
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick(() => setOpen(false));
-  const { resolvedTheme, setTheme } = useTheme();
-  const prevTheme = useRef<string>();
   const [openModal, setOpenModal] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const searchParams = useSearchParams();
-  const _print = useMemo(() => typeof window === 'object' && window.print, []);
-  const router = useRouter();
-  const params = useRef<string | null>(searchParams.get('print'));
 
   useEffect(() => {
     setMounted(true);
-    if (params.current) {
-      setIsPrinting(true);
-    }
   }, []);
-
-  // print
-  useEffect(() => {
-    window.print = () => {
-      setIsPrinting(true);
-    };
-
-    window.addEventListener('afterprint', afterPrint);
-
-    return () => window.removeEventListener('afterprint', afterPrint);
-  }, []);
-
-  const afterPrint = () => {
-    setTheme(prevTheme.current!);
-    setIsPrinting(false);
-    params.current = null;
-    router.replace('/');
-  };
-
-  const [isPrinting, setIsPrinting] = useState(false);
-  const download = () => {
-    setIsPrinting(true);
-    prevTheme.current = resolvedTheme;
-    setTheme('g10');
-  };
-
-  const deferredPrinting = useDeferredValue(isPrinting);
-
-  useEffect(() => {
-    if (!deferredPrinting) return;
-    if (!_print) return;
-
-    if (!params.current) {
-      window.location.href = '?print=1';
-      return;
-    }
-
-    _print();
-  }, [deferredPrinting]);
 
   return (
     <div className="relative">
@@ -100,18 +50,7 @@ export default function Actions({
         >
           <View size={20}></View>
         </Action>
-        <Action
-          className="action"
-          title="Download"
-          fill={`${isPrinting ? 'transparent' : 'var(--cds-text-primary)'}`}
-          onClick={() => download()}
-        >
-          {isPrinting ? (
-            <InlineLoading className="flex justify-center"></InlineLoading>
-          ) : (
-            <Download size={20}></Download>
-          )}
-        </Action>
+        <Print></Print>
         <div ref={ref}>
           <Action
             className="action"
