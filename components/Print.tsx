@@ -16,7 +16,6 @@ export default function Print() {
 
   useEffect(() => {
     if (params.current) {
-      setIsPrinting(true);
       prevTheme.current = resolvedTheme;
       setTheme('light');
     }
@@ -34,7 +33,6 @@ export default function Print() {
 
   const afterPrint = () => {
     setTheme(prevTheme.current!);
-    setIsPrinting(false);
     params.current = null;
     router.replace('/');
   };
@@ -59,11 +57,10 @@ export default function Print() {
   useEffect(() => {
     if (!_print) return;
     if (deferredTheme !== 'light') return;
-    if (!isPrinting) return;
     if (!params.current) return;
 
     _print();
-  }, [_print, isPrinting, deferredTheme, params.current]);
+  }, [_print, deferredTheme, params.current]);
 
   return (
     <Action
