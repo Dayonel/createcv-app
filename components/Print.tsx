@@ -1,13 +1,6 @@
 import { InlineLoading } from '@carbon/react';
 import Action from './DndKit/components/Action/Action';
-import {
-  Suspense,
-  useDeferredValue,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { Download } from '@carbon/icons-react';
@@ -75,13 +68,11 @@ export default function Print() {
       fill={`${isLoading ? 'transparent' : 'var(--cds-text-primary)'}`}
       onClick={download}
     >
-      <Suspense>
-        {isLoading ? (
-          <InlineLoading className="flex justify-center items-center" />
-        ) : (
-          <Download size={20}></Download>
-        )}
-      </Suspense>
+      {isLoading ? (
+        <InlineLoading className="flex justify-center items-center" />
+      ) : (
+        <Download size={20}></Download>
+      )}
     </Action>
   );
 }
