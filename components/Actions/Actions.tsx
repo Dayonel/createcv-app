@@ -38,13 +38,11 @@ export default function Actions({
   const searchParams = useSearchParams();
   const _print = useMemo(() => typeof window === 'object' && window.print, []);
   const router = useRouter();
-  const print = useRef<string | null>(searchParams.get('print'));
+  const params = useRef<string | null>(searchParams.get('print'));
 
   useEffect(() => {
     setMounted(true);
-    if (print.current) {
-      prevTheme.current = resolvedTheme;
-      setTheme('g10');
+    if (params.current) {
       setIsPrinting(true);
     }
   }, []);
@@ -63,13 +61,15 @@ export default function Actions({
   const afterPrint = () => {
     setTheme(prevTheme.current!);
     setIsPrinting(false);
-    print.current = null;
+    params.current = null;
     router.replace('/');
   };
 
   const [isPrinting, setIsPrinting] = useState(false);
   const download = () => {
     setIsPrinting(true);
+    prevTheme.current = resolvedTheme;
+    setTheme('g10');
   };
 
   const deferredPrinting = useDeferredValue(isPrinting);
@@ -78,7 +78,7 @@ export default function Actions({
     if (!deferredPrinting) return;
     if (!_print) return;
 
-    if (!print.current) {
+    if (!params.current) {
       window.location.href = '?print=1';
       return;
     }
