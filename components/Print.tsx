@@ -4,6 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { Download } from '@carbon/icons-react';
+import { setCookie } from '@/actions/cookies';
 
 export default function Print() {
   const [isPrinting, setIsPrinting] = useState(false);
@@ -59,6 +60,7 @@ export default function Print() {
     }
 
     _print();
+    setCookie('printed', 'true');
   }, [deferredPrinting]);
 
   return (

@@ -1,0 +1,11 @@
+@use "@carbon/themes/scss/tokens";
+
+.instructions svg {
+  fill: tokens.$border-subtle-00;
+}
+
+@media (min-width: 1366px) {
+  .instructions {
+    display: block;
+  }
+}

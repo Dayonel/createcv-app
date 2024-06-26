@@ -23,6 +23,7 @@ import ImagePlaceholder from '../../Placeholder/ImagePlaceholder';
 import { MenuContext } from '../../Providers/MenuProvider';
 import { useTheme } from 'next-themes';
 import Watermark from '../../Watermark';
+import Instructions from '@/components/Instructions/Instructions';
 
 export default function Template1() {
   const data = traverseUUID(placeholder); // traverse
@@ -32,7 +33,7 @@ export default function Template1() {
   const { color, overriden, setColor } = useColorStore();
   const updateHistory = useRef(false);
   const [mounted, setMounted] = useState(false);
-  const savedForm = useContext(FormContext);
+  const { savedForm } = useContext(FormContext);
   const [contactsOpen, setContactsOpen] = useState(false);
   const { reset, setReset, edit, undo, setUndo, redo, setRedo } =
     useContext(MenuContext);
@@ -51,7 +52,7 @@ export default function Template1() {
 
     if (canUndo) {
       localStorage.setItem('form', JSON.stringify(form, replacer));
-      setCookie('savedForm', 'yes');
+      setCookie('savedForm', 'true');
     }
   }, [form]);
 
@@ -67,7 +68,7 @@ export default function Template1() {
     updateHistory.current = false;
     if (overriden) {
       localStorage.setItem('form', JSON.stringify(form, replacer));
-      setCookie('savedForm', 'yes');
+      setCookie('savedForm', 'true');
     }
     setForm({ ...form, color });
   }, [color]);
@@ -118,7 +119,7 @@ export default function Template1() {
   useEffect(() => {
     if (image) {
       localStorage.setItem('image', image);
-      setCookie('savedForm', 'yes');
+      setCookie('savedForm', 'true');
     } else {
       localStorage.removeItem('image');
     }
@@ -132,6 +133,7 @@ export default function Template1() {
     localStorage.removeItem('image');
     updateHistory.current = false;
     deleteCookie('savedForm');
+    deleteCookie('printed');
     deleteCookie('theme');
     localStorage.removeItem('theme');
     setTheme('system');
@@ -360,6 +362,7 @@ export default function Template1() {
                 );
               })}
           </div>
+          <Instructions></Instructions>
         </form>
       )}
       <Watermark></Watermark>

@@ -1,9 +1,26 @@
 'use client';
 import { createContext } from 'react';
 
-export const FormContext = createContext('');
-export const FormProvider = ({ savedForm, children }: any) => {
+interface FormProps {
+  savedForm: string | undefined;
+  printed: string | undefined;
+}
+interface FormProviderProps extends FormProps {
+  children: any;
+}
+export const FormContext = createContext<FormProps>({
+  savedForm: '',
+  printed: '',
+});
+
+export const FormProvider = ({
+  savedForm,
+  printed,
+  children,
+}: FormProviderProps) => {
   return (
-    <FormContext.Provider value={savedForm}>{children}</FormContext.Provider>
+    <FormContext.Provider value={{ savedForm, printed }}>
+      {children}
+    </FormContext.Provider>
   );
 };

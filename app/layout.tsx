@@ -51,6 +51,7 @@ export default async function RootLayout({
   const cookieStore = cookies();
   const cookieTheme = cookieStore.get('theme')?.value;
   const savedForm = cookieStore.get('savedForm')?.value;
+  const printed = cookieStore.get('printed')?.value;
   const session = await auth();
 
   return (
@@ -62,7 +63,7 @@ export default async function RootLayout({
               attribute="data-carbon-theme"
               disableTransitionOnChange
             >
-              <FormProvider savedForm={savedForm}>
+              <FormProvider savedForm={savedForm} printed={printed}>
                 <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
                   <MenuProvider>
                     <main className="w-full max-w-[984px] px-8 print:px-4 md:px-4 py-6">
