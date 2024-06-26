@@ -1,13 +1,13 @@
 import styles from './Double.module.scss';
-import Divider from '../Divider';
-import Skills from '../Skills';
+import Divider from '../Divider/Divider';
+import Skills from '../Skill/Skills';
 import Languages from '../Language/Languages';
-import { DoubleContent, Double as DoubleType } from '@/types/Double';
-import RichText from '../RichText/RichText';
-import Placeholder from '../Placeholder/Placeholder';
+import { DoubleContent, Double as DoubleType } from '../types/Double';
+import RichText from '../../../RichText/RichText';
+import Placeholder from '../../../Placeholder/Placeholder';
 import { v4 } from 'uuid';
-import placeholder from '../../data/placeholder.json';
-import ActionButtons from '../Placeholder/ActionButtons';
+import placeholder from '../../../../data/template1.json';
+import ActionButtons from '../../../Placeholder/ActionButtons';
 
 interface DoubleProps {
   props: DoubleType;

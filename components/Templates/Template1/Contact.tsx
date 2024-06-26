@@ -13,8 +13,8 @@ import {
   Link,
   Wikis,
 } from '@carbon/icons-react';
-import { Contact as ContactType } from '../../types/Contact';
-import RichText from '../RichText/RichText';
+import { Contact as ContactType } from './types/Contact';
+import RichText from '../../RichText/RichText';
 import useColorStore from '@/store/colorStore';
 
 export interface ContactProps {

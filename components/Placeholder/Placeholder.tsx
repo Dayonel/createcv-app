@@ -2,7 +2,7 @@ import { forwardRef, useContext } from 'react';
 import styles from './Placeholder.module.scss';
 import classNames from 'classnames';
 import Transition from '../Animations/Transition';
-import { MenuContext } from '../MenuProvider';
+import { MenuContext } from '../Providers/MenuProvider';
 
 interface PlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder: string;

@@ -1,14 +1,14 @@
-import Divider from '../Divider';
-import { Single as SingleType } from '@/types/Single';
+import Divider from '../Divider/Divider';
+import { Single as SingleType } from '../types/Single';
 import { UniqueIdentifier } from '@dnd-kit/core';
-import Sortable from '../DndKit/Sortable';
+import Sortable from '../../../DndKit/Sortable';
 import SingleContent, { SingleContentProps } from './Content/SingleContent';
-import Placeholder from '../Placeholder/Placeholder';
-import RichText from '../RichText/RichText';
+import Placeholder from '../../../Placeholder/Placeholder';
+import RichText from '../../../RichText/RichText';
 import { v4 } from 'uuid';
-import placeholder from '../../data/placeholder.json';
-import { SingleContent as SingleContentType } from '@/types/Single';
-import ActionButtons from '../Placeholder/ActionButtons';
+import placeholder from '../../../../data/template1.json';
+import { SingleContent as SingleContentType } from '../types/Single';
+import ActionButtons from '../../../Placeholder/ActionButtons';
 
 interface SingleProps {
   props: SingleType;

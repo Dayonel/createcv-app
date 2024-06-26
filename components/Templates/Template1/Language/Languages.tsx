@@ -1,6 +1,6 @@
-import Sortable from '../DndKit/Sortable';
+import Sortable from '../../../DndKit/Sortable';
 import Language, { LanguageProps } from './Language';
-import { Language as LanguageType } from '@/types/Language';
+import { Language as LanguageType } from '../types/Language';
 
 interface LanguagesProps {
   languages: LanguageType[];

@@ -1,4 +1,5 @@
 {
+  "template": "template1",
   "color": "var(--cds-link-primary)",
   "title": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"John Doe\"}]}",
   "subtitle": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"Full Stack Developer\"}]}",

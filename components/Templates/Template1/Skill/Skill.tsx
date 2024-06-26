@@ -1,8 +1,8 @@
-import { Skill as SkillType } from '@/types/Skill';
-import { useEffect, useRef, useState } from 'react';
+import { Skill as SkillType } from '../types/Skill';
+import { useRef, useState } from 'react';
 import styles from './Skill.module.scss';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import { Remove } from './DndKit/components/Remove/Remove';
+import { Remove } from '../../../DndKit/components/Remove/Remove';
 
 export interface InputProps {
   props?: SkillType;

@@ -1,9 +1,9 @@
 import RichText from '@/components/RichText/RichText';
-import { SingleContent as SingleContentType } from '@/types/Single';
+import { SingleContent as SingleContentType } from '../../types/Single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '@/components/Placeholder/Placeholder';
-import placeholder from '../../../data/placeholder.json';
+import placeholder from '../../../../../data/template1.json';
 import ActionButtons from '@/components/Placeholder/ActionButtons';
 
 export interface SingleContentProps {

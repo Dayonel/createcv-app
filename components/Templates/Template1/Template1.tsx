@@ -1,30 +1,30 @@
 'use client';
-import styles from './CV.module.scss';
+import styles from './Template1.module.scss';
 import { useContext, useEffect, useRef, useState } from 'react';
-import Contact, { ContactProps } from './Contact/Contact';
-import RichText from './RichText/RichText';
+import Contact, { ContactProps } from './Contact';
+import RichText from '../../RichText/RichText';
 import Single from './Section/Single';
 import Double from './Section/Double';
-import placeholder from '../data/placeholder.json';
+import placeholder from '../../../data/template1.json';
 import { traverseUUID } from '@/utils/traverseUUID';
-import Sortable from './DndKit/Sortable';
-import Placeholder from './Placeholder/Placeholder';
+import Sortable from '../../DndKit/Sortable';
+import Placeholder from '../../Placeholder/Placeholder';
 import useColorStore from '@/store/colorStore';
 import { v4 } from 'uuid';
 import ContactPlaceholder from './Placeholder/ContactPlaceholder';
 import { useUndo } from '@/hooks/useUndo';
-import { Form } from '@/types/Form';
+import { Form } from './types/Form';
 import { deleteCookie, setCookie } from '@/actions/cookies';
-import { FormContext } from './FormProvider';
+import { FormContext } from '../../Providers/FormProvider';
 import { InlineLoading } from '@carbon/react';
-import { Single as SingleType, SingleContent } from '@/types/Single';
-import ActionButtons from './Placeholder/ActionButtons';
-import ImagePlaceholder from './Placeholder/ImagePlaceholder';
-import { MenuContext } from './MenuProvider';
+import { Single as SingleType, SingleContent } from './types/Single';
+import ActionButtons from '../../Placeholder/ActionButtons';
+import ImagePlaceholder from '../../Placeholder/ImagePlaceholder';
+import { MenuContext } from '../../Providers/MenuProvider';
 import { useTheme } from 'next-themes';
-import Watermark from './Watermark';
+import Watermark from '../../Watermark';
 
-export default function CV() {
+export default function Template1() {
   const data = traverseUUID(placeholder); // traverse
   const { state, setState, resetHistory, triggerUndo, triggerRedo, canUndo } =
     useUndo(JSON.stringify(data));

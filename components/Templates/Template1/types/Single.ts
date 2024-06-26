@@ -1,4 +1,4 @@
-import { Key } from './Key';
+import { Key } from '@/types/Key';
 
 export type Single = {
   name?: string;

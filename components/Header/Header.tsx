@@ -1,8 +1,8 @@
 'use client';
 import styles from './Header.module.scss';
-import { logo } from './icons/logo';
-import Actions from './Actions/Actions';
-import Profile from './Auth/Profile';
+import { logo } from '../icons/logo';
+import Actions from '../Actions/Actions';
+import Profile from '../Auth/Profile';
 
 interface HeaderProps {
   onReset: () => void;

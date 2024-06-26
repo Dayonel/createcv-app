@@ -4,7 +4,7 @@ import styles from './ImagePlaceholder.module.scss';
 import classNames from 'classnames';
 import { FileUploaderDropContainer, InlineLoading } from '@carbon/react';
 import { Remove } from '../DndKit/components/Remove/Remove';
-import { MenuContext } from '../MenuProvider';
+import { MenuContext } from '../Providers/MenuProvider';
 import imageCompression from 'browser-image-compression';
 
 interface ImagePlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {

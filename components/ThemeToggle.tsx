@@ -3,7 +3,7 @@ import { Asleep, Light } from '@carbon/icons-react';
 import { useTheme } from 'next-themes';
 import { useContext, useEffect, useState } from 'react';
 import Action from './DndKit/components/Action/Action';
-import { CookieThemeContext } from './CookieThemeProvider';
+import { CookieThemeContext } from './Providers/CookieThemeProvider';
 
 export default function ThemeToggle() {
   const cookieTheme = useContext(CookieThemeContext);

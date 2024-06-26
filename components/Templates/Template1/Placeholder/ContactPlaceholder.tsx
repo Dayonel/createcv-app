@@ -14,9 +14,9 @@ import {
   LogoYoutube,
   LogoPinterest,
 } from '@carbon/icons-react';
-import placeholder from '../../data/placeholder.json';
+import placeholder from '../../../../data/template1.json';
 import { getText, getTextContent } from '@/utils/richTextUtils';
-import { Contact } from '@/types/Contact';
+import { Contact } from '../types/Contact';
 import useColorStore from '@/store/colorStore';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 
