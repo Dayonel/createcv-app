@@ -1,7 +1,7 @@
 'use client';
 import styles from './Template1.module.scss';
 import { useContext, useEffect, useRef, useState } from 'react';
-import Contact, { ContactProps } from './Contact';
+import Contact, { ContactProps } from './Contact/Contact';
 import RichText from '../../RichText/RichText';
 import Single from './Section/Single';
 import Double from './Section/Double';
@@ -294,7 +294,7 @@ export default function Template1() {
                       }}
                       wrapperStyle="pl-[6px]"
                       handle
-                      exceptHandle={form.contacts[0].key}
+                      noHandleFirst
                       remove
                     ></Sortable>
                   )}

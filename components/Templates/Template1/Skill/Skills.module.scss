@@ -1,18 +1,8 @@
 @use "@carbon/themes/scss/tokens";
 
-.skill {
-  display: flex;
-  align-items: center;
-  padding: 0.6rem;
-  border-radius: 4px;
-  border: 2px solid tokens.$text-primary;
-  font-size: 12px;
-  font-weight: bold;
-}
-
 .skills {
   grid-gap: 0.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
   display: grid;
   padding-left: 3px;
   position: relative;
@@ -20,6 +10,6 @@
 
 @media print, (min-width: 595px) {
   .skills {
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
+    grid-template-columns: repeat(4, minmax(105px, 1fr));
   }
 }

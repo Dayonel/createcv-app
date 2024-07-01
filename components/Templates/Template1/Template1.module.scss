@@ -1,7 +1,8 @@
 @use "@carbon/themes/scss/tokens";
 
 .container textarea,
-.container span[contenteditable="true"] {
+.container span[contenteditable="true"],
+.container a {
   padding: 1px 6px;
 }
 
@@ -90,20 +91,14 @@
   position: relative;
 }
 
-@media print, (min-width: 768px) {
-  .contact {
-    grid-template-columns: repeat(2, minmax(190px, min-content));
-  }
-}
-
 @media (min-width: 768px) {
-  .header {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  .contact {
+    grid-template-columns: repeat(2, minmax(190px, max-content));
   }
 }
 
 @media print {
-  .header {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  .contact {
+    grid-template-columns: repeat(2, minmax(min-content, max-content));
   }
 }

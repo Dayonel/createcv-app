@@ -28,7 +28,7 @@ interface SortableProps {
   wrapperStyle?: string;
   containerStyle?: string;
   handle?: boolean;
-  exceptHandle?: string;
+  noHandleFirst?: boolean;
   remove?: boolean;
 }
 
@@ -40,7 +40,7 @@ export default function Sortable({
   wrapperStyle,
   containerStyle,
   handle,
-  exceptHandle,
+  noHandleFirst,
   remove,
 }: SortableProps) {
   const [items, setItems] = useState<UniqueIdentifier[]>(
@@ -91,7 +91,7 @@ export default function Sortable({
     >
       <SortableContext items={items} strategy={rectSortingStrategy}>
         {initialItems &&
-          items.map((m) => {
+          items.map((m, i) => {
             return (
               <SortableItem
                 key={m}
@@ -105,7 +105,7 @@ export default function Sortable({
                 }
                 wrapperStyle={wrapperStyle}
                 containerStyle={containerStyle}
-                handle={handle && (!exceptHandle || exceptHandle !== m)}
+                handle={handle && (!noHandleFirst || i > 0)}
                 remove={remove}
               ></SortableItem>
             );
