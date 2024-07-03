@@ -3,6 +3,7 @@
 .skills {
   grid-gap: 0.25rem;
   grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  grid-template-rows: 1fr;
   display: grid;
   padding-left: 3px;
   position: relative;
