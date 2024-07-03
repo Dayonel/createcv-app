@@ -8,6 +8,7 @@ import Placeholder from '../../../Placeholder/Placeholder';
 import { v4 } from 'uuid';
 import placeholder from '../../../../data/template1.json';
 import ActionButtons from '../../../Placeholder/ActionButtons';
+import { getTextContent } from '@/utils/richTextUtils';
 
 interface DoubleProps {
   props: DoubleType;
@@ -84,7 +85,7 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
                           childrenClassName="flex-row-reverse"
                           placeholder="SECTION"
                           onClick={() => {
-                            m.name = placeholderDouble.name;
+                            m.name = getTextContent('Skills');
                             onChange();
                           }}
                         >
@@ -133,7 +134,7 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
                             childrenClassName="flex-row-reverse"
                             placeholder="SECTION"
                             onClick={() => {
-                              m.name = placeholderDouble.name;
+                              m.name = getTextContent('Languages');
                               onChange();
                             }}
                           >
