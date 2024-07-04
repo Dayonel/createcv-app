@@ -129,7 +129,7 @@ export default function Single({
               </div>
             </ActionButtons>
 
-            <div className={`relative flex flex-col gap-5 pt-[1px]`}>
+            <div className={`relative flex flex-col gap-5`}>
               <Sortable
                 initialItems={content}
                 renderItem={({ props }: SingleContentProps) => (

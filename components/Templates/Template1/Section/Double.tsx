@@ -141,7 +141,7 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
                             <Divider dashed></Divider>
                           </Placeholder>
                         )}
-                        <div className="flex flex-col gap-3 pt-[1px]">
+                        <div className="flex flex-col gap-3">
                           <Languages
                             languages={m.languages || []}
                             onChange={onChange}

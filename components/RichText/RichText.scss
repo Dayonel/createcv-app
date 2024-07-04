@@ -57,6 +57,7 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  line-height: 20px;
 }
 
 ul ul {
@@ -66,7 +67,7 @@ ul ul {
 p,
 li {
   font-size: 12px;
-  white-space: pre-wrap;
+  line-height: 18px;
 }
 
 blockquote {

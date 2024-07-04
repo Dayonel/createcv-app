@@ -67,13 +67,16 @@
 
 /* print settings */
 @media print {
+  /* does not work on iOS*/
   @page {
-    size: 900px 1080px;
-    margin: 10mm 5mm 10mm 5mm;
+    /* A4 (default iOS) */
+    size: A4 portrait;
+    /* match iOS default margin */
+    margin: 13mm 6.3mm 13mm 6.3mm;
   }
 
   body {
-    width: 900px;
+    width: 816px;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }

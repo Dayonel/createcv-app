@@ -181,9 +181,7 @@ export default function Template1() {
       {savedForm && !mounted ? (
         <InlineLoading className="flex justify-center items-center h-full"></InlineLoading>
       ) : (
-        <form
-          className={`${styles.container} grid grid-cols-2 auto-cols-min`}
-        >
+        <form className={`${styles.container} grid grid-cols-2 auto-cols-min`}>
           <div className={`${styles.header}`}>
             <div
               className={`grid ${
@@ -316,7 +314,7 @@ export default function Template1() {
                 <RichText
                   props={form.summary}
                   onChange={(e) => setForm({ ...form, summary: e })}
-                  className="text-justify h-fit"
+                  className="text-justify whitespace-pre-line leading-normal h-fit"
                   onRemove={() => {
                     delete form.summary;
                     setForm({ ...form });
@@ -327,7 +325,7 @@ export default function Template1() {
               )}
               {!form.summary && (
                 <Placeholder
-                  className="text-xs text-justify leading-normal min-h-[74px] !pl-4 w-full"
+                  className="text-xs text-justify whitespace-pre-line leading-normal min-h-[74px] !pl-4 w-full"
                   placeholder="Write something..."
                   onClick={() =>
                     setForm({ ...form, summary: placeholder.summary })
