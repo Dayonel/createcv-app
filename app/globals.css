@@ -66,15 +66,14 @@
 }
 
 /* print settings */
-@page {
-  size: 900px 1080px;
-  margin: 10mm 5mm 10mm 5mm;
-  page-break-after: always;
-}
-/* must have for mobile */
 @media print {
+  @page {
+    size: 900px 1080px;
+    margin: 10mm 5mm 10mm 5mm;
+  }
+
   body {
-    min-width: 900px;
+    width: 900px;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }

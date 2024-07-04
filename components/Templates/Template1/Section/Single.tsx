@@ -78,7 +78,7 @@ export default function Single({
     <>
       {props && (
         <>
-          <div>
+          <>
             <ActionButtons
               add
               remove={!last}
@@ -155,7 +155,7 @@ export default function Single({
                 containerStyle="w-full"
               ></Sortable>
             </div>
-          </div>
+          </>
         </>
       )}
     </>

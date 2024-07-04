@@ -182,7 +182,7 @@ export default function Template1() {
         <InlineLoading className="flex justify-center items-center h-full"></InlineLoading>
       ) : (
         <form
-          className={`${styles.container} grid grid-cols-2 auto-cols-min cv`}
+          className={`${styles.container} grid grid-cols-2 auto-cols-min`}
         >
           <div className={`${styles.header}`}>
             <div
@@ -341,7 +341,7 @@ export default function Template1() {
               form.sections.map((s, i) => {
                 const Component = sections[s.type as keyof typeof sections];
                 return (
-                  <div className="flex flex-col gap-4" key={s.key}>
+                  <div className="flex flex-col" key={s.key}>
                     <Component
                       props={s}
                       onChange={() => setForm({ ...form })}
