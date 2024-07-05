@@ -34,10 +34,17 @@ export default function Print() {
       download();
     };
 
+    window.addEventListener('beforeprint', beforePrint);
     window.addEventListener('afterprint', afterPrint);
 
     return () => window.removeEventListener('afterprint', afterPrint);
   }, []);
+
+  const beforePrint = () => {
+    if (!params.current) {
+      window.location.href = '?print=1';
+    }
+  };
 
   const afterPrint = () => {
     setTheme(prevTheme.current!);
@@ -51,13 +58,6 @@ export default function Print() {
   useEffect(() => {
     if (!_print) return;
     if (!deferredPrinting) return;
-
-    if (!params.current) {
-      setTimeout(() => {
-        window.location.href = '?print=1';
-      }, 100);
-      return;
-    }
 
     _print();
     setCookie('printed', 'true');
