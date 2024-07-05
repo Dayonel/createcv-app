@@ -81,6 +81,10 @@
     -webkit-print-color-adjust: exact;
   }
 
+  * {
+    background-color: white;
+  }
+
   .highlight,
   .highlight:hover,
   .highlight:focus {
