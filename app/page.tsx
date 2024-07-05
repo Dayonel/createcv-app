@@ -1,9 +1,16 @@
-import Template1 from '@/components/Templates/Template1/Template1';
+import Editor from '@/components/Editor';
+import Pricing from '@/components/Pricing/Pricing';
 
 export default function Home() {
   return (
-    <section className="h-full">
-      <Template1></Template1>
-    </section>
+    <>
+      <section>
+        <Editor></Editor>
+      </section>
+      <section className="print:hidden">
+        <hr></hr>
+        <Pricing></Pricing>
+      </section>
+    </>
   );
 }

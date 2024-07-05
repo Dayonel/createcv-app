@@ -1,3 +1,4 @@
+'use client';
 import { useContext } from 'react';
 import Transition from '../Animations/Transition';
 import styles from './Instructions.module.scss';

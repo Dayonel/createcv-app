@@ -43,6 +43,12 @@
   position: absolute;
 }
 
+p,
+li {
+  font-size: 12px;
+  line-height: 18px;
+}
+
 ul,
 ol {
   padding: 0 1rem;
@@ -64,18 +70,14 @@ ul ul {
   list-style-type: circle;
 }
 
-p,
-li {
-  font-size: 12px;
-  line-height: 18px;
-}
-
 blockquote {
   padding-left: 1rem;
   border-left: 2px solid tokens.$border-subtle-01;
 }
 
-hr {
-  border: none;
-  border-top: 2px solid tokens.$border-subtle-01;
+.tiptap {
+  hr {
+    border: none;
+    border-top: 2px solid tokens.$border-subtle-01;
+  }
 }

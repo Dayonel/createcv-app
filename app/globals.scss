@@ -1,6 +1,7 @@
 @use "@carbon/react";
 @use "@carbon/styles/scss/theme";
 @use "@carbon/styles/scss/themes";
+@use "@carbon/themes/scss/tokens";
 
 :root {
   @include theme.theme(themes.$g10);
@@ -25,4 +26,8 @@
 
 .cds--inline-loading__animation {
   margin-inline-end: 0;
+}
+
+hr {
+  border-top: 1px solid tokens.$background-hover;
 }

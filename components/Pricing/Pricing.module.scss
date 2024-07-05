@@ -1,0 +1,26 @@
+@use "@carbon/themes/scss/tokens";
+
+.purchase {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 3rem 0;
+
+  a {
+    width: fit-content;
+    border: 1px solid tokens.$border-subtle-01;
+  }
+
+  li {
+    font-size: 14px;
+    line-height: 1.5rem;
+  }
+}
+
+.title {
+  color: tokens.$text-helper;
+}
+
+.payment {
+  color: tokens.$text-helper;
+}
