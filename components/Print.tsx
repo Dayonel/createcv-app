@@ -49,6 +49,7 @@ export default function Print() {
   const afterPrint = () => {
     setTheme(prevTheme.current!);
     setIsPrinting(false);
+    setCookie('printed', 'true');
     params.current = null;
     router.replace('/');
   };
@@ -58,9 +59,12 @@ export default function Print() {
   useEffect(() => {
     if (!_print) return;
     if (!deferredPrinting) return;
+    
+    if (!params.current) {
+      window.location.href = '?print=1';
+    }
 
     _print();
-    setCookie('printed', 'true');
   }, [deferredPrinting]);
 
   return (
