@@ -34,15 +34,19 @@ export default function Print() {
       download();
     };
 
-    window.addEventListener('beforeprint', beforePrint);
+    window.addEventListener('keydown', onCtrlP);
     window.addEventListener('afterprint', afterPrint);
 
-    return () => window.removeEventListener('afterprint', afterPrint);
+    return () => {
+      window.removeEventListener('keydown', onCtrlP);
+      window.removeEventListener('afterprint', afterPrint);
+    };
   }, []);
 
-  const beforePrint = () => {
-    if (!params.current) {
-      window.location.href = '?print=1';
+  const onCtrlP = (e: KeyboardEvent) => {
+    if (e.ctrlKey && e.key === 'p') {
+      e.preventDefault();
+      e.stopImmediatePropagation();
     }
   };
 
@@ -59,9 +63,10 @@ export default function Print() {
   useEffect(() => {
     if (!_print) return;
     if (!deferredPrinting) return;
-    
+
     if (!params.current) {
       window.location.href = '?print=1';
+      return;
     }
 
     _print();
