@@ -1,7 +1,7 @@
 'use client';
-import { Launch } from '@carbon/icons-react';
-import { ClickableTile, Tag } from '@carbon/react';
+import { Button, Tag, Tile } from '@carbon/react';
 import styles from './Pricing.module.scss';
+import { ArrowRight } from '@carbon/icons-react';
 
 export default function Pricing() {
   return (
@@ -13,8 +13,8 @@ export default function Pricing() {
             Your contribution help us create new templates and features.
           </span>
         </div>
-        <ClickableTile renderIcon={Launch}>
-          <div className="flex flex-col gap-5 min-w-40">
+        <Tile>
+          <div className="flex flex-col gap-5 min-w-56">
             <div className="flex flex-col">
               <span className={styles.title}>Full version</span>
               <span className="text-2xl font-bold">€ 4.99</span>
@@ -25,7 +25,8 @@ export default function Pricing() {
               <li>Stored in the cloud</li>
               <li>Unlimited downloads</li>
               <li>Unlocks all future templates</li>
-              <li className='mt-2'>
+              <li>Multiple PDF versions</li>
+              <li className="mt-2">
                 <Tag
                   id="lifetime"
                   className="!m-0 pointer-events-none"
@@ -35,9 +36,13 @@ export default function Pricing() {
                 </Tag>
               </li>
             </ul>
+            <hr></hr>
             <span className={styles.payment}>one-off payment</span>
+            <Button className="!w-full" kind="tertiary" renderIcon={ArrowRight}>
+              Get full version
+            </Button>
           </div>
-        </ClickableTile>
+        </Tile>
       </div>
     </div>
   );

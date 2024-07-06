@@ -1,12 +1,12 @@
 @use "@carbon/themes/scss/tokens";
 
 .page {
-  hr {
+  section > hr {
     padding-bottom: 2rem;
   }
 
   @media (min-width: 768px) {
-    hr {
+    section > hr {
       padding-bottom: 4rem;
     }
   }
