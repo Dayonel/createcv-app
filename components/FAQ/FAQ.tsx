@@ -1,5 +1,5 @@
 'use client';
-import { Accordion, AccordionItem } from '@carbon/react';
+import { Accordion, AccordionItem, Link } from '@carbon/react';
 import styles from './FAQ.module.scss';
 
 export default function FAQ() {
@@ -10,8 +10,8 @@ export default function FAQ() {
           <div className="grid gap-4">
             <p className="text-3xl md:text-4xl">Frequently Asked Questions</p>
             <span className="text-sm">
-              Have another question? Contact us by
-              <a href="mailto:info@createcv.app"> email</a>.
+              Have another question? Contact us by{' '}
+              <Link href="mailto:info@createcv.app">email</Link>.
             </span>
           </div>
         </div>

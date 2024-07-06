@@ -7,10 +7,12 @@ import { UserAvatar } from '@carbon/icons-react';
 import SignOut from './SignOut';
 import SignIn from './SignIn';
 import Image from 'next/image';
+import { Modal } from '@carbon/react';
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
+
   const ref = useOutsideClick(() => setOpen(false));
   const { data: session } = useSession();
 
@@ -57,7 +59,18 @@ export default function Profile() {
         </Action>
       )}
 
-      <SignIn open={modal} onClose={() => setModal(false)}></SignIn>
+      {modal && (
+        <Modal
+          open={modal}
+          passiveModal
+          onRequestClose={() => setModal(false)}
+          size="xs"
+          selectorPrimaryFocus=".flex"
+          tabIndex={-1}
+        >
+          <SignIn></SignIn>
+        </Modal>
+      )}
     </div>
   );
 }

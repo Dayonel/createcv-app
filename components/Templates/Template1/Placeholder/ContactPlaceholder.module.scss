@@ -19,6 +19,8 @@
     padding: 0 0.5rem;
     list-style: none;
     background-color: tokens.$background;
+    font-size: 12px;
+    line-height: 1rem;
 
     &:hover {
       background-color: tokens.$layer-hover-02;
