@@ -57,7 +57,7 @@ export default function FAQ() {
               Sure, delete all instances of your PDFs, once you delete them,
               they are deleted forever.
             </AccordionItem>
-            <AccordionItem className="text-sm" title="Do you sell my data?">
+            <AccordionItem className="text-sm" title="Is my data private?">
               We take privacy very seriously, your data is yours. We don't share
               your data with third parties.
             </AccordionItem>
