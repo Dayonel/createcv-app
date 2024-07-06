@@ -1,0 +1,7 @@
+@use "@carbon/themes/scss/tokens";
+
+.faq {
+  :global(.cds--accordion__content) {
+    padding-inline-end: 1rem;
+  }
+}

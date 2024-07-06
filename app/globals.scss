@@ -28,6 +28,11 @@
   margin-inline-end: 0;
 }
 
+ul {
+  list-style: disc;
+  padding: 0 1rem;
+}
+
 hr {
   border-top: 1px solid tokens.$background-hover;
 }

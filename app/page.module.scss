@@ -1,0 +1,13 @@
+.page {
+  hr {
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .page {
+    hr {
+      padding-bottom: 6rem;
+    }
+  }
+}

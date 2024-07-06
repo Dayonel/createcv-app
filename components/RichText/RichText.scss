@@ -43,39 +43,39 @@
   position: absolute;
 }
 
-p,
-li {
-  font-size: 12px;
-  line-height: 18px;
-}
+.richtext {
+  p,
+  li {
+    font-size: 12px;
+    line-height: 18px;
+  }
 
-ul,
-ol {
-  padding: 0 1rem;
-}
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
 
-ol {
-  list-style: decimal;
-}
+  ol {
+    list-style: decimal;
+  }
 
-ul {
-  list-style: disc;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  line-height: 20px;
-}
+  ul {
+    list-style: disc;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    line-height: 20px;
+  }
 
-ul ul {
-  list-style-type: circle;
-}
+  ul ul {
+    list-style-type: circle;
+  }
 
-blockquote {
-  padding-left: 1rem;
-  border-left: 2px solid tokens.$border-subtle-01;
-}
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid tokens.$border-subtle-01;
+  }
 
-.tiptap {
   hr {
     border: none;
     border-top: 2px solid tokens.$border-subtle-01;

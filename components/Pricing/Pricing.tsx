@@ -25,7 +25,7 @@ export default function Pricing() {
               <li>Stored in the cloud</li>
               <li>Unlimited downloads</li>
               <li>Unlocks all future templates</li>
-              <li>
+              <li className='mt-2'>
                 <Tag
                   id="lifetime"
                   className="!m-0 pointer-events-none"
