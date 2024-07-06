@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './globals.scss';
 import './Menu.scss';
-import Footer from '@/components/Footer';
+import Footer from '@/components/Footer/Footer';
 import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
 import { ThemeProvider } from 'next-themes';
@@ -67,9 +67,7 @@ export default async function RootLayout({
               <FormProvider savedForm={savedForm} printed={printed}>
                 <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
                   <MenuProvider>
-                    <main className="w-full max-w-[900px] px-8 md:px-4 py-8 print:px-4 print:py-0">
-                      {children}
-                    </main>
+                    <main className="w-full">{children}</main>
                   </MenuProvider>
                   <Footer></Footer>
                 </div>

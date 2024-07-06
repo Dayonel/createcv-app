@@ -15,7 +15,7 @@ export default function Editor() {
   }, []);
 
   return (
-    <>
+    <div className="max-w-[900px] mb-0 md:mb-11">
       {savedForm && !mounted ? (
         <div className="!min-h-[calc(100dvh-10rem)] flex items-center">
           <InlineLoading className="flex justify-center"></InlineLoading>
@@ -27,6 +27,6 @@ export default function Editor() {
           <Watermark></Watermark>
         </div>
       )}
-    </>
+    </div>
   );
 }

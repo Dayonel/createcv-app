@@ -1,0 +1,6 @@
+@use "@carbon/themes/scss/tokens";
+
+.footer {
+  border-top: 1px solid tokens.$background-hover;
+  width: 100%;
+}

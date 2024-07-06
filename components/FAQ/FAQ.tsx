@@ -16,7 +16,7 @@ export default function FAQ() {
           </div>
         </div>
         <div className="basis-1/2">
-          <Accordion>
+          <Accordion size="lg">
             <AccordionItem className="text-sm" title="What do I get exactly?">
               <ul className="grid gap-4">
                 <li>Download your PDF documents without watermark.</li>
