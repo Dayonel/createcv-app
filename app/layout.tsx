@@ -67,7 +67,7 @@ export default async function RootLayout({
               <FormProvider savedForm={savedForm} printed={printed}>
                 <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
                   <MenuProvider>
-                    <main className="w-full grid gap-20 max-w-[900px] px-8 md:px-4 py-6 print:px-4 print:py-0">
+                    <main className="w-full max-w-[900px] px-8 md:px-4 py-8 print:px-4 print:py-0">
                       {children}
                     </main>
                   </MenuProvider>

@@ -3,7 +3,7 @@ import Pricing from '@/components/Pricing/Pricing';
 
 export default function Home() {
   return (
-    <>
+    <div className="grid gap-20 md:gap-28">
       <section>
         <Editor></Editor>
       </section>
@@ -11,6 +11,6 @@ export default function Home() {
         <hr></hr>
         <Pricing></Pricing>
       </section>
-    </>
+    </div>
   );
 }
