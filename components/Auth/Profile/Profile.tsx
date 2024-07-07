@@ -1,23 +1,29 @@
 'use client';
-import Action from '../DndKit/components/Action/Action';
-import { useState } from 'react';
+import Action from '../../DndKit/components/Action/Action';
+import { useEffect, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useSession } from 'next-auth/react';
 import { UserAvatar } from '@carbon/icons-react';
-import SignOut from './SignOut';
-import SignIn from './SignIn';
+import SignOut from '../SignOut';
+import SignIn from '../SignIn/SignIn';
 import Image from 'next/image';
 import { Modal } from '@carbon/react';
+import styles from './Profile.module.scss';
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const ref = useOutsideClick(() => setOpen(false));
   const { data: session } = useSession();
 
   return (
-    <div ref={ref}>
+    <div className={styles.profile} ref={ref}>
       {session ? (
         <>
           <Action
@@ -59,14 +65,13 @@ export default function Profile() {
         </Action>
       )}
 
-      {modal && (
+      {mounted && (
         <Modal
           open={modal}
           passiveModal
           onRequestClose={() => setModal(false)}
           size="xs"
           selectorPrimaryFocus=".flex"
-          tabIndex={-1}
         >
           <SignIn></SignIn>
         </Modal>

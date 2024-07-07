@@ -1,13 +1,14 @@
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { providerMap } from '@/auth';
-import { logo } from '../icons/logo';
+import { logo } from '../../icons/logo';
 import classNames from 'classnames';
 import styles from './SignIn.module.scss';
-import { google } from '../icons/google';
+import { google } from '../../icons/google';
 import { Button, InlineLoading } from '@carbon/react';
-import { twitter } from '../icons/twitter';
-import { github } from '../icons/github';
+import { twitter } from '../../icons/twitter';
+import { github } from '../../icons/github';
+import Credentials from '../Credentials/Credentials';
 
 export default function SignIn() {
   const [loggingIn, setLoggingIn] = useState<string | null>(null);
@@ -24,18 +25,16 @@ export default function SignIn() {
   return (
     <div className={styles.signIn}>
       <div className="flex flex-col gap-4">
-        <div
-          className={classNames(
-            styles.header,
-            'flex gap-2 justify-center items-center p-4'
-          )}
-        >
-          {logo}
-          <span className="font-bold text-xl">Log in</span>
+        <div className="flex gap-2 justify-center items-center p-4">
+          <div className={styles.logo}>{logo}</div>
+          <div className="flex flex-col">
+            <span className="font-bold text-3xl">Log in</span>
+          </div>
         </div>
-        <span className={classNames('text-xs', styles.loginOptions)}>
-          Log in options
-        </span>
+
+        <Credentials></Credentials>
+
+        <span className={classNames('text-xs', styles.or)}>Or</span>
         <div className="flex flex-col gap-4">
           {providerMap.map((m, i) => {
             return (

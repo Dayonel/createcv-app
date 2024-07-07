@@ -68,7 +68,7 @@ export const SortableItem = ({
         <div
           className={`${
             visible ? 'opacity-100' : 'opacity-0'
-          } md:group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500 z-20`}
+          } md:group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500`}
         >
           {remove && <Remove onClick={() => onRemove && onRemove(id)} />}
           {handle && <Handle {...listeners} tabIndex={-1} />}

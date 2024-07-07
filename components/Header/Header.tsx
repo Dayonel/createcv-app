@@ -2,7 +2,7 @@
 import styles from './Header.module.scss';
 import { logo } from '../icons/logo';
 import Actions from '../Actions/Actions';
-import Profile from '../Auth/Profile';
+import Profile from '../Auth/Profile/Profile';
 
 interface HeaderProps {
   onReset: () => void;
