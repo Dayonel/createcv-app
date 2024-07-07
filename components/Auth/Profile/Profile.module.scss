@@ -1,5 +1,10 @@
 .profile :global(.cds--modal-container) {
   max-block-size: 100%;
-  min-inline-size: 448px;
   z-index: 100;
+}
+
+@media (min-width: 448px) {
+  .profile :global(.cds--modal-container) {
+    min-inline-size: 448px;
+  }
 }
