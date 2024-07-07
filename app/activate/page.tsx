@@ -9,7 +9,7 @@ export default function Activate() {
 
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <div className="flex flex-col items-center justify-center h-full p-8 md:px-0 py-8 w-full max-w-md gap-8 md:gap-20">
+      <div className="flex flex-col items-center justify-center h-full p-4 md:px-0 py-8 w-full max-w-md gap-8 md:gap-20">
         <div className="flex flex-col gap-4">
           <p className="text-3xl md:text-4xl text-center">
             Thank you for your payment

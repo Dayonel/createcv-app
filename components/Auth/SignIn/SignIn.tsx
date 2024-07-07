@@ -24,7 +24,7 @@ export default function SignIn() {
 
   return (
     <div className={styles.signIn}>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 px-4">
         <div className="flex gap-2 justify-center items-center p-4">
           <div className={styles.logo}>{logo}</div>
           <div className="flex flex-col">
