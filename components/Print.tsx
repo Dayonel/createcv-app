@@ -1,3 +1,4 @@
+'use client';
 import { InlineLoading } from '@carbon/react';
 import Action from './DndKit/components/Action/Action';
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
@@ -8,7 +9,6 @@ import { setCookie } from '@/actions/cookies';
 
 export default function Print() {
   const [isPrinting, setIsPrinting] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const _print = useMemo(() => typeof window === 'object' && window.print, []);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -17,7 +17,6 @@ export default function Print() {
   const prevTheme = useRef<string>();
 
   const download = () => {
-    setIsLoading(true);
     setIsPrinting(true);
   };
 
@@ -76,10 +75,10 @@ export default function Print() {
     <Action
       className="action"
       title="Download"
-      fill={`${isLoading ? 'transparent' : 'var(--cds-text-primary)'}`}
+      fill={`${isPrinting ? 'transparent' : 'var(--cds-text-primary)'}`}
       onClick={download}
     >
-      {isLoading ? (
+      {isPrinting ? (
         <InlineLoading className="flex justify-center items-center" />
       ) : (
         <Download size={20}></Download>

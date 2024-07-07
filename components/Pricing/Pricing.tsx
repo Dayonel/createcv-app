@@ -10,10 +10,11 @@ import styles from './Pricing.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
 import { useState } from 'react';
 import { checkoutWithStripe } from '@/utils/stripe/server';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import getStripe from '@/utils/stripe/client';
 
 export default function Pricing() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
