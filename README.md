@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ![CreateCV icon](https://github.com/Dayonel/neverminder-api/assets/10290812/b64fdd09-5297-4cf5-bb68-3d7249a9c147) Create CV
 
-## Getting Started
+Create a CV and preview it, customize sections, colors and download a PDF. Design your best resume that stands out from the rest and find your dream job.
 
-First, run the development server:
+## Installation
+
+Install [Nodejs](https://nodejs.org/en/download/prebuilt-installer/current)
+
+- Version at least >=20
+
+## Configration
+
+Create `env.local` file with these settings
+
+> AUTH_SECRET=\
+> AUTH_GITHUB_ID=\
+> AUTH_GITHUB_SECRET=\
+> AUTH_GOOGLE_ID=\
+> AUTH_GOOGLE_SECRET=\
+> AUTH_TWITTER_ID=\
+> AUTH_TWITTER_SECRET=\
+> NEXT_PUBLIC_SITE_URL=\
+> NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=\
+> STRIPE_SECRET_KEY=\
+> STRIPE_PRICE_ID=
+
+## Run
+
+```bash
+npm i
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To build a production version run
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm build
+```
 
-## Learn More
+```bash
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Database
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Initial migration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npx wrangler d1 migrations create createcv authentication
+```
 
-## Deploy on Vercel
+Add initial migration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx prisma migrate diff --from-empty --to-schema-datamodel ./prisma/schema.prisma --script --output migrations/0001_authentication.sql
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Add a migration
+
+```bash
+# Generate sql
+npx wrangler d1 migrations create createcv credentials
+
+# Write diff
+npx prisma migrate diff --from-local-d1 --to-schema-datamodel ./prisma/schema.prisma --script --output migrations/0002_credentials.sql
+```
+
+Apply a migration
+
+```bash
+# Locally
+npx wrangler d1 migrations apply createcv --local
+
+# Remote
+npx wrangler d1 migrations apply createcv --remote
+```
+
+Generate prisma client
+
+```bash
+npx prisma generate
+```
+
+Generate bindings
+
+```bash
+npx wrangler types
+```

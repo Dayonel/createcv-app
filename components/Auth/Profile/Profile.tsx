@@ -12,6 +12,7 @@ import styles from './Profile.module.scss';
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
   const [modal, setModal] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -57,7 +58,10 @@ export default function Profile() {
         </>
       ) : (
         <Action
-          onClick={() => setModal(true)}
+          onClick={() => {
+            setIsRegister(false);
+            setModal(true);
+          }}
           className="menu-item"
           fill="var(--cds-text-primary)"
         >
@@ -73,7 +77,10 @@ export default function Profile() {
           size="xs"
           selectorPrimaryFocus=".flex"
         >
-          <SignIn></SignIn>
+          <SignIn
+            isRegister={isRegister}
+            onRegister={() => setIsRegister(true)}
+          ></SignIn>
         </Modal>
       )}
     </div>

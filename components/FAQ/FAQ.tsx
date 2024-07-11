@@ -62,12 +62,12 @@ export default function FAQ() {
               they are deleted forever.
             </AccordionItem>
             <AccordionItem className="text-sm" title="Is my data private?">
-              We take privacy very seriously, your data is yours. We don't share
-              your data with third parties.
+              We take privacy very seriously, your data is yours. We {"don't"}{' '}
+              share your data with third parties.
             </AccordionItem>
             <AccordionItem className="text-sm" title="Can I get a refund?">
-              After you've got access to the full version, is yours forever, so
-              it can't be refunded.
+              After {"you've"} got access to the full version, is yours forever,
+              so it {"can't"} be refunded.
             </AccordionItem>
           </Accordion>
         </div>

@@ -1,146 +1,128 @@
+'use client';
+
 import {
   Button,
-  Form,
   InlineLoading,
   PasswordInput,
   Stack,
   TextInput,
 } from '@carbon/react';
-import classNames from 'classnames';
 import styles from './Credentials.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { useState, useTransition } from 'react';
+import { LoginSchema } from '@/schemas/login-schema';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { login } from '@/actions/login';
+import { useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import FormError from '@/components/form-error/form-error';
 
-type Form = {
-  username?: string;
-  password?: string;
-};
+interface LoginProps {
+  onRegister: () => void;
+}
 
-const passwordError =
-  'Your password must be at least 6 characters including one uppercase, one lowercase, and one number.';
+export default function Credentials({ onRegister }: LoginProps) {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string>('');
 
-export default function Credentials() {
-  const [form, setForm] = useState<Form>({});
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<any[]>([]);
+  const { reset, formState, handleSubmit, register } = useForm<
+    z.infer<typeof LoginSchema>
+  >({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
+    setError('');
 
-    try {
-      const mySchema = z
-        .object({
-          username: z.coerce
-            .string()
-            .email()
-            .min(5, { message: 'Email is not valid' }),
-          password: z.string().min(6, {
-            message: passwordError,
-          }),
-        })
-        .refine(
-          (data) => {
-            const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-            return regex.test(data.password);
-          },
-          {
-            message: passwordError,
-            path: ['password'],
+    startTransition(() => {
+      login(values, callbackUrl)
+        .then((data) => {
+          if (data?.error) {
+            setError(data.error);
+            reset();
           }
-        );
-
-      // store validation response
-      const response = mySchema.safeParse({
-        username: form!.username,
-        password: form!.password,
-      });
-
-      // refine errors
-      if (!response.success) {
-        let errArr: any[] = [];
-        const { errors: err } = response.error;
-        for (var i = 0; i < err.length; i++) {
-          errArr.push({ for: err[i].path[0], message: err[i].message });
-        }
-        setErrors(errArr);
-        throw err;
-      }
-
-      setErrors([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+        })
+        .catch(() => setError('Something went wrong'));
+    });
   };
 
   return (
-    <Form onSubmit={onSubmit} className={styles.credentials}>
-      <Stack gap={4}>
-        <TextInput
-          type="text"
-          id="username"
-          name="username"
-          required
-          labelText=""
-          placeholder="username@example.com"
-          onChange={onChange}
-          size="lg"
-          invalid={errors.find((error) => error.for === 'username')}
-          invalidText={
-            errors.find((error) => error.for === 'username')?.message
-          }
-        />
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.credentials}>
+        <Stack gap={4}>
+          <TextInput
+            type="text"
+            id="email"
+            required
+            labelText=""
+            placeholder="username@example.com"
+            size="lg"
+            autoComplete="true"
+            disabled={isPending}
+            invalid={formState.errors.email !== undefined}
+            invalidText={formState.errors.email?.message}
+            {...register('email')}
+          />
 
-        <PasswordInput
-          type="password"
-          id="password"
-          name="password"
-          labelText=""
-          placeholder="Password"
-          onChange={onChange}
-          required
-          size="lg"
-          invalid={errors.find((error) => error.for === 'password')}
-          invalidText={
-            errors.find((error) => error.for === 'password')?.message
-          }
-        />
+          <PasswordInput
+            type="password"
+            id="password"
+            labelText=""
+            placeholder="Password"
+            required
+            size="lg"
+            autoComplete="true"
+            disabled={isPending}
+            invalid={formState.errors.password !== undefined}
+            invalidText={formState.errors.password?.message}
+            {...register('password')}
+          />
 
-        <button
-          className={classNames(styles.link, 'text-xs place-self-start')}
-          type="button"
-        >
-          Forgot password?
-        </button>
+          <FormError message={error}></FormError>
 
-        <Button
-          className="!w-full items-center"
-          style={{ maxInlineSize: '100%' }}
-          kind="primary"
-          renderIcon={ArrowRight}
-          type="submit"
-          disabled={loading}
-        >
-          <div className="flex items-center gap-2">
-            {loading && <InlineLoading></InlineLoading>}
-            <span className="text-sm whitespace-nowrap">Continue</span>
-          </div>
-        </Button>
-
-        <span className="flex justify-center gap-1">
-          <span className={classNames(styles.dontHaveAccount, 'text-xs')}>
-            Don't have an account?
-          </span>
-          <button className={classNames(styles.link, 'text-xs')} type="button">
-            Create an account
+          <button
+            className={cn(styles.link, 'text-xs place-self-start')}
+            type="button"
+          >
+            Forgot password?
           </button>
-        </span>
-      </Stack>
-    </Form>
+
+          <Button
+            className="!w-full items-center  h-[50px]"
+            style={{ maxInlineSize: '100%' }}
+            kind="primary"
+            renderIcon={ArrowRight}
+            type="submit"
+            disabled={isPending}
+          >
+            <div className="flex items-center gap-2">
+              {isPending && <InlineLoading></InlineLoading>}
+              <span className="text-sm whitespace-nowrap">Continue</span>
+            </div>
+          </Button>
+
+          <span className="flex justify-center gap-1">
+            <span className={cn(styles.dontHaveAccount, 'text-xs')}>
+              {"Don't"} have an account?
+            </span>
+            <button
+              className={cn(styles.link, 'text-xs')}
+              type="button"
+              onClick={onRegister}
+            >
+              Create an account
+            </button>
+          </span>
+        </Stack>
+      </form>
+    </>
   );
 }

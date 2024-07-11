@@ -1,0 +1,5 @@
+@use "@carbon/themes/scss/tokens";
+
+.error {
+  color: tokens.$text-error;
+}
