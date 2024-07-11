@@ -12,16 +12,18 @@ import { providerMap } from '@/auth.config';
 import Register from '../register-form/register-form';
 
 interface SignInProps {
-  isRegister: boolean;
-  onRegister: () => void;
+  isRegister?: boolean;
+  onRegister?: () => void;
 }
 
 export default function SignIn({ isRegister, onRegister }: SignInProps) {
   const [loggingIn, setLoggingIn] = useState<string | null>(null);
-  const [register, setRegister] = useState(isRegister);
+  const [register, setRegister] = useState<boolean>(isRegister || false);
 
   useEffect(() => {
-    setRegister(isRegister);
+    if (isRegister) {
+      setRegister(isRegister);
+    }
   }, [isRegister]);
 
   const logIn = async (id: string) => {
@@ -51,7 +53,9 @@ export default function SignIn({ isRegister, onRegister }: SignInProps) {
           <Credentials
             onRegister={() => {
               setRegister(true);
-              onRegister();
+              if (onRegister) {
+                onRegister();
+              }
             }}
           ></Credentials>
         )}
