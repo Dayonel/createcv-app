@@ -74,7 +74,7 @@ export default function Register({ onLogin }: RegisterProps) {
             type="password"
             id="password"
             labelText=""
-            placeholder="Password"
+            placeholder="password"
             required
             size="lg"
             autoComplete="true"

@@ -12,4 +12,7 @@ export const authConfig = {
   providers,
 } satisfies NextAuthConfig;
 
-export const providerMap = providers.map((m) => m.name.toLowerCase());
+export const providerMap = providers.map((m) =>
+  // @ts-ignore
+  typeof m === 'function' ? m().id : m.id
+);

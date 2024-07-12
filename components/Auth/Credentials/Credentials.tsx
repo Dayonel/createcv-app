@@ -76,7 +76,7 @@ export default function Credentials({ onRegister }: LoginProps) {
             type="password"
             id="password"
             labelText=""
-            placeholder="Password"
+            placeholder="password"
             required
             size="lg"
             autoComplete="true"
