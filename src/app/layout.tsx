@@ -15,16 +15,16 @@ import { auth } from '@/auth';
 const roboto = localFont({
   src: [
     {
-      path: '../public/fonts/Roboto-Regular.ttf',
+      path: '../../public/fonts/Roboto-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../public/fonts/Roboto-Medium.ttf',
+      path: '../../public/fonts/Roboto-Medium.ttf',
       weight: '500',
       style: 'normal',
     },
-    { path: '../public/fonts/Roboto-Bold.ttf', weight: '700', style: 'normal' },
+    { path: '../../public/fonts/Roboto-Bold.ttf', weight: '700', style: 'normal' },
   ],
   display: 'swap',
 });
