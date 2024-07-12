@@ -1,19 +1,15 @@
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Img,
-  Link,
-  Preview,
-  render,
-  Section,
-  Tailwind,
-  Text,
-} from '@react-email/components';
+import { render } from '@react-email/render';
+import { Html } from '@react-email/html';
+import { Head } from '@react-email/head';
+import { Body } from '@react-email/body';
+import { Container } from '@react-email/container';
+import { Heading } from '@react-email/heading';
+import { Text } from '@react-email/text';
+import { Section } from '@react-email/section';
+import { Button } from '@react-email/button';
+import { Link } from '@react-email/link';
+import { Hr } from '@react-email/hr';
+import { Img } from '@react-email/img';
 
 interface EmailTemplateProps {
   confirmLink: string;
@@ -29,65 +25,138 @@ export default function VerificationEmail({ confirmLink }: EmailTemplateProps) {
   return (
     <Html>
       <Head />
-      <Tailwind>
-        <Body className="bg-white my-auto mx-auto font-sans px-2">
-          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
-            <Heading className="text-black text-[24px] font-normal p-0 my-[30px] mx-0">
-              <strong>Confirm your account</strong>
-            </Heading>
-            <Text className="text-black text-[14px] leading-[24px]">
-              Thank you for signing up for CreateCV. To confirm your account,
-              please follow the button below.
-            </Text>
+      <Body
+        style={{
+          backgroundColor: 'white',
+          margin: '0 auto',
+          padding: '0 0.5rem',
+          fontFamily:
+            'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+        }}
+      >
+        <Container
+          style={{
+            border: '1px solid #eaeaea',
+            borderRadius: '0.25rem',
+            margin: '40px auto',
+            padding: '20px',
+            maxWidth: '465px',
+          }}
+        >
+          <Heading
+            style={{
+              color: '#000000',
+              fontSize: '24px',
+              fontWeight: 400,
+              padding: 0,
+              margin: '30px 0',
+            }}
+          >
+            <strong>Confirm your account</strong>
+          </Heading>
+          <Text
+            style={{
+              color: '#000000',
+              fontSize: '14px',
+              lineHeight: '24px',
+            }}
+          >
+            Thank you for signing up for CreateCV. To confirm your account,
+            please follow the button below.
+          </Text>
 
-            <Section className="text-center mt-[32px] mb-[32px]">
-              <Button
-                className="bg-[#262626] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
-                href={confirmLink}
-              >
-                Confirm account
-              </Button>
-            </Section>
-            <Text className="text-black text-[14px] leading-[24px]">
-              or copy and paste this URL into your browser:{' '}
-              <Link href={confirmLink} className="text-blue-600 no-underline">
-                {confirmLink}
-              </Link>
-            </Text>
-            <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
-              If you have further questions, write to us at{' '}
+          <Section
+            style={{
+              textAlign: 'center',
+              margin: '32px auto',
+            }}
+          >
+            <Button
+              style={{
+                backgroundColor: '#262626',
+                borderRadius: '0.25rem',
+                color: 'white',
+                fontSize: '12px',
+                fontWeight: 600,
+                textDecorationLine: 'none',
+                textAlign: 'center',
+                padding: '0.75rem 1.25rem',
+              }}
+              href={confirmLink}
+            >
+              Confirm account
+            </Button>
+          </Section>
+          <Text
+            style={{
+              color: '#000000',
+              fontSize: '14px',
+              lineHeight: '24px',
+            }}
+          >
+            or copy and paste this URL into your browser:{' '}
+            <Link
+              style={{
+                color: '#2563eb',
+                textDecorationLine: 'none',
+              }}
+              href={confirmLink}
+            >
+              {confirmLink}
+            </Link>
+          </Text>
+          <Hr
+            style={{
+              border: '1px solid #eaeaea',
+              margin: '26px 0',
+              width: '100%',
+            }}
+          />
+          <Text
+            style={{
+              color: '#666666',
+              fontSize: '12px',
+              lineHeight: '24px',
+            }}
+          >
+            If you have further questions, write to us at{' '}
+            <Link
+              style={{
+                color: '#2563eb',
+                textDecorationLine: 'none',
+              }}
+              href="mailto:info@createcv.app"
+            >
+              info@createcv.app
+            </Link>{' '}
+            and our team will get back to you.
+          </Text>
+
+          <Section
+            style={{
+              marginTop: '32px',
+            }}
+          >
+            <Img
+              src="https://createcv.app/logo.png"
+              width="64"
+              height="64"
+              alt="CreateCV logo"
+            />
+
+            <Text style={footer}>
               <Link
-                href="mailto:info@createcv.app"
-                className="text-blue-600 no-underline"
+                href="https://createcv.app"
+                target="_blank"
+                style={{ ...link, color: '#898989' }}
               >
-                info@createcv.app
-              </Link>{' '}
-              and our team will get back to you.
+                createcv.app
+              </Link>
+              , the Rich Text resume editor.
             </Text>
-
-            <Section className="mt-[32px]">
-              <Img
-                src="https://createcv.app/logo.png"
-                width="64"
-                height="64"
-                alt="CreateCV logo"
-              />
-
-              <Text style={footer}>
-                <Link
-                  href="https://createcv.app"
-                  target="_blank"
-                  style={{ ...link, color: '#898989' }}
-                >
-                  createcv.app
-                </Link>
-                , the rich text resume editor.
-              </Text>
-            </Section>
-          </Container>
-        </Body>
-      </Tailwind>
+          </Section>
+        </Container>
+      </Body>
     </Html>
   );
 }
