@@ -1,10 +1,15 @@
 import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
+import bundleAnalyzer from '@next/bundle-analyzer';
 
 // note: the if statement is present because you
 //       only need to use the function during development
 if (process.env.NODE_ENV === 'development') {
   await setupDevPlatform();
 }
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -32,4 +37,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);
