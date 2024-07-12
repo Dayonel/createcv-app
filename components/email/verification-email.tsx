@@ -29,7 +29,6 @@ export default function VerificationEmail({ confirmLink }: EmailTemplateProps) {
   return (
     <Html>
       <Head />
-      <Preview>Confirm your account</Preview>
       <Tailwind>
         <Body className="bg-white my-auto mx-auto font-sans px-2">
           <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">

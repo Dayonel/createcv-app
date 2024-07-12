@@ -1,11 +1,11 @@
-import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { LoginSchema } from './schemas/login-schema';
 import { getUserByEmail } from './services/user';
 import { authConfig } from './auth.config';
-import db from '@/lib/db';
+import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import bcrypt from 'bcrypt-edge';
+import { db } from './lib/db';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -33,6 +33,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  adapter: PrismaAdapter(db),
+  adapter: DrizzleAdapter(db),
   session: { strategy: 'jwt' },
 });

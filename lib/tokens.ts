@@ -1,6 +1,8 @@
 import { getVerificationTokenByEmail } from '@/services/verification-token';
 import { v4 as uuidv4 } from 'uuid';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
+import { verificationTokens } from '@/drizzle/schema';
+import { eq } from 'drizzle-orm';
 
 export const generateVerificationToken = async (email: string) => {
   const token = uuidv4();
@@ -9,20 +11,19 @@ export const generateVerificationToken = async (email: string) => {
   const existingToken = await getVerificationTokenByEmail(email);
 
   if (existingToken) {
-    await db.verificationToken.delete({
-      where: {
-        id: existingToken.id,
-      },
-    });
+    await db
+      .delete(verificationTokens)
+      .where(eq(verificationTokens.id, existingToken.id));
   }
 
-  const verficationToken = await db.verificationToken.create({
-    data: {
+  const [verficationToken] = await db
+    .insert(verificationTokens)
+    .values({
       email,
       token,
       expires,
-    },
-  });
+    })
+    .returning();
 
   return verficationToken;
 };

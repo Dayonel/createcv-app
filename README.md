@@ -48,26 +48,10 @@ npm run start
 
 ## Database
 
-Initial migration
-
-```bash
-npx wrangler d1 migrations create createcv authentication
-```
-
-Add initial migration
-
-```bash
-npx prisma migrate diff --from-empty --to-schema-datamodel ./prisma/schema.prisma --script --output migrations/0001_authentication.sql
-```
-
 Add a migration
 
 ```bash
-# Generate sql
-npx wrangler d1 migrations create createcv credentials
-
-# Write diff
-npx prisma migrate diff --from-local-d1 --to-schema-datamodel ./prisma/schema.prisma --script --output migrations/0002_credentials.sql
+npx drizzle-kit generate
 ```
 
 Apply a migration
@@ -78,12 +62,6 @@ npx wrangler d1 migrations apply createcv --local
 
 # Remote
 npx wrangler d1 migrations apply createcv --remote
-```
-
-Generate prisma client
-
-```bash
-npx prisma generate
 ```
 
 Generate bindings

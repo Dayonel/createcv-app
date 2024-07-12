@@ -22,7 +22,7 @@ export const sendVerificationEmail = (email: string, token: string) => {
         },
       },
     ],
-    subject: 'Confirm your email',
+    subject: 'Confirm your CreateCV account',
     htmlbody: verificationEmail(confirmLink),
   });
 };

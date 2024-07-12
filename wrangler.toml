@@ -1,4 +1,4 @@
 [[ d1_databases ]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "createcv"
-database_id = "b130637e-ea64-4530-b04b-3e351ac62c25"
+database_id = "17eef701-b173-4562-90b2-3bcbd89807a8"

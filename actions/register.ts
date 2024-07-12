@@ -2,12 +2,13 @@
 
 import * as z from 'zod';
 
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { RegisterSchema } from '@/schemas/register-schema';
 import { getUserByEmail } from '@/services/user';
 import bcrypt from 'bcrypt-edge';
+import { users } from '@/drizzle/schema';
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -25,11 +26,9 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: 'Email already in use!' };
   }
 
-  await db.user.create({
-    data: {
-      email,
-      password: hashedPassword,
-    },
+  await db.insert(users).values({
+    email,
+    password: hashedPassword,
   });
 
   const verificationToken = await generateVerificationToken(email);
