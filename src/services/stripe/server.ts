@@ -1,6 +1,6 @@
 'use server';
 import { auth } from '@/auth';
-import { stripe } from '@/utils/stripe/config';
+import { stripe } from '@/services/stripe/config';
 
 type CheckoutResponse = {
   errorRedirect?: string;

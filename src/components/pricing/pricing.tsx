@@ -9,9 +9,9 @@ import {
 import styles from './pricing.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
 import { useState } from 'react';
-import { checkoutWithStripe } from '@/utils/stripe/server';
+import { checkoutWithStripe } from '@/services/stripe/server';
 import { useRouter } from 'next/navigation';
-import getStripe from '@/utils/stripe/client';
+import getStripe from '@/services/stripe/client';
 
 export default function Pricing() {
   const router = useRouter();

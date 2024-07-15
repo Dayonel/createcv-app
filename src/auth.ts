@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { LoginSchema } from './schemas/login-schema';
-import { getUserByEmail } from './services/user';
+import { getUserByEmail } from './services/auth/user';
 import { authConfig } from './auth.config';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import bcrypt from 'bcrypt-edge';

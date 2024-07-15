@@ -1,4 +1,4 @@
-import { getVerificationTokenByEmail } from '@/services/verification-token';
+import { getVerificationTokenByEmail } from '@/services/auth/verification-token';
 import { db } from '@/lib/db';
 import { verificationTokens } from '@/drizzle/schema';
 import { eq } from 'drizzle-orm';

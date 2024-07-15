@@ -4,7 +4,7 @@ import { signIn } from '@/auth';
 import { sendRegisterEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { LoginSchema } from '@/schemas/login-schema';
-import { getUserByEmail } from '@/services/user';
+import { getUserByEmail } from '@/services/auth/user';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
 import bcrypt from 'bcrypt-edge';

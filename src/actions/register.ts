@@ -6,7 +6,7 @@ import { db } from '@/lib/db';
 import { sendRegisterEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { RegisterSchema } from '@/schemas/register-schema';
-import { getUserByEmail } from '@/services/user';
+import { getUserByEmail } from '@/services/auth/user';
 import bcrypt from 'bcrypt-edge';
 import { users } from '@/drizzle/schema';
 
