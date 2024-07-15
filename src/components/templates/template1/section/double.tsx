@@ -1,4 +1,4 @@
-import styles from './Double.module.scss';
+import styles from './double.module.scss';
 import Divider from '../divider/divider';
 import Skills from '../skill/skills';
 import Languages from '../language/languages';

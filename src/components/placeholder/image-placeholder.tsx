@@ -1,5 +1,4 @@
 import { forwardRef, useContext, useEffect, useState } from 'react';
-import Transition from '../transitions/transition';
 import styles from './image-placeholder.module.scss';
 import classNames from 'classnames';
 import { FileUploaderDropContainer, InlineLoading } from '@carbon/react';
@@ -64,12 +63,7 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
     };
 
     return (
-      <Transition
-        active={edit || src !== null}
-        ref={ref}
-        {...props}
-        className={classNames('block group pb-2 md:pb-0', className)}
-      >
+      <>
         {src !== null ? (
           <div className="relative w-fit group/item">
             <img className={styles.preview} alt="Preview" src={src} />
@@ -109,7 +103,7 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
             )}
           </div>
         )}
-      </Transition>
+      </>
     );
   }
 );

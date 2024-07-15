@@ -6,7 +6,7 @@ import {
   View,
 } from '@carbon/icons-react';
 import { useEffect, useState } from 'react';
-import styles from './Actions.module.scss';
+import styles from './actions.module.scss';
 import { Modal } from '@carbon/react';
 import ColorPicker from './color-picker';
 import { useOutsideClick } from '@/hooks/use-outside-click';

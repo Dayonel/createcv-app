@@ -1,5 +1,5 @@
 import { animated, easings, useSpring } from '@react-spring/web';
-import { forwardRef, useContext, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './transition.module.scss';
 
