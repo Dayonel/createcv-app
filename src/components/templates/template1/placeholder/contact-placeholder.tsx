@@ -1,5 +1,5 @@
 import { CSSProperties, forwardRef } from 'react';
-import styles from './ContactPlaceholder.module.scss';
+import styles from './contact-placeholder.module.scss';
 import {
   Email,
   LocationFilled,
@@ -15,10 +15,10 @@ import {
   LogoPinterest,
 } from '@carbon/icons-react';
 import placeholder from '../../../../data/template1.json';
-import { getText, getTextContent } from '@/utils/richTextUtils';
+import { getText, getTextContent } from '@/utils/rich-text-utils';
 import { Contact } from '../types/contact';
-import useColorStore from '@/store/colorStore';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import useColorStore from '@/store/color-store';
+import { useOutsideClick } from '@/hooks/use-outside-click';
 
 interface ContactPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   open: boolean;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Action from '../dndkit/components/action/action';
 import { AddLarge, TrashCan } from '@carbon/icons-react';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useOutsideClick } from '@/hooks/use-outside-click';
 
 interface ActionButtonsProps {
   add?: boolean;

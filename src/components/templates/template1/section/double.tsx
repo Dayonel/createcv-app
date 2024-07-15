@@ -8,7 +8,7 @@ import Placeholder from '../../../placeholder/placeholder';
 import { v4 } from 'uuid';
 import placeholder from '../../../../data/template1.json';
 import ActionButtons from '../../../placeholder/action-buttons';
-import { getTextContent } from '@/utils/richTextUtils';
+import { getTextContent } from '@/utils/rich-text-utils';
 
 interface DoubleProps {
   props: DoubleType;

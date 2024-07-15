@@ -1,7 +1,7 @@
 import { Skill as SkillType } from '../types/skill';
 import { useRef, useState } from 'react';
 import styles from './skill.module.scss';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useOutsideClick } from '@/hooks/use-outside-click';
 import { Remove } from '../../../dndkit/components/remove/remove';
 
 export interface InputProps {

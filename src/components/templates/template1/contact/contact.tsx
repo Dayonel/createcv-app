@@ -15,8 +15,8 @@ import {
 } from '@carbon/icons-react';
 import { Contact as ContactType } from '../types/contact';
 import RichText from '../../../rich-text/rich-text';
-import useColorStore from '@/store/colorStore';
-import { getText } from '@/utils/richTextUtils';
+import useColorStore from '@/store/color-store';
+import { getText } from '@/utils/rich-text-utils';
 
 export interface ContactProps {
   props: ContactType;

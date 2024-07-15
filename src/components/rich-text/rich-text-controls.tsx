@@ -1,4 +1,4 @@
-import styles from './RichTextControls.module.scss';
+import styles from './rich-text-controls.module.scss';
 import { IconButton } from '@carbon/react';
 import {
   ListBulleted,

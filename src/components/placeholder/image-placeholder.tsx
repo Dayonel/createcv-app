@@ -1,6 +1,6 @@
 import { forwardRef, useContext, useEffect, useState } from 'react';
 import Transition from '../transitions/transition';
-import styles from './ImagePlaceholder.module.scss';
+import styles from './image-placeholder.module.scss';
 import classNames from 'classnames';
 import { FileUploaderDropContainer, InlineLoading } from '@carbon/react';
 import { Remove } from '../dndkit/components/remove/remove';

@@ -1,4 +1,4 @@
-import './RichText.scss';
+import './rich-text.scss';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { generateHTML } from '@tiptap/html';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -13,7 +13,7 @@ import Italic from '@tiptap/extension-italic';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Blockquote from '@tiptap/extension-blockquote';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useOutsideClick } from '@/hooks/use-outside-click';
 import RichTextControls from './rich-text-controls';
 import { Remove } from '../dndkit/components/remove/remove';
 import Placeholder from '@tiptap/extension-placeholder';

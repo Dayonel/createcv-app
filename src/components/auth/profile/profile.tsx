@@ -1,7 +1,7 @@
 'use client';
 import Action from '../../dndkit/components/action/action';
 import { useEffect, useState } from 'react';
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useOutsideClick } from '@/hooks/use-outside-click';
 import { useSession } from 'next-auth/react';
 import { UserAvatar, UserFilled } from '@carbon/icons-react';
 import SignOut from '../sign-out';

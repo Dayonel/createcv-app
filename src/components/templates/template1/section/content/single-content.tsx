@@ -1,10 +1,10 @@
-import RichText from '@/components/rich-text/RichText';
+import RichText from '@/components/rich-text/rich-text';
 import { SingleContent as SingleContentType } from '../../types/single';
 import { Calendar } from '@carbon/icons-react';
-import useColorStore from '@/store/colorStore';
-import Placeholder from '@/components/laceholder/placeholder';
+import useColorStore from '@/store/color-store';
+import Placeholder from '@/components/placeholder/placeholder';
 import placeholder from '../../../../../data/template1.json';
-import ActionButtons from '@/components/placeholder/ActionButtons';
+import ActionButtons from '@/components/placeholder/action-buttons';
 
 export interface SingleContentProps {
   props: SingleContentType;

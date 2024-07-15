@@ -1,5 +1,5 @@
-import { useOutsideClick } from '@/hooks/useOutsideClick';
-import useColorStore from '@/store/colorStore';
+import { useOutsideClick } from '@/hooks/use-outside-click';
+import useColorStore from '@/store/color-store';
 import { TextColor } from '@carbon/icons-react';
 import { useState } from 'react';
 import { HexColorPicker } from 'react-colorful';

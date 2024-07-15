@@ -6,9 +6,9 @@ import Footer from '@/components/footer/footer';
 import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
 import { ThemeProvider } from 'next-themes';
-import { CookieThemeProvider } from '@/components/providers/CookieThemeProvider';
-import { FormProvider } from '@/components/providers/FormProvider';
-import { MenuProvider } from '@/components/providers/MenuProvider';
+import { CookieThemeProvider } from '@/components/providers/cookie-theme-provider';
+import { FormProvider } from '@/components/providers/form-provider';
+import { MenuProvider } from '@/components/providers/menu-provider';
 import { SessionProvider } from 'next-auth/react';
 import { auth } from '@/auth';
 

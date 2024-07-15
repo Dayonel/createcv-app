@@ -1,7 +1,7 @@
 import './Language.scss';
 import { Language as LanguageType } from '../types/language';
 import RichText from '../../../rich-text/rich-text';
-import useColorStore from '@/store/colorStore';
+import useColorStore from '@/store/color-store';
 import Placeholder from '../../../placeholder/placeholder';
 import placeholder from '../../../../data/template1.json';
 import { DoubleContent } from '../types/double';
