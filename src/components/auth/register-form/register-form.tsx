@@ -47,6 +47,7 @@ export default function Register({ onLogin, onVerify }: RegisterProps) {
         .then((data) => {
           if (data?.error) {
             setError(data.error);
+            return;
           }
 
           if (data?.verify) {

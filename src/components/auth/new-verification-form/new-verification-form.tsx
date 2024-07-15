@@ -61,6 +61,7 @@ export default function NewVerificationForm({
         .then((data) => {
           if (data?.error) {
             setError(data.error);
+            return;
           }
 
           ref.current!.submit();
