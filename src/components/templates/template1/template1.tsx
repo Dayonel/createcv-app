@@ -32,7 +32,7 @@ export default function Template1() {
   const [contactsOpen, setContactsOpen] = useState(false);
   const { reset, setReset, edit, undo, setUndo, redo, setRedo } =
     useContext(MenuContext);
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string | undefined>(undefined);
   const { setTheme } = useTheme();
 
   // every update
@@ -123,7 +123,7 @@ export default function Template1() {
   const resetForm = () => {
     setForm({ ...traverseUUID(placeholder) });
     setColor('var(--cds-link-primary)');
-    setImage(null);
+    setImage(undefined);
     localStorage.removeItem('form');
     localStorage.removeItem('image');
     updateHistory.current = false;

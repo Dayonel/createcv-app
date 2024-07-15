@@ -1,4 +1,4 @@
-import '.language.scss';
+import './language.scss';
 import { Language as LanguageType } from '../types/language';
 import RichText from '../../../rich-text/rich-text';
 import useColorStore from '@/store/color-store';

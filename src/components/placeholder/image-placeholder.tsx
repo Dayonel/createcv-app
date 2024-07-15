@@ -7,14 +7,14 @@ import { MenuContext } from '../providers/menu-provider';
 import imageCompression from 'browser-image-compression';
 
 interface ImagePlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
-  image: string | null;
-  onFile: (e: string | null) => void;
+  image: string | undefined;
+  onFile: (e: string | undefined) => void;
 }
 
 export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
   function ImagePlaceholder({ className, image, onFile, ...props }, ref) {
     const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png'];
-    const [src, setSrc] = useState<string | null>(() => image);
+    const [src, setSrc] = useState<string | undefined>(() => image);
     const [error, setError] = useState<string | null>(null);
     const { edit } = useContext(MenuContext);
     const [loading, setLoading] = useState(false);
@@ -62,18 +62,20 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
       }
     };
 
+    if (!edit && !src) return null;
+
     return (
-      <>
-        {src !== null ? (
+      <div className={classNames('block group pb-2 md:pb-0', className)}>
+        {src !== undefined ? (
           <div className="relative w-fit group/item">
             <img className={styles.preview} alt="Preview" src={src} />
             <div className="absolute w-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500">
               <Remove
                 className="!-translate-y-full"
                 onClick={() => {
-                  setSrc(null);
+                  setSrc(undefined);
                   setError(null);
-                  onFile(null);
+                  onFile(undefined);
                 }}
               ></Remove>
             </div>
@@ -103,7 +105,7 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
             )}
           </div>
         )}
-      </>
+      </div>
     );
   }
 );
