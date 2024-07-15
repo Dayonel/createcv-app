@@ -1,6 +1,6 @@
 'use client';
 import { Accordion, AccordionItem, Link } from '@carbon/react';
-import styles from './FAQ.module.scss';
+import styles from './faq.module.scss';
 
 export default function FAQ() {
   return (

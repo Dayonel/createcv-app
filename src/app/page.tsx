@@ -1,5 +1,5 @@
 import Editor from '@/components/editor';
-import FAQ from '@/components/faq/faq';
+import FAQ from '@/components/fq/faq';
 import Pricing from '@/components/pricing/pricing';
 import styles from './page.module.scss';
 

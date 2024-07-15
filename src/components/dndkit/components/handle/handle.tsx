@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import Action from '../action/action';
 import { ActionProps } from '../action/action';
-import styles from './Handle.module.scss';
+import styles from './handle.module.scss';
 
 export default forwardRef<HTMLButtonElement, ActionProps>(function Handle(
   props,
