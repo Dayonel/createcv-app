@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './globals.scss';
-import './Menu.scss';
+import './menu.scss';
 import Footer from '@/components/footer/footer';
 import localFont from 'next/font/local';
 import { cookies } from 'next/headers';
