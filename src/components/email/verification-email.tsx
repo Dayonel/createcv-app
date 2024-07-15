@@ -6,22 +6,19 @@ import { Container } from '@react-email/container';
 import { Heading } from '@react-email/heading';
 import { Text } from '@react-email/text';
 import { Section } from '@react-email/section';
-import { Button } from '@react-email/button';
 import { Link } from '@react-email/link';
 import { Hr } from '@react-email/hr';
 import { Img } from '@react-email/img';
 
 interface EmailTemplateProps {
-  confirmLink: string;
+  loginCode: string;
 }
 
-export const verificationEmail = (confirmLink: string) => {
-  return render(
-    <VerificationEmail confirmLink={confirmLink}></VerificationEmail>
-  );
+export const verificationEmail = (loginCode: string) => {
+  return render(<VerificationEmail loginCode={loginCode}></VerificationEmail>);
 };
 
-export default function VerificationEmail({ confirmLink }: EmailTemplateProps) {
+export default function VerificationEmail({ loginCode }: EmailTemplateProps) {
   return (
     <Html>
       <Head />
@@ -52,58 +49,40 @@ export default function VerificationEmail({ confirmLink }: EmailTemplateProps) {
               margin: '30px 0',
             }}
           >
-            <strong>Confirm your account</strong>
+            <strong>Confirm your email address</strong>
           </Heading>
-          <Text
-            style={{
-              color: '#000000',
-              fontSize: '14px',
-              lineHeight: '24px',
-            }}
-          >
-            Thank you for signing up for CreateCV. To confirm your account,
-            please follow the button below.
+          <Text style={{ ...text, marginBottom: '14px' }}>
+            Thanks for signing up for CreateCV.
           </Text>
 
-          <Section
-            style={{
-              textAlign: 'center',
-              margin: '32px auto',
-            }}
-          >
-            <Button
-              style={{
-                backgroundColor: '#262626',
-                borderRadius: '0.25rem',
-                color: 'white',
-                fontSize: '12px',
-                fontWeight: 600,
-                textDecorationLine: 'none',
-                textAlign: 'center',
-                padding: '0.75rem 1.25rem',
-              }}
-              href={confirmLink}
-            >
-              Confirm account
-            </Button>
-          </Section>
+          <Text style={{ ...text, marginBottom: '14px' }}>
+            Please enter the following code to complete the login:
+          </Text>
+
+          <code style={code}>{loginCode}</code>
+
           <Text
             style={{
-              color: '#000000',
-              fontSize: '14px',
-              lineHeight: '24px',
+              ...text,
+              fontStyle: 'italic',
+              marginBottom: '14px',
+              fontSize: '12px',
+              marginTop: '5px',
             }}
           >
-            or copy and paste this URL into your browser:{' '}
-            <Link
-              style={{
-                color: '#2563eb',
-                textDecorationLine: 'none',
-              }}
-              href={confirmLink}
-            >
-              {confirmLink}
-            </Link>
+            Please note that this code will expire in 10 minutes.
+          </Text>
+
+          <Text
+            style={{
+              ...text,
+              color: '#ababab',
+              marginTop: '14px',
+              marginBottom: '16px',
+            }}
+          >
+            If you {"don't"} want to create an account, you can ignore this
+            message.
           </Text>
           <Hr
             style={{
@@ -177,4 +156,22 @@ const footer = {
   lineHeight: '22px',
   marginTop: '12px',
   marginBottom: '24px',
+};
+
+const text = {
+  color: '#333',
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+  fontSize: '14px',
+  margin: '24px 0',
+};
+
+const code = {
+  display: 'inline-block',
+  padding: '16px 4.5%',
+  width: '90.5%',
+  backgroundColor: '#f4f4f4',
+  borderRadius: '5px',
+  border: '1px solid #eee',
+  color: '#333',
 };

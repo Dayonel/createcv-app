@@ -7,29 +7,28 @@ import {
   Stack,
   TextInput,
 } from '@carbon/react';
-import styles from './Credentials.module.scss';
+import styles from './credentials.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
-import { useState, useTransition } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import { LoginSchema } from '@/schemas/login-schema';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { login } from '@/actions/login';
-import { useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import FormError from '@/components/form-error/form-error';
 
 interface LoginProps {
   onRegister: () => void;
+  onVerify: (email: string, password: string) => void;
 }
 
-export default function Credentials({ onRegister }: LoginProps) {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl');
+export default function Credentials({ onRegister, onVerify }: LoginProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string>('');
+  const ref = useRef<HTMLFormElement | null>(null);
 
-  const { reset, formState, handleSubmit, register } = useForm<
+  const { formState, handleSubmit, register } = useForm<
     z.infer<typeof LoginSchema>
   >({
     resolver: zodResolver(LoginSchema),
@@ -43,12 +42,19 @@ export default function Credentials({ onRegister }: LoginProps) {
     setError('');
 
     startTransition(() => {
-      login(values, callbackUrl)
+      login(values)
         .then((data) => {
           if (data?.error) {
             setError(data.error);
-            reset();
+            return;
           }
+
+          if (data?.verify) {
+            onVerify(data.email, data.password);
+            return;
+          }
+
+          ref.current!.submit();
         })
         .catch(() => setError('Something went wrong'));
     });
@@ -56,7 +62,11 @@ export default function Credentials({ onRegister }: LoginProps) {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.credentials}>
+      <form
+        ref={ref}
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.credentials}
+      >
         <Stack gap={4}>
           <TextInput
             type="text"

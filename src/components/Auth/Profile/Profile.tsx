@@ -3,16 +3,15 @@ import Action from '../../DndKit/components/Action/Action';
 import { useEffect, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useSession } from 'next-auth/react';
-import { UserAvatar } from '@carbon/icons-react';
-import SignOut from '../SignOut';
-import SignIn from '../SignIn/SignIn';
+import { UserAvatar, UserFilled } from '@carbon/icons-react';
+import SignOut from '../sign-out';
+import SignIn from '../sign-in/sign-in';
 import Image from 'next/image';
 import { Modal } from '@carbon/react';
-import styles from './Profile.module.scss';
+import styles from './profile.module.scss';
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
-  const [isRegister, setIsRegister] = useState(false);
   const [modal, setModal] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -41,7 +40,7 @@ export default function Profile() {
                 height={24}
               ></Image>
             ) : (
-              <UserAvatar size={20}></UserAvatar>
+              <UserFilled size={20}></UserFilled>
             )}
           </Action>
           <>
@@ -58,10 +57,7 @@ export default function Profile() {
         </>
       ) : (
         <Action
-          onClick={() => {
-            setIsRegister(false);
-            setModal(true);
-          }}
+          onClick={() => setModal(true)}
           className="menu-item"
           fill="var(--cds-text-primary)"
         >
@@ -77,10 +73,7 @@ export default function Profile() {
           size="xs"
           selectorPrimaryFocus=".flex"
         >
-          <SignIn
-            isRegister={isRegister}
-            onRegister={() => setIsRegister(true)}
-          ></SignIn>
+          <SignIn></SignIn>
         </Modal>
       )}
     </div>

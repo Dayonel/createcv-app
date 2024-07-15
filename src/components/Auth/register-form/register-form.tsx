@@ -20,9 +20,10 @@ import { RegisterSchema } from '@/schemas/register-schema';
 
 interface RegisterProps {
   onLogin: () => void;
+  onVerify: (email: string, password: string) => void;
 }
 
-export default function Register({ onLogin }: RegisterProps) {
+export default function Register({ onLogin, onVerify }: RegisterProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string>('');
 
@@ -46,6 +47,11 @@ export default function Register({ onLogin }: RegisterProps) {
         .then((data) => {
           if (data?.error) {
             setError(data.error);
+          }
+
+          if (data?.verify) {
+            onVerify(data.email, data.password);
+            return;
           }
         })
         .catch(() => setError('Something went wrong'));
@@ -88,7 +94,7 @@ export default function Register({ onLogin }: RegisterProps) {
 
           <div className="mt-4">
             <Button
-              className="!w-full items-center  h-[50px]"
+              className="!w-full items-center h-[50px]"
               style={{ maxInlineSize: '100%' }}
               kind="primary"
               renderIcon={ArrowRight}

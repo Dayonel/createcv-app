@@ -3,16 +3,13 @@
 import { signIn } from '@/auth';
 import { sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
-import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { LoginSchema } from '@/schemas/login-schema';
 import { getUserByEmail } from '@/services/user';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
+import bcrypt from 'bcrypt-edge';
 
-export const login = async (
-  values: z.infer<typeof LoginSchema>,
-  callbackUrl?: string | null
-) => {
+export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -21,41 +18,34 @@ export const login = async (
 
   const { email, password } = validatedFields.data;
 
-  const existingUser = await getUserByEmail(email);
+  const user = await getUserByEmail(email);
+  const passwordsMatch = user
+    ? bcrypt.compareSync(password, user.password!)
+    : false;
 
-  if (!existingUser || !existingUser.email || !existingUser.password) {
+  if (!user || !passwordsMatch) {
     return { error: 'Wrong email or password' };
   }
 
-  if (!existingUser.emailVerified) {
-    const verificationToken = await generateVerificationToken(
-      existingUser.email
-    );
+  if (!user.emailVerified) {
+    const verificationToken = await generateVerificationToken(user.email);
 
     await sendVerificationEmail(
       verificationToken.email,
       verificationToken.token
     );
 
-    return { error: 'Email not confirmed.' };
+    // send email verification
+    return { verify: true, email: email, password: password };
   }
 
   try {
     await signIn('credentials', {
-      email,
-      password,
-      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+      email: email,
+      password: password,
     });
   } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return { error: 'Invalid credentials.' };
-        default:
-          return { error: 'Something went wrong.' };
-      }
-    }
-
-    throw error;
+    // Handle auth errors
+    if (error instanceof AuthError) throw error; // Rethrow all other errors
   }
 };

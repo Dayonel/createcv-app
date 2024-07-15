@@ -1,12 +1,14 @@
 import { verificationTokens } from '@/drizzle/schema';
 import { db } from '@/lib/db';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 
 export const getVerificationTokenByToken = async (token: string) => {
   try {
-    const verificationToken = await db.query.verificationTokens.findFirst({
-      where: eq(verificationTokens.token, token),
-    });
+    const [verificationToken] = await db
+      .select()
+      .from(verificationTokens)
+      .where(eq(verificationTokens.token, token))
+      .orderBy(desc(verificationTokens.expires));
 
     return verificationToken;
   } catch {

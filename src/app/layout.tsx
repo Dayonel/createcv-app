@@ -24,7 +24,11 @@ const roboto = localFont({
       weight: '500',
       style: 'normal',
     },
-    { path: '../../public/fonts/Roboto-Bold.ttf', weight: '700', style: 'normal' },
+    {
+      path: '../../public/fonts/Roboto-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
   ],
   display: 'swap',
 });

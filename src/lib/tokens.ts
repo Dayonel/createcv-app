@@ -1,12 +1,12 @@
 import { getVerificationTokenByEmail } from '@/services/verification-token';
-import { v4 as uuidv4 } from 'uuid';
 import { db } from '@/lib/db';
 import { verificationTokens } from '@/drizzle/schema';
 import { eq } from 'drizzle-orm';
+import { generateSecureSixDigitCode } from '@/utils/email';
 
 export const generateVerificationToken = async (email: string) => {
-  const token = uuidv4();
-  const expires = new Date(new Date().getTime() + 3600 * 1000);
+  const token = generateSecureSixDigitCode();
+  const expires = new Date(new Date().getTime() + 600 * 1000); // 10 min
 
   const existingToken = await getVerificationTokenByEmail(email);
 

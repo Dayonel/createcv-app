@@ -8,8 +8,6 @@ const url = 'api.zeptomail.eu/';
 let client = new SendMailClient({ url, token });
 
 export const sendVerificationEmail = (email: string, token: string) => {
-  const confirmLink = `${domain}/auth/new-verification?token=${token}`;
-
   client.sendMail({
     from: {
       name: 'Create CV',
@@ -22,7 +20,7 @@ export const sendVerificationEmail = (email: string, token: string) => {
         },
       },
     ],
-    subject: 'Confirm your CreateCV account',
-    htmlbody: verificationEmail(confirmLink),
+    subject: `${token} - Your CreateCV verification code`,
+    htmlbody: verificationEmail(token),
   });
 };

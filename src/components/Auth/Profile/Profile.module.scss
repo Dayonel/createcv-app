@@ -3,8 +3,13 @@
   z-index: 100;
 }
 
+.profile :global(.cds--modal-content) {
+  padding-block-end: 1rem;
+}
+
 @media (min-width: 448px) {
   .profile :global(.cds--modal-container) {
     min-inline-size: 448px;
+    padding-block-end: 3rem;
   }
 }
