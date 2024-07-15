@@ -38,22 +38,24 @@ export default function SignIn() {
 
   if (reset) {
     return (
-      <>
+      <div className="flex flex-col">
         {!sent && (
-          <IconButton
-            kind="ghost"
-            label="Go back"
-            align="right"
-            onClick={() => setReset(false)}
-          >
-            <ArrowLeft></ArrowLeft>
-          </IconButton>
+          <div className="flex">
+            <IconButton
+              kind="ghost"
+              label="Go back"
+              align="right"
+              onClick={() => setReset(false)}
+            >
+              <ArrowLeft></ArrowLeft>
+            </IconButton>
+          </div>
         )}
         <Reset
           onSent={() => setSent(true)}
           onDone={() => setReset(false)}
         ></Reset>
-      </>
+      </div>
     );
   }
 
