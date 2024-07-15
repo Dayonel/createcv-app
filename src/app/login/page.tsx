@@ -1,9 +1,9 @@
-import SignIn from '@/components/auth/sign-in/sign-in';
+import Auth from '@/components/auth/auth';
 
 export default function Login() {
   return (
     <div className="grid max-w-[448px] m-auto items-center h-full px-4">
-      <SignIn />
+      <Auth />
     </div>
   );
 }

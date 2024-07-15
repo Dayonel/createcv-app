@@ -1,13 +1,13 @@
 // @ts-ignore
 import { SendMailClient } from 'zeptomail';
-import { verificationEmail } from '@/components/email/verification-email';
+import { registerEmail } from '@/components/email/register';
 
 const domain = process.env.NEXT_PUBLIC_SITE_URL;
 const token = process.env.ZEPTOMAIL_API_KEY;
 const url = 'api.zeptomail.eu/';
 let client = new SendMailClient({ url, token });
 
-export const sendVerificationEmail = (email: string, token: string) => {
+export const sendRegisterEmail = (email: string, token: string) => {
   client.sendMail({
     from: {
       name: 'Create CV',
@@ -21,6 +21,6 @@ export const sendVerificationEmail = (email: string, token: string) => {
       },
     ],
     subject: `${token} - Your CreateCV verification code`,
-    htmlbody: verificationEmail(token),
+    htmlbody: registerEmail(token),
   });
 };

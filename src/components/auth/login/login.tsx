@@ -7,7 +7,7 @@ import {
   Stack,
   TextInput,
 } from '@carbon/react';
-import styles from './credentials.module.scss';
+import styles from './login.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
 import { useRef, useState, useTransition } from 'react';
 import { LoginSchema } from '@/schemas/login-schema';
@@ -66,6 +66,7 @@ export default function Credentials({ onRegister, onVerify }: LoginProps) {
         ref={ref}
         onSubmit={handleSubmit(onSubmit)}
         className={styles.credentials}
+        action="/"
       >
         <Stack gap={4}>
           <TextInput

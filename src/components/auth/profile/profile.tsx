@@ -5,7 +5,7 @@ import { useOutsideClick } from '@/hooks/use-outside-click';
 import { useSession } from 'next-auth/react';
 import { UserAvatar, UserFilled } from '@carbon/icons-react';
 import SignOut from '../sign-out';
-import SignIn from '../sign-in/sign-in';
+import Auth from '../auth';
 import Image from 'next/image';
 import { Modal } from '@carbon/react';
 import styles from './profile.module.scss';
@@ -73,7 +73,7 @@ export default function Profile() {
           size="xs"
           selectorPrimaryFocus=".flex"
         >
-          <SignIn></SignIn>
+          <Auth></Auth>
         </Modal>
       )}
     </div>

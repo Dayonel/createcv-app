@@ -1,5 +1,5 @@
 'use client';
-import SignIn from '@/components/auth/sign-in/sign-in';
+import Auth from '@/components/auth/auth';
 import styles from './page.module.scss';
 import { Link } from '@carbon/react';
 import { useSession } from 'next-auth/react';
@@ -19,7 +19,7 @@ export default function Activate() {
           </p>
         </div>
         <div className="flex flex-col w-full gap-16">
-          <SignIn></SignIn>
+          <Auth></Auth>
           <span className="text-sm text-center">
             Need help? Contact us by{' '}
             <Link href="mailto:info@createcv.app">email</Link>.

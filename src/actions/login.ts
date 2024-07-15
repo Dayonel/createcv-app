@@ -1,13 +1,14 @@
 'use server';
 
 import { signIn } from '@/auth';
-import { sendVerificationEmail } from '@/lib/mail';
+import { sendRegisterEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { LoginSchema } from '@/schemas/login-schema';
 import { getUserByEmail } from '@/services/user';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
 import bcrypt from 'bcrypt-edge';
+import { redirect } from 'next/navigation';
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -30,7 +31,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   if (!user.emailVerified) {
     const verificationToken = await generateVerificationToken(user.email);
 
-    await sendVerificationEmail(
+    await sendRegisterEmail(
       verificationToken.email,
       verificationToken.token
     );
@@ -43,6 +44,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     await signIn('credentials', {
       email: email,
       password: password,
+      redirect: false,
     });
   } catch (error) {
     // Handle auth errors

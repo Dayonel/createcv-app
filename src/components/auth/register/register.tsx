@@ -7,7 +7,7 @@ import {
   Stack,
   TextInput,
 } from '@carbon/react';
-import styles from './register-form.module.scss';
+import styles from './register.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';

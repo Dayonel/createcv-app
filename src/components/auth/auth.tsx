@@ -2,17 +2,17 @@
 
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
-import { logo } from '../../icons/logo';
+import { logo } from '../icons/logo';
 import classNames from 'classnames';
-import styles from './sign-in.module.scss';
-import { google } from '../../icons/google';
+import styles from './auth.module.scss';
+import { google } from '../icons/google';
 import { Button, IconButton, InlineLoading, Link } from '@carbon/react';
-import { twitter } from '../../icons/twitter';
-import { github } from '../../icons/github';
+import { twitter } from '../icons/twitter';
+import { github } from '../icons/github';
 import { providerMap } from '@/auth.config';
-import Register from '../register-form/register-form';
-import Credentials from '../credentials/credentials';
-import NewVerificationForm from '../new-verification-form/new-verification-form';
+import Register from './register/register';
+import Login from './login/login';
+import NewVerificationForm from './verify/verify';
 import { ArrowLeft } from '@carbon/icons-react';
 
 export default function SignIn() {
@@ -72,14 +72,14 @@ export default function SignIn() {
                 }}
               ></Register>
             ) : (
-              <Credentials
+              <Login
                 onRegister={() => setRegister(true)}
                 onVerify={(email, password) => {
                   setVerify(true);
                   setEmail(email);
                   setPassword(password);
                 }}
-              ></Credentials>
+              ></Login>
             )}
             <span className={classNames('text-xs', styles.or)}>Or</span>
             <div className="flex flex-col gap-4">

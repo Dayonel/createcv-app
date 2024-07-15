@@ -14,11 +14,11 @@ interface EmailTemplateProps {
   loginCode: string;
 }
 
-export const verificationEmail = (loginCode: string) => {
-  return render(<VerificationEmail loginCode={loginCode}></VerificationEmail>);
+export const registerEmail = (loginCode: string) => {
+  return render(<Register loginCode={loginCode}></Register>);
 };
 
-export default function VerificationEmail({ loginCode }: EmailTemplateProps) {
+export default function Register({ loginCode }: EmailTemplateProps) {
   return (
     <Html>
       <Head />

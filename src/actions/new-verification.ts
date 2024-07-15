@@ -52,6 +52,7 @@ export const newVerification = async (values: z.infer<typeof VerifySchema>) => {
     await signIn('credentials', {
       email: email,
       password: password,
+      redirect: false,
     });
   } catch (error) {
     // Handle auth errors

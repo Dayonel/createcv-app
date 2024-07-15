@@ -11,7 +11,7 @@ import {
 } from '@carbon/react';
 import { ArrowRight } from '@carbon/icons-react';
 import { logo } from '../../icons/logo';
-import styles from './new-verification-form.module.scss';
+import styles from './verify.module.scss';
 import FormError from '@/components/form-error/form-error';
 import { z } from 'zod';
 import { VerifySchema } from '@/schemas/verify-schema';
@@ -73,7 +73,7 @@ export default function NewVerificationForm({
   };
 
   return (
-    <form ref={ref} onSubmit={handleSubmit(onSubmit)}>
+    <form ref={ref} onSubmit={handleSubmit(onSubmit)} action="/">
       <div className="flex flex-col items-center w-full px-4">
         <div className="flex flex-col items-center md:px-0 w-full max-w-md gap-8 md:gap-20">
           <div className="flex flex-col gap-4">
