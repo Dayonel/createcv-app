@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Action from '../DndKit/components/Action/Action';
+import Action from '../dndkit/components/action/action';
 import { AddLarge, TrashCan } from '@carbon/icons-react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 

@@ -3,7 +3,7 @@ import useColorStore from '@/store/colorStore';
 import { TextColor } from '@carbon/icons-react';
 import { useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
-import Action from '../DndKit/components/Action/Action';
+import Action from '../dndkit/components/action/action';
 
 export default function ColorPicker() {
   const [show, setShow] = useState(false);

@@ -1,7 +1,7 @@
 'use client';
 import styles from './Header.module.scss';
 import { logo } from '../icons/logo';
-import Actions from '../Actions/Actions';
+import Actions from '../actions/actions';
 import Profile from '../auth/profile/profile';
 
 interface HeaderProps {

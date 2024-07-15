@@ -1,7 +1,7 @@
 import { animated, easings, useSpring } from '@react-spring/web';
 import { forwardRef, useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import styles from './Transition.module.scss';
+import styles from './transition.module.scss';
 
 interface TransitionParams extends React.HTMLAttributes<HTMLDivElement> {
   active: boolean;

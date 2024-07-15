@@ -17,7 +17,7 @@ import {
   sortableKeyboardCoordinates,
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
-import { SortableItem } from './SortableItem';
+import { SortableItem } from './sortable-item';
 import { Key } from '@/types/Key';
 
 interface SortableProps {

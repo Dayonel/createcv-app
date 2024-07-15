@@ -2,13 +2,13 @@
 import styles from './Template1.module.scss';
 import { useContext, useEffect, useRef, useState } from 'react';
 import Contact, { ContactProps } from './Contact/Contact';
-import RichText from '../../RichText/RichText';
+import RichText from '../../rich-text/rich-text';
 import Single from './Section/Single';
 import Double from './Section/Double';
 import placeholder from '../../../data/template1.json';
 import { traverseUUID } from '@/utils/traverseUUID';
-import Sortable from '../../DndKit/Sortable';
-import Placeholder from '../../Placeholder/Placeholder';
+import Sortable from '../../dndkit/sortable';
+import Placeholder from '../../placeholder/placeholder';
 import useColorStore from '@/store/colorStore';
 import { v4 } from 'uuid';
 import ContactPlaceholder from './Placeholder/ContactPlaceholder';
@@ -16,9 +16,9 @@ import { useUndo } from '@/hooks/useUndo';
 import { Form } from './types/Form';
 import { deleteCookie, setCookie } from '@/actions/cookies';
 import { Single as SingleType, SingleContent } from './types/Single';
-import ActionButtons from '../../Placeholder/ActionButtons';
-import ImagePlaceholder from '../../Placeholder/ImagePlaceholder';
-import { MenuContext } from '../../Providers/MenuProvider';
+import ActionButtons from '../../placeholder/action-buttons';
+import ImagePlaceholder from '../../placeholder/image-placeholder';
+import { MenuContext } from '../../providers/menu-provider';
 import { useTheme } from 'next-themes';
 
 export default function Template1() {

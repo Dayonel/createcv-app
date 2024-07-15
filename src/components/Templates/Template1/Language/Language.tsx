@@ -1,11 +1,11 @@
 import './Language.scss';
 import { Language as LanguageType } from '../types/Language';
-import RichText from '../../../RichText/RichText';
+import RichText from '../../../rich-text/rich-text';
 import useColorStore from '@/store/colorStore';
-import Placeholder from '../../../Placeholder/Placeholder';
+import Placeholder from '../../../placeholder/placeholder';
 import placeholder from '../../../../data/template1.json';
 import { DoubleContent } from '../types/Double';
-import ActionButtons from '../../../Placeholder/ActionButtons';
+import ActionButtons from '../../../placeholder/action-buttons';
 
 export interface LanguageProps {
   props: LanguageType;

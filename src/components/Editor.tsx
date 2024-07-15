@@ -1,10 +1,10 @@
 'use client';
 import { useContext, useEffect, useState } from 'react';
-import Instructions from './Instructions/Instructions';
+import Instructions from './instructions/instructions';
 import Template1 from './Templates/Template1/Template1';
-import Watermark from './Watermark';
+import Watermark from './watermark';
 import { InlineLoading } from '@carbon/react';
-import { FormContext } from './Providers/FormProvider';
+import { FormContext } from './providers/form-provider';
 
 export default function Editor() {
   const { savedForm } = useContext(FormContext);

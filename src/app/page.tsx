@@ -1,6 +1,6 @@
-import Editor from '@/components/Editor';
-import FAQ from '@/components/FAQ/FAQ';
-import Pricing from '@/components/Pricing/Pricing';
+import Editor from '@/components/editor';
+import FAQ from '@/components/faq/faq';
+import Pricing from '@/components/pricing/pricing';
 import styles from './page.module.scss';
 
 export default function Home() {

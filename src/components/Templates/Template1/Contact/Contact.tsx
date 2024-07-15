@@ -14,7 +14,7 @@ import {
   Wikis,
 } from '@carbon/icons-react';
 import { Contact as ContactType } from '../types/Contact';
-import RichText from '../../../RichText/RichText';
+import RichText from '../../../rich-text/rich-text';
 import useColorStore from '@/store/colorStore';
 import { getText } from '@/utils/richTextUtils';
 

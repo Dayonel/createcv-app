@@ -2,8 +2,8 @@ import { setCookie } from '@/actions/cookies';
 import { Asleep, Light } from '@carbon/icons-react';
 import { useTheme } from 'next-themes';
 import { useContext, useEffect, useState } from 'react';
-import Action from './DndKit/components/Action/Action';
-import { CookieThemeContext } from './Providers/CookieThemeProvider';
+import Action from './dndkit/components/action/action';
+import { CookieThemeContext } from './providers/cookie-theme-provider';
 
 export default function ThemeToggle() {
   const cookieTheme = useContext(CookieThemeContext);

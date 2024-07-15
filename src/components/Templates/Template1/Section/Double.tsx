@@ -3,11 +3,11 @@ import Divider from '../Divider/Divider';
 import Skills from '../Skill/Skills';
 import Languages from '../Language/Languages';
 import { DoubleContent, Double as DoubleType } from '../types/Double';
-import RichText from '../../../RichText/RichText';
-import Placeholder from '../../../Placeholder/Placeholder';
+import RichText from '../../../rich-text/rich-text';
+import Placeholder from '../../../placeholder/placeholder';
 import { v4 } from 'uuid';
 import placeholder from '../../../../data/template1.json';
-import ActionButtons from '../../../Placeholder/ActionButtons';
+import ActionButtons from '../../../placeholder/action-buttons';
 import { getTextContent } from '@/utils/richTextUtils';
 
 interface DoubleProps {

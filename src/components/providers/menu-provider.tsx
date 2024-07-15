@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, createContext, useState } from 'react';
-import Header from '../Header/Header';
+import Header from '../header/header';
 
 export interface MenuProps {
   reset: boolean;

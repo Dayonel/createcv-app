@@ -1,5 +1,5 @@
 'use client';
-import Action from '../../DndKit/components/Action/Action';
+import Action from '../../dndkit/components/action/action';
 import { useEffect, useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { useSession } from 'next-auth/react';

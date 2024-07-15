@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
-import Action from '../Action/Action';
-import { ActionProps } from '../Action/Action';
+import Action from '../action/action';
+import { ActionProps } from '../action/action';
 import styles from './Handle.module.scss';
 
 export default forwardRef<HTMLButtonElement, ActionProps>(function Handle(

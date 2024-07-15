@@ -1,4 +1,4 @@
-import Sortable from '../../../DndKit/Sortable';
+import Sortable from '../../../dndkit/sortable';
 import Language, { LanguageProps } from './Language';
 import { Language as LanguageType } from '../types/Language';
 

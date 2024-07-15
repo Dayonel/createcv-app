@@ -4,8 +4,8 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import Handle from './components/Handle/Handle';
-import { Remove } from './components/Remove/Remove';
+import Handle from './components/handle/handle';
+import { Remove } from './components/remove/remove';
 import { useState } from 'react';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 

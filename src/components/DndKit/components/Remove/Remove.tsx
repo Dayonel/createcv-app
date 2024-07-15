@@ -1,6 +1,6 @@
 import React from 'react';
-import Action from '../Action/Action';
-import { ActionProps } from '../Action/Action';
+import Action from '../action/action';
+import { ActionProps } from '../action/action';
 import styles from './Remove.module.scss';
 import classNames from 'classnames';
 

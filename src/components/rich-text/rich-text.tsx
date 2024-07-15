@@ -14,8 +14,8 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Blockquote from '@tiptap/extension-blockquote';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import RichTextControls from './RichTextControls';
-import { Remove } from '../DndKit/components/Remove/Remove';
+import RichTextControls from './rich-text-controls';
+import { Remove } from '../dndkit/components/remove/remove';
 import Placeholder from '@tiptap/extension-placeholder';
 
 interface RichTextProps {

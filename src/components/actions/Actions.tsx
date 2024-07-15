@@ -8,11 +8,11 @@ import {
 import { useEffect, useState } from 'react';
 import styles from './Actions.module.scss';
 import { Modal } from '@carbon/react';
-import ColorPicker from './ColorPicker';
+import ColorPicker from './color-picker';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
-import ThemeToggle from '../ThemeToggle';
-import Action from '../DndKit/components/Action/Action';
-import Print from '../Print';
+import ThemeToggle from '../theme-toggle';
+import Action from '../dndkit/components/action/action';
+import Print from '../print';
 
 export interface ActionsProps {
   onEdit: () => void;

@@ -1,10 +1,10 @@
 import { forwardRef, useContext, useEffect, useState } from 'react';
-import Transition from '../Animations/Transition';
+import Transition from '../transitions/transition';
 import styles from './ImagePlaceholder.module.scss';
 import classNames from 'classnames';
 import { FileUploaderDropContainer, InlineLoading } from '@carbon/react';
-import { Remove } from '../DndKit/components/Remove/Remove';
-import { MenuContext } from '../Providers/MenuProvider';
+import { Remove } from '../dndkit/components/remove/remove';
+import { MenuContext } from '../providers/menu-provider';
 import imageCompression from 'browser-image-compression';
 
 interface ImagePlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {

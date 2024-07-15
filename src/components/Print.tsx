@@ -1,6 +1,6 @@
 'use client';
 import { InlineLoading } from '@carbon/react';
-import Action from './DndKit/components/Action/Action';
+import Action from './dndkit/components/action/action';
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTheme } from 'next-themes';
