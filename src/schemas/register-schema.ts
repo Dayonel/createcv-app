@@ -1,7 +1,5 @@
 import { z } from 'zod';
-
-const passwordError =
-  'Your password must be at least 6 characters including one uppercase, one lowercase, and one number.';
+import { passwordError } from '.';
 
 export const RegisterSchema = z
   .object({

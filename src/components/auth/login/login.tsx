@@ -21,9 +21,14 @@ import FormError from '@/components/form-error/form-error';
 interface LoginProps {
   onRegister: () => void;
   onVerify: (email: string, password: string) => void;
+  onReset: () => void;
 }
 
-export default function Credentials({ onRegister, onVerify }: LoginProps) {
+export default function Credentials({
+  onRegister,
+  onVerify,
+  onReset,
+}: LoginProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string>('');
   const ref = useRef<HTMLFormElement | null>(null);
@@ -102,6 +107,7 @@ export default function Credentials({ onRegister, onVerify }: LoginProps) {
           <button
             className={cn(styles.link, 'text-xs place-self-start')}
             type="button"
+            onClick={() => onReset()}
           >
             Forgot password?
           </button>

@@ -10,7 +10,7 @@ import { eq } from 'drizzle-orm';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
 
-export const newVerification = async (values: z.infer<typeof VerifySchema>) => {
+export const verify = async (values: z.infer<typeof VerifySchema>) => {
   const validatedFields = VerifySchema.safeParse(values);
   if (!validatedFields.success) {
     return { error: 'Invalid fields.' };

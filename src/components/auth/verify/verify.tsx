@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useTransition } from 'react';
-import { newVerification } from '@/actions/new-verification';
+import { verify } from '@/actions/verify';
 import {
   Button,
   InlineLoading,
@@ -57,7 +57,7 @@ export default function NewVerificationForm({
     setError('');
 
     startTransition(() => {
-      newVerification(values)
+      verify(values)
         .then((data) => {
           if (data?.error) {
             setError(data.error);

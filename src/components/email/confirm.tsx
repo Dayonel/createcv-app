@@ -53,7 +53,8 @@ export default function Confirm({ loginCode }: EmailTemplateProps) {
           </Heading>
 
           <Text style={{ ...text, marginBottom: '14px' }}>
-            Thanks for signing up for CreateCV. Please enter the following code to complete the login:
+            Thanks for signing up for CreateCV. Please enter the following code
+            to complete the login:
           </Text>
 
           <code style={code}>{loginCode}</code>
@@ -117,6 +118,7 @@ export default function Confirm({ loginCode }: EmailTemplateProps) {
               src="https://createcv.app/logo.png"
               width="64"
               height="64"
+              style={{ fontSize: '12px', color: '#ababab' }}
               alt="CreateCV logo"
             />
 
