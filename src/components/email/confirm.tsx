@@ -14,11 +14,11 @@ interface EmailTemplateProps {
   loginCode: string;
 }
 
-export const registerEmail = (loginCode: string) => {
-  return render(<Register loginCode={loginCode}></Register>);
+export const confirmEmail = (loginCode: string) => {
+  return render(<Confirm loginCode={loginCode}></Confirm>);
 };
 
-export default function Register({ loginCode }: EmailTemplateProps) {
+export default function Confirm({ loginCode }: EmailTemplateProps) {
   return (
     <Html>
       <Head />
@@ -49,14 +49,11 @@ export default function Register({ loginCode }: EmailTemplateProps) {
               margin: '30px 0',
             }}
           >
-            <strong>Confirm your email address</strong>
+            <strong>Confirm your account</strong>
           </Heading>
-          <Text style={{ ...text, marginBottom: '14px' }}>
-            Thanks for signing up for CreateCV.
-          </Text>
 
           <Text style={{ ...text, marginBottom: '14px' }}>
-            Please enter the following code to complete the login:
+            Thanks for signing up for CreateCV. Please enter the following code to complete the login:
           </Text>
 
           <code style={code}>{loginCode}</code>
@@ -77,7 +74,7 @@ export default function Register({ loginCode }: EmailTemplateProps) {
             style={{
               ...text,
               color: '#ababab',
-              marginTop: '14px',
+              marginTop: '30px',
               marginBottom: '16px',
             }}
           >

@@ -3,7 +3,7 @@
 import * as z from 'zod';
 
 import { db } from '@/lib/db';
-import { sendRegisterEmail } from '@/lib/mail';
+import { sendConfirmEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { RegisterSchema } from '@/schemas/register-schema';
 import { getUserByEmail } from '@/services/auth/user';
@@ -32,7 +32,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   });
 
   const verificationToken = await generateVerificationToken(email);
-  sendRegisterEmail(verificationToken.email, verificationToken.token);
+  sendConfirmEmail(verificationToken.email, verificationToken.token);
 
   // send email verification
   return { verify: true, email: email, password: password };
