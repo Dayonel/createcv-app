@@ -1,6 +1,6 @@
-import { Skill as SkillType } from '../types/Skill';
-import Skill, { InputProps } from './Skill';
-import styles from './Skills.module.scss';
+import { Skill as SkillType } from '../types/skill';
+import Skill, { InputProps } from './skill';
+import styles from './skills.module.scss';
 import Sortable from '../../../dndkit/sortable';
 
 interface SkillsProps {

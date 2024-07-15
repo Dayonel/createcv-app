@@ -1,6 +1,6 @@
 import { Key } from '@/types/Key';
-import { Language } from './Language';
-import { Skill } from './Skill';
+import { Language } from './language';
+import { Skill } from './skill';
 
 export type Double = {
   type: string;

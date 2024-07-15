@@ -1,6 +1,6 @@
-import { Skill as SkillType } from '../types/Skill';
+import { Skill as SkillType } from '../types/skill';
 import { useRef, useState } from 'react';
-import styles from './Skill.module.scss';
+import styles from './skill.module.scss';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { Remove } from '../../../dndkit/components/remove/remove';
 

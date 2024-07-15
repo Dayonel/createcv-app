@@ -1,6 +1,6 @@
-import { Contact } from './Contact';
-import { Double } from './Double';
-import { Single } from './Single';
+import { Contact } from './contact';
+import { Double } from './double';
+import { Single } from './single';
 
 export type Form = {
   color: string;

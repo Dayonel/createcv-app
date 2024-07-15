@@ -1,13 +1,13 @@
-import Divider from '../Divider/Divider';
-import { Single as SingleType } from '../types/Single';
+import Divider from '../divider/divider';
+import { Single as SingleType } from '../types/single';
 import { UniqueIdentifier } from '@dnd-kit/core';
 import Sortable from '../../../dndkit/sortable';
-import SingleContent, { SingleContentProps } from './Content/SingleContent';
+import SingleContent, { SingleContentProps } from './content/SingleContent';
 import Placeholder from '../../../placeholder/placeholder';
 import RichText from '../../../rich-text/rich-text';
 import { v4 } from 'uuid';
 import placeholder from '../../../../data/template1.json';
-import { SingleContent as SingleContentType } from '../types/Single';
+import { SingleContent as SingleContentType } from '../types/single';
 import ActionButtons from '../../../placeholder/action-buttons';
 
 interface SingleProps {

@@ -1,8 +1,8 @@
 import styles from './Double.module.scss';
-import Divider from '../Divider/Divider';
-import Skills from '../Skill/Skills';
-import Languages from '../Language/Languages';
-import { DoubleContent, Double as DoubleType } from '../types/Double';
+import Divider from '../divider/divider';
+import Skills from '../skill/skills';
+import Languages from '../language/languages';
+import { DoubleContent, Double as DoubleType } from '../types/double';
 import RichText from '../../../rich-text/rich-text';
 import Placeholder from '../../../placeholder/placeholder';
 import { v4 } from 'uuid';

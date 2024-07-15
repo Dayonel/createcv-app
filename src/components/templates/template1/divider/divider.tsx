@@ -1,5 +1,5 @@
 import useColorStore from '@/store/colorStore';
-import styles from './Divider.module.scss';
+import styles from './divider.module.scss';
 import { forwardRef } from 'react';
 import classnames from 'classnames';
 

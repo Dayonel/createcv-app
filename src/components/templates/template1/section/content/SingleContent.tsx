@@ -1,5 +1,5 @@
 import RichText from '@/components/rich-text/RichText';
-import { SingleContent as SingleContentType } from '../../types/Single';
+import { SingleContent as SingleContentType } from '../../types/single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/colorStore';
 import Placeholder from '@/components/laceholder/placeholder';

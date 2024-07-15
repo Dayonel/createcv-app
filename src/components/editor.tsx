@@ -1,7 +1,7 @@
 'use client';
 import { useContext, useEffect, useState } from 'react';
 import Instructions from './instructions/instructions';
-import Template1 from './Templates/Template1/Template1';
+import Template1 from './templates/template1/template1';
 import Watermark from './watermark';
 import { InlineLoading } from '@carbon/react';
 import { FormContext } from './providers/form-provider';

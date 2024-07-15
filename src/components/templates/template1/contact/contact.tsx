@@ -13,7 +13,7 @@ import {
   Link,
   Wikis,
 } from '@carbon/icons-react';
-import { Contact as ContactType } from '../types/Contact';
+import { Contact as ContactType } from '../types/contact';
 import RichText from '../../../rich-text/rich-text';
 import useColorStore from '@/store/colorStore';
 import { getText } from '@/utils/richTextUtils';
