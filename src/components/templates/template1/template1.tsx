@@ -11,7 +11,7 @@ import Sortable from '../../dndkit/sortable';
 import Placeholder from '../../placeholder/placeholder';
 import useColorStore from '@/store/colorStore';
 import { v4 } from 'uuid';
-import ContactPlaceholder from './placeholder/ContactPlaceholder';
+import ContactPlaceholder from './placeholder/contact-placeholder';
 import { useUndo } from '@/hooks/useUndo';
 import { Form } from './types/form';
 import { deleteCookie, setCookie } from '@/actions/cookies';

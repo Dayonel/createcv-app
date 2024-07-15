@@ -2,7 +2,7 @@ import Divider from '../divider/divider';
 import { Single as SingleType } from '../types/single';
 import { UniqueIdentifier } from '@dnd-kit/core';
 import Sortable from '../../../dndkit/sortable';
-import SingleContent, { SingleContentProps } from './content/SingleContent';
+import SingleContent, { SingleContentProps } from './content/single-content';
 import Placeholder from '../../../placeholder/placeholder';
 import RichText from '../../../rich-text/rich-text';
 import { v4 } from 'uuid';
