@@ -57,7 +57,8 @@ export default function Reset({ resetLink }: ResetProps) {
               ...text,
             }}
           >
-            To reset your password please follow the link below. If you didn't
+            To reset your password please follow the link below. If you{' '}
+            {"didn't"}
             request this password reset, you can safely ignore this email.
           </Text>
 
