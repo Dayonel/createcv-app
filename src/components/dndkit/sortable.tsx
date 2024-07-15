@@ -18,7 +18,7 @@ import {
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
 import { SortableItem } from './sortable-item';
-import { Key } from '@/types/Key';
+import { Key } from '@/types/key';
 
 interface SortableProps {
   initialItems?: Key[];

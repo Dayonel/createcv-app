@@ -1,4 +1,4 @@
-import { Key } from '@/types/Key';
+import { Key } from '@/types/key';
 import { Language } from './language';
 import { Skill } from './skill';
 
