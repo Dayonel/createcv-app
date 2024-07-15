@@ -1,5 +1,5 @@
 'use client';
-import styles from './Header.module.scss';
+import styles from './header.module.scss';
 import { logo } from '../icons/logo';
 import Actions from '../actions/actions';
 import Profile from '../auth/profile/profile';

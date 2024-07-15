@@ -1,5 +1,5 @@
 import { forwardRef, useContext } from 'react';
-import styles from './Placeholder.module.scss';
+import styles from './placeholder.module.scss';
 import classNames from 'classnames';
 import Transition from '../transitions/transition';
 import { MenuContext } from '../providers/menu-provider';

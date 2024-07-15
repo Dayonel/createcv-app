@@ -6,7 +6,7 @@ import {
   Tile,
   ToastNotification,
 } from '@carbon/react';
-import styles from './Pricing.module.scss';
+import styles from './pricing.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
 import { useState } from 'react';
 import { checkoutWithStripe } from '@/utils/stripe/server';

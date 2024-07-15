@@ -2,7 +2,7 @@ import RichText from '@/components/rich-text/RichText';
 import { SingleContent as SingleContentType } from '../../types/Single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/colorStore';
-import Placeholder from '@/components/placeholder/placeholder';
+import Placeholder from '@/components/laceholder/placeholder';
 import placeholder from '../../../../../data/template1.json';
 import ActionButtons from '@/components/placeholder/ActionButtons';
 

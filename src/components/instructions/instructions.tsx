@@ -1,7 +1,7 @@
 'use client';
 import { useContext } from 'react';
 import Transition from '../transitions/transition';
-import styles from './Instructions.module.scss';
+import styles from './instructions.module.scss';
 import { instructions1 } from './icons/instructions-1';
 import { instructions2 } from './icons/instructions-2';
 import { FormContext } from '../providers/form-provider';
