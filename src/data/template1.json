@@ -14,7 +14,7 @@
     },
     {
       "icon": "Phone",
-      "text": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"(+31) 666333999\"}]}"
+      "text": "{\"type\":\"doc\",\"content\":[{\"type\":\"text\",\"text\":\"+31 666333999\"}]}"
     },
     {
       "icon": "LogoGithub",
