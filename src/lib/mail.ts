@@ -4,7 +4,7 @@ import { confirmEmail } from '@/components/email/confirm';
 import { resetEmail } from '@/components/email/reset';
 
 const domain = process.env.NEXT_PUBLIC_SITE_URL;
-const token = process.env.ZEPTOMAIL_API_KEY;
+const token = `Zoho-enczapikey ${process.env.ZEPTOMAIL_API_KEY}`;
 const url = 'api.zeptomail.eu/';
 let client = new SendMailClient({ url, token });
 const from = {
