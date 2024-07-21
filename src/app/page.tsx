@@ -1,4 +1,4 @@
-import Editor from '@/components/editor';
+import Demo from '@/components/demo/demo';
 import FAQ from '@/components/faq/faq';
 import Pricing from '@/components/pricing/pricing';
 import styles from './page.module.scss';
@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <section>
-        <Editor></Editor>
+        <Demo></Demo>
       </section>
       <section className="print:!hidden">
         <hr></hr>

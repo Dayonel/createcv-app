@@ -1,8 +1,13 @@
 @use "@carbon/themes/scss/tokens";
+@use "@/app/mixins";
 
 .header {
   background-color: tokens.$background;
   border-bottom: 1px solid tokens.$background-hover;
+}
+
+.nav {
+  @include mixins.container;
 }
 
 .logo {

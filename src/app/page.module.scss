@@ -1,4 +1,4 @@
-@use "@carbon/themes/scss/tokens";
+@use "mixins";
 
 .page {
   section > hr {
@@ -22,7 +22,7 @@
   section > div {
     padding: 2rem;
     padding-bottom: 6rem;
-    max-width: 900px;
+    @include mixins.container;
   }
 
   @media (min-width: 768px) {

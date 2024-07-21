@@ -21,7 +21,7 @@ export default function Header({
     <header
       className={`${styles.header} sticky top-0 z-10 p-2 flex justify-center w-full print:hidden`}
     >
-      <nav className="flex justify-between items-center h-full w-full max-w-[900px] px-4 md:px-6">
+      <nav className={`${styles.nav} flex justify-between items-center h-full w-full px-4 md:px-6`}>
         <a href="/" className="flex items-center gap-2" aria-label="Create CV">
           {logo}
           <span className={`hidden font-bold sm:block ${styles.logo}`}>

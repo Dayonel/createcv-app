@@ -1,0 +1,5 @@
+@use "@/app/mixins";
+
+.demo {
+  @include mixins.container;
+}
