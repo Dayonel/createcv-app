@@ -8,7 +8,7 @@ const from = {
   name: 'Create CV',
   address: 'info@createcv.app',
 };
-const baseUrl = process.env.FUNCTIONS_EMAIL;
+const baseUrl = process.env.FUNCTIONS_EMAIL_URL;
 
 export const sendConfirmEmail = async (email: string, token: string) => {
   const response = await fetch(`${baseUrl}/confirm/${token}`);
