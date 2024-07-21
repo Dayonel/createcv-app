@@ -1,9 +1,6 @@
 // @ts-ignore
 import { SendMailClient } from 'zeptomail';
-import { confirmEmail } from '@/components/email/confirm';
-import { resetEmail } from '@/components/email/reset';
 
-const domain = process.env.NEXT_PUBLIC_SITE_URL;
 const token = `Zoho-enczapikey ${process.env.ZEPTOMAIL_API_KEY}`;
 const url = 'api.zeptomail.eu/';
 let client = new SendMailClient({ url, token });
@@ -11,8 +8,15 @@ const from = {
   name: 'Create CV',
   address: 'info@createcv.app',
 };
+const baseUrl = process.env.FUNCTIONS_EMAIL;
 
-export const sendConfirmEmail = (email: string, token: string) => {
+export const sendConfirmEmail = async (email: string, token: string) => {
+  const response = await fetch(`${baseUrl}/confirm/${token}`);
+  if (!response.ok) {
+    throw new Error(`Response status: ${response.status}`);
+  }
+  const body = await response.text();
+
   client.sendMail({
     from,
     to: [
@@ -23,12 +27,16 @@ export const sendConfirmEmail = (email: string, token: string) => {
       },
     ],
     subject: `${token} - Your CreateCV verification code`,
-    htmlbody: confirmEmail(token),
+    htmlbody: body,
   });
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetLink = `${domain}/reset-password?token=${token}`;
+  const response = await fetch(`${baseUrl}/reset-password/${token}`);
+  if (!response.ok) {
+    throw new Error(`Response status: ${response.status}`);
+  }
+  const body = await response.text();
 
   client.sendMail({
     from,
@@ -40,6 +48,6 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
       },
     ],
     subject: 'Reset your CreateCV password',
-    htmlbody: resetEmail(resetLink),
+    htmlbody: body,
   });
 };
