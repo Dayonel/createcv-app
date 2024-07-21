@@ -8,6 +8,7 @@ const providers = [Google, Twitter, GitHub];
 export const authConfig = {
   pages: {
     signIn: '/login',
+    error: '/error',
   },
   providers,
 } satisfies NextAuthConfig;

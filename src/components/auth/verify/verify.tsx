@@ -17,6 +17,8 @@ import { z } from 'zod';
 import { VerifySchema } from '@/schemas/verify-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
+import { DEFAULT_LOGIN_REDIRECT } from '@/app/routes';
 
 interface NewVerificationProps {
   email: string;
@@ -30,6 +32,8 @@ export default function NewVerificationForm({
   const [error, setError] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
   const ref = useRef<HTMLFormElement | null>(null);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const {
     formState,
@@ -73,7 +77,7 @@ export default function NewVerificationForm({
   };
 
   return (
-    <form ref={ref} onSubmit={handleSubmit(onSubmit)} action="/">
+    <form ref={ref} onSubmit={handleSubmit(onSubmit)} action={callbackUrl || DEFAULT_LOGIN_REDIRECT}>
       <div className="flex flex-col items-center w-full px-4">
         <div className="flex flex-col items-center md:px-0 w-full max-w-md gap-8 md:gap-20">
           <div className="flex flex-col gap-4">

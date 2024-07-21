@@ -18,11 +18,12 @@ import {
 import FormError from '@/components/form-error/form-error';
 import { ArrowRight } from '@carbon/icons-react';
 import { logo } from '../../icons/logo';
+import { DEFAULT_LOGIN_REDIRECT } from '@/app/routes';
 
 export default function NewPassword() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-
+  const callbackUrl = searchParams.get("callbackUrl");
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
   const ref = useRef<HTMLFormElement | null>(null);
@@ -53,7 +54,7 @@ export default function NewPassword() {
   };
 
   return (
-    <form ref={ref} onSubmit={handleSubmit(onSubmit)} action="/">
+    <form ref={ref} onSubmit={handleSubmit(onSubmit)} action={callbackUrl || DEFAULT_LOGIN_REDIRECT}>
       <div className="flex flex-col items-center w-full px-4">
         <div className="flex flex-col items-center md:px-0 w-full max-w-md gap-8 md:gap-20">
           <div className="flex flex-col gap-4">

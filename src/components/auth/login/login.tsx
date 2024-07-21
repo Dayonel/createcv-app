@@ -17,6 +17,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { login } from '@/actions/login';
 import { cn } from '@/lib/utils';
 import FormError from '@/components/form-error/form-error';
+import { useSearchParams } from 'next/navigation';
+import { DEFAULT_LOGIN_REDIRECT } from '@/app/routes';
 
 interface LoginProps {
   onRegister: () => void;
@@ -32,6 +34,8 @@ export default function Credentials({
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string>('');
   const ref = useRef<HTMLFormElement | null>(null);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const { formState, handleSubmit, register } = useForm<
     z.infer<typeof LoginSchema>
@@ -71,7 +75,7 @@ export default function Credentials({
         ref={ref}
         onSubmit={handleSubmit(onSubmit)}
         className={styles.credentials}
-        action="/"
+        action={callbackUrl || DEFAULT_LOGIN_REDIRECT}
       >
         <Stack gap={4}>
           <TextInput
