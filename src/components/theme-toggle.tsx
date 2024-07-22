@@ -28,14 +28,14 @@ export default function ThemeToggle() {
           onClick={() => setTheme('light')}
         >
           <div className="flex items-center gap-2">
-            <Light size={20}></Light>
+            <Light></Light>
             <span>Light</span>
           </div>
         </Action>
       ) : (
         <Action fill="var(--cds-text-primary)" onClick={() => setTheme('dark')}>
           <div className="flex items-center gap-2">
-            <Asleep size={20}></Asleep>
+            <Asleep></Asleep>
             <span>Dark</span>
           </div>
         </Action>

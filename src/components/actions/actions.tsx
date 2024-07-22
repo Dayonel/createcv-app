@@ -69,7 +69,7 @@ export default function Actions({
                   onClick={() => setOpenModal(true)}
                 >
                   <div className="flex items-center gap-2">
-                    <Reset size={20}></Reset>
+                    <Reset></Reset>
                     <span>Reset</span>
                   </div>
                 </Action>
@@ -81,7 +81,7 @@ export default function Actions({
                   onClick={() => onUndo()}
                 >
                   <div className="flex items-center gap-2">
-                    <Undo size={20}></Undo>
+                    <Undo></Undo>
                     <span>Undo</span>
                   </div>
                 </Action>
@@ -93,7 +93,7 @@ export default function Actions({
                   onClick={() => onRedo()}
                 >
                   <div className="flex items-center gap-2">
-                    <Redo size={20}></Redo>
+                    <Redo></Redo>
                     <span>Redo</span>
                   </div>
                 </Action>

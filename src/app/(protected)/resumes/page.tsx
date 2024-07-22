@@ -1,5 +1,5 @@
 'use client';
-import { Tag } from '@carbon/react';
+import { PaginationNav, Tag } from '@carbon/react';
 import styles from './page.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
 import { cn } from '@/lib/utils';
@@ -9,118 +9,126 @@ import Link from 'next/link';
 export default function Resumes() {
   return (
     <div className="container">
-      <div className="page">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8">Resumes</h1>
+      <div className="flex flex-col h-full justify-between">
+        <div className="page">
+          <h1 className="text-3xl md:text-4xl font-bold mb-8">Resumes</h1>
 
-        <div className={cn('grid grid-cols-1 md:grid-cols-2', styles.tiles)}>
-          <Link
-            href="/resumes/1"
-            className={cn(
-              'cds--link cds--tile cds--tile--clickable',
-              styles.tile
-            )}
-          >
-            <span>Resume 1</span>
-            <p className={cn('text-xs line-clamp-2', styles.summary)}>
-              Highly motivated full-stack developer with +6 years of experience
-              building and maintaining web applications. Proven ability to
-              deliver high-quality work following best practices and
-              continiously learning the latest advancements on the web.
-            </p>
+          <div className={cn('grid grid-cols-1 md:grid-cols-2', styles.tiles)}>
+            <Link
+              href="/resumes/1"
+              className={cn(
+                'cds--link cds--tile cds--tile--clickable',
+                styles.tile
+              )}
+            >
+              <span>Resume 1</span>
+              <p className={cn('text-xs line-clamp-2', styles.summary)}>
+                Highly motivated full-stack developer with +6 years of
+                experience building and maintaining web applications. Proven
+                ability to deliver high-quality work following best practices
+                and continiously learning the latest advancements on the web.
+              </p>
 
-            <div className="flex items-end justify-between mt-auto">
-              <Tag
-                id={useId()}
-                className="!w-fit pointer-events-none !m-0 !mt-auto"
-                type="green"
-              >
-                Template 1
-              </Tag>
+              <div className="flex items-end justify-between mt-auto">
+                <Tag
+                  id={useId()}
+                  className="!w-fit pointer-events-none !m-0 !mt-auto"
+                  type="green"
+                >
+                  Template 1
+                </Tag>
 
-              <ArrowRight></ArrowRight>
-            </div>
-          </Link>
+                <ArrowRight></ArrowRight>
+              </div>
+            </Link>
 
-          <Link
-            href="/resumes/2"
-            className={cn(
-              'cds--link cds--tile cds--tile--clickable',
-              styles.tile
-            )}
-          >
-            <span>Resume 2</span>
-            <p className={cn('text-xs line-clamp-2', styles.summary)}>
-              Highly motivated full-stack developer with +6 years of experience
-              building and maintaining web applications. Proven ability to
-              deliver high-quality work following best practices and
-              continiously learning the latest advancements on the web.
-            </p>
-            <div className="flex items-end justify-between mt-auto">
-              <Tag
-                id={useId()}
-                className="!w-fit pointer-events-none !m-0 !mt-auto"
-                type="green"
-              >
-                Template 1
-              </Tag>
+            <Link
+              href="/resumes/2"
+              className={cn(
+                'cds--link cds--tile cds--tile--clickable',
+                styles.tile
+              )}
+            >
+              <span>Resume 2</span>
+              <p className={cn('text-xs line-clamp-2', styles.summary)}>
+                Highly motivated full-stack developer with +6 years of
+                experience building and maintaining web applications. Proven
+                ability to deliver high-quality work following best practices
+                and continiously learning the latest advancements on the web.
+              </p>
+              <div className="flex items-end justify-between mt-auto">
+                <Tag
+                  id={useId()}
+                  className="!w-fit pointer-events-none !m-0 !mt-auto"
+                  type="green"
+                >
+                  Template 1
+                </Tag>
 
-              <ArrowRight></ArrowRight>
-            </div>
-          </Link>
+                <ArrowRight></ArrowRight>
+              </div>
+            </Link>
 
-          <Link
-            href="/resumes/3"
-            className={cn(
-              'cds--link cds--tile cds--tile--clickable',
-              styles.tile
-            )}
-          >
-            <span>Resume 3</span>
-            <p className={cn('text-xs line-clamp-2', styles.summary)}>
-              Highly motivated full-stack developer with +6 years of experience
-              building and maintaining web applications. Proven ability to
-              deliver high-quality work following best practices and
-              continiously learning the latest advancements on the web.
-            </p>
-            <div className="flex items-end justify-between mt-auto">
-              <Tag
-                id={useId()}
-                className="!w-fit pointer-events-none !m-0 !mt-auto"
-                type="green"
-              >
-                Template 1
-              </Tag>
+            <Link
+              href="/resumes/3"
+              className={cn(
+                'cds--link cds--tile cds--tile--clickable',
+                styles.tile
+              )}
+            >
+              <span>Resume 3</span>
+              <p className={cn('text-xs line-clamp-2', styles.summary)}>
+                Highly motivated full-stack developer with +6 years of
+                experience building and maintaining web applications. Proven
+                ability to deliver high-quality work following best practices
+                and continiously learning the latest advancements on the web.
+              </p>
+              <div className="flex items-end justify-between mt-auto">
+                <Tag
+                  id={useId()}
+                  className="!w-fit pointer-events-none !m-0 !mt-auto"
+                  type="green"
+                >
+                  Template 1
+                </Tag>
 
-              <ArrowRight></ArrowRight>
-            </div>
-          </Link>
+                <ArrowRight></ArrowRight>
+              </div>
+            </Link>
 
-          <Link
-            href="/resumes/4"
-            className={cn(
-              'cds--link cds--tile cds--tile--clickable',
-              styles.tile
-            )}
-          >
-            <span>Resume 4</span>
-            <p className={cn('text-xs line-clamp-2', styles.summary)}>
-              Highly motivated full-stack developer with +6 years of experience
-              building and maintaining web applications. Proven ability to
-              deliver high-quality work following best practices and
-              continiously learning the latest advancements on the web.
-            </p>
-            <div className="flex items-end justify-between mt-auto">
-              <Tag
-                id={useId()}
-                className="!w-fit pointer-events-none !m-0 !mt-auto"
-                type="green"
-              >
-                Template 1
-              </Tag>
+            <Link
+              href="/resumes/4"
+              className={cn(
+                'cds--link cds--tile cds--tile--clickable',
+                styles.tile
+              )}
+            >
+              <span>Resume 4</span>
+              <p className={cn('text-xs line-clamp-2', styles.summary)}>
+                Highly motivated full-stack developer with +6 years of
+                experience building and maintaining web applications. Proven
+                ability to deliver high-quality work following best practices
+                and continiously learning the latest advancements on the web.
+              </p>
+              <div className="flex items-end justify-between mt-auto">
+                <Tag
+                  id={useId()}
+                  className="!w-fit pointer-events-none !m-0 !mt-auto"
+                  type="green"
+                >
+                  Template 1
+                </Tag>
 
-              <ArrowRight></ArrowRight>
-            </div>
-          </Link>
+                <ArrowRight></ArrowRight>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        <div className={styles.pagination}>
+          <div className="flex justify-center w-full pt-4 pb-12">
+            <PaginationNav itemsShown={5} totalItems={10}></PaginationNav>
+          </div>
         </div>
       </div>
     </div>

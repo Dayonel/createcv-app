@@ -60,3 +60,7 @@
 .tile svg {
   fill: tokens.$text-primary !important;
 }
+
+.pagination option {
+  background-color: tokens.$background;
+}
