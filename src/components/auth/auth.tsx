@@ -15,6 +15,7 @@ import Login from './login/login';
 import Verify from './verify/verify';
 import { ArrowLeft } from '@carbon/icons-react';
 import Reset from './reset-password/reset-password';
+import { DEFAULT_LOGIN_REDIRECT } from '@/app/routes';
 
 export default function SignIn() {
   const [loggingIn, setLoggingIn] = useState<string | null>(null);
@@ -30,7 +31,7 @@ export default function SignIn() {
       if (id === 'credentials') return;
 
       setLoggingIn(id);
-      await signIn(id);
+      await signIn(id, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
     } finally {
       setLoggingIn(null);
     }
