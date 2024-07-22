@@ -23,7 +23,7 @@ export default function Profile() {
   const { data: session } = useSession();
 
   return (
-    <div className={styles.profile} ref={ref}>
+    <div className={styles.profile}>
       {session ? (
         <>
           <Action
@@ -43,7 +43,7 @@ export default function Profile() {
               <UserFilled size={20}></UserFilled>
             )}
           </Action>
-          <>{open && <Menu></Menu>}</>
+          <>{open && <Menu onClick={() => setOpen(false)} ref={ref}></Menu>}</>
         </>
       ) : (
         <Action

@@ -1,5 +1,9 @@
 @use "@carbon/themes/scss/tokens";
 
+.tiles {
+  grid-gap: 1px;
+}
+
 .tile:active {
   color: tokens.$text-primary !important;
 }
@@ -9,48 +13,18 @@
   flex-direction: column;
   gap: 1rem;
   height: 200px;
-  border-top: 1px solid tokens.$border-subtle-01;
-  border-left: 1px solid tokens.$border-subtle-01;
+  position: relative;
 }
 
-@media (max-width: 768px) {
-  .tile:not(:focus)::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    content: "";
-    height: 100%;
-    border-right: 1px solid tokens.$border-subtle-01;
-  }
-
-  .tile:nth-last-child(-n + 1):not(:focus)::after {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    content: "";
-    width: 100%;
-    border-bottom: 1px solid tokens.$border-subtle-01;
-  }
-}
-
-@media (min-width: 768px) {
-  .tile:nth-child(even):not(:focus)::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    content: "";
-    height: 100%;
-    border-right: 1px solid tokens.$border-subtle-01;
-  }
-
-  .tile:nth-last-child(-n + 2):not(:focus)::before {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    content: "";
-    width: 100%;
-    border-bottom: 1px solid tokens.$border-subtle-01;
-  }
+.tile:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  outline: 1px solid tokens.$border-subtle-01;
+  outline-offset: 0;
 }
 
 .summary {
@@ -63,4 +37,15 @@
 
 .pagination option {
   background-color: tokens.$background;
+}
+
+.modal :global(.cds--form__helper-text) {
+  color: tokens.$text-helper;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 0.5rem;
+}
+
+.modal :global(.cds--inline-loading) {
+  gap: 0.5rem;
 }

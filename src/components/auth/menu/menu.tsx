@@ -2,12 +2,18 @@ import Action from '@/components/dndkit/components/action/action';
 import { DocumentPdf, Logout } from '@carbon/icons-react';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { forwardRef } from 'react';
 
-export default function Menu() {
+interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export default forwardRef<HTMLDivElement, MenuProps>(function Menu(
+  { ...props }: MenuProps,
+  ref
+) {
   const router = useRouter();
 
   return (
-    <div className="absolute md:!static right-2">
+    <div ref={ref} {...props} className="absolute md:!static right-2">
       <ul className="menu !sticky md:!absolute">
         <li>
           <Action
@@ -37,4 +43,4 @@ export default function Menu() {
       </ul>
     </div>
   );
-}
+});
