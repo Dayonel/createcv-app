@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import { useOutsideClick } from '@/hooks/use-outside-click';
 import { useSession } from 'next-auth/react';
 import { UserAvatar, UserFilled } from '@carbon/icons-react';
-import SignOut from '../sign-out';
 import Auth from '../auth';
 import Image from 'next/image';
 import { Modal } from '@carbon/react';
 import styles from './profile.module.scss';
+import Menu from '../menu/menu';
 
 export default function Profile() {
   const [open, setOpen] = useState(false);
@@ -43,17 +43,7 @@ export default function Profile() {
               <UserFilled size={20}></UserFilled>
             )}
           </Action>
-          <>
-            {open && (
-              <div className="absolute md:!static right-2">
-                <ul className="menu !sticky md:!absolute">
-                  <li>
-                    <SignOut></SignOut>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </>
+          <>{open && <Menu></Menu>}</>
         </>
       ) : (
         <Action

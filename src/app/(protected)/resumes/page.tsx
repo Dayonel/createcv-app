@@ -1,9 +1,10 @@
 'use client';
-import { ClickableTile, Tag } from '@carbon/react';
+import { Tag } from '@carbon/react';
 import styles from './page.module.scss';
 import { ArrowRight } from '@carbon/icons-react';
 import { cn } from '@/lib/utils';
 import { useId } from 'react';
+import Link from 'next/link';
 
 export default function Resumes() {
   return (
@@ -11,8 +12,14 @@ export default function Resumes() {
       <div className="page">
         <h1 className="text-3xl md:text-4xl font-bold mb-8">Resumes</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <ClickableTile className={styles.tile} renderIcon={ArrowRight}>
+        <div className={cn('grid grid-cols-1 md:grid-cols-2', styles.tiles)}>
+          <Link
+            href="/resumes/1"
+            className={cn(
+              'cds--link cds--tile cds--tile--clickable',
+              styles.tile
+            )}
+          >
             <span>Resume 1</span>
             <p className={cn('text-xs line-clamp-2', styles.summary)}>
               Highly motivated full-stack developer with +6 years of experience
@@ -20,16 +27,27 @@ export default function Resumes() {
               deliver high-quality work following best practices and
               continiously learning the latest advancements on the web.
             </p>
-            <Tag
-              id={useId()}
-              className="!w-fit pointer-events-none !mt-auto"
-              type="green"
-            >
-              Template 1
-            </Tag>
-          </ClickableTile>
 
-          <ClickableTile className={styles.tile} renderIcon={ArrowRight}>
+            <div className="flex items-end justify-between mt-auto">
+              <Tag
+                id={useId()}
+                className="!w-fit pointer-events-none !m-0 !mt-auto"
+                type="green"
+              >
+                Template 1
+              </Tag>
+
+              <ArrowRight></ArrowRight>
+            </div>
+          </Link>
+
+          <Link
+            href="/resumes/2"
+            className={cn(
+              'cds--link cds--tile cds--tile--clickable',
+              styles.tile
+            )}
+          >
             <span>Resume 2</span>
             <p className={cn('text-xs line-clamp-2', styles.summary)}>
               Highly motivated full-stack developer with +6 years of experience
@@ -37,16 +55,26 @@ export default function Resumes() {
               deliver high-quality work following best practices and
               continiously learning the latest advancements on the web.
             </p>
-            <Tag
-              id={useId()}
-              className="!w-fit pointer-events-none !mt-auto"
-              type="green"
-            >
-              Template 1
-            </Tag>
-          </ClickableTile>
+            <div className="flex items-end justify-between mt-auto">
+              <Tag
+                id={useId()}
+                className="!w-fit pointer-events-none !m-0 !mt-auto"
+                type="green"
+              >
+                Template 1
+              </Tag>
 
-          <ClickableTile className={styles.tile} renderIcon={ArrowRight}>
+              <ArrowRight></ArrowRight>
+            </div>
+          </Link>
+
+          <Link
+            href="/resumes/3"
+            className={cn(
+              'cds--link cds--tile cds--tile--clickable',
+              styles.tile
+            )}
+          >
             <span>Resume 3</span>
             <p className={cn('text-xs line-clamp-2', styles.summary)}>
               Highly motivated full-stack developer with +6 years of experience
@@ -54,16 +82,26 @@ export default function Resumes() {
               deliver high-quality work following best practices and
               continiously learning the latest advancements on the web.
             </p>
-            <Tag
-              id={useId()}
-              className="!w-fit pointer-events-none !mt-auto"
-              type="green"
-            >
-              Template 1
-            </Tag>
-          </ClickableTile>
+            <div className="flex items-end justify-between mt-auto">
+              <Tag
+                id={useId()}
+                className="!w-fit pointer-events-none !m-0 !mt-auto"
+                type="green"
+              >
+                Template 1
+              </Tag>
 
-          <ClickableTile className={styles.tile} renderIcon={ArrowRight}>
+              <ArrowRight></ArrowRight>
+            </div>
+          </Link>
+
+          <Link
+            href="/resumes/4"
+            className={cn(
+              'cds--link cds--tile cds--tile--clickable',
+              styles.tile
+            )}
+          >
             <span>Resume 4</span>
             <p className={cn('text-xs line-clamp-2', styles.summary)}>
               Highly motivated full-stack developer with +6 years of experience
@@ -71,14 +109,18 @@ export default function Resumes() {
               deliver high-quality work following best practices and
               continiously learning the latest advancements on the web.
             </p>
-            <Tag
-              id={useId()}
-              className="!w-fit pointer-events-none !mt-auto"
-              type="green"
-            >
-              Template 1
-            </Tag>
-          </ClickableTile>
+            <div className="flex items-end justify-between mt-auto">
+              <Tag
+                id={useId()}
+                className="!w-fit pointer-events-none !m-0 !mt-auto"
+                type="green"
+              >
+                Template 1
+              </Tag>
+
+              <ArrowRight></ArrowRight>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

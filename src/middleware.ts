@@ -8,7 +8,10 @@ export default auth((req): void | Response | Promise<void | Response> => {
   const { nextUrl } = req;
   const authenticated = !!req.auth;
 
-  if (!authenticated && PROTECTED_ROUTES.includes(nextUrl.pathname)) {
+  if (
+    !authenticated &&
+    PROTECTED_ROUTES.some((s) => nextUrl.pathname.startsWith(s))
+  ) {
     let callbackUrl = nextUrl.pathname;
     if (nextUrl.search) callbackUrl += nextUrl.search;
     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
