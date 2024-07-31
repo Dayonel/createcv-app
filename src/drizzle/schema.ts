@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import {
   integer,
   sqliteTable,
@@ -53,7 +54,9 @@ export const sessions = sqliteTable('session', {
 export const verificationTokens = sqliteTable(
   'verificationToken',
   {
-    id: text('id').notNull().$defaultFn(() => crypto.randomUUID()),
+    id: text('id')
+      .notNull()
+      .$defaultFn(() => crypto.randomUUID()),
     email: text('email').notNull(),
     token: text('token').notNull(),
     expires: integer('expires', { mode: 'timestamp_ms' }).notNull(),
@@ -68,7 +71,9 @@ export const verificationTokens = sqliteTable(
 export const passwordResetTokens = sqliteTable(
   'passwordResetToken',
   {
-    id: text('id').notNull().$defaultFn(() => crypto.randomUUID()),
+    id: text('id')
+      .notNull()
+      .$defaultFn(() => crypto.randomUUID()),
     email: text('email').notNull(),
     token: text('token').notNull(),
     expires: integer('expires', { mode: 'timestamp_ms' }).notNull(),
@@ -102,3 +107,10 @@ export const authenticators = sqliteTable(
     }),
   })
 );
+
+export const prints = sqliteTable('print', {
+  id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+  creationDate: integer('creationDate', { mode: 'timestamp_ms' })
+    .notNull()
+    .default(sql`(current_timestamp)`),
+});

@@ -1,32 +1,38 @@
 'use client';
-import { InlineLoading } from '@carbon/react';
+import { InlineLoading, ToastNotification } from '@carbon/react';
 import Action from './dndkit/components/action/action';
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import {
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 import { useTheme } from 'next-themes';
 import { Download } from '@carbon/icons-react';
 import { setCookie } from '@/actions/cookies';
+import { print } from '@/actions/print';
 
 export default function Print() {
   const [isPrinting, setIsPrinting] = useState(false);
   const _print = useMemo(() => typeof window === 'object' && window.print, []);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const params = useRef<string | null>(searchParams.get('print'));
   const { resolvedTheme, setTheme } = useTheme();
   const prevTheme = useRef<string>();
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState('');
 
   const download = () => {
-    setIsPrinting(true);
+    startTransition(() => {
+      print()
+        .then(() => {
+          setIsPrinting(true);
+          prevTheme.current = resolvedTheme;
+          setTheme('light');
+        })
+        .catch(() => setError('Please try again later or contact support.'));
+    });
   };
-
-  useEffect(() => {
-    if (params.current) {
-      setIsPrinting(true);
-      prevTheme.current = resolvedTheme;
-      setTheme('light');
-    }
-  }, []);
 
   useEffect(() => {
     window.print = () => {
@@ -53,8 +59,6 @@ export default function Print() {
     setTheme(prevTheme.current!);
     setIsPrinting(false);
     setCookie('printed', 'true');
-    params.current = null;
-    router.replace('/');
   };
 
   const deferredPrinting = useDeferredValue(isPrinting);
@@ -63,26 +67,33 @@ export default function Print() {
     if (!_print) return;
     if (!deferredPrinting) return;
 
-    if (!params.current) {
-      window.location.href = '?print=1';
-      return;
-    }
-
     _print();
   }, [deferredPrinting]);
 
   return (
-    <Action
-      className="action"
-      title="Download"
-      fill={`${isPrinting ? 'transparent' : 'var(--cds-text-primary)'}`}
-      onClick={download}
-    >
-      {isPrinting ? (
-        <InlineLoading className="flex justify-center items-center" />
-      ) : (
-        <Download size={20}></Download>
+    <>
+      <Action
+        className="action"
+        title="Download"
+        fill={`${isPending ? 'transparent' : 'var(--cds-text-primary)'}`}
+        onClick={download}
+      >
+        {isPending ? (
+          <InlineLoading className="flex justify-center items-center" />
+        ) : (
+          <Download size={20}></Download>
+        )}
+      </Action>
+
+      {error && (
+        <ToastNotification
+          title="An unknown error occurred"
+          className="fixed bottom-4 right-4 pb-4 z-50"
+          timeout={5000}
+        >
+          <span className="text-xs">{error}</span>
+        </ToastNotification>
       )}
-    </Action>
+    </>
   );
 }
