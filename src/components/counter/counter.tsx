@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
+import { useContext, useEffect, useTransition } from 'react';
 import styles from './counter.module.scss';
 import * as d3 from 'd3-format';
 import { InlineLoading } from '@carbon/react';
 import { getPrints } from '@/actions/print';
+import { PrintContext } from '../providers/print-provider';
 
 export default function Counter() {
-  const [counter, setCounter] = useState<number | null>(null);
+  const { counter, setCounter } = useContext(PrintContext);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
@@ -17,6 +18,7 @@ export default function Counter() {
       });
     });
   }, []);
+
   const formatter = d3.format('.2s');
 
   return (

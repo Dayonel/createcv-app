@@ -11,6 +11,7 @@ import { FormProvider } from '@/components/providers/form-provider';
 import { MenuProvider } from '@/components/providers/menu-provider';
 import { SessionProvider } from 'next-auth/react';
 import { auth } from '@/auth';
+import { PrintProvider } from '@/components/providers/print-provider';
 
 const roboto = localFont({
   src: [
@@ -68,14 +69,16 @@ export default async function RootLayout({
               attribute="data-carbon-theme"
               disableTransitionOnChange
             >
-              <FormProvider savedForm={savedForm} printed={printed}>
-                <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
-                  <MenuProvider>
-                    <main className="w-full">{children}</main>
-                  </MenuProvider>
-                  <Footer></Footer>
-                </div>
-              </FormProvider>
+              <PrintProvider>
+                <FormProvider savedForm={savedForm} printed={printed}>
+                  <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
+                    <MenuProvider>
+                      <main className="w-full">{children}</main>
+                    </MenuProvider>
+                    <Footer></Footer>
+                  </div>
+                </FormProvider>
+              </PrintProvider>
             </ThemeProvider>
           </CookieThemeProvider>
         </SessionProvider>

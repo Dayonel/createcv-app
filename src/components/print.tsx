@@ -2,6 +2,7 @@
 import { InlineLoading, ToastNotification } from '@carbon/react';
 import Action from './dndkit/components/action/action';
 import {
+  useContext,
   useDeferredValue,
   useEffect,
   useMemo,
@@ -13,6 +14,7 @@ import { useTheme } from 'next-themes';
 import { Download } from '@carbon/icons-react';
 import { setCookie } from '@/actions/cookies';
 import { print } from '@/actions/print';
+import { PrintContext } from './providers/print-provider';
 
 export default function Print() {
   const [isPrinting, setIsPrinting] = useState(false);
@@ -21,14 +23,16 @@ export default function Print() {
   const prevTheme = useRef<string>();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState('');
+  const { setCounter } = useContext(PrintContext);
 
   const download = () => {
     startTransition(() => {
       print()
-        .then(() => {
+        .then((t) => {
           setIsPrinting(true);
           prevTheme.current = resolvedTheme;
           setTheme('light');
+          setCounter(t);
         })
         .catch(() => setError('Please try again later or contact support.'));
     });

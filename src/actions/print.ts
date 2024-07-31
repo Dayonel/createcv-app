@@ -6,7 +6,8 @@ import { count } from 'drizzle-orm';
 import { cache } from 'react';
 
 export const print = async () => {
-  await db.insert(prints).values({});
+  const [row] = await db.insert(prints).values({}).returning();
+  return row.id;
 };
 
 export const getPrints = cache(async () => {
