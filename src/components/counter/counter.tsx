@@ -7,7 +7,7 @@ import { InlineLoading } from '@carbon/react';
 import { getPrints } from '@/actions/print';
 
 export default function Counter() {
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState<number | null>(null);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
@@ -25,19 +25,19 @@ export default function Counter() {
         <div className="flex flex-col items-center gap-12 w-full">
           <h2 className="text-4xl md:text-5xl font-bold">Resumes printed</h2>
 
-          <p
-            style={{
-              backgroundColor: 'var(--cds-background-inverse-hover)',
-              color: 'var(--cds-text-inverse)',
-            }}
-            className="text-4xl md:text-5xl font-bold -rotate-1 px-4 py-2"
-          >
-            {isPending ? (
-              <InlineLoading></InlineLoading>
-            ) : (
-              <>{counter >= 1000 ? formatter(counter) : counter}+</>
-            )}
-          </p>
+          {isPending ? (
+            <InlineLoading className="h-full justify-center"></InlineLoading>
+          ) : (
+            <p
+              style={{
+                backgroundColor: 'var(--cds-background-inverse-hover)',
+                color: 'var(--cds-text-inverse)',
+              }}
+              className="text-4xl md:text-5xl font-bold -rotate-1 px-4 py-2 min-h-16"
+            >
+              {counter && counter >= 1000 ? formatter(counter) : counter}+
+            </p>
+          )}
 
           <span className="text-center text-base">
             Create your professional resume today and get hired.
