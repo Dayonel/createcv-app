@@ -8,7 +8,9 @@ export default function FAQ() {
       <div className="flex flex-col md:flex-row gap-8">
         <div className="basis-1/2">
           <div className="grid gap-4">
-            <p className="text-3xl md:text-4xl">Frequently Asked Questions</p>
+            <p className="text-3xl md:text-4xl font-bold">
+              Frequently Asked Questions
+            </p>
             <span className="text-sm">
               Have another question? Contact us by{' '}
               <Link href="mailto:info@createcv.app">email</Link>.
@@ -17,57 +19,49 @@ export default function FAQ() {
         </div>
         <div className="basis-1/2">
           <Accordion size="lg">
-            <AccordionItem
-              open
-              className="text-sm"
-              title="What do I get exactly?"
-            >
+            <AccordionItem open className="text-sm" title="Is Create CV free?">
+              <p>
+                Yes, CreateCV is completely free to use. Use the demo editor and
+                download your PDFs unlimited times.
+              </p>
+            </AccordionItem>
+            <AccordionItem className="text-sm" title="Why is CreateCV free?">
+              <p>
+                CreateCV started as a personal project to build my own CV. Why
+                not help others create their outstanding resumes too?
+              </p>
+            </AccordionItem>
+            <AccordionItem className="text-sm" title="Do I need to register?">
               <ul className="grid gap-4">
-                <li>Download your PDF documents without watermark.</li>
-                <li>Access your PDFs stored in the cloud from any device.</li>
-                <li>Download your PDFs unlimited times.</li>
-                <li>Free access to new templates created in the future.</li>
-                <li>Manage multiple versions of your PDFs.</li>
-                <li>Lifetime license.</li>
+                <li>No, start creating your resume instantly.</li>
+                <li>Your data is stored in your browser's local storage.</li>
+              </ul>
+            </AccordionItem>
+            <AccordionItem className="text-sm" title="Why should I register?">
+              <ul className="grid gap-4">
+                <li>
+                  Access your resumes from any device stored in the cloud.
+                </li>
+                <li>
+                  Unlock a new resumes section where you can manage multiple
+                  versions of your PDFs.
+                </li>
               </ul>
             </AccordionItem>
             <AccordionItem
               className="text-sm"
               title="How many templates are available?"
             >
-              Currently there is only one template, more are expected in the
-              future.
-            </AccordionItem>
-            <AccordionItem
-              className="text-sm"
-              title="What other features can I expect?"
-            >
-              <p className="mb-4">
-                The idea is to expand the project with all the necessary tools
-                to get an outstanding resume that get you hired.
+              <p>
+                Currently there is only one template, more are expected in the
+                future.
               </p>
-              <p className="mb-4">These are some of the ideas:</p>
-              <ul className="grid gap-4">
-                <li>Cover letters.</li>
-                <li>AI resume writer.</li>
-                <li>Share a read-only version as a website portfolio.</li>
-                <li>Add your own logos.</li>
-              </ul>
-            </AccordionItem>
-            <AccordionItem
-              className="text-sm"
-              title="Can I delete all my data?"
-            >
-              Sure, delete all instances of your PDFs, once you delete them,
-              they are deleted forever.
             </AccordionItem>
             <AccordionItem className="text-sm" title="Is my data private?">
-              We take privacy very seriously, your data is yours. We {"don't"}{' '}
-              share your data with third parties.
-            </AccordionItem>
-            <AccordionItem className="text-sm" title="Can I get a refund?">
-              After {"you've"} got access to the full version, is yours forever,
-              so it {"can't"} be refunded.
+              CreateCV does not access, process, or share any of your personal
+              data. We take privacy very seriously. This data remains entirely
+              under your control and is used solely by you for the purposes of
+              printing your resume.
             </AccordionItem>
           </Accordion>
         </div>

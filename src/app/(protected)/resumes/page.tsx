@@ -70,6 +70,7 @@ export default function Resumes() {
       })
       .finally(() => {
         setIsPending(false);
+        setModal(false);
       });
   };
 

@@ -1,7 +1,7 @@
 import Demo from '@/components/demo/demo';
 import FAQ from '@/components/faq/faq';
-import Pricing from '@/components/pricing/pricing';
 import styles from './page.module.scss';
+import Counter from '@/components/counter/counter';
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       </section>
       <section className="print:!hidden">
         <hr></hr>
-        <Pricing></Pricing>
+        <Counter></Counter>
       </section>
       <section className="print:!hidden">
         <hr></hr>

@@ -4,7 +4,6 @@ import styles from './demo.module.scss'
 import { useContext, useEffect, useState } from 'react';
 import Instructions from '../instructions/instructions';
 import Template1 from '../templates/template1/template1';
-import Watermark from '../watermark';
 import { InlineLoading } from '@carbon/react';
 import { FormContext } from '../providers/form-provider';
 
@@ -27,7 +26,6 @@ export default function Demo() {
           <div className="relative">
             <Template1></Template1>
             <Instructions></Instructions>
-            <Watermark></Watermark>
           </div>
         )}
       </div>
