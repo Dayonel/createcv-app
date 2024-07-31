@@ -21,11 +21,11 @@ export default function FAQ() {
           <Accordion size="lg">
             <AccordionItem open className="text-sm" title="Is Create CV free?">
               <p>
-                Yes, CreateCV is completely free to use. Use the demo editor and
+                Yes, CreateCV is completely free. Use the demo editor and
                 download your PDFs unlimited times.
               </p>
             </AccordionItem>
-            <AccordionItem className="text-sm" title="Why is CreateCV free?">
+            <AccordionItem className="text-sm" title="How it started?">
               <p>
                 CreateCV started as a personal project to build my own CV. Why
                 not help others create their outstanding resumes too?
@@ -34,7 +34,9 @@ export default function FAQ() {
             <AccordionItem className="text-sm" title="Do I need to register?">
               <ul className="grid gap-4">
                 <li>No, start creating your resume instantly.</li>
-                <li>Your data is stored in your browser's local storage.</li>
+                <li>
+                  Your data is stored in your {"browser's"} local storage.
+                </li>
               </ul>
             </AccordionItem>
             <AccordionItem className="text-sm" title="Why should I register?">
