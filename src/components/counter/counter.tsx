@@ -25,15 +25,17 @@ export default function Counter() {
         <div className="flex flex-col items-center gap-12 w-full">
           <h2 className="text-4xl md:text-5xl font-bold">Resumes printed</h2>
 
-          {isPending ? (
-            <InlineLoading className="h-full justify-center"></InlineLoading>
+          {!counter || isPending ? (
+            <div className="min-h-[65.49px]">
+              <InlineLoading className="h-full justify-center"></InlineLoading>
+            </div>
           ) : (
             <p
               style={{
                 backgroundColor: 'var(--cds-background-inverse-hover)',
                 color: 'var(--cds-text-inverse)',
               }}
-              className="text-4xl md:text-5xl font-bold -rotate-1 px-4 py-2 min-h-16"
+              className="text-4xl md:text-5xl font-bold -rotate-1 px-4 py-2"
             >
               {counter && counter >= 1000 ? formatter(counter) : counter}+
             </p>
