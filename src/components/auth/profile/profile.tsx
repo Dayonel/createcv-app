@@ -63,7 +63,9 @@ export default function Profile() {
           size="xs"
           selectorPrimaryFocus=".flex"
         >
-          <Auth></Auth>
+          <div className="px-4">
+            <Auth></Auth>
+          </div>
         </Modal>
       )}
     </div>

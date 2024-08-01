@@ -13,7 +13,7 @@ import useColorStore from '@/store/color-store';
 import { v4 } from 'uuid';
 import ContactPlaceholder from './placeholder/contact-placeholder';
 import { useUndo } from '@/hooks/use-undo';
-import { Form } from './types/form';
+import { Template1 } from './types/template1';
 import { deleteCookie, setCookie } from '@/actions/cookies';
 import { Single as SingleType, SingleContent } from './types/single';
 import ActionButtons from '../../placeholder/action-buttons';
@@ -21,11 +21,11 @@ import ImagePlaceholder from '../../placeholder/image-placeholder';
 import { MenuContext } from '../../providers/menu-provider';
 import { useTheme } from 'next-themes';
 
-export default function Template1() {
+export default function Template_1() {
   const data = traverseUUID(placeholder); // traverse
   const { state, setState, resetHistory, triggerUndo, triggerRedo, canUndo } =
     useUndo(JSON.stringify(data));
-  const [form, setForm] = useState<Form>(JSON.parse(state));
+  const [form, setForm] = useState<Template1>(JSON.parse(state));
   const { color, overriden, setColor } = useColorStore();
   const updateHistory = useRef(false);
   const [mounted, setMounted] = useState(false);

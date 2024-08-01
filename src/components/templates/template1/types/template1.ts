@@ -2,7 +2,7 @@ import { Contact } from './contact';
 import { Double } from './double';
 import { Single } from './single';
 
-export type Form = {
+export type Template1 = {
   color: string;
   title?: string;
   subtitle?: string;

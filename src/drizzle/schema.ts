@@ -114,3 +114,17 @@ export const prints = sqliteTable('print', {
     .notNull()
     .default(sql`(current_timestamp)`),
 });
+
+export const resumes = sqliteTable('resume', {
+  id: text('id')
+    .notNull()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text('name').notNull(),
+  json: text('json').notNull(),
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  creationDate: integer('creationDate', { mode: 'timestamp_ms' })
+    .notNull()
+    .default(sql`(current_timestamp)`),
+});

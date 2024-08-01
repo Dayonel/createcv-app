@@ -9,6 +9,11 @@
     font-size: 14px;
     line-height: 1.5rem;
   }
+
+  :global(.cds--accordion__content) ul {
+    list-style: disc;
+    padding: 0 1rem;
+  }
 }
 
 .title {

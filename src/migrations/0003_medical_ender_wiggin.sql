@@ -1,0 +1,1 @@
+ALTER TABLE `resume` ADD `name` text NOT NULL;

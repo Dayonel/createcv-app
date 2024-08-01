@@ -27,7 +27,7 @@ export default function Counter() {
         <div className="flex flex-col items-center gap-12 w-full">
           <h2 className="text-4xl md:text-5xl font-bold">Resumes printed</h2>
 
-          {!counter || isPending ? (
+          {counter === null || isPending ? (
             <div className="min-h-14 md:min-h-16">
               <InlineLoading className="h-full justify-center"></InlineLoading>
             </div>

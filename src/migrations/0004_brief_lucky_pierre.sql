@@ -1,0 +1,1 @@
+ALTER TABLE `resume` RENAME TO `resume_old`;--> statement-breakpoint

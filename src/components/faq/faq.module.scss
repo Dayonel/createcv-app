@@ -4,4 +4,9 @@
   :global(.cds--accordion__content) {
     padding-inline-end: 1rem;
   }
+
+  :global(.cds--accordion__content) ul {
+    list-style: disc;
+    padding: 0 1rem;
+  }
 }

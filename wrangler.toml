@@ -1,5 +1,5 @@
 [[ d1_databases ]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "createcv"
-database_id = "17eef701-b173-4562-90b2-3bcbd89807a8"
+database_id = "4afbefb7-1f34-4b72-afc5-8d4ad225e27b"
 migrations_dir = "./src/migrations"

@@ -8,6 +8,7 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --scrollbar-width: 8px;
+  --header-height: 58px;
 }
 
 @media (prefers-color-scheme: dark) {

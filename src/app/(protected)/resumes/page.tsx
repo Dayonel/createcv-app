@@ -2,6 +2,7 @@
 import {
   Button,
   IconButton,
+  InlineLoading,
   Modal,
   PaginationNav,
   Tag,
@@ -10,7 +11,7 @@ import {
 import styles from './page.module.scss';
 import { AddLarge, ArrowRight } from '@carbon/icons-react';
 import { cn } from '@/lib/utils';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,41 +19,79 @@ import { useForm } from 'react-hook-form';
 import { NewResumeSchema } from '@/schemas/new-resume-schema';
 import FormError from '@/components/form-error/form-error';
 import { newResume } from '@/actions/new-resume';
-import { v4 } from 'uuid';
+import { getResumes } from '@/actions/resume';
+import { useSession } from 'next-auth/react';
+import { Resume } from '@/drizzle/types';
+import { Template1 } from '@/components/templates/template1/types/template1';
+import { getParagraphText } from '@/utils/rich-text-utils';
+import { useRouter } from 'next/navigation';
 
 export default function Resumes() {
   const [mounted, setMounted] = useState(false);
   const [modal, setModal] = useState(false);
-  const [isPending, setIsPending] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string>('');
   const [status, setStatus] = useState<
     'inactive' | 'error' | 'active' | 'finished' | undefined
   >('inactive');
   const [description, setDescription] = useState<string>('');
-  const ref = useRef<HTMLFormElement | null>(null);
   const submit = useRef<HTMLButtonElement | null>(null);
+  const [resumes, setResumes] = useState<Resume[]>();
+  const [count, setCount] = useState<number>(0);
+  const [page, setPage] = useState<number>(0);
+  const templates = useMemo(() => new Map<string, any>(), []);
+  const [isPending, setIsPending] = useState<boolean>(true);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
+    fetchResumes();
   }, []);
 
-  const { formState, handleSubmit, register, getValues } = useForm<
+  useEffect(() => {
+    fetchResumes();
+  }, [page]);
+
+  const fetchResumes = () => {
+    if (!session?.user?.id) return;
+
+    setIsPending(true);
+
+    getResumes(session.user.id, page + 1)
+      .then(({ items, count }) => {
+        setResumes(items);
+        setCount(count);
+        if (count > 0) {
+          setValue('name', `Resume ${count + 1}`);
+        }
+        items.map((f) => {
+          if (!templates.has(f.id)) {
+            templates.set(f.id, JSON.parse(f.json) as Template1);
+          }
+        });
+      })
+      .then(() => setIsPending(false));
+  };
+
+  const { formState, handleSubmit, register, setValue } = useForm<
     z.infer<typeof NewResumeSchema>
   >({
     resolver: zodResolver(NewResumeSchema),
     defaultValues: {
-      id: v4(),
       name: 'Resume 1',
     },
   });
 
   const onSubmit = async (values: z.infer<typeof NewResumeSchema>) => {
+    if (!session?.user?.id) return;
+
     setError('');
-    setIsPending(true);
+    setIsSubmitting(true);
     setStatus('active');
     setDescription('Creating...');
 
-    newResume(values)
+    newResume(values, session.user.id)
       .then((data) => {
         if (data?.error) {
           setError(data.error);
@@ -62,22 +101,24 @@ export default function Resumes() {
         setStatus('finished');
         setDescription('Created!');
 
-        ref.current!.submit();
+        if (data.id) {
+          router.push(`/resumes/${data.id}`);
+        }
       })
       .catch(() => {
         setError('Something went wrong');
         setStatus('inactive');
       })
       .finally(() => {
-        setIsPending(false);
+        setIsSubmitting(false);
         setModal(false);
       });
   };
 
   return (
-    <div className="container">
-      <div className="flex flex-col h-full justify-between">
-        <div className="page">
+    <div className="container pb-20 md:pb-40">
+      <div className="page relative">
+        <div className="flex flex-col">
           <h1 className="text-3xl md:text-4xl font-bold mb-8 flex items-center justify-between">
             Resumes{' '}
             <div className="flex">
@@ -102,124 +143,65 @@ export default function Resumes() {
             </div>
           </h1>
 
-          <div className={cn('grid grid-cols-1 md:grid-cols-2', styles.tiles)}>
-            <Link
-              href="/resumes/1"
-              className={cn(
-                'cds--link cds--tile cds--tile--clickable',
-                styles.tile
-              )}
+          {isPending ? (
+            <InlineLoading
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              style={{ inlineSize: 'auto' }}
+            ></InlineLoading>
+          ) : (
+            <div
+              className={cn('grid grid-cols-1 md:grid-cols-2', styles.tiles)}
             >
-              <span>Resume 1</span>
-              <p className={cn('text-xs line-clamp-2', styles.summary)}>
-                Highly motivated full-stack developer with +6 years of
-                experience building and maintaining web applications. Proven
-                ability to deliver high-quality work following best practices
-                and continiously learning the latest advancements on the web.
-              </p>
+              {resumes?.map((m) => {
+                const template = templates.get(m.id);
+                return (
+                  <Link
+                    key={m.id}
+                    href={`/resumes/${m.id}`}
+                    className={cn(
+                      'cds--link cds--tile cds--tile--clickable',
+                      styles.tile
+                    )}
+                  >
+                    <span>{m.name}</span>
 
-              <div className="flex items-end justify-between mt-auto">
-                <Tag
-                  id={useId()}
-                  className="!w-fit pointer-events-none !m-0 !mt-auto"
-                  type="green"
-                >
-                  Template 1
-                </Tag>
+                    {template.summary && (
+                      <p className={cn('text-xs line-clamp-2', styles.summary)}>
+                        {getParagraphText(template.summary)}
+                      </p>
+                    )}
 
-                <ArrowRight></ArrowRight>
-              </div>
-            </Link>
+                    <div className="flex items-end justify-between mt-auto">
+                      <Tag
+                        className="!w-fit pointer-events-none !m-0 !mt-auto"
+                        type="green"
+                      >
+                        Template 1
+                      </Tag>
 
-            <Link
-              href="/resumes/2"
-              className={cn(
-                'cds--link cds--tile cds--tile--clickable',
-                styles.tile
-              )}
-            >
-              <span>Resume 2</span>
-              <p className={cn('text-xs line-clamp-2', styles.summary)}>
-                Highly motivated full-stack developer with +6 years of
-                experience building and maintaining web applications. Proven
-                ability to deliver high-quality work following best practices
-                and continiously learning the latest advancements on the web.
-              </p>
-              <div className="flex items-end justify-between mt-auto">
-                <Tag
-                  id={useId()}
-                  className="!w-fit pointer-events-none !m-0 !mt-auto"
-                  type="green"
-                >
-                  Template 1
-                </Tag>
-
-                <ArrowRight></ArrowRight>
-              </div>
-            </Link>
-
-            <Link
-              href="/resumes/3"
-              className={cn(
-                'cds--link cds--tile cds--tile--clickable',
-                styles.tile
-              )}
-            >
-              <span>Resume 3</span>
-              <p className={cn('text-xs line-clamp-2', styles.summary)}>
-                Highly motivated full-stack developer with +6 years of
-                experience building and maintaining web applications. Proven
-                ability to deliver high-quality work following best practices
-                and continiously learning the latest advancements on the web.
-              </p>
-              <div className="flex items-end justify-between mt-auto">
-                <Tag
-                  id={useId()}
-                  className="!w-fit pointer-events-none !m-0 !mt-auto"
-                  type="green"
-                >
-                  Template 1
-                </Tag>
-
-                <ArrowRight></ArrowRight>
-              </div>
-            </Link>
-
-            <Link
-              href="/resumes/4"
-              className={cn(
-                'cds--link cds--tile cds--tile--clickable',
-                styles.tile
-              )}
-            >
-              <span>Resume 4</span>
-              <p className={cn('text-xs line-clamp-2', styles.summary)}>
-                Highly motivated full-stack developer with +6 years of
-                experience building and maintaining web applications. Proven
-                ability to deliver high-quality work following best practices
-                and continiously learning the latest advancements on the web.
-              </p>
-              <div className="flex items-end justify-between mt-auto">
-                <Tag
-                  id={useId()}
-                  className="!w-fit pointer-events-none !m-0 !mt-auto"
-                  type="green"
-                >
-                  Template 1
-                </Tag>
-
-                <ArrowRight></ArrowRight>
-              </div>
-            </Link>
-          </div>
-        </div>
-
-        <div className={styles.pagination}>
-          <div className="flex justify-center w-full pt-4 pb-12">
-            <PaginationNav itemsShown={5} totalItems={10}></PaginationNav>
-          </div>
+                      <ArrowRight></ArrowRight>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
+
+      {!isPending && count >= 10 && (
+        <div className={styles.pagination}>
+          <div className="flex justify-center pt-4">
+            <PaginationNav
+              itemsShown={5}
+              totalItems={Math.ceil(count / 10)}
+              onChange={(p) => setPage(p)}
+              page={page}
+            ></PaginationNav>
+          </div>
+        </div>
+      )}
+
       {mounted && (
         <Modal
           open={modal}
@@ -235,12 +217,7 @@ export default function Resumes() {
           loadingDescription={description}
           className={styles.modal}
         >
-          <form
-            ref={ref}
-            onSubmit={handleSubmit(onSubmit)}
-            action={`/resumes/${getValues('id')}`}
-            className="py-4"
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className="py-4">
             <TextInput
               type="text"
               id="name"
@@ -250,7 +227,7 @@ export default function Resumes() {
               placeholder="Resume 1"
               size="lg"
               autoComplete="true"
-              disabled={isPending}
+              disabled={isSubmitting}
               invalid={formState.errors.name !== undefined}
               invalidText={formState.errors.name?.message}
               {...register('name')}
