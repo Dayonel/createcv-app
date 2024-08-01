@@ -42,7 +42,7 @@ export default function FAQ() {
             <AccordionItem className="text-sm" title="Why should I register?">
               <ul className="grid gap-4">
                 <li>
-                  Access your resumes from any device stored in the cloud.
+                  Access your resumes stored in the cloud from any device.
                 </li>
                 <li>
                   Unlock a new resumes section where you can manage multiple
