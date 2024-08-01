@@ -71,7 +71,7 @@ export default async function RootLayout({
             >
               <PrintProvider>
                 <FormProvider savedForm={savedForm} printed={printed}>
-                  <div className="grid grid-rows-[58px,1fr,70px] min-h-dvh w-full justify-items-center">
+                  <div className="grid grid-rows-[58px,1fr] min-h-dvh w-full justify-items-center">
                     <MenuProvider>
                       <main className="w-full">{children}</main>
                     </MenuProvider>
