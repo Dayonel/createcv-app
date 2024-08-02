@@ -8,7 +8,7 @@ import {
 } from '@carbon/icons-react';
 import { useEffect, useState, useTransition } from 'react';
 import styles from './resume-toolbar.module.scss';
-import { Modal } from '@carbon/react';
+import { Modal, ToastNotification } from '@carbon/react';
 import ColorPicker from './color-picker';
 import { useOutsideClick } from '@/hooks/use-outside-click';
 import ThemeToggle from '../theme-toggle';
@@ -36,6 +36,8 @@ export default function ResumeToolbar({
   const ref = useOutsideClick(() => setOpen(false));
   const [showReset, setShowReset] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [notification, setNotification] = useState(false);
+  const [notiticationMessage, setNotiticationMessage] = useState<string>();
   const [mounted, setMounted] = useState(false);
   const pathName = usePathname();
 
@@ -91,7 +93,12 @@ export default function ResumeToolbar({
                   </Action>
                 </li>
                 <li>
-                  <SaveResume></SaveResume>
+                  <SaveResume
+                    onSave={(m) => {
+                      setNotiticationMessage(m);
+                      setNotification(true);
+                    }}
+                  ></SaveResume>
                 </li>
               </>
             )}
@@ -183,6 +190,19 @@ export default function ResumeToolbar({
             onClose={() => setShowDelete(false)}
           ></DeleteResume>
         </>
+      )}
+
+      {notification && (
+        <ToastNotification
+          title="Saved"
+          className="fixed bottom-4 right-4 pb-4 z-50"
+          timeout={2000}
+          onClose={() => setNotification(false)}
+          hideCloseButton
+          kind="success"
+        >
+          <span className="whitespace-nowrap">{notiticationMessage}</span>
+        </ToastNotification>
       )}
     </div>
   );

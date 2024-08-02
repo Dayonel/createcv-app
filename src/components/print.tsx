@@ -21,7 +21,6 @@ interface PrintProps {
 }
 
 export default function Print({ small }: PrintProps) {
-  const [isPrinting, setIsPrinting] = useState(false);
   const _print = useMemo(() => typeof window === 'object' && window.print, []);
   const { resolvedTheme, setTheme } = useTheme();
   const prevTheme = useRef<string>();
@@ -30,13 +29,15 @@ export default function Print({ small }: PrintProps) {
   const { setCounter } = useContext(PrintContext);
 
   const download = () => {
+    if (!_print) return;
+
     startTransition(() => {
       print()
         .then((t) => {
-          setIsPrinting(true);
           prevTheme.current = resolvedTheme;
           setTheme('light');
           setCounter(t);
+          _print();
         })
         .catch(() => setError('Please try again later or contact support.'));
     });
@@ -65,18 +66,8 @@ export default function Print({ small }: PrintProps) {
 
   const afterPrint = () => {
     setTheme(prevTheme.current!);
-    setIsPrinting(false);
     setCookie('printed', 'true');
   };
-
-  const deferredPrinting = useDeferredValue(isPrinting);
-
-  useEffect(() => {
-    if (!_print) return;
-    if (!deferredPrinting) return;
-
-    _print();
-  }, [deferredPrinting]);
 
   return (
     <>

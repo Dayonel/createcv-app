@@ -7,7 +7,11 @@ import { useSession } from 'next-auth/react';
 import { editResume } from '@/actions/new-resume';
 import { InlineLoading, ToastNotification } from '@carbon/react';
 
-export default function SaveResume() {
+interface SaveProps {
+  onSave: (message: string) => void;
+}
+
+export default function SaveResume({ onSave }: SaveProps) {
   const [isPending, startTransition] = useTransition();
   const { slug } = useParams();
   const resumeStore = useResumeStore();
@@ -25,9 +29,9 @@ export default function SaveResume() {
         resumeStore.json,
         slug as string,
         session.user.id
-      ).finally(() => {
-        setNotification(true);
-      });
+      )
+        .then(() => onSave('Resume saved.'))
+        .catch(() => onSave('Failed to save, try again later.'));
     });
   };
 
@@ -50,18 +54,6 @@ export default function SaveResume() {
 
         <div className="flex items-center gap-2"></div>
       </Action>
-
-      {notification && (
-        <ToastNotification
-          title="Saved"
-          className="fixed bottom-4 right-4 pb-4 z-50"
-          timeout={2000}
-          hideCloseButton
-          kind="success"
-        >
-          <span className="whitespace-nowrap">Resume saved.</span>
-        </ToastNotification>
-      )}
     </>
   );
 }
