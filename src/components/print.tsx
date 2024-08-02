@@ -16,7 +16,11 @@ import { setCookie } from '@/actions/cookies';
 import { print } from '@/actions/print';
 import { PrintContext } from './providers/print-provider';
 
-export default function Print() {
+interface PrintProps {
+  small?: boolean;
+}
+
+export default function Print({ small }: PrintProps) {
   const [isPrinting, setIsPrinting] = useState(false);
   const _print = useMemo(() => typeof window === 'object' && window.print, []);
   const { resolvedTheme, setTheme } = useTheme();
@@ -85,7 +89,10 @@ export default function Print() {
         {isPending ? (
           <InlineLoading className="flex justify-center items-center" />
         ) : (
-          <Download size={20}></Download>
+          <div className="flex items-center gap-2">
+            <Download size={small ? 16 : 20}></Download>
+            {small && <span>Print</span>}
+          </div>
         )}
       </Action>
 

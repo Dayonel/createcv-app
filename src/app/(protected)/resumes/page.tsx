@@ -3,49 +3,34 @@ import {
   Button,
   IconButton,
   InlineLoading,
-  Modal,
   PaginationNav,
   Tag,
-  TextInput,
 } from '@carbon/react';
 import styles from './page.module.scss';
 import { AddLarge, ArrowRight } from '@carbon/icons-react';
 import { cn } from '@/lib/utils';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { NewResumeSchema } from '@/schemas/new-resume-schema';
-import FormError from '@/components/form-error/form-error';
-import { newResume } from '@/actions/new-resume';
 import { getResumes } from '@/actions/resume';
 import { useSession } from 'next-auth/react';
 import { Resume } from '@/drizzle/types';
 import { Template1 } from '@/components/templates/template1/types/template1';
 import { getParagraphText } from '@/utils/rich-text-utils';
-import { useRouter } from 'next/navigation';
+import useResumeStore from '@/store/resume-store';
+import EditResume from '@/components/resume/edit-resume';
 
 export default function Resumes() {
-  const [mounted, setMounted] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string>('');
-  const [status, setStatus] = useState<
-    'inactive' | 'error' | 'active' | 'finished' | undefined
-  >('inactive');
-  const [description, setDescription] = useState<string>('');
-  const submit = useRef<HTMLButtonElement | null>(null);
   const [resumes, setResumes] = useState<Resume[]>();
   const [count, setCount] = useState<number>(0);
   const [page, setPage] = useState<number>(0);
   const templates = useMemo(() => new Map<string, any>(), []);
   const [isPending, setIsPending] = useState<boolean>(true);
   const { data: session } = useSession();
-  const router = useRouter();
+  const resumeStore = useResumeStore();
+  const [open, setOpen] = useState<boolean>(false);
+  const [name, setName] = useState<string>('Resume 1');
 
   useEffect(() => {
-    setMounted(true);
     fetchResumes();
   }, []);
 
@@ -63,7 +48,7 @@ export default function Resumes() {
         setResumes(items);
         setCount(count);
         if (count > 0) {
-          setValue('name', `Resume ${count + 1}`);
+          setName(`Resume ${count + 1}`);
         }
         items.map((f) => {
           if (!templates.has(f.id)) {
@@ -72,47 +57,6 @@ export default function Resumes() {
         });
       })
       .then(() => setIsPending(false));
-  };
-
-  const { formState, handleSubmit, register, setValue } = useForm<
-    z.infer<typeof NewResumeSchema>
-  >({
-    resolver: zodResolver(NewResumeSchema),
-    defaultValues: {
-      name: 'Resume 1',
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof NewResumeSchema>) => {
-    if (!session?.user?.id) return;
-
-    setError('');
-    setIsSubmitting(true);
-    setStatus('active');
-    setDescription('Creating...');
-
-    newResume(values, session.user.id)
-      .then((data) => {
-        if (data?.error) {
-          setError(data.error);
-          return;
-        }
-
-        setStatus('finished');
-        setDescription('Created!');
-
-        if (data.id) {
-          router.push(`/resumes/${data.id}`);
-        }
-      })
-      .catch(() => {
-        setError('Something went wrong');
-        setStatus('inactive');
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-        setModal(false);
-      });
   };
 
   return (
@@ -126,7 +70,7 @@ export default function Resumes() {
                 className="!hidden md:!block"
                 kind="primary"
                 renderIcon={AddLarge}
-                onClick={() => setModal(true)}
+                onClick={() => setOpen(true)}
               >
                 New resume
               </Button>
@@ -136,7 +80,7 @@ export default function Resumes() {
                 className="!flex md:!hidden"
                 kind="primary"
                 align="left"
-                onClick={() => setModal(true)}
+                onClick={() => setOpen(true)}
               >
                 <AddLarge></AddLarge>
               </IconButton>
@@ -158,6 +102,7 @@ export default function Resumes() {
                   <Link
                     key={m.id}
                     href={`/resumes/${m.id}`}
+                    onClick={() => resumeStore.clear()}
                     className={cn(
                       'cds--link cds--tile cds--tile--clickable',
                       styles.tile
@@ -202,43 +147,12 @@ export default function Resumes() {
         </div>
       )}
 
-      {mounted && (
-        <Modal
-          open={modal}
-          modalAriaLabel="New resume"
-          primaryButtonText="Confirm"
-          secondaryButtonText="Cancel"
-          onRequestClose={() => setModal(false)}
-          onRequestSubmit={() => submit.current!.click()}
-          size="xs"
-          selectorPrimaryFocus="form"
-          modalHeading="New resume"
-          loadingStatus={status}
-          loadingDescription={description}
-          className={styles.modal}
-        >
-          <form onSubmit={handleSubmit(onSubmit)} className="py-4">
-            <TextInput
-              type="text"
-              id="name"
-              required
-              labelText="Name"
-              helperText="The resume name helps you distinguish it from other versions."
-              placeholder="Resume 1"
-              size="lg"
-              autoComplete="true"
-              disabled={isSubmitting}
-              invalid={formState.errors.name !== undefined}
-              invalidText={formState.errors.name?.message}
-              {...register('name')}
-            />
-
-            <button type="submit" ref={submit} hidden></button>
-
-            <FormError message={error}></FormError>
-          </form>
-        </Modal>
-      )}
+      <EditResume
+        open={open}
+        name={name}
+        onClose={() => setOpen(false)}
+        create
+      ></EditResume>
     </div>
   );
 }

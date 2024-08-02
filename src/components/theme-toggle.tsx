@@ -5,7 +5,11 @@ import { useContext, useEffect, useState } from 'react';
 import Action from './dndkit/components/action/action';
 import { CookieThemeContext } from './providers/cookie-theme-provider';
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+  small?: boolean;
+}
+
+export default function ThemeToggle({ small }: ThemeToggleProps) {
   const cookieTheme = useContext(CookieThemeContext);
   const [serverTheme, setServerTheme] = useState<string | undefined>(
     () => cookieTheme
@@ -28,15 +32,15 @@ export default function ThemeToggle() {
           onClick={() => setTheme('light')}
         >
           <div className="flex items-center gap-2">
-            <Light></Light>
-            <span>Light</span>
+            <Light size={small ? 16 : 20}></Light>
+            {small && <span>Light</span>}
           </div>
         </Action>
       ) : (
         <Action fill="var(--cds-text-primary)" onClick={() => setTheme('dark')}>
           <div className="flex items-center gap-2">
-            <Asleep></Asleep>
-            <span>Dark</span>
+            <Asleep size={small ? 16 : 20}></Asleep>
+            {small && <span>Dark</span>}
           </div>
         </Action>
       )}

@@ -1,0 +1,12 @@
+@use "@carbon/themes/scss/tokens";
+
+.modal :global(.cds--form__helper-text) {
+  color: tokens.$text-helper;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 0.5rem;
+}
+
+.modal :global(.cds--inline-loading) {
+  gap: 0.5rem;
+}

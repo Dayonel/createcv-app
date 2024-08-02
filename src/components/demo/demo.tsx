@@ -1,6 +1,5 @@
 'use client';
 
-import styles from './demo.module.scss'
 import { useContext, useEffect, useState } from 'react';
 import Instructions from '../instructions/instructions';
 import Template1 from '../templates/template1/template1';
@@ -16,7 +15,7 @@ export default function Demo() {
   }, []);
 
   return (
-    <div className={styles.demo}>
+    <div className="container">
       <div className="mb-0 md:mb-11">
         {savedForm && !mounted ? (
           <div className="!min-h-[calc(100dvh-10rem)] flex items-center">

@@ -20,16 +20,8 @@
   }
 
   section > div {
-    padding: 2rem;
-    padding-bottom: 6rem;
+    @include mixins.section;
     @include mixins.container;
-  }
-
-  @media (min-width: 768px) {
-    section > div {
-      padding: 2rem 1rem;
-      padding-bottom: 6rem;
-    }
   }
 }
 

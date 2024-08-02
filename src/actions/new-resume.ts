@@ -2,15 +2,16 @@
 
 import { resumes } from '@/drizzle/schema';
 import { db } from '@/lib/db';
-import { NewResumeSchema } from '@/schemas/new-resume-schema';
+import { EditResumeSchema } from '@/schemas/edit-resume-schema';
 import { z } from 'zod';
 import data from '../data/template1.json';
+import { and, eq } from 'drizzle-orm';
 
-export const newResume = async (
-  values: z.infer<typeof NewResumeSchema>,
+export const createResume = async (
+  values: z.infer<typeof EditResumeSchema>,
   userId: string
 ) => {
-  const validatedFields = NewResumeSchema.safeParse(values);
+  const validatedFields = EditResumeSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields!' };
@@ -29,4 +30,30 @@ export const newResume = async (
     .returning();
 
   return { id: row.id };
+};
+
+export const editResume = async (
+  values: z.infer<typeof EditResumeSchema>,
+  json: string,
+  id: string,
+  userId: string
+) => {
+  const validatedFields = EditResumeSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: 'Invalid fields!' };
+  }
+
+  const { name } = validatedFields.data;
+
+  await db
+    .update(resumes)
+    .set({ name, json })
+    .where(and(eq(resumes.id, id), eq(resumes.userId, userId)));
+};
+
+export const deleteResume = async (id: string, userId: string) => {
+  await db
+    .delete(resumes)
+    .where(and(eq(resumes.id, id), eq(resumes.userId, userId)));
 };

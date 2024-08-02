@@ -11,21 +11,22 @@ export default function ColorPicker() {
   const { color, setColor } = useColorStore();
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative w-full">
       <Action
         className="action"
         title="Color"
         fill="var(--cds-text-primary)"
         onClick={() => setShow(!show)}
       >
-        <TextColor size={20}></TextColor>
+        <div className="flex items-center gap-2">
+          <TextColor></TextColor>
+          <span>Color</span>
+        </div>
       </Action>
 
-      <div className="absolute z-10 left-1/2 translate-y-3 -translate-x-1/2">
+      <div className="absolute z-10 -top-6 -left-3 translate-y-1/2 -translate-x-1/2">
         {show && (
-          <>
-            <HexColorPicker color={color} onChange={(c) => setColor(c, true)} />
-          </>
+          <HexColorPicker color={color} onChange={(c) => setColor(c, true)} />
         )}
       </div>
     </div>

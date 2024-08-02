@@ -21,8 +21,8 @@ export default function FAQ() {
           <Accordion size="lg">
             <AccordionItem open className="text-sm" title="Is Create CV free?">
               <p>
-                Yes, CreateCV is free to use. Use the demo editor and
-                download your PDFs unlimited times.
+                Yes, CreateCV is free to use. Use the demo editor and download
+                your PDFs unlimited times.
               </p>
             </AccordionItem>
             <AccordionItem className="text-sm" title="How it started?">

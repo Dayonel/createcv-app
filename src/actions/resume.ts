@@ -2,7 +2,7 @@
 
 import { resumes } from '@/drizzle/schema';
 import { db } from '@/lib/db';
-import { count, eq } from 'drizzle-orm';
+import { count, eq, and } from 'drizzle-orm';
 import { cache } from 'react';
 
 export const getResumes = cache(
@@ -24,3 +24,12 @@ export const getResumes = cache(
     return { count: total.count, items };
   }
 );
+
+export const getResume = cache(async (userId: string, id: string) => {
+  const [row] = await db
+    .select()
+    .from(resumes)
+    .where(and(eq(resumes.id, id), eq(resumes.userId, userId)));
+
+  return row;
+});

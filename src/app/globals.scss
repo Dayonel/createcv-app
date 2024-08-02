@@ -41,3 +41,7 @@ hr {
 .page {
   @include mixins.page;
 }
+
+.section {
+  @include mixins.section;
+}
