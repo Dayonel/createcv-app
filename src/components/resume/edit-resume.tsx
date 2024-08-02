@@ -107,13 +107,14 @@ export default function EditResume({
           resumeStore.setName(getValues('name'));
 
           setStatus('finished');
-
-          setIsSubmitting(false);
-          setModal(false);
         })
         .catch(() => {
           setError('Something went wrong');
           setStatus('inactive');
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+          setModal(false);
         });
     }
   };

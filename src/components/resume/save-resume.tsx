@@ -25,7 +25,7 @@ export default function SaveResume() {
         resumeStore.json,
         slug as string,
         session.user.id
-      ).then(() => {
+      ).finally(() => {
         setNotification(true);
       });
     });
