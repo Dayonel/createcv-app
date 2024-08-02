@@ -22,4 +22,8 @@
     padding: 2rem 1rem;
     padding-bottom: 6rem;
   }
+
+  @media print {
+    padding: 0 1rem;
+  }
 }
