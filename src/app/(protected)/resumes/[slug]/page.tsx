@@ -6,36 +6,51 @@ import useResumeStore from '@/store/resume-store';
 import { InlineLoading } from '@carbon/react';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import Not_Found from '@/components/not-found';
 
 export default function Resumes({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const resumeStore = useResumeStore();
   const { data: session } = useSession();
+  const [found, setFound] = useState<boolean>();
 
   useEffect(() => {
+    setFound(false);
+
     if (!session?.user?.id) return;
 
     getResume(session.user.id, slug)
-      .then((r) => {
-        resumeStore.setName(r.name);
-        resumeStore.setJson(r.json);
+      .then((row) => {
+        if (!row) {
+          return;
+        }
+
+        resumeStore.setName(row.name);
+        resumeStore.setJson(row.json);
+        setFound(true);
       })
-      .then(() => setIsLoading(false));
+      .finally(() => setIsLoading(false));
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="!min-h-[calc(100dvh-10rem)] flex items-center">
+        <InlineLoading className="flex justify-center"></InlineLoading>
+      </div>
+    );
+  }
+
+  if (!found) {
+    return <Not_Found></Not_Found>;
+  }
 
   return (
     <div className="container">
       <div className="section w-full">
-        {isLoading ? (
-          <div className="!min-h-[calc(100dvh-10rem)] flex items-center">
-            <InlineLoading className="flex justify-center"></InlineLoading>
-          </div>
-        ) : (
-          <div className="mb-0 md:mb-11">
-            <Template1></Template1>
-          </div>
-        )}
+        <div className="mb-0 md:mb-11">
+          <Template1></Template1>
+        </div>
       </div>
     </div>
   );

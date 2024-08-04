@@ -1,3 +1,5 @@
+import Not_Found from '@/components/not-found';
+
 export default async function NotFound() {
-  return <h1>Not Found</h1>;
+  return <Not_Found></Not_Found>;
 }
