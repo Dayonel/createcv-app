@@ -4,7 +4,7 @@ input[type="range"] {
   appearance: none;
   -webkit-appearance: none;
   background: tokens.$layer-selected-02;
-  background-color: tokens.$layer-selected-02;
+  background-color: tokens.$layer-selected-02 !important;
   height: 0.5rem;
   background-size: 50% 100%;
   background-repeat: no-repeat;
