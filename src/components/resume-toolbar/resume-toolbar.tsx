@@ -77,7 +77,7 @@ export default function ResumeToolbar({
             {pathName.startsWith('/resumes/') && (
               <>
                 <li>
-                  <Print small></Print>
+                  <Print smallIcon></Print>
                 </li>
                 <li>
                   <Action

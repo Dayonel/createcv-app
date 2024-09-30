@@ -17,10 +17,11 @@ import { print } from '@/actions/print';
 import { PrintContext } from './providers/print-provider';
 
 interface PrintProps {
-  small?: boolean;
+  smallIcon?: boolean;
 }
 
-export default function Print({ small }: PrintProps) {
+export default function Print({ smallIcon: small }: PrintProps) {
+  const [isPrinting, setIsPrinting] = useState(false);
   const _print = useMemo(() => typeof window === 'object' && window.print, []);
   const { resolvedTheme, setTheme } = useTheme();
   const prevTheme = useRef<string>();
@@ -37,7 +38,7 @@ export default function Print({ small }: PrintProps) {
           prevTheme.current = resolvedTheme;
           setTheme('light');
           setCounter(t);
-          _print();
+          setIsPrinting(true);
         })
         .catch(() => setError('Please try again later or contact support.'));
     });
@@ -67,7 +68,17 @@ export default function Print({ small }: PrintProps) {
   const afterPrint = () => {
     setTheme(prevTheme.current!);
     setCookie('printed', 'true');
+    setIsPrinting(false);
   };
+
+  const deferredPrinting = useDeferredValue(isPrinting);
+
+  useEffect(() => {
+    if (!_print) return;
+    if (!deferredPrinting) return;
+
+    _print();
+  }, [deferredPrinting]);
 
   return (
     <>
