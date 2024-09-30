@@ -10,6 +10,7 @@ import useResumeStore from '@/store/resume-store';
 import { useState } from 'react';
 import Action from '../dndkit/components/action/action';
 import EditResume from '../resume/edit-resume';
+import { cn } from '@/lib/utils';
 
 interface HeaderProps {
   onReset: () => void;
@@ -34,9 +35,11 @@ export default function Header({
         className={`${styles.header} sticky top-0 z-10 p-2 flex justify-center w-full print:hidden`}
       >
         <nav
-          className={`${styles.nav} ${
-            !pathName.startsWith('/resumes/') || 'grid-cols-[1fr_3fr_auto]'
-          } grid grid-flow-col content-center justify-between h-full px-4 md:px-6`}
+          className={cn(
+            styles.nav,
+            !pathName.startsWith('/resumes/') || 'grid-cols-[1fr_3fr_auto]',
+            'grid grid-flow-col content-center justify-between h-full px-4 md:px-6'
+          )}
         >
           <a
             href="/"
