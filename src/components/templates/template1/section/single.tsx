@@ -137,6 +137,7 @@ export default function Single({
                       onRemove={handleRemove}
                       onAdd={() => addContent()}
                       onDelete={(e) => deleteContent(e)}
+                      placeholder={placeholder}
                     ></SingleContent>
                   </>
                 )}
