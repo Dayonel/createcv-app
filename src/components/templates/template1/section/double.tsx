@@ -2,11 +2,10 @@ import styles from './double.module.scss';
 import Divider from '../divider/divider';
 import Skills from '../skill/skills';
 import Languages from '../language/languages';
-import { DoubleContent, Double as DoubleType } from '../types/double';
+import { Double as DoubleType } from '../types/double';
 import RichText from '../../../rich-text/rich-text';
 import Placeholder from '../../../placeholder/placeholder';
 import { v4 } from 'uuid';
-import placeholder from '../../../../data/template1.json';
 import ActionButtons from '../../../placeholder/action-buttons';
 import { getTextContent } from '@/utils/rich-text-utils';
 
@@ -15,17 +14,18 @@ interface DoubleProps {
   onChange: () => void;
   onRemove: (full: boolean) => void;
   last: boolean;
+  placeholder: DoubleType;
 }
 
-export default function Double({ props, onChange, onRemove }: DoubleProps) {
+export default function Double({
+  props,
+  onChange,
+  onRemove,
+  placeholder,
+}: DoubleProps) {
   const content = props.content || [];
 
-  const placeholderDouble = placeholder.sections.find(
-    (f) => f.type === 'Double'
-  )!;
-
-  const placeholderLanguage = (placeholderDouble.content![1] as DoubleContent)
-    .languages![0];
+  const language = placeholder.content![1].languages![0];
 
   const addSkill = () => {
     content[0].skills!.push({
@@ -37,8 +37,8 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
 
   const addLanguage = () => {
     content[1].languages!.push({
-      value: placeholderLanguage.value,
-      level: placeholderLanguage.level,
+      value: language.value,
+      level: language.level,
       rating: 10,
       key: v4(),
     });
@@ -146,6 +146,7 @@ export default function Double({ props, onChange, onRemove }: DoubleProps) {
                             languages={m.languages || []}
                             onChange={onChange}
                             onRemove={() => onRemove(false)}
+                            placeholder={placeholder}
                           ></Languages>
                         </div>
                       </div>

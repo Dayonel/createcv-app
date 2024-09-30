@@ -6,7 +6,7 @@ import Template1 from '../templates/template1/template1';
 import { InlineLoading } from '@carbon/react';
 import { FormContext } from '../providers/form-provider';
 
-export default function Demo() {
+export default function Demo({ json }: { json: string }) {
   const { savedForm } = useContext(FormContext);
   const [mounted, setMounted] = useState(false);
 
@@ -23,7 +23,7 @@ export default function Demo() {
           </div>
         ) : (
           <div className="relative">
-            <Template1></Template1>
+            <Template1 json={json}></Template1>
             <Instructions></Instructions>
           </div>
         )}

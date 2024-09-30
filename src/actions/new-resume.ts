@@ -4,8 +4,8 @@ import { resumes } from '@/drizzle/schema';
 import { db } from '@/lib/db';
 import { EditResumeSchema } from '@/schemas/edit-resume-schema';
 import { z } from 'zod';
-import data from '../data/template1.json';
 import { and, eq } from 'drizzle-orm';
+import { headers } from 'next/headers';
 
 export const createResume = async (
   values: z.infer<typeof EditResumeSchema>,
@@ -19,7 +19,11 @@ export const createResume = async (
 
   const { name } = validatedFields.data;
 
-  const json = JSON.stringify(data);
+  const baseUrl = headers().get('host')!;
+  const json = await fetch(
+    new URL('/template1.json', `http://${baseUrl}`)
+  ).then((res) => res.text() as Promise<string>);
+
   const [row] = await db
     .insert(resumes)
     .values({

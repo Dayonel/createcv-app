@@ -3,7 +3,6 @@ import { SingleContent as SingleContentType } from '../../types/single';
 import { Calendar } from '@carbon/icons-react';
 import useColorStore from '@/store/color-store';
 import Placeholder from '@/components/placeholder/placeholder';
-import placeholder from '../../../../../data/template1.json';
 import ActionButtons from '@/components/placeholder/action-buttons';
 
 export interface SingleContentProps {
@@ -12,6 +11,7 @@ export interface SingleContentProps {
   onRemove: () => void;
   onAdd: () => void;
   onDelete: (e: string) => void;
+  placeholder: SingleContentType;
 }
 
 export default function SingleContent({
@@ -20,12 +20,9 @@ export default function SingleContent({
   onRemove,
   onAdd,
   onDelete,
+  placeholder,
 }: SingleContentProps) {
   const { color } = useColorStore();
-
-  const placeholderContent = placeholder.sections.find(
-    (f) => f.type === 'Single'
-  )!.content![0] as SingleContentType;
 
   return (
     <>
@@ -60,7 +57,7 @@ export default function SingleContent({
                     className=" text-base font-bold"
                     placeholder="Heading 2"
                     onClick={() => {
-                      props.title = placeholderContent.title;
+                      props.title = placeholder.title;
                       onChange();
                     }}
                   ></Placeholder>
@@ -92,7 +89,7 @@ export default function SingleContent({
                     className="text-xs font-bold"
                     placeholder={`Date`}
                     onClick={() => {
-                      props.date = placeholderContent.date;
+                      props.date = placeholder.date;
                       onChange();
                     }}
                   >
@@ -124,7 +121,7 @@ export default function SingleContent({
                     className="text-sm font-bold"
                     placeholder="Heading 3"
                     onClick={() => {
-                      props.subtitle = placeholderContent.subtitle;
+                      props.subtitle = placeholder.subtitle;
                       onChange();
                     }}
                   ></Placeholder>
@@ -152,7 +149,7 @@ export default function SingleContent({
                     className="text-xs"
                     placeholder="Text"
                     onClick={() => {
-                      props.topic = placeholderContent.topic;
+                      props.topic = placeholder.topic;
                       onChange();
                     }}
                   ></Placeholder>
@@ -180,7 +177,7 @@ export default function SingleContent({
                   className="text-xs min-h-16 !py-[2px] w-full"
                   placeholder="Write something..."
                   onClick={() => {
-                    props.description = placeholderContent.description;
+                    props.description = placeholder.description;
                     onChange();
                   }}
                 ></Placeholder>

@@ -5,7 +5,6 @@ import Contact, { ContactProps } from './contact/contact';
 import RichText from '../../rich-text/rich-text';
 import Single from './section/single';
 import Double from './section/double';
-import placeholder from '../../../data/template1.json';
 import { traverseUUID } from '@/utils/traverse-uuid';
 import Sortable from '../../dndkit/sortable';
 import Placeholder from '../../placeholder/placeholder';
@@ -16,13 +15,22 @@ import { useUndo } from '@/hooks/use-undo';
 import { Template1 } from './types/template1';
 import { deleteCookie, setCookie } from '@/actions/cookies';
 import { Single as SingleType, SingleContent } from './types/single';
+import { Double as DoubleType } from './types/double';
 import ActionButtons from '../../placeholder/action-buttons';
 import ImagePlaceholder from '../../placeholder/image-placeholder';
 import { MenuContext } from '../../providers/menu-provider';
 import { useTheme } from 'next-themes';
+import useResumeStore from '@/store/resume-store';
 
-export default function Template_1() {
-  const data = traverseUUID(placeholder); // traverse
+export default function Template_1({
+  json,
+  stored,
+}: {
+  json: string;
+  stored?: boolean;
+}) {
+  const resumeStore = useResumeStore();
+  const data = traverseUUID(JSON.parse(json)) as Template1; // traverse
   const { state, setState, resetHistory, triggerUndo, triggerRedo, canUndo } =
     useUndo(JSON.stringify(data));
   const [form, setForm] = useState<Template1>(JSON.parse(state));
@@ -34,6 +42,7 @@ export default function Template_1() {
     useContext(MenuContext);
   const [image, setImage] = useState<string | undefined>(undefined);
   const { setTheme } = useTheme();
+  const saveTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // every update
   useEffect(() => {
@@ -68,10 +77,35 @@ export default function Template_1() {
     setForm({ ...form, color });
   }, [color]);
 
+  const saveDB = () => {
+    if (!canUndo) return; // avoid save on initial load
+
+    const save = JSON.stringify(form, replacer);
+    resumeStore.setJson(save);
+  };
+
+  // save db every x seconds
+  useEffect(() => {
+    // prevent multiple saves
+    if (saveTimeout.current) {
+      clearTimeout(saveTimeout.current);
+    }
+
+    saveTimeout.current = setTimeout(() => {
+      saveDB();
+    }, 5000);
+
+    return () => {
+      if (saveTimeout.current) {
+        clearTimeout(saveTimeout.current);
+      }
+    };
+  }, [form, color]);
+
   // saved form (local)
   useEffect(() => {
     try {
-      const userFrom = localStorage.getItem('form');
+      const userFrom = stored ? json : localStorage.getItem('form');
       if (userFrom) {
         const parsed = JSON.parse(userFrom);
         setForm({ ...traverseUUID(parsed) });
@@ -121,7 +155,7 @@ export default function Template_1() {
   }, [image]);
 
   const resetForm = () => {
-    setForm({ ...traverseUUID(placeholder) });
+    setForm({ ...traverseUUID(data) });
     setColor('var(--cds-link-primary)');
     setImage(undefined);
     localStorage.removeItem('form');
@@ -145,26 +179,30 @@ export default function Template_1() {
     setForm({ ...form });
   };
 
-  const placeholderSection = placeholder.sections.find(
+  const placeholderSingle = data.sections.find(
     (f) => f.type === 'Single'
   )! as SingleType;
 
-  const placeholderContent = placeholderSection.content![0] as SingleContent;
+  const placeholderDouble = data.sections.find(
+    (f) => f.type === 'Double'
+  )! as DoubleType;
+
+  const singleContent = placeholderSingle.content![0] as SingleContent;
 
   const addSection = (key: string) => {
     const i = form.sections.findIndex((f) => f.key === key) + 1;
     form.sections.splice(i, 0, {
       key: v4(),
-      name: placeholderSection.name,
+      name: placeholderSingle.name,
       type: 'Single',
       content: [
         {
           key: v4(),
-          title: placeholderContent.title,
-          subtitle: placeholderContent.subtitle,
-          date: placeholderContent.date,
-          topic: placeholderContent.topic,
-          description: placeholderContent.description,
+          title: singleContent.title,
+          subtitle: singleContent.subtitle,
+          date: singleContent.date,
+          topic: singleContent.topic,
+          description: singleContent.description,
         },
       ],
     });
@@ -212,7 +250,7 @@ export default function Template_1() {
                 onClick={() =>
                   setForm({
                     ...form,
-                    title: placeholder.title,
+                    title: data.title,
                   })
                 }
               ></Placeholder>
@@ -241,7 +279,7 @@ export default function Template_1() {
                 onClick={() =>
                   setForm({
                     ...form,
-                    subtitle: placeholder.subtitle,
+                    subtitle: data.subtitle,
                   })
                 }
               ></Placeholder>
@@ -293,6 +331,7 @@ export default function Template_1() {
                 }}
                 open={contactsOpen}
                 onClose={() => setContactsOpen(false)}
+                placeholder={data.contacts}
               ></ContactPlaceholder>
             </div>
           </ActionButtons>
@@ -316,7 +355,7 @@ export default function Template_1() {
             <Placeholder
               className="text-xs text-justify whitespace-pre-line leading-normal min-h-[74px] !pl-4 w-full"
               placeholder="Write something..."
-              onClick={() => setForm({ ...form, summary: placeholder.summary })}
+              onClick={() => setForm({ ...form, summary: data.summary })}
             ></Placeholder>
           )}
         </div>
@@ -341,6 +380,9 @@ export default function Template_1() {
                     form.sections.filter((z) => z.type === s.type).length === 1
                   }
                   onAddSection={(e) => addSection(e)}
+                  placeholder={
+                    s.type === 'Single' ? placeholderSingle : placeholderDouble
+                  }
                 ></Component>
               </div>
             );

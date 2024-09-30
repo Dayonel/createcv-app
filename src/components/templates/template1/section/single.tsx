@@ -6,8 +6,6 @@ import SingleContent, { SingleContentProps } from './content/single-content';
 import Placeholder from '../../../placeholder/placeholder';
 import RichText from '../../../rich-text/rich-text';
 import { v4 } from 'uuid';
-import placeholder from '../../../../data/template1.json';
-import { SingleContent as SingleContentType } from '../types/single';
 import ActionButtons from '../../../placeholder/action-buttons';
 
 interface SingleProps {
@@ -17,6 +15,7 @@ interface SingleProps {
   onAddSection: (e: string) => void;
   onDeleteSection: (e: string) => void;
   last: boolean;
+  placeholder: SingleType;
 }
 
 export default function Single({
@@ -26,6 +25,7 @@ export default function Single({
   onAddSection,
   onDeleteSection,
   last,
+  placeholder,
 }: SingleProps) {
   const content = props.content || [];
 
@@ -49,6 +49,8 @@ export default function Single({
     }
   };
 
+  const placeholderContent = placeholder.content![0];
+
   const addContent = () => {
     content.push({
       title: placeholderContent.title,
@@ -68,11 +70,6 @@ export default function Single({
 
     onChange();
   };
-
-  const placeholderSingle = placeholder.sections.find(
-    (f) => f.type === 'Single'
-  )!;
-  const placeholderContent = placeholderSingle.content![0] as SingleContentType;
 
   return (
     <>
@@ -119,7 +116,7 @@ export default function Single({
                     childrenClassName="flex-row-reverse"
                     placeholder="SECTION"
                     onClick={() => {
-                      props.name = placeholderSingle.name;
+                      props.name = placeholder.name;
                       onChange();
                     }}
                   >

@@ -6,12 +6,14 @@ interface LanguagesProps {
   languages: LanguageType[];
   onChange: () => void;
   onRemove: () => void;
+  placeholder: LanguageType;
 }
 
 export default function Languages({
   languages,
   onChange,
   onRemove,
+  placeholder,
 }: LanguagesProps) {
   // TODO: Fix this component
   return (
@@ -42,6 +44,7 @@ export default function Languages({
                   languages.splice(i, 1);
                   onRemove();
                 }}
+                placeholder={placeholder}
               ></Language>
             )
           );

@@ -14,6 +14,7 @@ export default function Resumes({ params }: { params: { slug: string } }) {
   const resumeStore = useResumeStore();
   const { data: session } = useSession();
   const [found, setFound] = useState<boolean>();
+  const [json, setJson] = useState<string>();
 
   useEffect(() => {
     setFound(false);
@@ -27,7 +28,7 @@ export default function Resumes({ params }: { params: { slug: string } }) {
         }
 
         resumeStore.setName(row.name);
-        resumeStore.setJson(row.json);
+        setJson(row.json);
         setFound(true);
       })
       .finally(() => setIsLoading(false));
@@ -41,7 +42,7 @@ export default function Resumes({ params }: { params: { slug: string } }) {
     );
   }
 
-  if (!found) {
+  if (!found || !json) {
     return <Not_Found></Not_Found>;
   }
 
@@ -49,7 +50,7 @@ export default function Resumes({ params }: { params: { slug: string } }) {
     <div className="container">
       <div className="section w-full">
         <div className="mb-0 md:mb-11">
-          <Template1></Template1>
+          <Template1 json={json} stored></Template1>
         </div>
       </div>
     </div>

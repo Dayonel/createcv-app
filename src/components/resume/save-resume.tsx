@@ -1,6 +1,6 @@
 import { Save } from '@carbon/icons-react';
 import Action from '../dndkit/components/action/action';
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useParams } from 'next/navigation';
 import useResumeStore from '@/store/resume-store';
 import { useSession } from 'next-auth/react';
@@ -34,6 +34,12 @@ export default function SaveResume({ onSave }: SaveProps) {
         .catch(() => onSave('Failed to save, try again later.'));
     });
   };
+
+  useEffect(() => {
+    if (!resumeStore.json) return; // avoid save on initial load
+
+    save();
+  }, [resumeStore.json]);
 
   return (
     <>

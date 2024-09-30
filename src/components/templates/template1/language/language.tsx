@@ -3,8 +3,6 @@ import { Language as LanguageType } from '../types/language';
 import RichText from '../../../rich-text/rich-text';
 import useColorStore from '@/store/color-store';
 import Placeholder from '../../../placeholder/placeholder';
-import placeholder from '../../../../data/template1.json';
-import { DoubleContent } from '../types/double';
 import ActionButtons from '../../../placeholder/action-buttons';
 
 export interface LanguageProps {
@@ -13,6 +11,7 @@ export interface LanguageProps {
   onRemove: () => void;
   onDelete: () => void;
   id: string;
+  placeholder: LanguageType;
 }
 
 export default function Language({
@@ -21,13 +20,9 @@ export default function Language({
   onRemove,
   onDelete,
   id,
+  placeholder,
 }: LanguageProps) {
   const { color } = useColorStore();
-
-  const placeholderContent = (
-    placeholder.sections.find((f) => f.type === 'Double')!
-      .content![1] as DoubleContent
-  ).languages![0];
 
   return (
     <>
@@ -57,7 +52,7 @@ export default function Language({
                   className="text-xs font-bold"
                   placeholder="Language"
                   onClick={() => {
-                    props.value = placeholderContent.value;
+                    props.value = placeholder.value;
                     onChange();
                   }}
                 ></Placeholder>
@@ -86,7 +81,7 @@ export default function Language({
                   className="text-xs font-bold"
                   placeholder="Level"
                   onClick={() => {
-                    props.level = placeholderContent.level;
+                    props.level = placeholder.level;
                     onChange();
                   }}
                 ></Placeholder>
