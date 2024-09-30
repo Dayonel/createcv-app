@@ -29,50 +29,56 @@ export default function Header({
   const [edit, setEdit] = useState(false);
 
   return (
-    <header
-      className={`${styles.header} sticky top-0 z-10 p-2 flex justify-center w-full print:hidden`}
-    >
-      <nav
-        className={`${styles.nav} flex justify-between items-center h-full w-full px-4 md:px-6`}
+    <>
+      <header
+        className={`${styles.header} sticky top-0 z-10 p-2 flex justify-center w-full print:hidden`}
       >
-        <a href="/" className="flex items-center gap-2" aria-label="Create CV">
-          {logo}
-          <span className={`hidden font-bold sm:block ${styles.logo}`}>
-            Create CV
-          </span>
-        </a>
-
-        {pathName.startsWith('/resumes/') && resumeStore.name && (
-          <>
-            <span className="pl-12 md:pl-0 truncate max-w-40 md:max-w-sm">
-              <Action className="m-2 !p-2" onClick={() => setEdit(true)}>
-                {resumeStore.name}
-              </Action>
+        <nav
+          className={`${styles.nav} ${
+            !pathName.startsWith('/resumes/') || 'grid-cols-[1fr_3fr_auto]'
+          } grid grid-flow-col content-center justify-between h-full px-4 md:px-6`}
+        >
+          <a
+            href="/"
+            className="flex items-center gap-2"
+            aria-label="Create CV"
+          >
+            {logo}
+            <span className={`hidden font-bold sm:block ${styles.logo}`}>
+              Create CV
             </span>
+          </a>
 
-            <EditResume
-              open={edit}
-              name={resumeStore.name}
-              onClose={() => setEdit(false)}
-            ></EditResume>
-          </>
-        )}
-
-        <div className="flex gap-2 items-center">
-          {pathName === '/' || pathName.startsWith('/resumes/') ? (
-            <ResumeToolbar
-              onEdit={onEdit}
-              onReset={onReset}
-              onUndo={onUndo}
-              onRedo={onRedo}
-            ></ResumeToolbar>
-          ) : (
-            <ThemeToggle></ThemeToggle>
+          {pathName.startsWith('/resumes/') && (
+            <Action
+              className="m-2 !p-2 !block place-self-center truncate max-w-40 md:max-w-sm"
+              onClick={() => setEdit(true)}
+            >
+              {resumeStore.name}
+            </Action>
           )}
 
-          <Profile></Profile>
-        </div>
-      </nav>
-    </header>
+          <div className="flex gap-2 items-center">
+            {pathName === '/' || pathName.startsWith('/resumes/') ? (
+              <ResumeToolbar
+                onEdit={onEdit}
+                onReset={onReset}
+                onUndo={onUndo}
+                onRedo={onRedo}
+              ></ResumeToolbar>
+            ) : (
+              <ThemeToggle></ThemeToggle>
+            )}
+
+            <Profile></Profile>
+          </div>
+        </nav>
+      </header>
+      <EditResume
+        open={edit}
+        name={resumeStore.name}
+        onClose={() => setEdit(false)}
+      ></EditResume>
+    </>
   );
 }
