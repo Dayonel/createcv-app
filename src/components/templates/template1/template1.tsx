@@ -42,7 +42,8 @@ export default function Template_1({
     useContext(MenuContext);
   const [image, setImage] = useState<string | undefined>(undefined);
   const { setTheme } = useTheme();
-  const saveTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const savedChanges = useRef<boolean | null>(null);
+  const [counter, setCounter] = useState<number>(0);
 
   // every update
   useEffect(() => {
@@ -77,30 +78,36 @@ export default function Template_1({
     setForm({ ...form, color });
   }, [color]);
 
-  const saveDB = () => {
+  // save db counter
+  useEffect(() => {
+    if (!stored) return;
+
+    const id = setInterval(() => {
+      setCounter((prev) => prev + 1);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+
+  // save db any changes
+  useEffect(() => {
+    if (!stored) return;
     if (!canUndo) return; // avoid save on initial load
 
-    const save = JSON.stringify(form, replacer);
-    resumeStore.setJson(save);
-  };
-
-  // save db every x seconds
-  useEffect(() => {
-    // prevent multiple saves
-    if (saveTimeout.current) {
-      clearTimeout(saveTimeout.current);
-    }
-
-    saveTimeout.current = setTimeout(() => {
-      saveDB();
-    }, 5000);
-
-    return () => {
-      if (saveTimeout.current) {
-        clearTimeout(saveTimeout.current);
-      }
-    };
+    savedChanges.current = false;
   }, [form, color]);
+
+  // save db every 5 seconds
+  useEffect(() => {
+    if (!stored) return;
+
+    if (counter && counter % 5 === 0 && savedChanges.current === false) {
+      const save = JSON.stringify(form, replacer);
+      resumeStore.setJson(save);
+      savedChanges.current = true;
+    }
+  }, [counter]);
 
   // saved form (local)
   useEffect(() => {

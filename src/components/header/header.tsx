@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Action from '../dndkit/components/action/action';
 import EditResume from '../resume/edit-resume';
 import { cn } from '@/lib/utils';
+import SaveResume from '../resume/save-resume';
 
 interface HeaderProps {
   onReset: () => void;
@@ -37,7 +38,7 @@ export default function Header({
         <nav
           className={cn(
             styles.nav,
-            !pathName.startsWith('/resumes/') || 'grid-cols-[1fr_3fr_auto]',
+            !pathName.startsWith('/resumes/') || 'grid-cols-[0.25fr_0.5fr_0.25fr]',
             'grid grid-flow-col content-center justify-between h-full px-4 md:px-6'
           )}
         >
@@ -54,14 +55,15 @@ export default function Header({
 
           {pathName.startsWith('/resumes/') && (
             <Action
-              className="m-2 !p-2 !block place-self-center truncate max-w-40 md:max-w-sm"
+              fill="transparent"
+              className="!p-2 !block place-self-center truncate max-w-40 md:max-w-sm"
               onClick={() => setEdit(true)}
             >
-              {resumeStore.name}
+              <SaveResume></SaveResume>
             </Action>
           )}
 
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center place-self-end">
             {pathName === '/' || pathName.startsWith('/resumes/') ? (
               <ResumeToolbar
                 onEdit={onEdit}
