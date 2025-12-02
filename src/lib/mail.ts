@@ -1,53 +1,45 @@
-// @ts-ignore
-import { SendMailClient } from 'zeptomail';
-
-const token = `Zoho-enczapikey ${process.env.ZEPTOMAIL_API_KEY}`;
-const url = 'api.zeptomail.eu/';
-let client = new SendMailClient({ url, token });
-const from = {
-  name: 'Create CV',
-  address: 'info@createcv.app',
-};
 const baseUrl = process.env.FUNCTIONS_EMAIL_URL;
+const from = 'Create CV <info@createcv.app>';
 
 export const sendConfirmEmail = async (email: string, token: string) => {
   const response = await fetch(`${baseUrl}/confirm/${token}`);
   if (!response.ok) {
     throw new Error(`Response status: ${response.status}`);
   }
-  const body = await response.text();
+  const html = await response.text();
 
-  client.sendMail({
-    from,
-    to: [
-      {
-        email_address: {
-          address: email,
-        },
-      },
-    ],
-    subject: `${token} - Your CreateCV verification code`,
-    htmlbody: body,
-  });
+  await send(email, `${token} - Your CreateCV verification code`, html);
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
   const response = await fetch(`${baseUrl}/reset-password/${token}`);
   if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`);
+    throw new Error(`Template Response status: ${response.status}`);
   }
-  const body = await response.text();
+  const html = await response.text();
 
-  client.sendMail({
-    from,
-    to: [
-      {
-        email_address: {
-          address: email,
-        },
-      },
-    ],
-    subject: 'Reset your CreateCV password',
-    htmlbody: body,
+  await send(email, 'Reset your CreateCV password', html);
+};
+
+const send = async (to: string, subject: string, html: string) => {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from,
+      to,
+      subject,
+      html,
+    }),
   });
+
+  if (!res.ok) {
+    const error = await res.text();
+    throw new Error(`Resend API Error: ${res.status} - ${error}`);
+  }
+
+  return res.json();
 };

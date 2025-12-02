@@ -22,7 +22,9 @@ Create `env.local` file with these settings
 > NEXT_PUBLIC_SITE_URL=\
 > NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=\
 > STRIPE_SECRET_KEY=\
-> STRIPE_PRICE_ID=
+> STRIPE_PRICE_ID=\
+> RESEND_API_KEY=\
+> FUNCTIONS_EMAIL_URL=
 
 ## Run
 
@@ -68,4 +70,16 @@ Generate bindings
 
 ```bash
 npx wrangler types
+```
+
+# Bundle size
+
+VSCode extension
+
+- Import Cost
+
+Next Bundle Analyzer
+
+```
+npm run analyze
 ```
