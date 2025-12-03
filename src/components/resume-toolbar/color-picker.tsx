@@ -13,6 +13,7 @@ export default function ColorPicker() {
   return (
     <div ref={ref} className="relative w-full">
       <Action
+        name="Color Picker"
         className="action"
         title="Color"
         fill="var(--cds-text-primary)"

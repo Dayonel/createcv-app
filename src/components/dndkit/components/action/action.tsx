@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import styles from './action.module.scss';
 
 export interface ActionProps extends React.HTMLAttributes<HTMLButtonElement> {
+  name?: string;
   active?: {
     fill: string;
     background?: string;
@@ -14,12 +15,14 @@ export interface ActionProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export default forwardRef<HTMLButtonElement, ActionProps>(function Action(
-  { active, className, reverseRemove, cursor, style, fill, ...props },
+  { active, className, reverseRemove, cursor, style, fill, name, ...props },
   ref
 ) {
   return (
     <button
       ref={ref}
+      name={name}
+      aria-label={name}
       {...props}
       className={classNames(styles.Action, className)}
       tabIndex={0}

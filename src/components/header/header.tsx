@@ -38,7 +38,8 @@ export default function Header({
         <nav
           className={cn(
             styles.nav,
-            !pathName.startsWith('/resumes/') || 'grid-cols-[0.25fr_0.5fr_0.25fr]',
+            !pathName.startsWith('/resumes/') ||
+              'grid-cols-[0.25fr_0.5fr_0.25fr]',
             'grid grid-flow-col content-center justify-between h-full px-4 md:px-6'
           )}
         >
@@ -55,6 +56,7 @@ export default function Header({
 
           {pathName.startsWith('/resumes/') && (
             <Action
+              name="Save"
               fill="transparent"
               className="!p-2 !block place-self-center truncate max-w-40 md:max-w-sm"
               onClick={() => setEdit(true)}

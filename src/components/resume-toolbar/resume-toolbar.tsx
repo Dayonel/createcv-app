@@ -51,6 +51,7 @@ export default function ResumeToolbar({
         {!pathName.startsWith('/resumes/') && (
           <>
             <Action
+              name="Show Hidden"
               className="action"
               title="Show hidden"
               fill="var(--cds-text-primary)"
@@ -63,6 +64,7 @@ export default function ResumeToolbar({
         )}
         <div ref={ref}>
           <Action
+            name="Overflow Menu"
             className="action"
             title="More..."
             fill="var(--cds-text-primary)"
@@ -79,6 +81,7 @@ export default function ResumeToolbar({
                 </li>
                 <li>
                   <Action
+                    name="Show Hidden"
                     className="action"
                     title="Show hidden"
                     fill="var(--cds-text-primary)"
@@ -94,6 +97,7 @@ export default function ResumeToolbar({
             )}
             <li>
               <Action
+                name="Reset"
                 title="Reset"
                 fill="var(--cds-text-primary)"
                 onClick={() => setShowReset(true)}
@@ -106,6 +110,7 @@ export default function ResumeToolbar({
             </li>
             <li>
               <Action
+                name="Undo"
                 title="Undo"
                 fill="var(--cds-text-primary)"
                 onClick={() => onUndo()}
@@ -118,6 +123,7 @@ export default function ResumeToolbar({
             </li>
             <li>
               <Action
+                name="Redo"
                 title="Redo"
                 fill="var(--cds-text-primary)"
                 onClick={() => onRedo()}
@@ -137,6 +143,7 @@ export default function ResumeToolbar({
             {pathName.startsWith('/resumes/') && (
               <li>
                 <Action
+                  name="Delete"
                   className="action"
                   title="Delete"
                   fill="var(--cds-text-error)"

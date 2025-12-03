@@ -83,6 +83,7 @@ export default function Print({ smallIcon: small }: PrintProps) {
   return (
     <>
       <Action
+        name="Print"
         className="action"
         title="Download"
         fill={`${isPending ? 'transparent' : 'var(--cds-text-primary)'}`}

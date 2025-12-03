@@ -37,6 +37,7 @@ export default function ActionButtons({
       >
         {add && (
           <Action
+            name="Add"
             className="absolute -translate-x-full"
             onClick={() => onAdd && onAdd()}
           >
@@ -54,6 +55,7 @@ export default function ActionButtons({
         >
           {remove && (
             <Action
+              name="Remove"
               className="absolute right-0 translate-x-full"
               onClick={() => onRemove && onRemove()}
             >

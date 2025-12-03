@@ -28,6 +28,7 @@ export default function ThemeToggle({ small }: ThemeToggleProps) {
     <>
       {serverTheme === 'dark' ? (
         <Action
+          name="Light Theme"
           fill="var(--cds-text-primary)"
           onClick={() => setTheme('light')}
         >
@@ -37,7 +38,11 @@ export default function ThemeToggle({ small }: ThemeToggleProps) {
           </div>
         </Action>
       ) : (
-        <Action fill="var(--cds-text-primary)" onClick={() => setTheme('dark')}>
+        <Action
+          name="Dark Theme"
+          fill="var(--cds-text-primary)"
+          onClick={() => setTheme('dark')}
+        >
           <div className="flex items-center gap-2">
             <Asleep size={small ? 16 : 20}></Asleep>
             {small && <span>Dark</span>}

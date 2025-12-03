@@ -27,6 +27,7 @@ export default function Profile() {
       {session ? (
         <>
           <Action
+            name="Profile"
             className="menu-item"
             fill="var(--cds-text-primary)"
             onClick={() => setOpen(!open)}
@@ -47,6 +48,7 @@ export default function Profile() {
         </>
       ) : (
         <Action
+          name="Log In"
           onClick={() => setModal(true)}
           className="menu-item"
           fill="var(--cds-text-primary)"

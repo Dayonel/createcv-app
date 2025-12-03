@@ -17,6 +17,7 @@ export default forwardRef<HTMLDivElement, MenuProps>(function Menu(
       <ul className="menu !sticky md:!absolute">
         <li>
           <Action
+            name="Resumes"
             onClick={() => router.push('/resumes')}
             className="menu-item"
             fill="var(--cds-text-primary)"
@@ -30,6 +31,7 @@ export default forwardRef<HTMLDivElement, MenuProps>(function Menu(
 
         <li>
           <Action
+            name="Log Out"
             onClick={() => signOut()}
             className="menu-item"
             fill="var(--cds-text-primary)"

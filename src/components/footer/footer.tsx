@@ -15,15 +15,24 @@ export default function Footer() {
 
           <div className="flex flex-col gap-12 md:gap-8">
             <div className="flex justify-center gap-6">
-              <Link target="_blank" href="https://x.com/nestordotgg">
+              <Link
+                target="_blank"
+                href="https://x.com/nestordotgg"
+                aria-label="Nestor Plysyuk on X (opens in a new tab)"
+              >
                 <LogoX size={32}></LogoX>
               </Link>
-              <Link target="_blank" href="https://github.com/Dayonel">
+              <Link
+                target="_blank"
+                href="https://github.com/Dayonel"
+                aria-label="Nestor Plysyuk on GitHub (opens in a new tab)"
+              >
                 <LogoGithub size={32}></LogoGithub>
               </Link>
               <Link
                 target="_blank"
                 href="https://www.linkedin.com/in/nestor-plysyuk/"
+                aria-label="Nestor Plysyuk on LinkedIn (opens in a new tab)"
               >
                 <LogoLinkedin size={32}></LogoLinkedin>
               </Link>

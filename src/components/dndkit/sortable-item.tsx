@@ -70,8 +70,10 @@ export const SortableItem = ({
             visible ? 'opacity-100' : 'opacity-0'
           } md:group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500`}
         >
-          {remove && <Remove onClick={() => onRemove && onRemove(id)} />}
-          {handle && <Handle {...listeners} tabIndex={-1} />}
+          {remove && (
+            <Remove name="Remove" onClick={() => onRemove && onRemove(id)} />
+          )}
+          {handle && <Handle name="Drag" {...listeners} tabIndex={-1} />}
         </div>
       </div>
     </div>
