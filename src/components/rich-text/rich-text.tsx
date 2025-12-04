@@ -168,6 +168,7 @@ export default function RichText({
       className={`richtext ${className} ${input ? 'input' : ''}`}
       ref={controlsRef}
       onFocus={() => setControlsVisible(true)}
+      spellCheck={false}
     >
       {!input && (
         <RichTextControls
