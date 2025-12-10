@@ -32,7 +32,7 @@ $focused-outline-color: tokens.$focus;
   }
 
   &:active {
-    background-color: tokens.$layer-hover-01;
+    background-color: tokens.$layer-selected-01;
 
     svg {
       fill: var(--fill, #788491);
