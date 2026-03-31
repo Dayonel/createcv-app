@@ -2,6 +2,31 @@
 
 Create a CV and preview it, customize sections, colors and download a PDF. Design your best resume that stands out from the rest and find your dream job.
 
+<img width="400" height="935" alt="image" src="https://github.com/user-attachments/assets/f4e6b18c-9b48-4b5c-b779-b25c82f023d6" />
+
+<img width="400" height="939" alt="image" src="https://github.com/user-attachments/assets/e3218495-5141-42e2-b01f-4771f4585435" />
+
+# Edge
+
+This website is deployed on the Edge with a bundle size under 1MB completely free using Cloudflare Workers.
+
+- Frontend in `React`, `Next.js`.
+- Authentication with 3 providers `Google`, `Twitter`, `Credentials`.
+- SQLite edge database with `drizzle`.
+- Advanced drag & drop with `dnd-kit`.
+- Forms & validation with `react-hook-form`, `zod`.
+- Payments integration with `stripe`.
+- Styling with `tailwind`.
+- Design system with `carbon`.
+- Rich text editing with `tiptap`.
+- Email templating with `react-email`.
+- Bypass edge-runtime size limits with [Functions](https://github.com/Dayonel/createcv-functions).
+- Prototyping with [Figma](https://www.figma.com/design/RYudgWbt0zCdhZPTe0oJva/CreateCV?node-id=0-1&t=vAQSBEIPLc36cNpo-1).
+
+<div align="center">
+  <img width="768" height="426" alt="image" src="https://github.com/user-attachments/assets/c33ca27a-8f77-4765-88b2-3aa03134afa6" />
+</div>
+
 ## Installation
 
 Install [Nodejs](https://nodejs.org/en/download/prebuilt-installer/current)
