@@ -14,3 +14,13 @@
     grid-template-columns: repeat(4, minmax(105px, 1fr));
   }
 }
+
+.skills > div:nth-child(4n + 1) input,
+.skills > div:nth-child(4n + 2) input {
+  border-color: var(--cds-link-primary);
+}
+
+.skills > div:nth-child(4n + 3) input,
+.skills > div:nth-child(4n + 4) input {
+  border-color: var(--cds-support-caution-major);
+}
