@@ -2,9 +2,9 @@
 
 Create a CV and preview it, customize sections, colors and download a PDF. Design your best resume that stands out from the rest and find your dream job.
 
-<img width="400" height="935" alt="image" src="https://github.com/user-attachments/assets/f4e6b18c-9b48-4b5c-b779-b25c82f023d6" />
+<img alt="image" src="https://github.com/user-attachments/assets/f4e6b18c-9b48-4b5c-b779-b25c82f023d6" />
 
-<img width="400" height="939" alt="image" src="https://github.com/user-attachments/assets/e3218495-5141-42e2-b01f-4771f4585435" />
+<img alt="image" src="https://github.com/user-attachments/assets/e3218495-5141-42e2-b01f-4771f4585435" />
 
 # Edge
 
