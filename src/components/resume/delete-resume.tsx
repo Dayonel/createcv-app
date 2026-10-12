@@ -5,7 +5,7 @@ import useResumeStore from '@/store/resume-store';
 import { Modal } from '@carbon/react';
 import { useSession } from 'next-auth/react';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FormError from '../form-error/form-error';
 import styles from './delete-resume.module.scss';
 
@@ -15,7 +15,6 @@ interface DeleteResumeProps {
 }
 
 export default function DeleteResume({ open, onClose }: DeleteResumeProps) {
-  const [show, setShow] = useState<boolean>();
   const [status, setStatus] = useState<
     'inactive' | 'error' | 'active' | 'finished' | undefined
   >('inactive');
@@ -25,25 +24,15 @@ export default function DeleteResume({ open, onClose }: DeleteResumeProps) {
   const { slug } = useParams();
   const router = useRouter();
 
-  useEffect(() => {
-    setShow(open);
-  }, [open]);
-
-  useEffect(() => {
-    if (!show) {
-      onClose();
-    }
-  }, [show]);
-
   const remove = () => {
     setError('');
 
     if (!session?.user?.id) return;
 
-    deleteResume(slug as string, session.user.id)
+    deleteResume(slug as string)
       .then(() => {
         setStatus('finished');
-        setShow(false);
+        onClose();
         router.push('/resumes');
       })
       .catch(() => {
@@ -59,7 +48,7 @@ export default function DeleteResume({ open, onClose }: DeleteResumeProps) {
       modalHeading="Delete"
       primaryButtonText="Delete"
       secondaryButtonText="Cancel"
-      onRequestClose={() => setShow(false)}
+      onRequestClose={onClose}
       onRequestSubmit={() => remove()}
       loadingStatus={status}
       loadingDescription="Delete"

@@ -1,13 +1,10 @@
 'use client';
 
-import { useParams, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 
-enum Error {
-  Configuration = 'Configuration',
-}
-
-const errorMap = {
-  [Error.Configuration]: (
+const messages: Record<string, JSX.Element> = {
+  Configuration: (
     <p>
       There was a problem when trying to authenticate. Please contact us if this
       error persists. Unique error code:{' '}
@@ -16,24 +13,24 @@ const errorMap = {
   ),
 };
 
-export default function AuthErrorPage() {
-  const search = useSearchParams();
-  const error = search.get('error') as Error;
+function Message() {
+  const error = useSearchParams().get('error') ?? '';
+  return <>{messages[error] ?? 'Please contact us if this error persists.'}</>;
+}
 
+export default function AuthErrorPage() {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen">
-      <a
-        href="#"
-        className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 text-center"
-      >
+      <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-center">
         <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white flex flex-row justify-center items-center gap-2">
           Something went wrong
         </h5>
         <div className="font-normal text-gray-700 dark:text-gray-400">
-          {errorMap[error] || 'Please contact us if this error persists.'}
+          <Suspense>
+            <Message />
+          </Suspense>
         </div>
-      </a>
-      <div></div>
+      </div>
     </div>
   );
 }

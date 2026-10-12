@@ -60,7 +60,8 @@ export const SortableItem = ({
       <div
         ref={ref}
         className={`${containerStyle || ''} relative grid group/item ease-in`}
-        onClick={() => setVisible(true)}
+        onFocus={() => setVisible(true)}
+        onPointerUp={() => setVisible(true)}
         onBlur={() => setVisible(false)}
       >
         {renderItem({})}

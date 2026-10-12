@@ -2,19 +2,13 @@ import Demo from '@/components/demo/demo';
 import FAQ from '@/components/faq/faq';
 import styles from './page.module.scss';
 import Counter from '@/components/counter/counter';
-import { headers } from 'next/headers';
+import { templateJson } from '@/lib/template';
 
-export default async function Home() {
-  const baseUrl = headers().get('host')!;
-
-  const json = await fetch(
-    new URL('/template1.json', `http://${baseUrl}`)
-  ).then((res) => res.text() as Promise<string>);
-
+export default function Home() {
   return (
     <div className={styles.page}>
       <section>
-        <Demo json={json}></Demo>
+        <Demo json={templateJson}></Demo>
       </section>
       <section className="print:!hidden">
         <hr></hr>

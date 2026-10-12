@@ -110,10 +110,10 @@ export default function SignIn() {
         )}
         <span className={classNames('text-xs', styles.or)}>Or</span>
         <div className="flex flex-col gap-4">
-          {providerMap.map((m, i) => {
+          {providerMap.map((m) => {
             return (
               <Button
-                key={i}
+                key={m}
                 kind="secondary"
                 className={styles.button}
                 onClick={() => logIn(m)}

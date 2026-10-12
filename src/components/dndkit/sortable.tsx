@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react';
+import { useId } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -43,15 +43,7 @@ export default function Sortable({
   noHandleFirst,
   remove,
 }: SortableProps) {
-  const [items, setItems] = useState<UniqueIdentifier[]>(
-    () => initialItems?.map((m) => m.key) || []
-  );
-
-  useEffect(() => {
-    if (initialItems) {
-      setItems(initialItems.map((m) => m.key));
-    }
-  }, [initialItems?.length, renderItem]);
+  const items: UniqueIdentifier[] = initialItems?.map((m) => m.key) ?? [];
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -68,17 +60,12 @@ export default function Sortable({
       const oldIndex = items.indexOf(active.id);
       const newIndex = items.indexOf(over.id);
 
-      const sorted = arrayMove(items, oldIndex, newIndex);
-      setItems(sorted);
-      onSort(sorted);
+      onSort(arrayMove(items, oldIndex, newIndex));
     }
   };
 
   const handleRemove = (id: string) => {
-    if (!onRemove) return;
-
-    setItems((items) => items.filter((item) => item !== id));
-    onRemove(id);
+    onRemove?.(id);
   };
 
   return (

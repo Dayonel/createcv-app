@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import NewPassword from '@/components/auth/new-password/new-password';
 
 export default function Reset() {
@@ -5,7 +6,9 @@ export default function Reset() {
     <div className="container">
       <div className="page">
         <div className="grid max-w-[448px] m-auto items-center h-full">
-          <NewPassword />
+          <Suspense>
+            <NewPassword />
+          </Suspense>
         </div>
       </div>
     </div>

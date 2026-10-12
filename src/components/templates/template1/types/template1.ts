@@ -8,5 +8,5 @@ export type Template1 = {
   subtitle?: string;
   contacts: Contact[];
   summary?: string;
-  sections: Single[] | Double[];
+  sections: (Single | Double)[];
 };

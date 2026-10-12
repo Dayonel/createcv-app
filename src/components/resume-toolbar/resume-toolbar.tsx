@@ -6,7 +6,8 @@ import {
   Undo,
   View,
 } from '@carbon/icons-react';
-import { useEffect, useState, useTransition } from 'react';
+import { useMounted } from '@/hooks/use-mounted';
+import { useState } from 'react';
 import styles from './resume-toolbar.module.scss';
 import { Modal, ToastNotification } from '@carbon/react';
 import ColorPicker from './color-picker';
@@ -36,12 +37,9 @@ export default function ResumeToolbar({
   const ref = useOutsideClick(() => setOpen(false));
   const [showReset, setShowReset] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const pathName = usePathname();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <div className="relative">

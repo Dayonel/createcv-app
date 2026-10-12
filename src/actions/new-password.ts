@@ -11,6 +11,7 @@ import { eq } from 'drizzle-orm';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
+// react-doctor-disable-next-line react-doctor/server-auth-actions
 export const newPassword = async (
   values: z.infer<typeof NewPasswordSchema>,
   token?: string | null

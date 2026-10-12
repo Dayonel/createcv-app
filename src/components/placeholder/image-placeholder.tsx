@@ -1,10 +1,11 @@
 import { forwardRef, useContext, useEffect, useState } from 'react';
+import Image from 'next/image';
 import styles from './image-placeholder.module.scss';
 import classNames from 'classnames';
 import { FileUploaderDropContainer, InlineLoading } from '@carbon/react';
 import { Remove } from '../dndkit/components/remove/remove';
-import { MenuContext } from '../providers/menu-provider';
-import imageCompression from 'browser-image-compression';
+import { MenuContext } from '../providers/contexts';
+import { compress, validate } from '@/utils/image';
 
 interface ImagePlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   image: string | undefined;
@@ -13,7 +14,6 @@ interface ImagePlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
   function ImagePlaceholder({ className, image, onFile, ...props }, ref) {
-    const ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png'];
     const [src, setSrc] = useState<string | undefined>(() => image);
     const [error, setError] = useState<string | null>(null);
     const { edit } = useContext(MenuContext);
@@ -25,36 +25,14 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
 
     const preview = async (files: File[]) => {
       const file = files[0];
+      const invalid = validate(file);
+      if (invalid) return setError(invalid);
 
-      const extension = `.${file.name.toLowerCase().split('.').pop()}`;
-      if (!ALLOWED_EXTENSIONS.includes(extension)) {
-        setError('File extension is not supported.');
-        return;
-      }
-
-      if (file.size > 5000000) {
-        setError('File size exceeds 5MB limit.');
-        return;
-      }
-
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1920,
-        useWebWorker: true,
-      };
       try {
         setLoading(true);
-        const compressedFile = await imageCompression(file, options);
-
-        const reader = new FileReader();
-        reader.addEventListener('load', () => {
-          let result = reader.result?.toString();
-          if (result) {
-            setSrc(result);
-            onFile(result);
-          }
-        });
-        reader.readAsDataURL(compressedFile);
+        const result = await compress(file);
+        setSrc(result);
+        onFile(result);
       } catch (error) {
         setError('Something went wrong');
       } finally {
@@ -68,7 +46,14 @@ export default forwardRef<HTMLDivElement, ImagePlaceholderProps>(
       <div className={classNames('block group pb-2 md:pb-0', className)}>
         {src !== undefined ? (
           <div className="relative w-fit group/item">
-            <img className={styles.preview} alt="Preview" src={src} />
+            <Image
+              className={styles.preview}
+              alt="Preview"
+              src={src}
+              width={150}
+              height={150}
+              unoptimized
+            />
             <div className="absolute w-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-150 md:duration-500">
               <Remove
                 className="!-translate-y-full"

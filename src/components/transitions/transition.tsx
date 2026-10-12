@@ -1,5 +1,5 @@
 import { animated, easings, useSpring } from '@react-spring/web';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './transition.module.scss';
 
@@ -22,17 +22,9 @@ export default forwardRef<HTMLDivElement, TransitionParams>(function Transition(
     onRest: () => setShow(active),
   });
 
-  useEffect(() => {
-    if (!active) {
-      style.opacity.start(); // play on close
-    } else {
-      setShow(active); // play on start immediately
-    }
-  }, [active]);
-
   return (
     <>
-      {show && (
+      {(active || show) && (
         <animated.div
           ref={ref}
           style={style}

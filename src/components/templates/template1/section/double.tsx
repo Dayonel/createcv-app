@@ -28,20 +28,18 @@ export default function Double({
   const language = placeholder.content![1].languages![0];
 
   const addSkill = () => {
-    content[0].skills!.push({
-      value: 'Skill',
-      key: v4(),
-    });
+    content[0].skills = [
+      ...(content[0].skills ?? []),
+      { value: 'Skill', key: v4() },
+    ];
     onChange();
   };
 
   const addLanguage = () => {
-    content[1].languages!.push({
-      value: language.value,
-      level: language.level,
-      rating: 10,
-      key: v4(),
-    });
+    content[1].languages = [
+      ...(content[1].languages ?? []),
+      { value: language.value, level: language.level, rating: 10, key: v4() },
+    ];
     onChange();
   };
 
@@ -96,7 +94,10 @@ export default function Double({
                       <Skills
                         skills={m.skills || []}
                         onChange={onChange}
-                        onRemove={() => onRemove(false)}
+                        onUpdate={(skills) => {
+                          m.skills = skills;
+                          onChange();
+                        }}
                       ></Skills>
                     </div>
                   </ActionButtons>
@@ -145,8 +146,11 @@ export default function Double({
                           <Languages
                             languages={m.languages || []}
                             onChange={onChange}
-                            onRemove={() => onRemove(false)}
-                            placeholder={placeholder}
+                            onUpdate={(languages) => {
+                              m.languages = languages;
+                              onChange();
+                            }}
+                            placeholder={language}
                           ></Languages>
                         </div>
                       </div>

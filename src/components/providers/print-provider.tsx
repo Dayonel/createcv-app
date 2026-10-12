@@ -1,22 +1,10 @@
 'use client';
-import { createContext, Dispatch, SetStateAction, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { PrintContext } from './contexts';
 
-export interface PrintProps {
-  counter: number | null;
-  setCounter: Dispatch<SetStateAction<number | null>>;
-}
-
-export const PrintContext = createContext<PrintProps>({
-  counter: null,
-  setCounter: () => {},
-});
-
-export const PrintProvider = ({ children }: any) => {
+export const PrintProvider = ({ children }: { children: React.ReactNode }) => {
   const [counter, setCounter] = useState<number | null>(null);
+  const value = useMemo(() => ({ counter, setCounter }), [counter]);
 
-  return (
-    <PrintContext.Provider value={{ counter, setCounter }}>
-      {children}
-    </PrintContext.Provider>
-  );
+  return <PrintContext.Provider value={value}>{children}</PrintContext.Provider>;
 };

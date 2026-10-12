@@ -10,6 +10,7 @@ import { eq } from 'drizzle-orm';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
 
+// react-doctor-disable-next-line react-doctor/server-auth-actions
 export const verify = async (values: z.infer<typeof VerifySchema>) => {
   const validatedFields = VerifySchema.safeParse(values);
   if (!validatedFields.success) {

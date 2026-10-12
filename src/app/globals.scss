@@ -12,6 +12,12 @@
   @include theme.theme(themes.$g90);
 }
 
+@media print {
+  [data-carbon-theme="dark"] {
+    @include theme.theme(themes.$g10);
+  }
+}
+
 /* carbon */
 @media print, (min-width: 42rem) {
   .cds--grid--no-gutter {

@@ -2,37 +2,26 @@ import { Checkmark, Error } from '@carbon/icons-react';
 import { useEffect, useState, useTransition } from 'react';
 import { useParams } from 'next/navigation';
 import useResumeStore from '@/store/resume-store';
-import { useSession } from 'next-auth/react';
 import { editResume } from '@/actions/new-resume';
 import { InlineLoading } from '@carbon/react';
 
 export default function SaveResume() {
   const [isPending, startTransition] = useTransition();
   const { slug } = useParams();
-  const resumeStore = useResumeStore();
-  const { data: session } = useSession();
+  const { name, json } = useResumeStore();
   const [error, setError] = useState<string>();
 
-  const save = () => {
-    startTransition(() => {
-      if (!session?.user?.id) return;
-
-      editResume(
-        { name: resumeStore.name },
-        resumeStore.json,
-        slug as string,
-        session.user.id
-      ).catch(() => setError('Failed to save, try again later.'));
-    });
-  };
-
   useEffect(() => {
-    if (!resumeStore.json) return; // avoid save on initial load
+    if (!json) return;
 
-    save();
-  }, [resumeStore.json]);
+    startTransition(() => {
+      editResume({ name }, json, slug as string).catch(() =>
+        setError('Failed to save, try again later.')
+      );
+    });
+  }, [json, name, slug]);
 
-  if (!resumeStore.name) return null;
+  if (!name) return null;
 
   return (
     <>
@@ -59,7 +48,7 @@ export default function SaveResume() {
                 className="truncate max-w-40 md:max-w-sm"
                 style={{ color: 'var(--cds-text-success)' }}
               >
-                {resumeStore.name}
+                {name}
               </span>
               <Checkmark
                 className="!m-0"

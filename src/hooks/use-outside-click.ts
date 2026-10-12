@@ -2,6 +2,11 @@ import { useEffect, useRef } from 'react';
 
 export const useOutsideClick = (callback: () => void) => {
   const ref = useRef<any>();
+  const latest = useRef(callback);
+
+  useEffect(() => {
+    latest.current = callback;
+  });
 
   useEffect(() => {
     let initialClickInside = false;
@@ -16,7 +21,7 @@ export const useOutsideClick = (callback: () => void) => {
         !ref.current.contains(e.target) &&
         !initialClickInside
       ) {
-        callback();
+        latest.current();
       }
     };
 

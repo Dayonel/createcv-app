@@ -1,0 +1,35 @@
+@use "@carbon/themes/scss/tokens";
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 12px 6px 0;
+}
+
+.image,
+.drop {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+}
+
+.image {
+  height: auto;
+  object-fit: cover;
+}
+
+.drop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.link {
+  display: flex;
+  padding: 4px;
+  border-radius: 4px;
+  background: tokens.$layer-01;
+  fill: tokens.$icon-primary;
+}

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useMounted } from '@/hooks/use-mounted';
 import FormError from '../form-error/form-error';
 import { Modal, TextInput } from '@carbon/react';
 import styles from './edit-resume.module.scss';
@@ -24,11 +25,10 @@ export default function EditResume({
   create,
   onClose,
 }: ResumeModalProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [status, setStatus] = useState<
     'inactive' | 'error' | 'active' | 'finished' | undefined
   >('inactive');
-  const [modal, setModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string>('');
   const { data: session } = useSession();
@@ -37,35 +37,18 @@ export default function EditResume({
   const { slug } = useParams();
   const resumeStore = useResumeStore();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
-  useEffect(() => {
-    setModal(open);
-    if (open) {
-      setStatus('inactive');
-    }
-  }, [open]);
-
-  useEffect(() => {
-    setValue('name', name);
-  }, [name]);
-
-  useEffect(() => {
-    if (!modal) {
-      onClose();
-    }
-  }, [modal]);
-
-  const { formState, handleSubmit, register, getValues, setValue } = useForm<
+  const { formState, handleSubmit, register, getValues } = useForm<
     z.infer<typeof EditResumeSchema>
   >({
     resolver: zodResolver(EditResumeSchema),
-    defaultValues: {
-      name: '',
-    },
+    values: { name },
   });
+
+  const close = () => {
+    setStatus('inactive');
+    onClose();
+  };
 
   const onSubmit = async (values: z.infer<typeof EditResumeSchema>) => {
     if (!session?.user?.id) return;
@@ -75,7 +58,7 @@ export default function EditResume({
     setStatus('active');
 
     if (create) {
-      createResume(values, session.user.id)
+      createResume(values)
         .then((data) => {
           if (data?.error) {
             setError(data.error);
@@ -94,10 +77,10 @@ export default function EditResume({
         })
         .finally(() => {
           setIsSubmitting(false);
-          setModal(false);
+          close();
         });
     } else {
-      editResume(values, resumeStore.json, slug as string, session.user.id)
+      editResume(values, resumeStore.json, slug as string)
         .then((data) => {
           if (data?.error) {
             setError(data.error);
@@ -114,7 +97,7 @@ export default function EditResume({
         })
         .finally(() => {
           setIsSubmitting(false);
-          setModal(false);
+          close();
         });
     }
   };
@@ -123,11 +106,11 @@ export default function EditResume({
     <>
       {mounted && (
         <Modal
-          open={modal}
+          open={open}
           modalAriaLabel={create ? 'New resume' : 'Edit resume'}
           primaryButtonText="Confirm"
           secondaryButtonText="Cancel"
-          onRequestClose={() => setModal(false)}
+          onRequestClose={close}
           onRequestSubmit={() => submit.current!.click()}
           size="xs"
           selectorPrimaryFocus="form"

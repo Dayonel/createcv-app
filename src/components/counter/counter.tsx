@@ -5,7 +5,7 @@ import styles from './counter.module.scss';
 import * as d3 from 'd3-format';
 import { InlineLoading } from '@carbon/react';
 import { getPrints } from '@/actions/print';
-import { PrintContext } from '../providers/print-provider';
+import { PrintContext } from '../providers/contexts';
 
 export default function Counter() {
   const { counter, setCounter } = useContext(PrintContext);
@@ -17,7 +17,7 @@ export default function Counter() {
         setCounter(t.count);
       });
     });
-  }, []);
+  }, [setCounter]);
 
   const formatter = d3.format('.2s');
 

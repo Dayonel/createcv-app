@@ -1,9 +1,9 @@
-import { setCookie } from '@/actions/cookies';
+import { setCookie } from '@/utils/cookies';
 import { Asleep, Light } from '@carbon/icons-react';
 import { useTheme } from 'next-themes';
 import { useContext, useEffect, useState } from 'react';
 import Action from './dndkit/components/action/action';
-import { CookieThemeContext } from './providers/cookie-theme-provider';
+import { CookieThemeContext } from './providers/contexts';
 
 interface ThemeToggleProps {
   small?: boolean;

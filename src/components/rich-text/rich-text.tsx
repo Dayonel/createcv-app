@@ -13,10 +13,32 @@ import Italic from '@tiptap/extension-italic';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Blockquote from '@tiptap/extension-blockquote';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import Link from './link';
 import { useOutsideClick } from '@/hooks/use-outside-click';
 import RichTextControls from './rich-text-controls';
 import { Remove } from '../dndkit/components/remove/remove';
 import Placeholder from '@tiptap/extension-placeholder';
+import { parseDoc } from '@/utils/rich-text-utils';
+
+const oneLine = Document.extend({ content: 'text*' });
+
+const extensions = (input?: boolean, className?: string) =>
+  input
+    ? [oneLine, Text]
+    : [
+        Document,
+        Paragraph.configure({ HTMLAttributes: { class: `${className}` } }),
+        Text,
+        BulletList,
+        ListItem,
+        Bold,
+        Italic,
+        Link,
+        History,
+        OrderedList,
+        Blockquote,
+        HorizontalRule,
+      ];
 
 interface RichTextProps {
   props: string;
@@ -24,7 +46,6 @@ interface RichTextProps {
   className?: string;
   input?: boolean;
   id?: string;
-  onControlsVisible?: (e: boolean) => void;
   onRemove?: () => void;
   remove?: boolean;
   italic?: boolean;
@@ -37,7 +58,6 @@ export default function RichText({
   className,
   input,
   id,
-  onControlsVisible,
   onRemove,
   remove,
   italic,
@@ -45,40 +65,24 @@ export default function RichText({
 }: RichTextProps) {
   const [controlsVisible, setControlsVisible] = useState(false);
   const controlsRef = useOutsideClick(() => setControlsVisible(false));
-  const placeholderText = useMemo(() => JSON.parse(props).content[0].text, []);
+  const [placeholderText] = useState<string>(
+    () => parseDoc(props).content?.[0]?.text ?? ''
+  );
   const ref = useRef<HTMLDivElement>(null);
   const minWidth = useRef<number>();
+  const dependencies = useMemo(
+    () => extensions(input, className),
+    [input, className]
+  );
 
-  const oneLine = Document.extend({
-    content: 'text*',
-  });
-
-  var dependencies = input
-    ? [oneLine, Text]
-    : [
-        Document,
-        Paragraph.configure({
-          HTMLAttributes: {
-            class: `${className}`,
-          },
-        }),
-        Text,
-        BulletList,
-        ListItem,
-        Bold,
-        Italic,
-        History,
-        OrderedList,
-        Blockquote,
-        HorizontalRule,
-      ];
-
-  const placeholder = useMemo(() => {
-    const html = generateHTML(JSON.parse(props), dependencies);
-    return html.replace(/<p([^>]*?)>/g, (_, attributes) => {
-      return `<p ${attributes} class="${className}">`; // apply args css styling for inputs
-    });
-  }, [props]);
+  const placeholder = useMemo(
+    () =>
+      generateHTML(parseDoc(props), dependencies).replace(
+        /<p([^>]*?)>/g,
+        (_, attributes) => `<p ${attributes} class="${className}">`
+      ),
+    [props, dependencies, className]
+  );
 
   const editor = useEditor({
     extensions: [
@@ -95,60 +99,40 @@ export default function RichText({
         id: id || '',
       },
     },
-    content: JSON.parse(props),
+    content: parseDoc(props),
   });
 
   useEffect(() => {
     if (editor && !editor.isFocused) {
-      editor.commands.setContent(JSON.parse(props)); // undo, redo
+      editor.commands.setContent(parseDoc(props), false);
     }
   }, [editor, props]);
 
   useEffect(() => {
     minWidth.current = ref.current?.scrollWidth;
-    if (editor) {
-      editor.view.dom.dataset.placeholder = placeholderText;
+    if (!editor) return;
 
-      if (italic) {
-        editor.commands.setItalic();
-      }
-    }
-  }, [editor]);
+    editor.view.dom.dataset.placeholder = placeholderText;
+    if (italic) editor.commands.setItalic();
+  }, [editor, italic, placeholderText]);
 
   useEffect(() => {
     if (!editor) return;
 
-    editor.off('update', onUpdate);
+    const onUpdate = () => onChange(JSON.stringify(editor.getJSON()));
     editor.on('update', onUpdate);
-
-    if (input) {
-      const length = editor.getText().length;
-      editor.view.dom.style.minWidth =
-        length > 0 ? '0px' : `${minWidth.current}px`;
-
-      if (length == 0) {
-        editor.view.dom.classList.add('is-editor-empty');
-      } else {
-        editor.view.dom.classList.remove('is-editor-empty');
-      }
-    }
-
     return () => {
       editor.off('update', onUpdate);
     };
-  }, [editor, onChange]); // another update is needed onChange
-
-  const onUpdate = ({ editor }: any) => {
-    if (editor.isFocused) {
-      onChange(JSON.stringify(editor.getJSON()));
-    }
-  };
+  }, [editor, onChange]);
 
   useEffect(() => {
-    if (onControlsVisible) {
-      onControlsVisible(controlsVisible);
-    }
-  }, [controlsVisible]);
+    if (!editor || !input) return;
+
+    const empty = editor.getText().length === 0;
+    editor.view.dom.style.minWidth = empty ? `${minWidth.current}px` : '0px';
+    editor.view.dom.classList.toggle('is-editor-empty', empty);
+  }, [editor, input, props]);
 
   if (!editor) {
     return (

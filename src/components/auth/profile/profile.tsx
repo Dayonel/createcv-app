@@ -1,6 +1,7 @@
 'use client';
+import { useMounted } from '@/hooks/use-mounted';
 import Action from '../../dndkit/components/action/action';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useOutsideClick } from '@/hooks/use-outside-click';
 import { useSession } from 'next-auth/react';
 import { UserAvatar, UserFilled } from '@carbon/icons-react';
@@ -13,11 +14,8 @@ import Menu from '../menu/menu';
 export default function Profile() {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const ref = useOutsideClick(() => setOpen(false));
   const { data: session } = useSession();

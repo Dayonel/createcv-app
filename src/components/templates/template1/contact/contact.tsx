@@ -44,42 +44,36 @@ const links = Object.keys(contactIcons).filter(
 );
 
 export default function Contact({ props, onChange }: ContactProps) {
-  const Component = contactIcons[props.icon as keyof typeof contactIcons]; // Correct! JSX type can be a capitalized variable.
+  const Component = contactIcons[props.icon as keyof typeof contactIcons];
   const { color } = useColorStore();
 
-  const href = () => {
-    const prefix = props.icon === 'Phone' ? 'tel:' : 'https://';
-    const text = getText(props.text);
-    return prefix + text;
-  };
+  const isLink = links.includes(props.icon);
+  const text = getText(props.text);
+  const href = /^https?:\/\//.test(text) ? text : `https://${text}`;
 
   return (
     <span className={`flex items-center`}>
       {<Component fill={color}></Component>}
 
-      {links.indexOf(props.icon) !== -1 && (
+      {isLink && (
         <a
-          target="blank"
+          target="_blank"
           rel="noopener noreferrer"
-          href={href()}
-          style={{ color: 'var(--cds-text-primary)' }}
-          className={`max-w-52 text-xs hidden print:block`}
+          href={href}
+          className="cv-link max-w-52 text-xs hidden print:block"
         >
-          {getText(props.text)}
+          {text}
         </a>
       )}
 
       <RichText
-        className={`max-w-52 text-xs ${
-          links.indexOf(props.icon) !== -1 && 'print:hidden'
-        }`}
+        className={`max-w-52 text-xs ${isLink ? 'print:hidden cv-link' : ''}`}
         props={props.text}
         onChange={(e) => {
           props.text = e;
           onChange();
         }}
         input
-        remove
       ></RichText>
     </span>
   );

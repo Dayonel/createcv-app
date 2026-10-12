@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 import styles from './header.module.scss';
 import { logo } from '../icons/logo';
@@ -43,7 +44,7 @@ export default function Header({
             'grid grid-flow-col content-center justify-between h-full px-4 md:px-6'
           )}
         >
-          <a
+          <Link
             href="/"
             className="flex items-center gap-2"
             aria-label="Create CV"
@@ -52,7 +53,7 @@ export default function Header({
             <span className={`hidden font-bold sm:block ${styles.logo}`}>
               Create CV
             </span>
-          </a>
+          </Link>
 
           {pathName.startsWith('/resumes/') && (
             <Action

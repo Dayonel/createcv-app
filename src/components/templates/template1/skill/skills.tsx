@@ -2,19 +2,17 @@ import { Skill as SkillType } from '../types/skill';
 import Skill, { InputProps } from './skill';
 import styles from './skills.module.scss';
 import Sortable from '../../../dndkit/sortable';
+import { sortByKeys } from '@/utils/sort';
 
 interface SkillsProps {
   skills: SkillType[];
   onChange: () => void;
-  onRemove: () => void;
+  onUpdate: (skills: SkillType[]) => void;
 }
 
-export default function Skills({ skills, onChange, onRemove }: SkillsProps) {
-  const remove = (e: string) => {
-    const i = skills.findIndex((f) => f.key === e);
-    skills.splice(i, 1);
-    onRemove();
-  };
+export default function Skills({ skills, onChange, onUpdate }: SkillsProps) {
+  const remove = (key: string) => onUpdate(skills.filter((f) => f.key !== key));
+
   return (
     <div className={styles.skills}>
       <Sortable
@@ -22,10 +20,7 @@ export default function Skills({ skills, onChange, onRemove }: SkillsProps) {
         renderItem={({ props }: InputProps) => (
           <Skill props={props} onChange={onChange} onRemove={remove}></Skill>
         )}
-        onSort={(items) => {
-          skills.sort((a, b) => items.indexOf(a.key) - items.indexOf(b.key));
-          onChange();
-        }}
+        onSort={(keys) => onUpdate(sortByKeys(skills, keys))}
         onRemove={remove}
         handle={skills.length > 1}
         remove

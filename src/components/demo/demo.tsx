@@ -1,18 +1,16 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useMounted } from '@/hooks/use-mounted';
+import { useContext } from 'react';
 import Instructions from '../instructions/instructions';
 import Template1 from '../templates/template1/template1';
 import { InlineLoading } from '@carbon/react';
-import { FormContext } from '../providers/form-provider';
+import { FormContext } from '../providers/contexts';
 
 export default function Demo({ json }: { json: string }) {
   const { savedForm } = useContext(FormContext);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <div className="container">

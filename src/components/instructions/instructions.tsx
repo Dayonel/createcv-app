@@ -4,7 +4,7 @@ import Transition from '../transitions/transition';
 import styles from './instructions.module.scss';
 import { instructions1 } from './icons/instructions-1';
 import { instructions2 } from './icons/instructions-2';
-import { FormContext } from '../providers/form-provider';
+import { FormContext } from '../providers/contexts';
 
 export default function Instructions() {
   const { savedForm, printed } = useContext(FormContext);

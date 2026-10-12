@@ -11,28 +11,25 @@ import Not_Found from '@/components/not-found';
 export default function Resumes({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const resumeStore = useResumeStore();
+  const setName = useResumeStore((s) => s.setName);
   const { data: session } = useSession();
   const [found, setFound] = useState<boolean>();
   const [json, setJson] = useState<string>();
 
+  const userId = session?.user?.id;
+
   useEffect(() => {
-    setFound(false);
+    if (!userId) return;
 
-    if (!session?.user?.id) return;
-
-    getResume(session.user.id, slug)
+    getResume(slug)
       .then((row) => {
-        if (!row) {
-          return;
-        }
-
-        resumeStore.setName(row.name);
+        if (!row) return;
+        setName(row.name);
         setJson(row.json);
         setFound(true);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [userId, slug, setName]);
 
   if (isLoading) {
     return (

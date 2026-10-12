@@ -1,4 +1,5 @@
 import { Key } from '@/types/key';
+import { Image } from './image';
 
 export type Single = {
   name?: string;
@@ -12,4 +13,6 @@ export type SingleContent = {
   date?: string;
   topic?: string;
   description?: string;
+  tech?: string;
+  images?: Image[];
 } & Key;

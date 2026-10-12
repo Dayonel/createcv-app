@@ -27,7 +27,8 @@ export default function ActionButtons({
     <div
       ref={ref}
       className="group"
-      onClick={() => setVisible(true)}
+      onFocus={() => setVisible(true)}
+      onPointerUp={() => setVisible(true)}
       onBlur={() => setVisible(false)}
     >
       <div

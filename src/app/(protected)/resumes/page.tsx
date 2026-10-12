@@ -9,7 +9,7 @@ import {
 import styles from './page.module.scss';
 import { AddLarge, ArrowRight } from '@carbon/icons-react';
 import { cn } from '@/lib/utils';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getResumes } from '@/actions/resume';
 import { useSession } from 'next-auth/react';
@@ -19,45 +19,38 @@ import { getParagraphText } from '@/utils/rich-text-utils';
 import useResumeStore from '@/store/resume-store';
 import EditResume from '@/components/resume/edit-resume';
 
+const summaryOf = (json: string) => {
+  try {
+    return (JSON.parse(json) as Template1).summary;
+  } catch {
+    return undefined;
+  }
+};
+
 export default function Resumes() {
   const [resumes, setResumes] = useState<Resume[]>();
   const [count, setCount] = useState<number>(0);
   const [page, setPage] = useState<number>(0);
-  const templates = useMemo(() => new Map<string, any>(), []);
   const [isPending, setIsPending] = useState<boolean>(true);
   const { data: session } = useSession();
   const resumeStore = useResumeStore();
   const [open, setOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>('Resume 1');
 
-  useEffect(() => {
-    fetchResumes();
-  }, []);
+  const userId = session?.user?.id;
 
   useEffect(() => {
-    fetchResumes();
-  }, [page]);
-
-  const fetchResumes = () => {
-    if (!session?.user?.id) return;
+    if (!userId) return;
 
     setIsPending(true);
-
-    getResumes(session.user.id, page + 1)
+    getResumes(page + 1)
       .then(({ items, count }) => {
         setResumes(items);
         setCount(count);
-        if (count > 0) {
-          setName(`Resume ${count + 1}`);
-        }
-        items.map((f) => {
-          if (!templates.has(f.id)) {
-            templates.set(f.id, JSON.parse(f.json) as Template1);
-          }
-        });
+        if (count > 0) setName(`Resume ${count + 1}`);
       })
-      .then(() => setIsPending(false));
-  };
+      .finally(() => setIsPending(false));
+  }, [userId, page]);
 
   return (
     <div className="container pb-20 md:pb-40">
@@ -97,7 +90,7 @@ export default function Resumes() {
               className={cn('grid grid-cols-1 md:grid-cols-2', styles.tiles)}
             >
               {resumes?.map((m) => {
-                const template = templates.get(m.id);
+                const summary = summaryOf(m.json);
                 return (
                   <Link
                     key={m.id}
@@ -110,9 +103,9 @@ export default function Resumes() {
                   >
                     <span>{m.name}</span>
 
-                    {template.summary && (
+                    {summary && (
                       <p className={cn('text-xs line-clamp-2', styles.summary)}>
-                        {getParagraphText(template.summary)}
+                        {getParagraphText(summary)}
                       </p>
                     )}
 
