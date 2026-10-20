@@ -128,17 +128,3 @@ export const resumes = sqliteTable('resume', {
     .notNull()
     .default(sql`(current_timestamp)`),
 });
-
-// One row per accepted /api/cv call. Counting rows over a window survives a restart, unlike a
-// counter held in memory, and it doubles as the audit trail T1.5 needs.
-// createdAt is set in code rather than by `current_timestamp`, which SQLite stores as text: a text
-// row sorts above every numeric bound, so a window query would keep counting it forever.
-export const cvRequests = sqliteTable('cv_request', {
-  id: text('id')
-    .notNull()
-    .$defaultFn(() => crypto.randomUUID()),
-  ip: text('ip').notNull(),
-  createdAt: integer('createdAt', { mode: 'timestamp_ms' })
-    .notNull()
-    .$defaultFn(() => new Date()),
-});

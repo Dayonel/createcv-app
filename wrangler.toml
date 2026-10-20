@@ -3,3 +3,8 @@ binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "createcv"
 database_id = "4afbefb7-1f34-4b72-afc5-8d4ad225e27b"
 migrations_dir = "./src/migrations"
+
+# /api/cv renders through this binding, so there is no API token and no account id anywhere.
+# Pages reads bindings from the project settings; this block documents the one it needs.
+[browser]
+binding = "BROWSER"
