@@ -1,25 +1,18 @@
 import { BaseCvSchema, type BaseCv } from '../schemas/basecv-schema';
-import { bearerToken, secretsMatch } from './cv-auth';
 
 export type CvDeps = {
-  apiKey: string;
   render: (cv: BaseCv) => Promise<Uint8Array>;
-  /** Returns false when this caller is over the limit. */
-  hit: (ip: string) => Promise<boolean>;
 };
 
-const json = (status: number, body: unknown, headers: Record<string, string> = {}) =>
-  new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', ...headers } });
+const json = (status: number, body: unknown) =>
+  new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 
 /**
- * The POST handler for /api/cv, with its collaborators passed in so the status codes can be tested
- * without a renderer or a database. Nothing here logs the request body: a CV is PII.
+ * The POST handler for /api/cv: validate the body is a CV, render it, return the PDF. It is open by
+ * the owner's decision, and it never logs the body, because a CV is personal data.
  */
-export function createCvHandler({ apiKey, render, hit }: CvDeps) {
+export function createCvHandler({ render }: CvDeps) {
   return async function POST(request: Request): Promise<Response> {
-    const token = bearerToken(request);
-    if (!token || !(await secretsMatch(token, apiKey))) return json(401, { error: 'unauthorized' });
-
     let body: unknown;
     try {
       body = await request.json();
@@ -29,9 +22,6 @@ export function createCvHandler({ apiKey, render, hit }: CvDeps) {
 
     const parsed = BaseCvSchema.safeParse(body);
     if (!parsed.success) return json(422, { error: 'invalid cv', issues: parsed.error.issues.length });
-
-    const ip = request.headers.get('cf-connecting-ip') ?? 'unknown';
-    if (!(await hit(ip))) return json(429, { error: 'rate limited' }, { 'retry-after': '3600' });
 
     const pdf = await render(parsed.data);
     return new Response(pdf, {
