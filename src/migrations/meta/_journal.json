@@ -43,6 +43,13 @@
       "when": 1722523561962,
       "tag": "0005_minor_thundra",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1760962000000,
+      "tag": "0006_cv_request",
+      "breakpoints": true
     }
   ]
 }
