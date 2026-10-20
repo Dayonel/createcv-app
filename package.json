@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "vitest run --pool=threads",
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
@@ -66,6 +67,7 @@
     "eslint-config-next": "^14.2.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.5"
   }
 }
