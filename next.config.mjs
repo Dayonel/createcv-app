@@ -16,6 +16,18 @@ const nextConfig = {
   experimental: {
     serverActions: { bodySizeLimit: '2mb' },
   },
+  // The print page shows a CV, so it must not be cached or indexed anywhere.
+  async headers() {
+    return [
+      {
+        source: '/print/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'no-store' },
+          { key: 'X-Robots-Tag', value: 'noindex' },
+        ],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
